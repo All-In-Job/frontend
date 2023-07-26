@@ -1,3 +1,9 @@
+import Header from "../components/Navigation/Header/Header";
+
 export const Home = () => {
-  return <h1>Home!</h1>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 };
