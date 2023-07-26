@@ -1,25 +1,14 @@
+import { useState } from "react";
 import * as S from "./header.styles.ts";
 
 function Header() {
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <div>
-      {/* <S.HeaderContainer>
-        <S.MainWrapper>
-          <S.HeaderLogo>
-            <S.Box>
-              <div>로고</div>
-            </S.Box>
-          </S.HeaderLogo>
-          <div className="header-search-wrapper">
-            <S.SearchBar type="text" placeholder="검색어를 입력하세요." />
-          </div>
-        </S.MainWrapper>
-        <S.HeaderCharacter>
-          <S.Box>캐릭터</S.Box>
-        </S.HeaderCharacter>
-      </S.HeaderContainer> */}
-
-      <S.MenuContainer>
+      <S.MenuContainer
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <S.MenuWrapper>
           {/* 반복문으로 처리 예정 */}
           <S.MenuItem>홈</S.MenuItem>
@@ -32,7 +21,7 @@ function Header() {
         </S.MenuWrapper>
       </S.MenuContainer>
 
-      <S.MenuDetailContainer>
+      <S.MenuDetailContainer show={isHovered}>
         <div className="details">
           <p>공모분야</p>
           <p>시상규모</p>

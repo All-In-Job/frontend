@@ -46,24 +46,24 @@ export const MenuItem = styled.div`
 `;
 
 export const MenuDetailContainer = styled.div`
-  display: none;
+  display: ${(props) => (props.show ? "flex" : "none")};
   justify-content: center;
   width: 100%;
   background-color: lightskyblue;
-	`;
-	
-	export const MenuContainer = styled.div`
-		display: flex;
-		justify-content: center;
-		width: 100%;
-		margin: 30px 0 0 0;
-	
-		&:hover {
-			${MenuDetailContainer} {
-				display: flex;
-			}
-		}
-	`;
+`;
+
+export const MenuContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 30px 0 0 0;
+
+  &:hover {
+    ${MenuDetailContainer} {
+      display: flex;
+    }
+  }
+`;
 
 export const Box = styled.div`
   background-color: lightgrey;
