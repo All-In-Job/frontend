@@ -39,7 +39,6 @@ export const CarouselNavigation = styled.ul`
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
-  cursor: pointer;
 `;
 
 export const ControlsButton = styled.button`
@@ -47,4 +46,5 @@ export const ControlsButton = styled.button`
   background-color: #00000061;
   width: 11px;
   aspect-ratio: 1;
+  cursor: pointer;
 `;
