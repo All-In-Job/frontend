@@ -8,6 +8,12 @@ export const container = styled.div`
   border-radius: 14px;
 `;
 
+export const ImageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+`;
+
 export const ArrowButton = styled.button<{ direction: "left" | "right" }>`
   width: 67px;
   aspect-ratio: 1;
@@ -22,4 +28,23 @@ export const ArrowButton = styled.button<{ direction: "left" | "right" }>`
   background-color: white;
   border-radius: 100%;
   cursor: pointer;
+  z-index: 10;
+`;
+
+export const CarouselNavigation = styled.ul`
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  bottom: 21px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  cursor: pointer;
+`;
+
+export const ControlsButton = styled.button`
+  border-radius: 100%;
+  background-color: #00000061;
+  width: 11px;
+  aspect-ratio: 1;
 `;
