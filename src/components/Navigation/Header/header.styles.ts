@@ -6,7 +6,7 @@ export const HeaderContainer = styled.div`
   width: 80%;
   margin: 0 auto;
   justify-content: space-between;
-  padding-top: 20px;
+  //padding-top: 20px;
 `;
 
 export const MainWrapper = styled.div`
