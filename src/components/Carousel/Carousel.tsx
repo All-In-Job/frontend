@@ -96,9 +96,8 @@ export const Carousel = () => {
   const moveToThisSlide = (targetSlideIdx: number) => {
     const slide = slideRef.current;
     if (slide) {
-      const targetLeft = -1 * (targetSlideIdx + 1) * CAROUSEL_WIDTH;
-      slide.style.left = targetLeft + "px";
       setCurrentIndex(targetSlideIdx);
+      setVisibleSlide(targetSlideIdx + 1);
     }
   };
 
