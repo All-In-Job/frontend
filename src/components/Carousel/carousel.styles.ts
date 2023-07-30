@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { CAROUSEL_WIDTH, SlideDirection } from "./Carousel";
 
 export const container = styled.div`
   height: 436px;
@@ -8,13 +9,17 @@ export const container = styled.div`
   border-radius: 14px;
 `;
 
-export const ImageContainer = styled.div`
-  width: 100%;
+export const ImageContainer = styled.div<{ count: number }>`
+  width: ${(props) =>
+    props.count ? props.count * CAROUSEL_WIDTH + "px" : "100%"};
   height: 100%;
-  overflow: hidden;
+  position: absolute;
+  display: flex;
+  //grid-template-columns: repeat(${(props) => props.count}, 1fr);
+  //transition: 0.5s left ease-in-out 0s;
 `;
 
-export const ArrowButton = styled.button<{ direction: "left" | "right" }>`
+export const ArrowButton = styled.button<{ direction: SlideDirection }>`
   width: 67px;
   aspect-ratio: 1;
   position: absolute;
@@ -41,10 +46,11 @@ export const CarouselNavigation = styled.ul`
   z-index: 10;
 `;
 
-export const ControlsButton = styled.button`
-  border-radius: 100%;
-  background-color: #00000061;
-  width: 11px;
-  aspect-ratio: 1;
+export const ControlsButton = styled.button<{ activated: boolean }>`
+  border-radius: ${(props) => (props.activated ? "7px" : "100%")};
+  background-color: ${(props) => (props.activated ? "orange" : "#00000061")};
+  width: ${(props) => (props.activated ? "24px" : "11px")};
+  height: 11px;
   cursor: pointer;
+  transition: 0.1s width ease-in-out 0s;
 `;

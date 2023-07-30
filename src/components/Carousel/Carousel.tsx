@@ -1,34 +1,170 @@
 import * as S from "./carousel.styles";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-const images = Array.from({ length: 5 }, (_, idx) => idx);
+export type SlideDirection = "left" | "right";
+
+export const CAROUSEL_WIDTH = 1113;
+const TRANSITION_DURATION = 0.5;
 
 export const Carousel = () => {
+  const slideRef = useRef<HTMLDivElement>(null);
+
+  const [slideState, setSlideState] = useState(
+    Array.from({ length: 3 }, (_, idx) => idx),
+  );
+  const [visibleSlide, setVisibleSlide] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [hasTransition, setHasTransition] = useState(true);
+  const [isNavDisabled, setIsNavDisabled] = useState(false);
+
+  const originalSlideLength = useMemo(() => slideState.length, []);
+  const navigationControlCounter = useMemo(
+      () => Array.from(new Set(slideState)),
+      [],
+  );
+
+  useEffect(() => {
+    const clonedSlide = [...slideState];
+    clonedSlide.unshift(slideState[slideState.length - 1]);
+    clonedSlide.push(clonedSlide[1]);
+    setSlideState(clonedSlide);
+  }, []);
+
+  useEffect(() => {
+    const customSetTimeout = (callback: () => void) => {
+      setTimeout(callback, TRANSITION_DURATION * 1000);
+    };
+
+    if (visibleSlide === 1) {
+      customSetTimeout(() =>
+        setHasTransition(true))
+    }
+
+    if (visibleSlide === slideState.length - 1) {
+      setCurrentIndex(0);
+      customSetTimeout(() => {
+        setVisibleSlide(1);
+        setHasTransition(false);
+      })
+    }
+
+    if (visibleSlide === 0) {
+      setCurrentIndex(slideState.length % originalSlideLength);
+      customSetTimeout(() => {
+        setHasTransition(false);
+        setVisibleSlide(slideState.length - 2);
+      });
+    }
+
+    if (visibleSlide === slideState.length - 2) {
+      customSetTimeout(() =>
+        setHasTransition(true));
+    }
+  }, [visibleSlide]);
+
+  useEffect(() => {
+    if (isNavDisabled)
+      setTimeout(
+        () => {
+          setIsNavDisabled(false);
+        },
+        TRANSITION_DURATION * 1000 + 500,
+      );
+  }, [isNavDisabled]);
+
+  const onClickLeftArrow = () => {
+    setVisibleSlide(visibleSlide - 1);
+    setIsNavDisabled(true);
+
+    if (0 < visibleSlide && visibleSlide < slideState.length - 1)
+      setCurrentIndex(currentIndex - 1);
+  };
+
+  const onClickRightArrow = () => {
+    setVisibleSlide(visibleSlide + 1);
+    setIsNavDisabled(true);
+
+    if (0 < visibleSlide && visibleSlide < slideState.length - 1)
+      setCurrentIndex(currentIndex + 1);
+  };
+
+  const calculateLeft = () => {
+    const slide = slideRef.current;
+    if (slide) return `-${visibleSlide * CAROUSEL_WIDTH}px`;
+  };
+
+  const moveToThisSlide = (targetSlideIdx: number) => {
+    const slide = slideRef.current;
+    if (slide) {
+      const targetLeft = -1 * (targetSlideIdx + 1) * CAROUSEL_WIDTH;
+      slide.style.left = targetLeft + "px";
+      setCurrentIndex(targetSlideIdx);
+    }
+  };
+
   return (
     <S.container>
-      <S.ArrowButton direction={"left"}>{"<"}</S.ArrowButton>
-      <S.ArrowButton direction={"right"}>{">"}</S.ArrowButton>
+      <S.ArrowButton
+        direction={"left"}
+        disabled={isNavDisabled}
+        onClick={onClickLeftArrow}
+      >
+        {"<"}
+      </S.ArrowButton>
+      <S.ArrowButton
+        direction={"right"}
+        disabled={isNavDisabled}
+        onClick={onClickRightArrow}
+      >
+        {">"}
+      </S.ArrowButton>
       <S.CarouselNavigation>
-        {images.map((_, idx) => (
-          <S.ControlsButton key={idx} />
+        {navigationControlCounter.map((_, idx) => (
+          <S.ControlsButton
+            key={idx}
+            activated={currentIndex === idx}
+            onClick={() => moveToThisSlide(idx)}
+          />
         ))}
       </S.CarouselNavigation>
-      <S.ImageContainer>
-        {images.map((image, idx) => (
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              backgroundColor: `rgba(${Math.random() * 255}, ${
-                Math.random() * 255
-              }, ${Math.random() * 255})`,
-              position: "absolute",
-              zIndex: images.length - idx,
-            }}
-          >
-            {image}
-          </div>
-        ))}
-      </S.ImageContainer>
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          overflow: "hidden",
+        }}
+      >
+        <S.ImageContainer
+          ref={slideRef}
+          count={slideState.length}
+          style={{
+            left: calculateLeft(),
+            transition: hasTransition
+              ? `${TRANSITION_DURATION}s left ease-in-out 0s`
+              : "",
+          }}
+        >
+          {slideState.map((image, idx) => (
+            <div
+              key={idx}
+              style={{
+                flex: 1,
+                width: "100%",
+                height: "100%",
+                fontSize: "120px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {image}
+            </div>
+          ))}
+        </S.ImageContainer>
+      </div>
     </S.container>
   );
 };
