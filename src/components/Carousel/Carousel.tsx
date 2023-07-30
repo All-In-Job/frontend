@@ -28,7 +28,23 @@ export const Carousel = () => {
     clonedSlide.unshift(slideState[slideState.length - 1]);
     clonedSlide.push(clonedSlide[1]);
     setSlideState(clonedSlide);
+    // requestAnimationFrame(() => triggerAutoSlide(Date.now()));
   }, []);
+
+  const useAfterMountEffect = () => {
+      const ref = useRef<boolean>(false);
+      useEffect(() => {
+          if (ref.current) {
+              setInterval(() => {
+                  if (!isNavDisabled) onClickRightArrow();
+              }, visibleSlide <= slideState.length - 2 ? TRANSITION_DURATION * 2000 + 500 : TRANSITION_DURATION * 1000 + 500);
+          }
+          ref.current = true;
+      }, [ref])
+  }
+
+  useAfterMountEffect();
+
 
   useEffect(() => {
     const customSetTimeout = (callback: () => void) => {
@@ -56,18 +72,14 @@ export const Carousel = () => {
       });
     }
 
-    if (visibleSlide === slideState.length - 2) {
-      customSetTimeout(() =>
-        setHasTransition(true));
-    }
+    if (visibleSlide === slideState.length - 2)
+      customSetTimeout(() => setHasTransition(true));
   }, [visibleSlide]);
 
   useEffect(() => {
     if (isNavDisabled)
       setTimeout(
-        () => {
-          setIsNavDisabled(false);
-        },
+        () => setIsNavDisabled(false),
         TRANSITION_DURATION * 1000 + 500,
       );
   }, [isNavDisabled]);
@@ -81,11 +93,13 @@ export const Carousel = () => {
   };
 
   const onClickRightArrow = () => {
-    setVisibleSlide(visibleSlide + 1);
+    setVisibleSlide((visibleSlide) => {
+        return visibleSlide + 1
+    });
     setIsNavDisabled(true);
 
     if (0 < visibleSlide && visibleSlide < slideState.length - 1)
-      setCurrentIndex(currentIndex + 1);
+      setCurrentIndex((currentIndex) => currentIndex + 1);
   };
 
   const calculateLeft = () => {
