@@ -6,7 +6,6 @@ export const HeaderContainer = styled.div`
   width: 80%;
   margin: 0 auto;
   justify-content: space-between;
-  //padding-top: 20px;
 `;
 
 export const MainWrapper = styled.div`
@@ -16,8 +15,8 @@ export const MainWrapper = styled.div`
 
 export const HeaderLogo = styled.div`
   display: inline-block;
-  margin-right: 30px;
-  padding: 20px 100px;
+  padding: 20px 60px;
+	color: orange;
 `;
 
 export const SearchBar = styled.input`
@@ -29,15 +28,7 @@ export const HeaderCharacter = styled.div`
   padding: 20px 25px;
 `;
 
-export const MenuWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 70px;
-  width: 80%;
-  height: 81px;
-`;
-
-export const MenuItem = styled.div`
+export const MenuItem = styled.li`
   display: flex;
   align-items: center;
   min-width: 50px;
@@ -52,11 +43,19 @@ export const MenuDetailContainer = styled.div`
   background-color: lightskyblue;
 `;
 
-export const MenuContainer = styled.div`
+export const MenuContainer = styled.nav`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  margin: 30px 0 0 0;
+`;
+
+export const MenuWrapper = styled.ul`
+  display: flex;
+  align-items: center;
+  gap: 70px;
+  width: 80%;
+  height: 81px;
 
   &:hover {
     ${MenuDetailContainer} {
