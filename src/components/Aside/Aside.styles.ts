@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const AsideWrapper = styled.aside`
-  width: 389px;
+  width: 100%;
 `;
 
 export const UserSideBar = styled.div`
