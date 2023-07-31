@@ -4,14 +4,14 @@ import * as S from "./header.styles.ts";
 function Header() {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <div>
+    <header>
       <S.MenuContainer
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
+        <S.HeaderLogo>All In Job</S.HeaderLogo>
         <S.MenuWrapper>
           {/* 반복문으로 처리 예정 */}
-          <S.MenuItem>홈</S.MenuItem>
           <S.MenuItem>공모전</S.MenuItem>
           <S.MenuItem>대외활동</S.MenuItem>
           <S.MenuItem>자격증</S.MenuItem>
@@ -29,7 +29,7 @@ function Header() {
           <p>지원대상</p>
         </div>
       </S.MenuDetailContainer>
-    </div>
+    </header>
   );
 }
 
