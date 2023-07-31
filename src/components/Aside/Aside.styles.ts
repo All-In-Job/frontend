@@ -30,17 +30,12 @@ export const LoginButton = styled.button`
 `;
 
 export const AccountOptions = styled.ul`
-  display: flex;
-  align-items: center;
-
-  > li {
-    display: flex;
-    align-items: center;
-    height: 20px;
-
-    :not(:nth-of-type(2)) {
-      width: 74px;
-    }
+  display: grid;
+  grid-template-columns: 1fr 0fr 1fr;
+  place-items: center;
+  > li:last-of-type {
+    width: 100%;
+    justify-items: left;
   }
 `;
 
