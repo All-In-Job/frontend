@@ -24,16 +24,17 @@ const commonStyle = {
   },
 };
 
-export const PostCardContainer = styled.div`
+export const PostCardContainer = styled.article`
   position: relative;
   width: 100%;
-  margin: 0 auto;
+  cursor: pointer;
 `;
 
 export const PostCardImgBox = styled.div`
   position: relative;
+  display: flex;
   width: 100%;
-  height: 244px;
+  padding-top: 100%;
   border-radius: 14px;
   background-color: #ddd;
   overflow: hidden;
@@ -43,6 +44,9 @@ export const PostCardImgBox = styled.div`
     height: 100%;
     object-fit: cover;
     object-position: center;
+    padding: 0;
+    margin: 0;
+    border: 0;
   }
 `;
 
@@ -149,3 +153,4 @@ export const PostCardTag = styled.div`
     }
   }
 `;
+
