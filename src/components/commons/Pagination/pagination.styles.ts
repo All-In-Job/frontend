@@ -6,10 +6,11 @@ export const PaginationContainer = styled.div`
   align-items: center;
 `;
 
-export const PaginationNumber = styled.button`
+export const PaginationNumber = styled.button<{isActive: boolean}>`
   width: 39px;
   height: 39px;
-  background-color: transparent;
+  color: ${(props) => (props.isActive ? "#fff" : "#000")};
+  background-color: ${(props) => (props.isActive ? "#FD6B36" : "transparent")};
   border-radius: 14px;
   cursor: pointer;
 
