@@ -3,33 +3,71 @@ import * as S from "./header.styles.ts";
 
 function Header() {
   const [isHovered, setIsHovered] = useState(false);
-  return (
-    <header>
-      <S.MenuContainer
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <S.HeaderLogo>All In Job</S.HeaderLogo>
-        <S.MenuWrapper>
-          {/* 반복문으로 처리 예정 */}
-          <S.MenuItem>공모전</S.MenuItem>
-          <S.MenuItem>대외활동</S.MenuItem>
-          <S.MenuItem>자격증</S.MenuItem>
-          <S.MenuItem>어학</S.MenuItem>
-          <S.MenuItem>인턴</S.MenuItem>
-          <S.MenuItem>취준job담</S.MenuItem>
-        </S.MenuWrapper>
-      </S.MenuContainer>
 
-      <S.MenuDetailContainer show={isHovered}>
-        <div className="details">
-          <p>공모분야</p>
-          <p>시상규모</p>
-          <p>수상혜택</p>
-          <p>지원대상</p>
+  const menuItems = [
+    {
+      name: "공모전",
+      subItems: ["공모분야", "시상규모", "수상혜택", "지원대상"],
+    },
+    {
+      name: "대외활동",
+      subItems: ["활동분야", "관심분야", "활동혜택", "활동기간", "지역"],
+    },
+    {
+      name: "자격증",
+      subItems: ["국가기술자격증", "국가전문자격증"],
+    },
+    {
+      name: "어학",
+      subItems: ["영어", "중국어", "스페인어", "기타"],
+    },
+    {
+      name: "인턴",
+      subItems: ["대기업", "중소기업", "스타트업"],
+    },
+    {
+      name: "취준job담",
+      subItems: [
+        "취업선배 Q&A",
+        "공모전/대외활동",
+        "자격증/어학",
+        "인턴",
+        "스터디",
+        "자유게시판",
+      ],
+    },
+  ];
+  return (
+    <S.HeaderContainer>
+      <S.MenuContainer>
+        <S.HeaderLogo>All In Job</S.HeaderLogo>
+        <div
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <S.MenuWrapper>
+            {menuItems.map((item) => (
+              <S.MenuItem key={item.name}>{item.name}</S.MenuItem>
+            ))}
+          </S.MenuWrapper>
+
+          {isHovered && (
+            <S.MenuDetailContainer>
+              {menuItems.map((item) => (
+                <div key={item.name}>
+                  <h3>{item.name}</h3>
+                  <div className="details">
+                    {item.subItems.map((subItem) => (
+                      <p key={subItem}>{subItem}</p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </S.MenuDetailContainer>
+          )}
         </div>
-      </S.MenuDetailContainer>
-    </header>
+      </S.MenuContainer>
+    </S.HeaderContainer>
   );
 }
 

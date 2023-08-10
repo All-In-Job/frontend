@@ -1,22 +1,28 @@
 import styled from "@emotion/styled";
 
-export const HeaderContainer = styled.div`
+export const HeaderContainer = styled.header`
   display: flex;
   align-items: center;
-  width: 80%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+   background-color: white;
 `;
 
-export const MainWrapper = styled.div`
+export const MainWrapper = styled.nav`
   display: flex;
   align-items: center;
 `;
 
 export const HeaderLogo = styled.div`
-  display: inline-block;
+  display: flex;
+  align-items: center;
   padding: 20px 60px;
-	color: orange;
+  height: 81px;
+  color: orange;
 `;
 
 export const SearchBar = styled.input`
@@ -33,35 +39,40 @@ export const MenuItem = styled.li`
   align-items: center;
   min-width: 50px;
   height: 100%;
+  font-weight: bold;
   cursor: pointer;
 `;
 
+export const DetailItems = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start; 
+`;
+
 export const MenuDetailContainer = styled.div`
-  display: ${(props) => (props.show ? "flex" : "none")};
-  justify-content: center;
+  position: absolute; 
+  top: 100%;
+  display: flex;
+  gap: 70px;
   width: 100%;
   background-color: lightskyblue;
 `;
 
 export const MenuContainer = styled.nav`
+  position: relative; 
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
 `;
 
 export const MenuWrapper = styled.ul`
+position: relative;
   display: flex;
   align-items: center;
   gap: 70px;
-  width: 80%;
+  width: 100%;
   height: 81px;
-
-  &:hover {
-    ${MenuDetailContainer} {
-      display: flex;
-    }
-  }
 `;
 
 export const Box = styled.div`
