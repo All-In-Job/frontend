@@ -12,12 +12,8 @@ function Pagination() {
 
   return (
     <S.PaginationContainer>
-      <S.PaginationArrowBox>
-        <S.LeftDoubleArrowButton type="button">
-          &lt;&lt;
-        </S.LeftDoubleArrowButton>
-        <S.LeftArrowButton type="button">&lt;</S.LeftArrowButton>
-      </S.PaginationArrowBox>
+      <S.LeftDoubleArrowButton type="button">&lt;&lt;</S.LeftDoubleArrowButton>
+      <S.LeftArrowButton type="button">&lt;</S.LeftArrowButton>
 
       {new Array(10).fill(1).map((_, index) => (
         <S.PaginationNumber
@@ -31,12 +27,10 @@ function Pagination() {
         </S.PaginationNumber>
       ))}
 
-      <S.PaginationArrowBox>
-        <S.RightArrowButton type="button">&gt;</S.RightArrowButton>
-        <S.RightDoubleArrowButton type="button">
-          &gt;&gt;
-        </S.RightDoubleArrowButton>
-      </S.PaginationArrowBox>
+      <S.RightArrowButton type="button">&gt;</S.RightArrowButton>
+      <S.RightDoubleArrowButton type="button">
+        &gt;&gt;
+      </S.RightDoubleArrowButton>
     </S.PaginationContainer>
   );
 }

@@ -19,8 +19,6 @@ export const PaginationNumber = styled.button<{isActive: boolean}>`
   }
 `;
 
-export const PaginationArrowBox = styled.div``;
-
 export const LeftDoubleArrowButton = styled.button`
   width: 39px;
   height: 39px;
