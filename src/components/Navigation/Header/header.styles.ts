@@ -9,7 +9,7 @@ export const HeaderContainer = styled.header`
   position: fixed;
   top: 0;
   z-index: 999;
-   background-color: white;
+  background-color: white;
 `;
 
 export const MainWrapper = styled.nav`
@@ -22,7 +22,10 @@ export const HeaderLogo = styled.div`
   align-items: center;
   padding: 20px 60px;
   height: 81px;
-  color: orange;
+  color: #FD6B36;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
 `;
 
 export const SearchBar = styled.input`
@@ -36,8 +39,9 @@ export const HeaderCharacter = styled.div`
 
 export const MenuItem = styled.li`
   display: flex;
+  flex: none;
   align-items: center;
-  min-width: 50px;
+  width: 100px;
   height: 100%;
   font-weight: bold;
   cursor: pointer;
@@ -46,31 +50,34 @@ export const MenuItem = styled.li`
 export const DetailItems = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: start; 
+  align-items: start;
 `;
 
+export const HoverMenu = styled.div`
+  width: 100vw;
+  background-color: white;
+  position: absolute;
+  left: 0;
+  `;
+
 export const MenuDetailContainer = styled.div`
-  position: absolute; 
-  top: 100%;
   display: flex;
-  gap: 70px;
   width: 100%;
-  background-color: lightskyblue;
+  max-width: 1920px;
 `;
 
 export const MenuContainer = styled.nav`
-  position: relative; 
   display: flex;
   justify-content: center;
   align-items: flex-start;
   width: 100%;
+  max-width: 1920px;
 `;
 
 export const MenuWrapper = styled.ul`
-position: relative;
   display: flex;
   align-items: center;
-  gap: 70px;
+  gap: 50px;
   width: 100%;
   height: 81px;
 `;
