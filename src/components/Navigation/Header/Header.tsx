@@ -49,7 +49,6 @@ function Header() {
             {menuItems.map((item) => (
               <S.MenuItem key={item.name}>{item.name}</S.MenuItem>
             ))}
-          </S.MenuWrapper>
 
           {isHovered && (
             <S.HoverMenu>
@@ -57,10 +56,11 @@ function Header() {
               <S.MenuDetailContainer>
                 <div
                   style={{
-                    position: "absolute",
                     display: "flex",
-                    // margin: "auto",
-                    gap: "50px",
+                    gap: "80px",
+                    position: "absolute",
+                    top:0,
+                    left: 0,
                   }}
                 >
                   {menuItems.map((item) => (
@@ -88,6 +88,7 @@ function Header() {
               </S.MenuDetailContainer>
             </S.HoverMenu>
           )}
+          </S.MenuWrapper>
         </div>
         <div
           style={{

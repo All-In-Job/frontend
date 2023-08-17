@@ -46,10 +46,11 @@ export const HeaderCharacter = styled.div`
 `;
 
 export const MenuItem = styled.li`
+  position: relative;
   display: flex;
   flex: none;
   align-items: center;
-  width: 100px;
+  width: 125px;
   height: 100%;
   font-weight: bold;
   cursor: pointer;
@@ -73,10 +74,11 @@ export const DetailItems = styled.div`
 `;
 
 export const HoverMenu = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 250px;
   background-color: white;
   position: absolute;
+  top: 81px;
   left: 0;
 `;
 
@@ -86,6 +88,9 @@ export const MenuDetailContainer = styled.div`
   width: 100%;
   max-width: 1920px;
   padding-bottom: 40px;
+  position: "absolute";
+  top: 200px;
+  left: 0;
 `;
 
 export const divisionLine = styled.div`
