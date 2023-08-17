@@ -53,29 +53,35 @@ function Header() {
 
           {isHovered && (
             <S.HoverMenu>
+              <S.divisionLine />
               <S.MenuDetailContainer>
-                <div style={{width:'281.5px'}}></div>
                 <div
                   style={{
-                    margin: "0 auto",
+                    position: "absolute",
                     display: "flex",
+                    // margin: "auto",
                     gap: "50px",
-                    width: "850px",
                   }}
                 >
                   {menuItems.map((item) => (
                     <div
                       key={item.name}
                       style={{
-                        width: "100px",
+                        width: "125px",
                       }}
                     >
-                      <h3>{item.name}</h3>
-                      <div className="details">
+                      <S.DetailItems>
                         {item.subItems.map((subItem) => (
-                          <p key={subItem}>{subItem}</p>
+                          <p
+                            style={{
+                              width: "125px",
+                            }}
+                            key={subItem}
+                          >
+                            {subItem}
+                          </p>
                         ))}
-                      </div>
+                      </S.DetailItems>
                     </div>
                   ))}
                 </div>
@@ -83,6 +89,13 @@ function Header() {
             </S.HoverMenu>
           )}
         </div>
+        <div
+          style={{
+            width: "10rem",
+            height: "1px",
+          }}
+        ></div>
+        <S.CharactorBox>캐릭터</S.CharactorBox>
       </S.MenuContainer>
     </S.HeaderContainer>
   );
