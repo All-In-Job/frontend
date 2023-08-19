@@ -46,7 +46,6 @@ export const HeaderCharacter = styled.div`
 `;
 
 export const MenuItem = styled.li`
-  position: relative;
   display: flex;
   flex: none;
   align-items: center;
@@ -74,31 +73,31 @@ export const DetailItems = styled.div`
 `;
 
 export const HoverMenu = styled.div`
+  position: fixed;
+  top: 81px;
+  left: 0;
   width: 100vw;
   height: 250px;
   background-color: white;
-  position: absolute;
-  top: 81px;
-  left: 0;
 `;
 
 export const MenuDetailContainer = styled.div`
+  position: "absolute";
+  top: 200px;
+  left: 0;
   display: flex;
   justify-content: center;
   width: 100%;
   max-width: 1920px;
   padding-bottom: 40px;
-  position: "absolute";
-  top: 200px;
-  left: 0;
 `;
 
 export const MenuDetailWrapper = styled.div`
-  display: flex;
-  gap: 80px;
   position: absolute;
   top: 30px;
   left: 0;
+  display: flex;
+  gap: 80px;
 `;
 
 export const divisionLine = styled.div`

@@ -50,38 +50,36 @@ function Header() {
               <S.MenuItem key={item.name}>{item.name}</S.MenuItem>
             ))}
 
-          {isHovered && (
-            <S.HoverMenu>
-              <S.divisionLine />
-              <S.MenuDetailContainer>
-                <S.MenuDetailWrapper
-                  
-                >
-                  {menuItems.map((item) => (
-                    <div
-                      key={item.name}
-                      style={{
-                        width: "125px",
-                      }}
-                    >
-                      <S.DetailItems>
-                        {item.subItems.map((subItem) => (
-                          <p
-                            style={{
-                              width: "125px",
-                            }}
-                            key={subItem}
-                          >
-                            {subItem}
-                          </p>
-                        ))}
-                      </S.DetailItems>
-                    </div>
-                  ))}
-                </S.MenuDetailWrapper>
-              </S.MenuDetailContainer>
-            </S.HoverMenu>
-          )}
+            {isHovered && (
+              <S.HoverMenu>
+                <S.divisionLine />
+                <S.MenuDetailContainer>
+                  <S.MenuDetailWrapper>
+                    {menuItems.map((item) => (
+                      <div
+                        key={item.name}
+                        style={{
+                          width: "125px",
+                        }}
+                      >
+                        <S.DetailItems>
+                          {item.subItems.map((subItem) => (
+                            <p
+                              style={{
+                                width: "125px",
+                              }}
+                              key={subItem}
+                            >
+                              {subItem}
+                            </p>
+                          ))}
+                        </S.DetailItems>
+                      </div>
+                    ))}
+                  </S.MenuDetailWrapper>
+                </S.MenuDetailContainer>
+              </S.HoverMenu>
+            )}
           </S.MenuWrapper>
         </div>
         <div
