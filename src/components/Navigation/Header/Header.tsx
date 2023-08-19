@@ -72,6 +72,7 @@ function Header() {
                             <p
                               style={{
                                 width: "125px",
+                                cursor: "pointer"
                               }}
                               key={subItem}
                             >

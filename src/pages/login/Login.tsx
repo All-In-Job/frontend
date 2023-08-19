@@ -34,7 +34,7 @@ function Login() {
           <S.AccountActionsBox>
             <Link to='/find-id'>아이디 찾기</Link>
             <span style={{ color: "#AEAAA6" }}>|</span>
-            <p>회원가입</p>
+            <Link to='/signup'>회원가입</Link>
           </S.AccountActionsBox>
         </S.LoginBox>
       </S.LoginWrapper>

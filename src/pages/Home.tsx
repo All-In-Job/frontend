@@ -4,6 +4,7 @@ import { Carousel } from "../components/Carousel/Carousel";
 import { ContestMenuBar } from "../components/ContestMenuBar/ContestMenuBar";
 import { CardList } from "../components/CardList/CardList";
 import {Outlet, useOutlet} from "react-router-dom";
+import Aside from "../components/Aside/Aside";
 
 export const Home = () => {
     const outlet = useOutlet();
@@ -18,7 +19,9 @@ export const Home = () => {
           <ContestMenuBar />
           <CardList />
         </S.Main>
-        <S.Sidebar>sidebar</S.Sidebar>
+        <S.Sidebar>
+            <Aside />
+        </S.Sidebar>
       </S.Layout>}
     </>
   );

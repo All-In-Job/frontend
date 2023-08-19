@@ -9,6 +9,7 @@ export const HeaderContainer = styled.header`
   top: 0;
   z-index: 999;
   background-color: white;
+  padding: 0 20px;
 `;
 
 export const MenuContainer = styled.nav`
