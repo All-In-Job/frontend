@@ -65,7 +65,7 @@ function FindID() {
               인증요청
             </S.phoneAuthSendBtn>
           </S.phoneAuthBox>
-
+            
           <S.phoneAuthBox>
             <S.phoneAuthInput placeholder="인증번호 입력" />
             <S.phoneAuthSendBtn onClick={handleAuthClick}>

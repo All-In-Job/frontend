@@ -54,14 +54,8 @@ function Header() {
             <S.HoverMenu>
               <S.divisionLine />
               <S.MenuDetailContainer>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "80px",
-                    position: "absolute",
-                    top:0,
-                    left: 0,
-                  }}
+                <S.MenuDetailWrapper
+                  
                 >
                   {menuItems.map((item) => (
                     <div
@@ -84,7 +78,7 @@ function Header() {
                       </S.DetailItems>
                     </div>
                   ))}
-                </div>
+                </S.MenuDetailWrapper>
               </S.MenuDetailContainer>
             </S.HoverMenu>
           )}

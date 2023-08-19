@@ -93,6 +93,14 @@ export const MenuDetailContainer = styled.div`
   left: 0;
 `;
 
+export const MenuDetailWrapper = styled.div`
+  display: flex;
+  gap: 80px;
+  position: absolute;
+  top: 30px;
+  left: 0;
+`;
+
 export const divisionLine = styled.div`
   width: 100vw;
   height: 1px;
