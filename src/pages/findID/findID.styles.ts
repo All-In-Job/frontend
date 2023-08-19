@@ -77,10 +77,15 @@ export const nameTitle = styled.p`
 
 export const nameInput = styled.input`
   width: 100%;
-  border: 2px solid #fd6b36;
   border-radius: 14px;
   background: #f0f0f0 0% 0% no-repeat padding-box;
   padding: 8px 14px;
+  margin-bottom: 12px;
+  border: 2px solid transparent;
+
+  &:focus {
+    border: 2px solid #fd6b36;
+  }
 `;
 
 export const validateInfo = styled.p`
@@ -88,7 +93,7 @@ export const validateInfo = styled.p`
   font-size: 14px;
   font-weight: bold;
   color: #fd6b36;
-  padding: 7px 0 23px 0;
+  padding: 0 0 23px 0;
 `;
 
 export const phoneAuthTitle = styled.div`
@@ -110,6 +115,11 @@ export const phoneAuthInput = styled.input`
   background-color: #f0f0f0;
   border-radius: 14px;
   padding: 8px 14px;
+    border: 2px solid #f0f0f0;
+
+  &:focus {
+    border: 2px solid #fd6b36;
+  }
 `;
 
 export const phoneAuthSendBtn = styled.button`
