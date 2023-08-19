@@ -1,4 +1,5 @@
 import * as S from "./login.styles";
+import {Link} from "react-router-dom";
 
 function Login() {
   return (
@@ -31,7 +32,7 @@ function Login() {
             />
           </S.SocialLoginBox>
           <S.AccountActionsBox>
-            <p>아이디 찾기</p>
+            <Link to='/find-id'>아이디 찾기</Link>
             <span style={{ color: "#AEAAA6" }}>|</span>
             <p>회원가입</p>
           </S.AccountActionsBox>
