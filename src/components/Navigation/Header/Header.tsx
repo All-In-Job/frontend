@@ -42,6 +42,12 @@ function Header() {
       <S.MenuContainer>
         <S.HeaderLogo>ALL IN JOB</S.HeaderLogo>
         <div
+          style={{
+            flex: 2,
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center'
+          }}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -49,11 +55,10 @@ function Header() {
             {menuItems.map((item) => (
               <S.MenuItem key={item.name}>{item.name}</S.MenuItem>
             ))}
-
-            {isHovered && (
+            {isHovered ?
               <S.HoverMenu>
                 <S.divisionLine />
-                <S.MenuDetailContainer>
+                {/*<S.MenuDetailContainer>*/}
                   <S.MenuDetailWrapper>
                     {menuItems.map((item) => (
                       <div
@@ -77,18 +82,14 @@ function Header() {
                       </div>
                     ))}
                   </S.MenuDetailWrapper>
-                </S.MenuDetailContainer>
+                {/*</S.MenuDetailContainer>*/}
               </S.HoverMenu>
-            )}
+            : null}
           </S.MenuWrapper>
         </div>
-        <div
-          style={{
-            width: "10rem",
-            height: "1px",
-          }}
-        ></div>
-        <S.CharactorBox>캐릭터</S.CharactorBox>
+        <div style={{flex: 1, display: 'flex', justifyContent: 'right'}}>
+          <S.CharactorBox>캐릭터</S.CharactorBox>
+        </div>
       </S.MenuContainer>
     </S.HeaderContainer>
   );

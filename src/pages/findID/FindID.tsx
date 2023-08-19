@@ -6,6 +6,10 @@ function FindID() {
   const [isValidName, setIsValidName] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(300); // 초 단위
   const [timerActive, setTimerActive] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [authCode, setAuthCode] = useState("");
+  const [isValidPhone, setIsValidPhone] = useState(false);
+  const [isValidAuthCode, setIsValidAuthCode] = useState(false);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -21,6 +25,32 @@ function FindID() {
     setTimeRemaining(300); // 타이머를 5분으로 초기화
     setTimerActive(true);
   };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, ""); // 숫자만 남김
+    if (value.length > 3) {
+      value = value.slice(0, 3) + "-" + value.slice(3);
+    }
+    if (value.length > 8) {
+      value = value.slice(0, 8) + "-" + value.slice(8);
+    }
+    if (value.length > 13) {
+      value = value.slice(0, 13); // 최대 길이는 13
+    }
+    setPhone(value);
+    setIsValidPhone(/^\d{3}-\d{4}-\d{4}$/.test(value));
+  };
+
+  const handleAuthCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setAuthCode(value);
+
+    const regex = /^\d{6,6}$/;
+
+    setIsValidAuthCode(regex.test(value));
+  };
+
+  const isValid = isValidName && isValidPhone && isValidAuthCode;
 
   useEffect(() => {
     let timer: number | undefined;
@@ -60,14 +90,22 @@ function FindID() {
           <S.phoneAuthTitle>휴대폰 인증</S.phoneAuthTitle>
 
           <S.phoneAuthBox>
-            <S.phoneAuthInput placeholder="휴대폰 11자리" />
+            <S.phoneAuthInput
+              value={phone}
+              onChange={handlePhoneChange}
+              placeholder="휴대폰 11자리"
+            />
             <S.phoneAuthSendBtn onClick={handleAuthClick}>
               인증요청
             </S.phoneAuthSendBtn>
           </S.phoneAuthBox>
-            
+
           <S.phoneAuthBox>
-            <S.phoneAuthInput placeholder="인증번호 입력" />
+            <S.phoneAuthInput
+              value={authCode}
+              onChange={handleAuthCodeChange}
+              placeholder="인증번호 입력"
+            />
             <S.phoneAuthSendBtn onClick={handleAuthClick}>
               재전송
             </S.phoneAuthSendBtn>
@@ -75,7 +113,13 @@ function FindID() {
 
           <S.timeCount>{`${minutes}:${seconds}`}</S.timeCount>
 
-          <S.confirmBtn>확인</S.confirmBtn>
+          <S.confirmBtn
+            style={{
+              backgroundColor: isValid ? "#FD6B36" : "#E7E6E5",
+            }}
+          >
+            확인
+          </S.confirmBtn>
         </S.FindIDBox>
       </S.FindIDWrapper>
     </S.FindIDContainer>

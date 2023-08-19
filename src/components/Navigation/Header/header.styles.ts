@@ -5,7 +5,6 @@ export const HeaderContainer = styled.header`
   align-items: center;
   width: 100vw;
   margin: 0;
-  justify-content: space-between;
   position: fixed;
   top: 0;
   z-index: 999;
@@ -17,7 +16,6 @@ export const MenuContainer = styled.nav`
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* max-width: 1920px; */
 `;
 
 export const MainWrapper = styled.nav`
@@ -26,9 +24,10 @@ export const MainWrapper = styled.nav`
 `;
 
 export const HeaderLogo = styled.div`
+  flex: 1;
   display: flex;
   align-items: center;
-  padding: 20px 60px;
+  //padding: 20px 60px;
   height: 81px;
   color: #fd6b36;
   font-size: 30px;
@@ -70,6 +69,7 @@ export const DetailItems = styled.div`
   flex-direction: column;
   align-items: start;
   gap: 20px;
+  font-weight: bold;
 `;
 
 export const HoverMenu = styled.div`
@@ -82,9 +82,7 @@ export const HoverMenu = styled.div`
 `;
 
 export const MenuDetailContainer = styled.div`
-  position: "absolute";
-  top: 200px;
-  left: 0;
+  position: absolute;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -94,10 +92,11 @@ export const MenuDetailContainer = styled.div`
 
 export const MenuDetailWrapper = styled.div`
   position: absolute;
-  top: 30px;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: 80px;
+  //border: 1px red solid;
 `;
 
 export const divisionLine = styled.div`
@@ -114,6 +113,7 @@ export const MenuWrapper = styled.ul`
   gap: 80px;
   width: 100%;
   height: 81px;
+  //border: 1px red solid;
 `;
 
 export const Box = styled.div`
