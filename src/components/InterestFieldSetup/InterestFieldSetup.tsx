@@ -1,5 +1,6 @@
 import {ChangeEvent, useEffect, useRef, useState} from "react";
 import * as S from "./InterestFieldSetup.styles";
+import Submit from "../commons/Buttons/Submit/Submit";
 
 const interestTags = [
   {
@@ -260,13 +261,12 @@ function InterestFieldSetup() {
               ))}
             </S.KeyWordList>
           </S.InterestKeyWord>
-          <S.SubmitButton
+          <Submit
+            title="확인"
             onClick={submitButton}
             disabled={isActive ? false : true}
             isActive={isActive}
-          >
-            확인
-          </S.SubmitButton>
+          />
         </>
       )}
     </S.InterestFieldSetupWrapper>
