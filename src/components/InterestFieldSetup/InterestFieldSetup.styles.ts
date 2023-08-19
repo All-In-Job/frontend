@@ -24,7 +24,7 @@ export const InterestFieldSetupTitle = styled.h1`
 `;
 
 export const MajorDepartment = styled.div`
-  padding-bottom: 45px;
+  position: relative;
 
   input {
     width: 100%;
@@ -39,8 +39,25 @@ export const MajorDepartment = styled.div`
   }
 `;
 
+export const MajorDepartmentList = styled.ul`
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  border: 1px solid #000;
+  background-color: #fff;
+  overflow: scroll;
+
+  li {
+    cursor: pointer;
+
+    :hover {
+      background-color: #eee;
+    }
+  }
+`;
+
 export const InterestSelect = styled.div`
-  /* padding-bottom: 54px; */
+  padding-top: 45px;
 `;
 
 export const TagList = styled.ul`
@@ -57,6 +74,7 @@ export const ClickedTag = styled.li<ChangeColorProps>`
   background-color: ${(props) => (props.isChangeColor ? "#fd6b36" : "#ffe7de")};
   color: ${(props) => (props.isChangeColor ? "#fff" : "#fd6b36")};
   border-radius: 14px;
+  font-size: 14px;
   cursor: pointer;
 
   :hover {
@@ -111,6 +129,7 @@ export const ClickedKeyWord = styled.li<ChangeColorProps>`
   border: 2px solid ${(props) => (props.isChangeColor ? "#fd6b36" : "#e7e6e5")};
   border-radius: 14px;
   padding: 13px 0;
+  font-size: 14px;
   cursor: pointer;
 
   p {
@@ -119,10 +138,10 @@ export const ClickedKeyWord = styled.li<ChangeColorProps>`
   }
 `;
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled.button<{isActive: boolean}>`
   width: 100%;
   padding: 16px 0;
-  background-color: #e7e6e5;
+  background-color: ${(props) => (props.isActive ? "#FD6B36" : "#e7e6e5")};
   color: #fff;
   border-radius: 14px;
 `;

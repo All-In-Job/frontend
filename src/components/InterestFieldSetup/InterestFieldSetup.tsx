@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {ChangeEvent, useEffect, useRef, useState} from "react";
 import * as S from "./InterestFieldSetup.styles";
 
 const interestTags = [
@@ -90,6 +90,29 @@ const interestTags = [
   },
 ];
 
+const departments = [
+  "학과1",
+  "학과2",
+  "학과3",
+  "학과4",
+  "학과5",
+  "학과6",
+  "학과7",
+  "학과8",
+  "학과9",
+  "학과10",
+  "학과11",
+  "학과12",
+  "학과13",
+  "학과14",
+  "학과15",
+  "학과16",
+  "학과17",
+  "학과18",
+  "학과19",
+  "학과20",
+];
+
 type InterestTag = {
   name: string;
   image: string;
@@ -97,14 +120,42 @@ type InterestTag = {
 };
 
 function InterestFieldSetup() {
+  const [departmentInput, setDepartmentInput] = useState("");
+  const [choiceDepartment, setChoiceDepartment] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const [interestTag, setInterestTag] = useState<InterestTag>({
     name: "",
     image: "",
     keyWords: [],
   });
   const [selectedKeyWords, setSelectedKeyWords] = useState<string[]>([]);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
-  const onClickTag = (tag: InterestTag) => () => {
+  const getValueDepartmentInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setDepartmentInput(e.target.value);
+
+    if (e.target.value !== "") {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+
+  const searchedDepartment = departments.filter((department) =>
+    department.includes(departmentInput)
+  );
+
+  const onClickChoice = (department: string) => {
+    setChoiceDepartment(department);
+
+    if (inputRef.current) {
+      inputRef.current.value = department;
+    }
+    setIsVisible(false);
+  };
+
+  const onClickTag = (tag: InterestTag) => {
     setInterestTag({
       name: tag.name,
       image: tag.image,
@@ -114,7 +165,7 @@ function InterestFieldSetup() {
     setSelectedKeyWords([]);
   };
 
-  const selectedKeyWord = (keyWord: string) => () => {
+  const selectedKeyWord = (keyWord: string) => {
     if (selectedKeyWords.includes(keyWord)) {
       const updatedSelectedKeywords = selectedKeyWords.filter(
         (selectedKeyWord) => selectedKeyWord !== keyWord
@@ -126,8 +177,16 @@ function InterestFieldSetup() {
     }
   };
 
+  useEffect(() => {
+    setIsActive(selectedKeyWords.length > 0);
+  }, [selectedKeyWords]);
+
   const submitButton = () => {
-    console.log({name: interestTag.name, keywords: selectedKeyWords});
+    console.log({
+      name: interestTag.name,
+      keywords: selectedKeyWords,
+      choiceDepartment: choiceDepartment,
+    });
   };
 
   return (
@@ -136,7 +195,21 @@ function InterestFieldSetup() {
         <S.InterestFieldSetupTitle>
           전공학과를 선택해주세요!
         </S.InterestFieldSetupTitle>
-        <input type="text" placeholder="학과를 입력해주세요." />
+        <input
+          type="text"
+          placeholder="학과를 입력해주세요."
+          onChange={getValueDepartmentInput}
+          ref={inputRef}
+        />
+        {isVisible && (
+          <S.MajorDepartmentList>
+            {searchedDepartment.map((department) => (
+              <li key={department} onClick={() => onClickChoice(department)}>
+                {department}
+              </li>
+            ))}
+          </S.MajorDepartmentList>
+        )}
       </S.MajorDepartment>
 
       <S.InterestSelect>
@@ -147,11 +220,13 @@ function InterestFieldSetup() {
           {interestTags.map((tag) => (
             <S.ClickedTag
               key={tag.name}
-              onClick={onClickTag({
-                name: tag.name,
-                image: tag.image,
-                keyWords: [...tag.keyWords],
-              })}
+              onClick={() =>
+                onClickTag({
+                  name: tag.name,
+                  image: tag.image,
+                  keyWords: [...tag.keyWords],
+                })
+              }
               isChangeColor={tag.name === interestTag.name ? true : false}
             >
               <S.TagName>{tag.name}</S.TagName>
@@ -174,7 +249,7 @@ function InterestFieldSetup() {
               {interestTag.keyWords.map((keyWord) => (
                 <S.ClickedKeyWord
                   key={keyWord}
-                  onClick={selectedKeyWord(keyWord)}
+                  onClick={() => selectedKeyWord(keyWord)}
                   isChangeColor={selectedKeyWords.includes(keyWord)}
                 >
                   <S.CheckBox
@@ -185,7 +260,11 @@ function InterestFieldSetup() {
               ))}
             </S.KeyWordList>
           </S.InterestKeyWord>
-          <S.SubmitButton onClick={submitButton} disabled>
+          <S.SubmitButton
+            onClick={submitButton}
+            disabled={isActive ? false : true}
+            isActive={isActive}
+          >
             확인
           </S.SubmitButton>
         </>
