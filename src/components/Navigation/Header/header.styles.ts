@@ -7,7 +7,7 @@ export const HeaderContainer = styled.header`
   margin: 0;
   position: fixed;
   top: 0;
-  z-index: 999;
+  z-index: 1002;
   background-color: white;
 `;
 
@@ -16,6 +16,17 @@ export const MenuContainer = styled.nav`
   justify-content: center;
   align-items: center;
   width: 100%;
+  z-index: 1002;
+`;
+
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
 `;
 
 export const MainWrapper = styled.nav`
@@ -79,6 +90,7 @@ export const HoverMenu = styled.div`
   width: 100vw;
   height: 250px;
   background-color: white;
+  z-index: 1001;
 `;
 
 export const MenuDetailContainer = styled.div`
