@@ -9,9 +9,10 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'import'],
+  plugins: ['react-refresh', '@typescript-eslint', 'import', 'no-relative-import-paths'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'no-relative-import-paths/no-relative-import-paths': ['warn', { allowSameFolder: true }],
     'import/order': [
       'error',
       {
@@ -20,6 +21,12 @@ module.exports = {
           { pattern: 'react', group: 'builtin', position: 'after' },
           { pattern: 'react', group: 'external', position: 'before' },
           { pattern: 'react-dom', group: 'builtin', position: 'after' },
+          { pattern: 'apis/**', group: 'internal' },
+          { pattern: 'pages/**', group: 'internal' },
+          { pattern: 'components/**', group: 'internal' },
+          { pattern: 'hooks/**', group: 'internal' },
+          { pattern: 'router/**', group: 'internal' },
+          { pattern: 'store/**', group: 'internal' },
         ],
         pathGroupsExcludedImportTypes: ['react', 'react-dom'],
         alphabetize: {

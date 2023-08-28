@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 
-import Submit from '../commons/Buttons/Submit/Submit';
+import Submit from 'components/commons/Buttons/Submit/Submit';
 
 import * as S from './InterestFieldSetup.styles';
 
@@ -162,7 +162,7 @@ function InterestFieldSetup() {
   const selectedKeyWord = (keyWord: string) => {
     if (selectedKeyWords.includes(keyWord)) {
       const updatedSelectedKeywords = selectedKeyWords.filter(
-        selectedKeyWord => selectedKeyWord !== keyWord
+        selectedKeyWord => selectedKeyWord !== keyWord,
       );
       setSelectedKeyWords(updatedSelectedKeywords);
     } else if (selectedKeyWords.length < 3) {
