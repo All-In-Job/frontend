@@ -1,4 +1,4 @@
-import InterestFieldSetup from 'src/components/InterestFieldSetup/InterestFieldSetup';
+import InterestFieldSetup from 'components/InterestFieldSetup/InterestFieldSetup';
 
 const Signup = () => {
   return (
