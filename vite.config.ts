@@ -8,8 +8,9 @@ export default defineConfig({
     react({
       jsxImportSource: '@emotion/react',
       babel: {
-        plugins: ['@emotion/babel-plugin', tsconfigPaths()],
+        plugins: ['@emotion/babel-plugin'],
       },
     }),
+    tsconfigPaths(),
   ],
 });
