@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 
-import ReactDOM from "react-dom/client";
-import { RecoilRoot } from "recoil";
+import ReactDOM from 'react-dom/client';
+import { RecoilRoot } from 'recoil';
 
-import App from "./App.tsx";
-import { ResetCSS } from "./styles/reset";
+import App from './App.tsx';
+import { ResetCSS } from './styles/reset';
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RecoilRoot>
       <ResetCSS>
         <App />
       </ResetCSS>
     </RecoilRoot>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

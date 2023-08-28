@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from 'react';
 
-import * as S from "./carousel.styles";
+import * as S from './carousel.styles';
 
-export type SlideDirection = "left" | "right";
+export type SlideDirection = 'left' | 'right';
 
 export const CAROUSEL_WIDTH = 1113;
 const TRANSITION_DURATION = 0.5;
@@ -10,19 +10,14 @@ const TRANSITION_DURATION = 0.5;
 export const Carousel = () => {
   const slideRef = useRef<HTMLDivElement>(null);
 
-  const [slideState, setSlideState] = useState(
-    Array.from({ length: 3 }, (_, idx) => idx),
-  );
+  const [slideState, setSlideState] = useState(Array.from({ length: 3 }, (_, idx) => idx));
   const [visibleSlide, setVisibleSlide] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hasTransition, setHasTransition] = useState(true);
   const [isNavDisabled, setIsNavDisabled] = useState(false);
 
   const originalSlideLength = useMemo(() => slideState.length, []);
-  const navigationControlCounter = useMemo(
-      () => Array.from(new Set(slideState)),
-      [],
-  );
+  const navigationControlCounter = useMemo(() => Array.from(new Set(slideState)), []);
 
   useEffect(() => {
     const clonedSlide = [...slideState];
@@ -33,19 +28,23 @@ export const Carousel = () => {
   }, []);
 
   const useAfterMountEffect = () => {
-      const ref = useRef<boolean>(false);
-      useEffect(() => {
-          if (ref.current) {
-              setInterval(() => {
-                  if (!isNavDisabled) onClickRightArrow();
-              }, visibleSlide <= slideState.length - 2 ? TRANSITION_DURATION * 2000 + 500 : TRANSITION_DURATION * 1000 + 500);
-          }
-          ref.current = true;
-      }, [ref])
-  }
+    const ref = useRef<boolean>(false);
+    useEffect(() => {
+      if (ref.current) {
+        setInterval(
+          () => {
+            if (!isNavDisabled) onClickRightArrow();
+          },
+          visibleSlide <= slideState.length - 2
+            ? TRANSITION_DURATION * 2000 + 500
+            : TRANSITION_DURATION * 1000 + 500
+        );
+      }
+      ref.current = true;
+    }, [ref]);
+  };
 
   useAfterMountEffect();
-
 
   useEffect(() => {
     const customSetTimeout = (callback: () => void) => {
@@ -53,8 +52,7 @@ export const Carousel = () => {
     };
 
     if (visibleSlide === 1) {
-      customSetTimeout(() =>
-        setHasTransition(true))
+      customSetTimeout(() => setHasTransition(true));
     }
 
     if (visibleSlide === slideState.length - 1) {
@@ -62,7 +60,7 @@ export const Carousel = () => {
       customSetTimeout(() => {
         setVisibleSlide(1);
         setHasTransition(false);
-      })
+      });
     }
 
     if (visibleSlide === 0) {
@@ -73,34 +71,28 @@ export const Carousel = () => {
       });
     }
 
-    if (visibleSlide === slideState.length - 2)
-      customSetTimeout(() => setHasTransition(true));
+    if (visibleSlide === slideState.length - 2) customSetTimeout(() => setHasTransition(true));
   }, [visibleSlide]);
 
   useEffect(() => {
-    if (isNavDisabled)
-      setTimeout(
-        () => setIsNavDisabled(false),
-        TRANSITION_DURATION * 1000 + 500,
-      );
+    if (isNavDisabled) setTimeout(() => setIsNavDisabled(false), TRANSITION_DURATION * 1000 + 500);
   }, [isNavDisabled]);
 
   const onClickLeftArrow = () => {
     setVisibleSlide(visibleSlide - 1);
     setIsNavDisabled(true);
 
-    if (0 < visibleSlide && visibleSlide < slideState.length - 1)
-      setCurrentIndex(currentIndex - 1);
+    if (0 < visibleSlide && visibleSlide < slideState.length - 1) setCurrentIndex(currentIndex - 1);
   };
 
   const onClickRightArrow = () => {
-    setVisibleSlide((visibleSlide) => {
-        return visibleSlide + 1
+    setVisibleSlide(visibleSlide => {
+      return visibleSlide + 1;
     });
     setIsNavDisabled(true);
 
     if (0 < visibleSlide && visibleSlide < slideState.length - 1)
-      setCurrentIndex((currentIndex) => currentIndex + 1);
+      setCurrentIndex(currentIndex => currentIndex + 1);
   };
 
   const calculateLeft = () => {
@@ -118,19 +110,11 @@ export const Carousel = () => {
 
   return (
     <S.container>
-      <S.ArrowButton
-        direction={"left"}
-        disabled={isNavDisabled}
-        onClick={onClickLeftArrow}
-      >
-        {"<"}
+      <S.ArrowButton direction={'left'} disabled={isNavDisabled} onClick={onClickLeftArrow}>
+        {'<'}
       </S.ArrowButton>
-      <S.ArrowButton
-        direction={"right"}
-        disabled={isNavDisabled}
-        onClick={onClickRightArrow}
-      >
-        {">"}
+      <S.ArrowButton direction={'right'} disabled={isNavDisabled} onClick={onClickRightArrow}>
+        {'>'}
       </S.ArrowButton>
       <S.CarouselNavigation>
         {navigationControlCounter.map((_, idx) => (
@@ -143,12 +127,12 @@ export const Carousel = () => {
       </S.CarouselNavigation>
       <div
         style={{
-          position: "absolute",
+          position: 'absolute',
           top: 0,
           bottom: 0,
           left: 0,
           right: 0,
-          overflow: "hidden",
+          overflow: 'hidden',
         }}
       >
         <S.ImageContainer
@@ -156,9 +140,7 @@ export const Carousel = () => {
           count={slideState.length}
           style={{
             left: calculateLeft(),
-            transition: hasTransition
-              ? `${TRANSITION_DURATION}s left ease-in-out 0s`
-              : "",
+            transition: hasTransition ? `${TRANSITION_DURATION}s left ease-in-out 0s` : '',
           }}
         >
           {slideState.map((image, idx) => (
@@ -166,12 +148,12 @@ export const Carousel = () => {
               key={idx}
               style={{
                 flex: 1,
-                width: "100%",
-                height: "100%",
-                fontSize: "120px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                width: '100%',
+                height: '100%',
+                fontSize: '120px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
               {image}
