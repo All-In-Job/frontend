@@ -1,4 +1,5 @@
 import {MouseEvent, useState} from "react";
+
 import * as S from "./pagination.styles";
 
 function Pagination() {

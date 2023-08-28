@@ -1,10 +1,14 @@
-import Header from "../components/Navigation/Header/Header";
-import * as S from "./home.style";
+import {Outlet, useOutlet} from "react-router-dom";
+
+import Aside from "../components/Aside/Aside";
+import { CardList } from "../components/CardList/CardList";
 import { Carousel } from "../components/Carousel/Carousel";
 import { ContestMenuBar } from "../components/ContestMenuBar/ContestMenuBar";
-import { CardList } from "../components/CardList/CardList";
-import {Outlet, useOutlet} from "react-router-dom";
-import Aside from "../components/Aside/Aside";
+import Header from "../components/Navigation/Header/Header";
+
+import * as S from "./home.style";
+
+
 
 export const Home = () => {
     const outlet = useOutlet();

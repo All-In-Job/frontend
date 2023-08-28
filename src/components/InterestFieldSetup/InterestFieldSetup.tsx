@@ -1,6 +1,8 @@
 import {ChangeEvent, useEffect, useRef, useState} from "react";
-import * as S from "./InterestFieldSetup.styles";
+
 import Submit from "../commons/Buttons/Submit/Submit";
+
+import * as S from "./InterestFieldSetup.styles";
 
 const interestTags = [
   {

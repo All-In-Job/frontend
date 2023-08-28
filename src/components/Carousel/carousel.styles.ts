@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+
 import { CAROUSEL_WIDTH, SlideDirection } from "./Carousel";
 
 export const container = styled.div`

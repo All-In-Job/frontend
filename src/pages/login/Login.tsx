@@ -1,5 +1,6 @@
-import * as S from "./login.styles";
 import {Link} from "react-router-dom";
+
+import * as S from "./login.styles";
 
 function Login() {
   return (

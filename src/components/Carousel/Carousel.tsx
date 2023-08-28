@@ -1,5 +1,6 @@
-import * as S from "./carousel.styles";
 import { useEffect, useMemo, useRef, useState } from "react";
+
+import * as S from "./carousel.styles";
 
 export type SlideDirection = "left" | "right";
 
