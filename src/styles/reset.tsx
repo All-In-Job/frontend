@@ -1,5 +1,6 @@
-import { css, Global } from "@emotion/react";
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren } from 'react';
+
+import { css, Global } from '@emotion/react';
 
 export const ResetCSS: FC<PropsWithChildren> = ({ children }) => {
   // prettier-ignore

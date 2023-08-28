@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const PaginationContainer = styled.div`
   display: flex;
@@ -6,11 +6,11 @@ export const PaginationContainer = styled.div`
   align-items: center;
 `;
 
-export const PaginationNumber = styled.button<{isActive: boolean}>`
+export const PaginationNumber = styled.button<{ isActive: boolean }>`
   width: 39px;
   height: 39px;
-  color: ${(props) => (props.isActive ? "#fff" : "#000")};
-  background-color: ${(props) => (props.isActive ? "#FD6B36" : "transparent")};
+  color: ${props => (props.isActive ? '#fff' : '#000')};
+  background-color: ${props => (props.isActive ? '#FD6B36' : 'transparent')};
   border-radius: 14px;
   cursor: pointer;
 

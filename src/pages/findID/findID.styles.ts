@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const FindIDContainer = styled.div`
   padding: 181px 0;
@@ -115,7 +115,7 @@ export const phoneAuthInput = styled.input`
   background-color: #f0f0f0;
   border-radius: 14px;
   padding: 8px 14px;
-    border: 2px solid #f0f0f0;
+  border: 2px solid #f0f0f0;
 
   &:focus {
     border: 2px solid #fd6b36;

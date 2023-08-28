@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 type ChangeColorProps = {
   isChangeColor: boolean;
@@ -71,8 +71,8 @@ export const ClickedTag = styled.li<ChangeColorProps>`
   display: flex;
   align-items: center;
   padding: 3px 15px;
-  background-color: ${(props) => (props.isChangeColor ? "#fd6b36" : "#ffe7de")};
-  color: ${(props) => (props.isChangeColor ? "#fff" : "#fd6b36")};
+  background-color: ${props => (props.isChangeColor ? '#fd6b36' : '#ffe7de')};
+  color: ${props => (props.isChangeColor ? '#fff' : '#fd6b36')};
   border-radius: 14px;
   font-size: 14px;
   cursor: pointer;
@@ -111,7 +111,7 @@ export const KeyWordText = styled.p`
 export const CheckBox = styled.div<ChangeColorProps>`
   width: 16px;
   height: 16px;
-  background-color: ${(props) => (props.isChangeColor ? "#fd6b36" : "#e7e6e5")};
+  background-color: ${props => (props.isChangeColor ? '#fd6b36' : '#e7e6e5')};
   border-radius: 50%;
   margin-bottom: 6px;
 `;
@@ -126,14 +126,14 @@ export const ClickedKeyWord = styled.li<ChangeColorProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid ${(props) => (props.isChangeColor ? "#fd6b36" : "#e7e6e5")};
+  border: 2px solid ${props => (props.isChangeColor ? '#fd6b36' : '#e7e6e5')};
   border-radius: 14px;
   padding: 13px 0;
   font-size: 14px;
   cursor: pointer;
 
   p {
-    color: ${(props) => (props.isChangeColor ? "#fd6b36" : "#979797")};
+    color: ${props => (props.isChangeColor ? '#fd6b36' : '#979797')};
     font-weight: bold;
   }
 `;

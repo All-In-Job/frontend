@@ -1,26 +1,26 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 const commonStyle = {
   color: {
-    orange: "#FD6B36",
-    gray: "#AEAAA6",
-    white: "#FFFFFF",
+    orange: '#FD6B36',
+    gray: '#AEAAA6',
+    white: '#FFFFFF',
   },
 
   backgroundColor: {
-    orange: "#ffe7de",
-    orange02: "#FD6B36",
+    orange: '#ffe7de',
+    orange02: '#FD6B36',
 
-    gray: "#EAE5E0",
+    gray: '#EAE5E0',
   },
 
   fontSize: {
-    light: "14px",
-    thin: "12px",
+    light: '14px',
+    thin: '12px',
   },
 
   fontWeight: {
-    bold: "700",
+    bold: '700',
   },
 };
 
@@ -103,7 +103,7 @@ export const PostCardFooter = styled.ul`
     align-items: center;
 
     :first-of-type::after {
-      content: "";
+      content: '';
       width: 1px;
       height: 100%;
       background-color: ${commonStyle.backgroundColor.gray};

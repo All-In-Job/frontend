@@ -1,10 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import { ResetCSS } from "./styles/reset";
-import { RecoilRoot } from "recoil";
+import React from 'react';
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+import ReactDOM from 'react-dom/client';
+import { RecoilRoot } from 'recoil';
+
+import App from './App.tsx';
+import { ResetCSS } from './styles/reset';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RecoilRoot>
       <ResetCSS>

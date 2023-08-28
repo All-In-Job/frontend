@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 export const MenuBar = styled.ul`
   background-color: #ffe7de;
