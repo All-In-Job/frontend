@@ -38,27 +38,27 @@ function Header() {
     },
   ];
   return (
-    <S.HeaderContainer>
-      <S.MenuContainer>
-        <S.HeaderLogo>ALL IN JOB</S.HeaderLogo>
-        <div
-          style={{
-            flex: 2,
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center'
-          }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <S.MenuWrapper>
-            {menuItems.map((item) => (
-              <S.MenuItem key={item.name}>{item.name}</S.MenuItem>
-            ))}
-            {isHovered ?
-              <S.HoverMenu>
-                <S.divisionLine />
-                {/*<S.MenuDetailContainer>*/}
+    <>
+      <S.HeaderContainer>
+        <S.MenuContainer>
+          <S.HeaderLogo>ALL IN JOB</S.HeaderLogo>
+          <div
+            style={{
+              flex: 2,
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+            }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <S.MenuWrapper>
+              {menuItems.map((item) => (
+                <S.MenuItem key={item.name}>{item.name}</S.MenuItem>
+              ))}
+              {isHovered ? (
+                <S.HoverMenu>
+                  <S.divisionLine />
                   <S.MenuDetailWrapper>
                     {menuItems.map((item) => (
                       <div
@@ -72,6 +72,7 @@ function Header() {
                             <p
                               style={{
                                 width: "125px",
+                                cursor: "pointer",
                               }}
                               key={subItem}
                             >
@@ -82,16 +83,17 @@ function Header() {
                       </div>
                     ))}
                   </S.MenuDetailWrapper>
-                {/*</S.MenuDetailContainer>*/}
-              </S.HoverMenu>
-            : null}
-          </S.MenuWrapper>
-        </div>
-        <div style={{flex: 1, display: 'flex', justifyContent: 'right'}}>
-          <S.CharactorBox>캐릭터</S.CharactorBox>
-        </div>
-      </S.MenuContainer>
-    </S.HeaderContainer>
+                </S.HoverMenu>
+              ) : null}
+            </S.MenuWrapper>
+          </div>
+          <div style={{ flex: 1, display: "flex", justifyContent: "right" }}>
+            <S.CharactorBox>캐릭터</S.CharactorBox>
+          </div>
+        </S.MenuContainer>
+      </S.HeaderContainer>
+      {isHovered && <S.Overlay />}
+    </>
   );
 }
 
