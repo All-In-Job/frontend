@@ -11,7 +11,7 @@ export const GlobalStyles: FC<PropsWithChildren> = ({ children }) => {
     ${fontCSS}
 
     body {
-      font-family: SUIT-Regular;
+      font-family: Regular;
     }
   `;
 
