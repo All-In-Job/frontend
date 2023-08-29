@@ -1,9 +1,9 @@
 import '@emotion/react';
-import { Palette, TextStyle } from './theme.types';
+import { Palette, TextStylesRecord } from './theme.types';
 
 declare module '@emotion/react' {
   export interface Theme {
     palette: Palette;
-    textStyle: TextStyle;
+    textStyle: TextStylesRecord;
   }
 }

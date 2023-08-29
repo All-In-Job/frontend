@@ -37,7 +37,7 @@ export const Carousel = () => {
           },
           visibleSlide <= slideState.length - 2
             ? TRANSITION_DURATION * 2000 + 500
-            : TRANSITION_DURATION * 1000 + 500
+            : TRANSITION_DURATION * 1000 + 500,
         );
       }
       ref.current = true;

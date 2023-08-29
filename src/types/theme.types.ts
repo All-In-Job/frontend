@@ -1,3 +1,25 @@
+type CommonTextStyles = {
+  fontSize: string;
+  lineHeight: string;
+};
+
+type TextStyles =
+  | 'display01'
+  | 'display02'
+  | 'headLine01'
+  | 'headLine02'
+  | 'title01'
+  | 'title02'
+  | 'body01'
+  | 'body02'
+  | 'label01'
+  | 'label02'
+  | 'label03'
+  | 'caption01'
+  | 'caption02';
+
+export type TextStylesRecord = Record<TextStyles, CommonTextStyles>;
+
 export interface Palette {
   orange50: string;
   orange100: string;
@@ -41,60 +63,5 @@ export interface Palette {
     alert: string;
     caution: string;
     positive: string;
-  };
-}
-
-export interface TextStyle {
-  display01: {
-    fontSize: string;
-    lineHeight: string;
-  };
-  display02: {
-    fontSize: string;
-    lineHeight: string;
-  };
-  headLine01: {
-    fontSize: string;
-    lineHeight: string;
-  };
-  headLine02: {
-    fontSize: string;
-    lineHeight: string;
-  };
-  title01: {
-    fontSize: string;
-    lineHeight: string;
-  };
-  title02: {
-    fontSize: string;
-    lineHeight: string;
-  };
-  body01: {
-    fontSize: string;
-    lineHeight: string;
-  };
-  body02: {
-    fontSize: string;
-    lineHeight: string;
-  };
-  label01: {
-    fontSize: string;
-    lineHeight: string;
-  };
-  label02: {
-    fontSize: string;
-    lineHeight: string;
-  };
-  label03: {
-    fontSize: string;
-    lineHeight: string;
-  };
-  caption01: {
-    fontSize: string;
-    lineHeight: string;
-  };
-  caption02: {
-    fontSize: string;
-    lineHeight: string;
   };
 }
