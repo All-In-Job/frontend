@@ -1,10 +1,10 @@
 import { FC, useEffect, useRef, useState } from 'react';
 
 import BarPiece from './BarPiece';
-import InnerCandyShape from './InnerCandyShape';
+import { ReactComponent as CandyShape } from './res/img/fullCandy.svg';
+import { ReactComponent as InnerShape } from './res/img/innerCandy.svg';
 import * as S from './thermometer.styles';
 import { ThermometerPercentList } from './types';
-import UnionCandyShape from './UnionCandyShape';
 
 interface Props {
   thermometerPercentList: ThermometerPercentList;
@@ -22,7 +22,7 @@ const PassionThermometer: FC<Props> = ({ thermometerPercentList }) => {
 
   return (
     <S.Container>
-      <InnerCandyShape />
+      <InnerShape />
       <S.BarPieceList ref={indicatorRef}>
         {Object.keys(thermometerPercentList).map((key, idx) => {
           const props = thermometerPercentList[key as keyof ThermometerPercentList];
@@ -37,7 +37,7 @@ const PassionThermometer: FC<Props> = ({ thermometerPercentList }) => {
         })}
       </S.BarPieceList>
 
-      <UnionCandyShape />
+      <CandyShape />
     </S.Container>
   );
 };
