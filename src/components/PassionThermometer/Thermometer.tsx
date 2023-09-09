@@ -1,45 +1,64 @@
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, RefObject } from 'react';
+
+import styled from '@emotion/styled';
 
 import BarPiece from './BarPiece';
-import { ReactComponent as CandyShape } from './res/img/fullCandy.svg';
-import { ReactComponent as InnerShape } from './res/img/innerCandy.svg';
-import * as S from './thermometer.styles';
+import { ReactComponent as Temperature } from './res/img/temprature.svg';
 import { ThermometerPercentList } from './types';
 
 interface Props {
+  temperatureWidth: number;
+  temperatureRef: RefObject<HTMLElement>;
   thermometerPercentList: ThermometerPercentList;
 }
 
-//너비 800~997px 정도가 적당
-const PassionThermometer: FC<Props> = ({ thermometerPercentList }) => {
-  const indicatorRef = useRef<HTMLUListElement>(null);
-  const [indicatorWidth, setIndicatorWidth] = useState(0);
-
-  useEffect(() => {
-    if (indicatorRef.current == null) return;
-    setIndicatorWidth(indicatorRef.current?.clientWidth);
-  }, []);
-
+const PassionThermometer: FC<Props> = ({
+  temperatureWidth: temperatureWidth,
+  temperatureRef: temperatureRef,
+  thermometerPercentList,
+}) => {
   return (
-    <S.Container>
-      <InnerShape />
-      <S.BarPieceList ref={indicatorRef}>
+    <Container>
+      <BarPieceList ref={temperatureRef as RefObject<HTMLUListElement>}>
         {Object.keys(thermometerPercentList).map((key, idx) => {
           const props = thermometerPercentList[key as keyof ThermometerPercentList];
           return (
             <BarPiece
               key={props.barType}
               isTail={Object.keys(thermometerPercentList).length - 1 === idx}
-              indicatorWidth={indicatorWidth}
+              temperatureWidth={temperatureWidth}
               {...props}
             />
           );
         })}
-      </S.BarPieceList>
+      </BarPieceList>
 
-      <CandyShape />
-    </S.Container>
+      <TemperatureIcon />
+    </Container>
   );
 };
 
 export default PassionThermometer;
+
+const Container = styled.div`
+  position: relative;
+  background: var(--background-primary-50, #f8f8f8);
+`;
+
+const TemperatureIcon = styled(Temperature)`
+  width: 100%;
+  height: 100%;
+`;
+
+const BarPieceList = styled.ul`
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  z-index: 5;
+  overflow: hidden;
+  clip-path: url(#myClip);
+`;
