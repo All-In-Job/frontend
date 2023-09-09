@@ -27,7 +27,7 @@ const PassionTemperature = () => {
   const totalWidth = getTotalWidth(temperatureWidth, thermometerPercentList, indicatorWidth);
 
   return (
-    <FlexColumnContainer>
+    <Container>
       <Title>열정온도</Title>
       <TemperatureContainer>
         <Description>IT프로그래밍 분야 중 상위 25%</Description>
@@ -38,11 +38,15 @@ const PassionTemperature = () => {
           thermometerPercentList={thermometerPercentList}
         />
       </TemperatureContainer>
-    </FlexColumnContainer>
+    </Container>
   );
 };
 
 export default PassionTemperature;
+
+const Container = styled(FlexColumnContainer)`
+  height: 128px;
+`;
 
 const Title = styled.h2`
   margin-bottom: 16px;
