@@ -1,20 +1,13 @@
-import {useState} from "react";
 import * as S from "./postCard.styles";
 
 function PostCard() {
-  const [isPick, setIsPick] = useState(false);
-
-  const onClickPick = () => {
-    setIsPick((prev) => !prev);
-  };
-
   return (
     <S.PostCardContainer>
       <S.PostCardImgBox>
         <img />
-        <S.PickButton onClick={onClickPick} isPick={isPick}>
-          <img src="src/components/commons/PostCard/res/img/icon_bookmark.png" />
-        </S.PickButton>
+
+        {/* 마우스 오버, Pick props 전달 */}
+        <S.PickButton>{/* 아이콘 */}</S.PickButton>
       </S.PostCardImgBox>
 
       <S.PostCardInfo>
@@ -37,9 +30,7 @@ function PostCard() {
         </li>
       </S.PostCardFooter>
 
-      <S.PostCardTag>
-        <div />
-      </S.PostCardTag>
+      <S.PostCardTag>SPECIAL</S.PostCardTag>
     </S.PostCardContainer>
   );
 }

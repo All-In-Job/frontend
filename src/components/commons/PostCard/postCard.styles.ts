@@ -24,17 +24,16 @@ const commonStyle = {
   },
 };
 
-export const PostCardContainer = styled.article`
+export const PostCardContainer = styled.div`
   position: relative;
-  width: 100%;
-  cursor: pointer;
+  width: 244px;
+  margin: 0 auto;
 `;
 
 export const PostCardImgBox = styled.div`
   position: relative;
-  display: flex;
   width: 100%;
-  padding-top: 100%;
+  height: 244px;
   border-radius: 14px;
   background-color: #ddd;
   overflow: hidden;
@@ -44,23 +43,17 @@ export const PostCardImgBox = styled.div`
     height: 100%;
     object-fit: cover;
     object-position: center;
-    padding: 0;
-    margin: 0;
-    border: 0;
   }
 `;
 
-export const PickButton = styled.button<{isPick: boolean}>`
+export const PickButton = styled.button`
   position: absolute;
   width: 22px;
   height: 21px;
   right: 16px;
   bottom: 16px;
+  background-color: ${commonStyle.backgroundColor.orange02};
   cursor: pointer;
-
-  > img {
-    background-color: ${(props) => (props.isPick ? "#FD6B36" : "#ddd")};
-  }
 `;
 
 export const PostCardInfo = styled.div`
@@ -133,24 +126,14 @@ export const FooterCount = styled.p`
 
 export const PostCardTag = styled.div`
   position: absolute;
-  top: 18px;
-  left: -3px;
-
-  > div {
-    position: relative;
-
-    ::before {
-      content: "SPECIAL";
-      position: absolute;
-      top: 5px;
-      padding-right: 10px;
-      color: #fff;
-      border: 15px solid ${commonStyle.backgroundColor.orange02};
-      border-right-color: transparent;
-      line-height: 0px;
-      z-index: 1;
-      border-radius: 4px;
-    }
-  }
+  width: 72px;
+  height: 20px;
+  top: 20px;
+  left: -4px;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 4px;
+  color: ${commonStyle.color.white};
+  background-color: ${commonStyle.backgroundColor.orange02};
+  font-size: ${commonStyle.fontSize.thin};
 `;
-
