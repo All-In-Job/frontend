@@ -6,8 +6,11 @@ function PostCard() {
       <S.PostCardImgBox>
         <img />
 
-        {/* 마우스 오버, Pick props 전달 */}
-        <S.PickButton>{/* 아이콘 */}</S.PickButton>
+        <S.PostCardTag>SPECIAL</S.PostCardTag>
+
+        <S.PickButton>
+          <S.PickIcon />
+        </S.PickButton>
       </S.PostCardImgBox>
 
       <S.PostCardInfo>
@@ -21,16 +24,17 @@ function PostCard() {
 
       <S.PostCardFooter>
         <li>
-          <S.FooterIcon />
+          <S.SmallBookmarkIcon />
           <S.FooterCount>264</S.FooterCount>
         </li>
         <li>
-          <S.FooterIcon />
+          <S.DevideLine />
+        </li>
+        <li>
+          <S.VisibilityIcon />
           <S.FooterCount>4715</S.FooterCount>
         </li>
       </S.PostCardFooter>
-
-      <S.PostCardTag>SPECIAL</S.PostCardTag>
     </S.PostCardContainer>
   );
 }
