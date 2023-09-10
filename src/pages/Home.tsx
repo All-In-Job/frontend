@@ -1,21 +1,30 @@
-import Header from "../components/Navigation/Header/Header";
-import * as S from "./home.style";
-import { Carousel } from "../components/Carousel/Carousel";
-import { ContestMenuBar } from "../components/ContestMenuBar/ContestMenuBar";
-import { CardList } from "../components/CardList/CardList";
+import { Outlet, useOutlet } from 'react-router-dom';
+
+import Header from 'components/Navigation/Header/Header';
+
+import PassionTemperature from './home/PassionTemperature';
+import * as S from './home.style';
 
 export const Home = () => {
+  const outlet = useOutlet();
+
   return (
     <>
       <Header />
-      <S.Layout>
-        <S.Main>
-          <Carousel />
-          <ContestMenuBar />
-          <CardList />
-        </S.Main>
-        <S.Sidebar>sidebar</S.Sidebar>
-      </S.Layout>
+      {/*<FindID />*/}x
+      {outlet ? (
+        <Outlet />
+      ) : (
+        <S.Layout>
+          <S.Main>
+            <PassionTemperature />
+            {/*<Carousel />*/}
+            {/*<ContestMenuBar />*/}
+            {/*<CardList />*/}
+          </S.Main>
+          <S.Sidebar>{/*<Aside />*/}</S.Sidebar>
+        </S.Layout>
+      )}
     </>
   );
 };
