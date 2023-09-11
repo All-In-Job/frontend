@@ -7,6 +7,7 @@ import PassionThermometer from 'components/PassionThermometer/Thermometer';
 
 import Indicator from './Indicator';
 import { FlexColumnContainer } from './PassionTemperature.style';
+import TemperatureCategory from './TemperatureCategory';
 import { getTotalWidth } from './utils';
 
 const PassionTemperature = () => {
@@ -38,6 +39,7 @@ const PassionTemperature = () => {
           thermometerPercentList={thermometerPercentList}
         />
       </TemperatureContainer>
+      <TemperatureCategory />
     </Container>
   );
 };

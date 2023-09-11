@@ -1,5 +1,6 @@
 export type Category = {
   id: string;
+  name: string;
   subCategoryList: string[];
 };
 
