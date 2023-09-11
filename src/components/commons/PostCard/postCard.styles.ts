@@ -10,10 +10,10 @@ export const PostCardContainer = styled.div`
   margin: 0 auto;
 `;
 
-export const PostCardImgBox = styled.div`
+export const PostCardImgBox = styled.div<{ imgHeight: string }>`
   position: relative;
   width: 100%;
-  height: 282px;
+  height: ${props => props.imgHeight};
   border-radius: 14px;
   background-color: #ddd;
   overflow: hidden;
@@ -38,16 +38,6 @@ export const PickButton = styled.button`
 
 export const PickIcon = styled(Bookmark)``;
 
-export const PostCardInfo = styled.div`
-  padding: 16px 0 4px;
-
-  p {
-    font-size: ${props => props.theme.textStyle.label02.fontSize};
-    line-height: ${props => props.theme.textStyle.label02.lineHeight};
-    font-family: Bold;
-  }
-`;
-
 export const InfoHost = styled.h2`
   color: ${props => props.theme.palette.black200};
   font-size: ${props => props.theme.textStyle.body01.fontSize};
@@ -56,16 +46,42 @@ export const InfoHost = styled.h2`
 `;
 
 export const InfoTitle = styled.h3`
-  margin: 8px 0 12px;
   font-size: ${props => props.theme.textStyle.title01.fontSize};
   color: ${props => props.theme.palette.black500};
   line-height: ${props => props.theme.textStyle.title01.lineHeight};
   font-family: Bold;
 `;
 
+export const Location = styled.h3`
+  margin-top: 8px;
+  color: ${props => props.theme.palette.black200};
+  line-height: ${props => props.theme.textStyle.body01.lineHeight};
+  font-family: SemiBold;
+`;
+
+export const PostCardInfo = styled.div<{ isChangeInfoLayout: boolean }>`
+  padding: 16px 0 4px;
+
+  p {
+    font-size: ${props => props.theme.textStyle.label02.fontSize};
+    line-height: ${props => props.theme.textStyle.label02.lineHeight};
+    font-family: Bold;
+  }
+
+  ${props => (props.isChangeInfoLayout ? InfoHost : InfoTitle)} {
+    margin-top: 8px;
+  }
+
+  ${props => props.isChangeInfoLayout && InfoTitle} {
+    font-size: ${props => props.theme.textStyle.title02.fontSize};
+    line-height: ${props => props.theme.textStyle.title02.lineHeight};
+  }
+`;
+
 export const InfoDate = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 12px;
 `;
 
 export const DateDday = styled.p`

@@ -1,38 +1,65 @@
 import * as S from './postCard.styles';
 
-function PostCard() {
+type PostCardProps = {
+  mainImage: string;
+  infoHost: string;
+  title: string;
+  dateDday: string;
+  dateCreation: string;
+  scrapCount: string;
+  viewCount: string;
+  location: string;
+  imgHeight?: string;
+  isPostCardTag?: boolean;
+  isPickButton?: boolean;
+  isChangeInfoLayout?: boolean;
+};
+
+function PostCard(props: PostCardProps) {
   return (
     <S.PostCardContainer>
-      <S.PostCardImgBox>
-        <img />
+      <S.PostCardImgBox imgHeight={props.imgHeight ?? '282px'}>
+        <img src={props.mainImage} />
 
-        <S.PostCardTag>SPECIAL</S.PostCardTag>
+        {props.isPostCardTag && <S.PostCardTag>SPECIAL</S.PostCardTag>}
 
-        <S.PickButton>
-          <S.PickIcon />
-        </S.PickButton>
+        {props.isPickButton && (
+          <S.PickButton>
+            <S.PickIcon />
+          </S.PickButton>
+        )}
       </S.PostCardImgBox>
 
-      <S.PostCardInfo>
-        <S.InfoHost>주최기관</S.InfoHost>
-        <S.InfoTitle>2023 Meta Spark AR 콘텐츠 공모전</S.InfoTitle>
+      <S.PostCardInfo isChangeInfoLayout={props.isChangeInfoLayout ? true : false}>
+        {props.isChangeInfoLayout ? (
+          <>
+            <S.InfoTitle>{props.title}</S.InfoTitle>
+            <S.InfoHost>{props.infoHost}</S.InfoHost>
+            {props.location && <S.Location>{props.location}</S.Location>}
+          </>
+        ) : (
+          <>
+            <S.InfoHost>{props.infoHost}</S.InfoHost>
+            <S.InfoTitle>{props.title}</S.InfoTitle>
+          </>
+        )}
         <S.InfoDate>
-          <S.DateDday>D-1</S.DateDday>
-          <S.DateCreation>2023.08.24</S.DateCreation>
+          <S.DateDday>{props.dateDday}</S.DateDday>
+          <S.DateCreation>{props.dateCreation}</S.DateCreation>
         </S.InfoDate>
       </S.PostCardInfo>
 
       <S.PostCardFooter>
         <li>
           <S.SmallBookmarkIcon />
-          <S.FooterCount>264</S.FooterCount>
+          <S.FooterCount>{props.scrapCount}</S.FooterCount>
         </li>
         <li>
           <S.DevideLine />
         </li>
         <li>
           <S.VisibilityIcon />
-          <S.FooterCount>4715</S.FooterCount>
+          <S.FooterCount>{props.viewCount}</S.FooterCount>
         </li>
       </S.PostCardFooter>
     </S.PostCardContainer>
