@@ -7,6 +7,7 @@ import PassionThermometer from 'components/PassionThermometer/Thermometer';
 
 import Indicator from './Indicator';
 import { FlexColumnContainer } from './PassionTemperature.style';
+import TemperatureCategory from './TemperatureCategory';
 import { getTotalWidth } from './utils';
 
 const PassionTemperature = () => {
@@ -27,7 +28,7 @@ const PassionTemperature = () => {
   const totalWidth = getTotalWidth(temperatureWidth, thermometerPercentList, indicatorWidth);
 
   return (
-    <FlexColumnContainer>
+    <Container>
       <Title>열정온도</Title>
       <TemperatureContainer>
         <Description>IT프로그래밍 분야 중 상위 25%</Description>
@@ -38,11 +39,16 @@ const PassionTemperature = () => {
           thermometerPercentList={thermometerPercentList}
         />
       </TemperatureContainer>
-    </FlexColumnContainer>
+      <TemperatureCategory />
+    </Container>
   );
 };
 
 export default PassionTemperature;
+
+const Container = styled(FlexColumnContainer)`
+  height: 128px;
+`;
 
 const Title = styled.h2`
   margin-bottom: 16px;
