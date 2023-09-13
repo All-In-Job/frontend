@@ -24,7 +24,7 @@ const Temperature: FC<Props> = ({ temperature }) => {
 
   return (
     <Container>
-      <HeadingDesc size='12px'>`IT 프로그래밍 분야 중 상위 ${temperature}%`</HeadingDesc>
+      <HeadingDesc size='12px'>`IT 프로그래밍 분야 중 상위 {temperature}%`</HeadingDesc>
       <TemperatureWrapper ref={temperatureRef}>
         <SmallTemperature />
         <TemperatureDegree width={`${degree}px`} />

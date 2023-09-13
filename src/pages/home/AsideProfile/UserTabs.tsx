@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import styled from '@emotion/styled';
 
 import { Desc } from './asideProfile.style';
-import { ReactComponent as Canendar } from './res/img/calendar.svg';
+import { ReactComponent as Calendar } from './res/img/calendar.svg';
 import { ReactComponent as MyInfo } from './res/img/info.svg';
 import { ReactComponent as Script } from './res/img/script.svg';
 import { ReactComponent as Temperature } from './res/img/temperature.svg';
@@ -13,7 +13,7 @@ const UserTabs = () => {
     { title: '내정보', icon: <MyInfo /> },
     { title: '열정온도', icon: <Temperature /> },
     { title: '스크랩', icon: <Script /> },
-    { title: '달력', icon: <Canendar /> },
+    { title: '달력', icon: <Calendar /> },
   ];
 
   return (
@@ -36,6 +36,7 @@ export default UserTabs;
 const Container = styled.ul`
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 12px 14px;
   height: 100%;
   border-radius: 0px 0px 12px 12px;
@@ -47,7 +48,7 @@ const Tab = styled.li`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 16px;
+  margin: 0 14px;
   cursor: pointer;
 `;
 
