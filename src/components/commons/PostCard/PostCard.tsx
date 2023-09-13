@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import * as S from './postCard.styles';
 
 type PostCardProps = {
@@ -16,6 +18,12 @@ type PostCardProps = {
 };
 
 function PostCard(props: PostCardProps) {
+  const [isPick, setIsPick] = useState(false);
+
+  const onClickPick = () => {
+    setIsPick(pick => !pick);
+  };
+
   return (
     <S.PostCardContainer>
       <S.PostCardImgBox imgHeight={props.imgHeight ?? '282px'}>
@@ -24,8 +32,8 @@ function PostCard(props: PostCardProps) {
         {props.isPostCardTag && <S.PostCardTag>SPECIAL</S.PostCardTag>}
 
         {props.isPickButton && (
-          <S.PickButton>
-            <S.PickIcon />
+          <S.PickButton onClick={onClickPick}>
+            <S.PickIcon data-ispick={isPick} />
           </S.PickButton>
         )}
       </S.PostCardImgBox>

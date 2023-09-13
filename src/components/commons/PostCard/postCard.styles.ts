@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 import { ReactComponent as Bookmark } from './res/img/bookmark.svg';
-import { ReactComponent as SmallBookmark } from './res/img/small-bookmark.svg';
+import { ReactComponent as SmallBookmark } from './res/img/small_bookmark.svg';
 import { ReactComponent as Visibility } from './res/img/visibility.svg';
 
 export const PostCardContainer = styled.div`
@@ -36,7 +36,12 @@ export const PickButton = styled.button`
   cursor: pointer;
 `;
 
-export const PickIcon = styled(Bookmark)``;
+export const PickIcon = styled(Bookmark)<{ 'data-ispick': boolean }>`
+  path {
+    fill: ${props =>
+      props['data-ispick'] ? props.theme.palette.orange500 : props.theme.palette.black200};
+  }
+`;
 
 export const InfoHost = styled.h2`
   color: ${props => props.theme.palette.black200};
