@@ -5,6 +5,8 @@ import { BarPieceColor } from 'components/PassionThermometer/types';
 import CertificationItem from './components/CertificationItem';
 import CompetitionItem from './components/CompetitionItem';
 import InternItem from './components/InternItem';
+import LanguageStudy from './components/LanguageStudy';
+import OutSideActivity from './components/OutSideActivity';
 import { Solution } from './type';
 
 interface Props {
@@ -17,8 +19,8 @@ const SolutionItem: FC<Props> = ({ itemKey, solution }) => {
     CERTIFICATE: <CertificationItem solution={solution} />,
     INTERN: <InternItem solution={solution} />,
     COMPETITION: <CompetitionItem solution={solution} />,
-    LANGUAGE_STUDY: <>기획 없음</>,
-    OUT_SIDE_ACTIVITY: <>기획 없음</>,
+    LANGUAGE_STUDY: <LanguageStudy solution={solution} />,
+    OUT_SIDE_ACTIVITY: <OutSideActivity solution={solution} />,
   };
 
   return <>{itemMapper[itemKey]}</>;

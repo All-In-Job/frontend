@@ -6,16 +6,16 @@ import {
   SolutionInfoContainer,
   SolutionItemContainer,
 } from '../asideProfile.style';
-import Badge from '../components/Badge';
 import { Solution } from '../type';
 
+import Badge from './Badge';
 import Picture from './Picture';
 
 interface Props {
   solution: Solution;
 }
 
-const CertificationItem: FC<Props> = ({ solution }) => {
+const LanguageStudy: FC<Props> = ({ solution }) => {
   return (
     <>
       <Badge title={solution.id} />
@@ -23,14 +23,14 @@ const CertificationItem: FC<Props> = ({ solution }) => {
       <SolutionItemContainer>
         <Picture img={solution.img[0]} />
         <SolutionInfoContainer>
-          <LightDesc>시행기관</LightDesc>
-          <Desc>{solution.host}</Desc>
-          <LightDesc>{solution.date}</LightDesc>
-          <Desc>분야</Desc>
+          <LightDesc>{solution.type ?? ''}</LightDesc>
+          <Desc>{solution.name}</Desc>
+          <Desc>기간</Desc>
+          <Desc>{solution.date}</Desc>
         </SolutionInfoContainer>
       </SolutionItemContainer>
     </>
   );
 };
 
-export default CertificationItem;
+export default LanguageStudy;

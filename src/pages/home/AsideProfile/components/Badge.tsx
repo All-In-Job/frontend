@@ -13,4 +13,22 @@ const Badge: FC<Props> = ({ title, className }) => {
 
 export default Badge;
 
-const Container = styled.span``;
+const Container = styled.span`
+  display: flex;
+  padding: 4px 8px;
+  margin-bottom: 8px;
+  width: fit-content;
+  color: var(--orange-500, #fd6b36);
+  text-align: center;
+
+  /* Caption 1/Bold */
+  font-family: SUIT;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 16px; /* 133.333% */
+
+  border-radius: 4px;
+  border: 1px solid var(--orange-500, #fd6b36);
+  background: var(--black-white-wh, #fff);
+`;
