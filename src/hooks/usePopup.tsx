@@ -1,9 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
 
-const usePopup = () => {
+export type PopupControllerState = {
+  popupRef: RefObject<HTMLElement>;
+  buttonRef: RefObject<HTMLElement>;
+  isShow: boolean;
+  setIsShow: (isShow: boolean) => void;
+};
+
+type UsePopup = () => PopupControllerState;
+
+const usePopup: UsePopup = (initIsShow = false) => {
   const popupRef = useRef<HTMLElement | null>(null);
   const buttonRef = useRef<HTMLElement | null>(null);
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState(initIsShow);
 
   useEffect(() => {
     //팝업 바깥을 클릭하면 isShow 가 false가 됨.
