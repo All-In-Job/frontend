@@ -5,13 +5,13 @@ import { ReactComponent as CheckCircle } from './res/img/check_circle.svg';
 import { ReactComponent as ExpandMore } from './res/img/expand_more.svg';
 
 type ExpandMoreIconProps = {
-  choiceDepartment: string;
+  choicedepartment: string;
   'data-isvisible': boolean;
   'data-isinputfocused': boolean;
 };
 
 type MajorDepartmentProps = {
-  choiceDepartment: string;
+  choicedepartment: string;
   isVisible: boolean;
   isInputFocused: boolean;
 };
@@ -28,7 +28,7 @@ export const ExpandMoreIcon = styled(ExpandMore)<ExpandMoreIconProps>`
 
   path {
     fill: ${props =>
-      props.choiceDepartment !== '' || props['data-isinputfocused']
+      props.choicedepartment !== '' || props['data-isinputfocused']
         ? props.theme.palette.orange500
         : props.theme.palette.black300};
   }
@@ -60,7 +60,7 @@ export const MajorDepartment = styled.div<MajorDepartmentProps>`
   position: relative;
   border: 1px solid
     ${props =>
-      props.choiceDepartment !== '' || props.isInputFocused
+      props.choicedepartment !== '' || props.isInputFocused
         ? props.theme.palette.orange500
         : props.theme.palette.black200};
   background-color: #fff;
