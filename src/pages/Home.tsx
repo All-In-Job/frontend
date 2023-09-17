@@ -22,7 +22,7 @@ export const Home = () => {
             <PassionTemperature />
             {/*<Carousel />*/}
             {/*<ContestMenuBar />*/}
-            {/*<CardList />*/}
+            {/* <CardList /> */}
           </S.Main>
           <S.Sidebar>
             <Profile />

@@ -1,39 +1,19 @@
 import styled from '@emotion/styled';
 
-const commonStyle = {
-  color: {
-    orange: '#FD6B36',
-    gray: '#AEAAA6',
-    white: '#FFFFFF',
-  },
-
-  backgroundColor: {
-    orange: '#ffe7de',
-    orange02: '#FD6B36',
-
-    gray: '#EAE5E0',
-  },
-
-  fontSize: {
-    light: '14px',
-    thin: '12px',
-  },
-
-  fontWeight: {
-    bold: '700',
-  },
-};
+import { ReactComponent as Bookmark } from './res/img/bookmark.svg';
+import { ReactComponent as SmallBookmark } from './res/img/small_bookmark.svg';
+import { ReactComponent as Visibility } from './res/img/visibility.svg';
 
 export const PostCardContainer = styled.div`
   position: relative;
-  width: 244px;
+  width: 282px;
   margin: 0 auto;
 `;
 
-export const PostCardImgBox = styled.div`
+export const PostCardImgBox = styled.div<{ imgHeight: string }>`
   position: relative;
   width: 100%;
-  height: 244px;
+  height: ${props => props.imgHeight};
   border-radius: 14px;
   background-color: #ddd;
   overflow: hidden;
@@ -48,50 +28,77 @@ export const PostCardImgBox = styled.div`
 
 export const PickButton = styled.button`
   position: absolute;
-  width: 22px;
-  height: 21px;
+  width: 16px;
+  height: 22px;
   right: 16px;
   bottom: 16px;
-  background-color: ${commonStyle.backgroundColor.orange02};
+  background-color: transparent;
   cursor: pointer;
 `;
 
-export const PostCardInfo = styled.div`
-  padding: 16px 0 20px;
-
-  p {
-    font-weight: ${commonStyle.fontWeight.bold};
+export const PickIcon = styled(Bookmark)<{ 'data-ispick': boolean }>`
+  path {
+    fill: ${props =>
+      props['data-ispick'] ? props.theme.palette.orange500 : props.theme.palette.black200};
   }
 `;
 
 export const InfoHost = styled.h2`
-  color: ${commonStyle.color.gray};
-  font-size: 14px;
-  font-weight: ${commonStyle.fontWeight.bold};
+  color: ${props => props.theme.palette.black200};
+  font-size: ${props => props.theme.textStyle.body01.fontSize};
+  line-height: ${props => props.theme.textStyle.body01.lineHeight};
+  font-family: SemiBold;
 `;
 
 export const InfoTitle = styled.h3`
-  margin: 5px 0;
-  font-size: 18px;
-  font-weight: ${commonStyle.fontWeight.bold};
+  font-size: ${props => props.theme.textStyle.title01.fontSize};
+  color: ${props => props.theme.palette.black500};
+  line-height: ${props => props.theme.textStyle.title01.lineHeight};
+  font-family: Bold;
+`;
+
+export const Location = styled.h3`
+  margin-top: 8px;
+  color: ${props => props.theme.palette.black200};
+  line-height: ${props => props.theme.textStyle.body01.lineHeight};
+  font-family: SemiBold;
+`;
+
+export const PostCardInfo = styled.div<{ isChangeInfoLayout: boolean }>`
+  padding: 16px 0 4px;
+
+  p {
+    font-size: ${props => props.theme.textStyle.label02.fontSize};
+    line-height: ${props => props.theme.textStyle.label02.lineHeight};
+    font-family: Bold;
+  }
+
+  ${props => (props.isChangeInfoLayout ? InfoHost : InfoTitle)} {
+    margin-top: 8px;
+  }
+
+  ${props => props.isChangeInfoLayout && InfoTitle} {
+    font-size: ${props => props.theme.textStyle.title02.fontSize};
+    line-height: ${props => props.theme.textStyle.title02.lineHeight};
+  }
 `;
 
 export const InfoDate = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 12px;
 `;
 
 export const DateDday = styled.p`
-  margin-right: 6px;
-  padding: 4px 16px;
-  border-radius: 13px;
-  color: ${commonStyle.color.orange};
-  background-color: ${commonStyle.backgroundColor.orange};
-  font-size: ${commonStyle.fontSize.light};
+  margin-right: 7px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: ${props => props.theme.palette.orange500};
+  background-color: ${props => props.theme.palette.orange100};
 `;
 
 export const DateCreation = styled.p`
-  color: ${commonStyle.color.gray};
+  color: ${props => props.theme.palette.black200};
 `;
 
 export const PostCardFooter = styled.ul`
@@ -101,39 +108,47 @@ export const PostCardFooter = styled.ul`
   > li {
     display: flex;
     align-items: center;
+    line-height: 20px;
 
-    :first-of-type::after {
-      content: '';
-      width: 1px;
-      height: 100%;
-      background-color: ${commonStyle.backgroundColor.gray};
-      margin: 0 5px;
+    :nth-last-of-type(2) {
+      display: flex;
+      justify-content: center;
+      width: 20px;
     }
   }
 `;
 
-export const FooterIcon = styled.div`
-  width: 12px;
+export const SmallBookmarkIcon = styled(SmallBookmark)`
+  margin-right: 2px;
+`;
+
+export const VisibilityIcon = styled(Visibility)`
+  margin-right: 2px;
+`;
+
+export const DevideLine = styled.div`
+  content: '';
+  width: 1px;
   height: 12px;
-  margin-right: 5px;
-  background-color: ${commonStyle.backgroundColor.orange02};
+  background-color: ${props => props.theme.palette.background.primary};
+  border-radius: 1px;
 `;
 
 export const FooterCount = styled.p`
-  color: ${commonStyle.color.gray};
-  font-size: ${commonStyle.fontSize.light};
+  color: ${props => props.theme.palette.black200};
+  font-size: ${props => props.theme.textStyle.label03.fontSize};
+  font-family: Bold;
 `;
 
 export const PostCardTag = styled.div`
   position: absolute;
-  width: 72px;
-  height: 20px;
-  top: 20px;
-  left: -4px;
-  line-height: 20px;
-  text-align: center;
+  top: 16px;
+  left: 16px;
+  padding: 4px 8px;
   border-radius: 4px;
-  color: ${commonStyle.color.white};
-  background-color: ${commonStyle.backgroundColor.orange02};
-  font-size: ${commonStyle.fontSize.thin};
+  color: ${props => props.theme.palette.orange100};
+  background-color: ${props => props.theme.palette.orange500};
+  font-size: 14px;
+  font-family: SemiBold;
+  line-height: 21px;
 `;
