@@ -1,7 +1,7 @@
 import { Outlet, useOutlet } from 'react-router-dom';
 
 import Header from 'components/Navigation/Header/Header';
-import CommonPopup from 'components/Popup/CommonPopup';
+import CreatePortal from 'components/Popup/CreatePortal';
 import usePopup from 'hooks/usePopup';
 
 import Profile from './home/AsideProfile/Profile';
@@ -14,7 +14,7 @@ export const Home = () => {
   const outlet = useOutlet();
 
   const { isShow, setIsShow } = usePopup();
-
+  console.log(isShow);
   return (
     <>
       <Header />
@@ -30,20 +30,17 @@ export const Home = () => {
             {/* <CardList /> */}
           </S.Main>
           <S.Sidebar>
-            <CommonPopup
-              popupController={{ isShow, setIsShow }}
-              popup={
+            <div id='popup' />
+            {isShow ? (
+              <CreatePortal domId='popup' onClose={() => setIsShow(false)}>
                 <>
-                  {isShow && (
-                    <>
-                      <Profile />
-                      <Solution />
-                    </>
-                  )}
+                  <Profile />
+                  <Solution />
                 </>
-              }
-              popupButton={<>{!isShow && <Badge onClick={() => setIsShow(!isShow)} />}</>}
-            />
+              </CreatePortal>
+            ) : (
+              <Badge onClick={() => setIsShow(!isShow)} />
+            )}
 
             {/*<Aside />*/}
           </S.Sidebar>
