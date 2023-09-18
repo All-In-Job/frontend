@@ -11,11 +11,11 @@ const TemperatureCategory = () => {
       <CategoryList>
         {Object.entries(categoryList).map(([k, v]) => {
           return (
-            <CardContainer>
+            <CardContainer key={k}>
               <CardHeader color={BAR_PIECE_COLOR[k as keyof BarPieceColor]}>{v.name}</CardHeader>
               <Category key={k}>
-                {v.subCategoryList.map(c => (
-                  <CategoryName key={`${k}_${c}`}>{c}</CategoryName>
+                {v.subCategoryList.map((c, i) => (
+                  <CategoryName key={`${k}_${c}_${i}`}>{c}</CategoryName>
                 ))}
               </Category>
             </CardContainer>
