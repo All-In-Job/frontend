@@ -10,7 +10,7 @@ type PostCardProps = {
   dateCreation: string;
   scrapCount: string;
   viewCount: string;
-  location: string;
+  location?: string;
   imgHeight?: string;
   isPostCardTag?: boolean;
   isPickButton?: boolean;
