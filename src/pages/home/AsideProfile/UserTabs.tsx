@@ -38,8 +38,8 @@ const Container = styled.ul`
   align-items: center;
   justify-content: center;
   padding: 12px 14px;
-  height: 100%;
-  border-radius: 0px 0px 12px 12px;
+  //height: 100%;
+  border-radius: 0 0 12px 12px;
   background: var(--background-primary-50, #f8f8f8);
 `;
 
@@ -65,7 +65,7 @@ const TabDesc = styled(Desc)`
   color: var(--black-500, #121110);
 
   /* Caption 1/Bold */
-  font-family: SUIT;
+  font-family: SUIT, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: 700;

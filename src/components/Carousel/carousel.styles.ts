@@ -9,6 +9,7 @@ export const container = styled.div`
   background-color: #ffe7de;
   //background-color: lightslategrey;
   border-radius: 14px;
+  grid-column: span 9;
 `;
 
 export const ImageContainer = styled.div<{ count: number }>`
@@ -27,7 +28,7 @@ export const ArrowButton = styled.button<{ direction: SlideDirection }>`
   top: 50%;
   transform: translateX(${props => (props.direction === 'left' ? '-50%' : '50%')}) translateY(-50%);
   right: ${props => (props.direction === 'right' ? 0 : 'none')};
-  box-shadow: 0px 4px 13px #0000001c;
+  box-shadow: 0 4px 13px #0000001c;
   background-color: white;
   border-radius: 100%;
   cursor: pointer;
