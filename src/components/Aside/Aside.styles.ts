@@ -8,7 +8,7 @@ export const UserSideBar = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 48px;
+  /* margin-bottom: 48px; */
   padding: 23px 18px;
   background-color: #ffe7de;
   border-radius: 14px;

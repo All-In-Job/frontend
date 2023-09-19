@@ -8,9 +8,9 @@ function FindID() {
   const [timeRemaining, setTimeRemaining] = useState(300); // 초 단위
   const [timerActive, setTimerActive] = useState(false);
   const [phone, setPhone] = useState('');
-  const [authCode, setAuthCode] = useState('');
+  // const [authCode, setAuthCode] = useState('');
   const [isValidPhone, setIsValidPhone] = useState(false);
-  const [isValidAuthCode, setIsValidAuthCode] = useState(false);
+  const [isValidAuthCode] = useState(false);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -42,14 +42,14 @@ function FindID() {
     setIsValidPhone(/^\d{3}-\d{4}-\d{4}$/.test(value));
   };
 
-  const handleAuthCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setAuthCode(value);
+  // const handleAuthCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value;
+  //   setAuthCode(value);
 
-    const regex = /^\d{6,6}$/;
+  //   const regex = /^\d{6,6}$/;
 
-    setIsValidAuthCode(regex.test(value));
-  };
+  //   setIsValidAuthCode(regex.test(value));
+  // };
 
   const isValid = isValidName && isValidPhone && isValidAuthCode;
 
@@ -72,9 +72,7 @@ function FindID() {
   return (
     <S.FindIDContainer>
       <S.FindIDWrapper>
-        <S.AdvertiseBox></S.AdvertiseBox>
         <S.FindIDBox>
-          <S.CharactorBox>캐릭터</S.CharactorBox>
           <S.Logo>ALL IN JOB</S.Logo>
           <S.FindIDTitle>아이디 찾기</S.FindIDTitle>
           <S.nameTitle>이름</S.nameTitle>
@@ -83,20 +81,16 @@ function FindID() {
           <S.phoneAuthTitle>휴대폰 인증</S.phoneAuthTitle>
 
           <S.phoneAuthBox>
-            <S.phoneAuthInput
-              value={phone}
-              onChange={handlePhoneChange}
-              placeholder='휴대폰 11자리'
-            />
+            <S.nameInput value={phone} onChange={handlePhoneChange} placeholder='휴대폰 11자리' />
             <S.phoneAuthSendBtn onClick={handleAuthClick}>인증요청</S.phoneAuthSendBtn>
           </S.phoneAuthBox>
 
           <S.phoneAuthBox>
-            <S.phoneAuthInput
+            {/* <S.phoneAuthInput
               value={authCode}
               onChange={handleAuthCodeChange}
               placeholder='인증번호 입력'
-            />
+            /> */}
             <S.phoneAuthSendBtn onClick={handleAuthClick}>재전송</S.phoneAuthSendBtn>
           </S.phoneAuthBox>
 
