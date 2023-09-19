@@ -1,0 +1,8 @@
+<svg width="200" height="23" viewBox="0 0 200 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<clipPath id="small-temperature">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.602 17C19.6516 20.5748 15.859 23 11.5 23C5.14873 23 0 17.8513 0 11.5C0 5.14871 5.14873 0 11.5 0C15.4391 0 18.9156 1.98047 20.9882 5H194C197.314 5 200 7.68628 200 11C200 14.3137 197.314 17 194 17H21.602Z" fill="#EDEDED"/>
+</clipPath>
+</defs>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.602 17C19.6516 20.5748 15.859 23 11.5 23C5.14873 23 0 17.8513 0 11.5C0 5.14871 5.14873 0 11.5 0C15.4391 0 18.9156 1.98047 20.9882 5H194C197.314 5 200 7.68628 200 11C200 14.3137 197.314 17 194 17H21.602Z" fill="#EDEDED"/>
+</svg>
