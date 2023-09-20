@@ -20,7 +20,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "src",
-    "types": ["vite-plugin-svgr/client"]
+    "types": ["vite-plugin-svgr/client"],
+    "forceConsistentCasingInFileNames": false
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
