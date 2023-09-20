@@ -21,6 +21,7 @@ module.exports = {
           { pattern: 'react', group: 'builtin', position: 'after' },
           { pattern: 'react', group: 'external', position: 'before' },
           { pattern: 'react-dom', group: 'builtin', position: 'after' },
+          { pattern: 'contexts/*', group: 'internal' },
           { pattern: 'apis/**', group: 'internal' },
           { pattern: 'pages/**', group: 'internal' },
           { pattern: 'components/**', group: 'internal' },

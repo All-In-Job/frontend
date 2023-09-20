@@ -3,11 +3,11 @@ import { FC, RefObject } from 'react';
 import styled from '@emotion/styled';
 
 import { thermometerPercentList } from 'components/PassionThermometer/mock';
+import { FlexCenterContainer } from 'pages/home/PassionTemperature/PassionTemperature.style';
 
 import { ReactComponent as SmileIcon } from '../res/img/smile.svg';
 
 import { SHOW_INDICATOR_PERCENT } from './constants';
-import { FlexCenterContainer } from './PassionTemperature.style';
 import { getTotalPercent } from './utils';
 
 interface Props {
