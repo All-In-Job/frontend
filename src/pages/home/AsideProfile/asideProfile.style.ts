@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Desc = styled.p<{ size?: string }>`
+export const Desc = styled.div<{ size?: string }>`
   font-size: ${({ size }) => size ?? 'inherit'};
   color: var(--black-500, #121110);
 `;
