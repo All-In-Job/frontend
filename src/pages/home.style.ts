@@ -7,7 +7,7 @@ export const Layout = styled.div`
   //min-height: 100vh;
   display: grid;
   grid-template-columns: repeat(12, ${COLUMN_WIDTH}px);
-  gap: 24px;
+  column-gap: 24px;
   justify-content: center;
   margin-top: 70px;
 `;
@@ -19,9 +19,4 @@ export const Main = styled.main`
   gap: 43px;
   margin-top: 50px;
   grid-column: span 9;
-`;
-
-export const Sidebar = styled.aside`
-  background-color: lightslategrey;
-  grid-column: span 3;
 `;
