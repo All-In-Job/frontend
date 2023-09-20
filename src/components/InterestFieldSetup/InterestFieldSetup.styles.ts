@@ -1,109 +1,163 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+
+import { ReactComponent as CheckCircle } from './res/img/check_circle.svg';
+import { ReactComponent as ExpandMore } from './res/img/expand_more.svg';
+
+type ExpandMoreIconProps = {
+  choicedepartment: string;
+  'data-isvisible': boolean;
+  'data-isinputfocused': boolean;
+};
+
+type MajorDepartmentProps = {
+  choicedepartment: string;
+  isVisible: boolean;
+  isInputFocused: boolean;
+};
 
 type ChangeColorProps = {
   isChangeColor: boolean;
 };
 
-export const InterestFieldSetupWrapper = styled.div`
-  width: 539px;
-  margin: 0 auto;
-  padding: 40px 36px;
-  background-color: #fff;
-  box-shadow: 0px 17px 33px #e34a13;
-  border-radius: 60px;
-  color: black;
-`;
+export const ExpandMoreIcon = styled(ExpandMore)<ExpandMoreIconProps>`
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  transform: rotate(${props => (props['data-isvisible'] ? '180deg' : '0deg')});
 
-export const InterestFieldSetupTitle = styled.h1`
-  font-size: 20px;
-  font-weight: bold;
-
-  strong {
-    color: #fd6b36;
+  path {
+    fill: ${props =>
+      props.choicedepartment !== '' || props['data-isinputfocused']
+        ? props.theme.palette.orange500
+        : props.theme.palette.black300};
   }
 `;
 
-export const MajorDepartment = styled.div`
+export const CheckCircleIcon = styled(CheckCircle)<{ 'data-isactive': boolean }>`
+  path {
+    fill: ${props =>
+      props['data-isactive'] ? props.theme.palette.orange500 : props.theme.palette.black200};
+  }
+`;
+
+export const InterestFieldSetupWrapper = styled.div`
+  width: 492px;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 24px;
+  color: black;
+  border: 1px solid #000;
+`;
+
+export const InterestFieldSetupTitle = styled.h1`
+  color: #121110;
+  font-size: 20px;
+  font-family: Bold;
+`;
+
+export const MajorDepartment = styled.div<MajorDepartmentProps>`
   position: relative;
+  border: 1px solid
+    ${props =>
+      props.choicedepartment !== '' || props.isInputFocused
+        ? props.theme.palette.orange500
+        : props.theme.palette.black200};
+  background-color: #fff;
+  border-radius: ${props => (props.isVisible ? '4px 4px 0 0' : '4px')};
+  margin-top: 8px;
+
+  ${props =>
+    props.isVisible &&
+    css`
+      box-shadow:
+        0px 9px 28px 8px rgba(0, 0, 0, 0.05),
+        0px 6px 16px 0px rgba(0, 0, 0, 0.08),
+        0px 3px 6px -4px rgba(0, 0, 0, 0.12);
+    `}
 
   input {
-    width: 100%;
-    background-color: #f0f0f0;
-    border-radius: 14px;
-    padding: 8px 14px;
-    margin-top: 16px;
+    width: calc(100% - 24px);
+    background-color: transparent;
+    padding: 12px;
+    color: ${props => props.theme.palette.orange500};
+    font-size: ${props => props.theme.textStyle.title02.fontSize};
+    line-height: ${props => props.theme.textStyle.title02.lineHeight};
 
     ::placeholder {
-      color: #aeaaa6;
+      color: ${props => props.theme.palette.black200};
     }
   }
 `;
 
 export const MajorDepartmentList = styled.ul`
   position: absolute;
-  width: 100%;
-  height: 100px;
-  border: 1px solid #000;
+  top: 49px;
+  left: -1px;
+  width: calc(100% + 2px);
+  height: 240px;
+  border: 1px solid ${props => props.theme.palette.line.normal};
   background-color: #fff;
   overflow: scroll;
+  box-shadow:
+    0px 9px 28px 8px rgba(0, 0, 0, 0.05),
+    0px 6px 16px 0px rgba(0, 0, 0, 0.08),
+    0px 3px 6px -4px rgba(0, 0, 0, 0.12);
 
   li {
+    color: ${props => props.theme.palette.black500};
+    padding: 12px;
+    font-size: ${props => props.theme.textStyle.title02.fontSize};
+    line-height: ${props => props.theme.textStyle.title02.lineHeight};
+    font-family: Medium;
     cursor: pointer;
 
     :hover {
-      background-color: #eee;
+      background-color: ${props => props.theme.palette.background.primary};
     }
   }
 `;
 
-export const InterestSelect = styled.div`
-  padding-top: 45px;
+export const DefaultImageBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 282px;
+  margin: 24px 0;
+
+  > img {
+  }
 `;
 
-export const TagList = styled.ul`
+export const InterestSelectTagList = styled.ul`
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 19px;
-  gap: 14px 12px;
+  justify-content: space-between;
+  margin-top: 12px;
 `;
 
 export const ClickedTag = styled.li<ChangeColorProps>`
   display: flex;
   align-items: center;
-  padding: 3px 15px;
-  background-color: ${props => (props.isChangeColor ? '#fd6b36' : '#ffe7de')};
-  color: ${props => (props.isChangeColor ? '#fff' : '#fd6b36')};
-  border-radius: 14px;
-  font-size: 14px;
+  padding: 8px 16px;
+  border: 2px solid
+    ${props =>
+      props.isChangeColor ? props.theme.palette.orange500 : props.theme.palette.background.primary};
+  color: ${props =>
+    props.isChangeColor ? props.theme.palette.orange500 : props.theme.palette.black200};
+  border-radius: 100px;
+  font-size: ${props => props.theme.textStyle.body01.fontSize};
+  line-height: ${props => props.theme.textStyle.body01.lineHeight};
+  font-family: Medium;
   cursor: pointer;
-
-  :hover {
-    color: #fff;
-    background-color: #fd6b36;
-  }
-`;
-
-export const TagName = styled.h3`
-  margin-right: 7px;
-`;
-
-export const TagIcon = styled.img`
-  width: 13px;
-  height: 13px;
-`;
-
-export const TagImage = styled.img`
-  width: 100%;
-  height: 228px;
-  margin: 20px 0;
 `;
 
 export const InterestKeyWord = styled.div`
-  padding: 54px 0 45px;
+  padding: 24px 0;
 `;
 
 export const KeyWordText = styled.p`
-  padding-top: 7px;
+  padding: 8px 0 12px;
   color: #aeaaa6;
   font-size: 14px;
 `;
@@ -117,23 +171,25 @@ export const CheckBox = styled.div<ChangeColorProps>`
 `;
 
 export const KeyWordList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 19px 17px;
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 12px;
 `;
 
 export const ClickedKeyWord = styled.li<ChangeColorProps>`
   display: flex;
-  flex-direction: column;
   align-items: center;
-  border: 2px solid ${props => (props.isChangeColor ? '#fd6b36' : '#e7e6e5')};
-  border-radius: 14px;
-  padding: 13px 0;
+  border: 2px solid
+    ${props =>
+      props.isChangeColor ? props.theme.palette.orange500 : props.theme.palette.background.primary};
+  border-radius: 8px;
+  padding: 8px 16px;
   font-size: 14px;
   cursor: pointer;
 
   p {
-    color: ${props => (props.isChangeColor ? '#fd6b36' : '#979797')};
+    color: ${props =>
+      props.isChangeColor ? props.theme.palette.orange500 : props.theme.palette.black200};
     font-weight: bold;
   }
 `;
