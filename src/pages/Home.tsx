@@ -1,5 +1,6 @@
 import { Outlet, useOutlet } from 'react-router-dom';
 
+import { CardList } from 'components/CardList/CardList';
 import { CardListMenuBar } from 'components/CardListMenuBar/CardListMenuBar';
 import { Carousel } from 'components/Carousel/Carousel';
 import Header from 'components/Navigation/Header/Header';
@@ -23,13 +24,13 @@ export const Home = () => {
           {/*<PassionTemperature />*/}
           <Carousel />
           {/*<ContestMenuBar />*/}
-          {/* <CardList /> */}
           <S.Sidebar>
             <Profile />
             {/*<Solution />*/}
             {/*<Aside />*/}
           </S.Sidebar>
           <CardListMenuBar />
+          <CardList />
         </S.Layout>
       )}
     </>

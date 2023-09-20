@@ -4,9 +4,8 @@ import { ReactComponent as Bookmark } from './res/img/bookmark.svg';
 import { ReactComponent as SmallBookmark } from './res/img/small_bookmark.svg';
 import { ReactComponent as Visibility } from './res/img/visibility.svg';
 
-export const PostCardContainer = styled.div`
+export const PostCardContainer = styled.article`
   position: relative;
-  width: 282px;
   margin: 0 auto;
 `;
 
