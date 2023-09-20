@@ -2,8 +2,9 @@ import { FC, useContext } from 'react';
 
 import styled from '@emotion/styled';
 
+import { CarouselContext } from '../../contexts/CarouselProvider';
+
 import { SlideDirection } from './Carousel';
-import { CarouselContext } from './CarouselProvider';
 
 type Props = {
   icon: '>' | '<';

@@ -1,8 +1,9 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 
+import { CarouselContext, CarouselProvider } from 'contexts/CarouselProvider';
+
 import * as S from './carousel.styles';
 import { CarouselControls } from './CarouselControls';
-import { CarouselContext, CarouselProvider } from './CarouselProvider';
 import { ImageSlide } from './ImageSlide';
 
 export type SlideDirection = 'left' | 'right';

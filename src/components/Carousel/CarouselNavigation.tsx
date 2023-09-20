@@ -2,8 +2,9 @@ import { FC, useContext } from 'react';
 
 import styled from '@emotion/styled';
 
+import { CarouselContext } from '../../contexts/CarouselProvider';
+
 import { Props as CarouselControlsProps } from './CarouselControls';
-import { CarouselContext } from './CarouselProvider';
 
 type Props = Pick<CarouselControlsProps, 'moveToThisSlide' | 'navigationControlCounter'>;
 
@@ -11,14 +12,14 @@ export const CarouselNavigation: FC<Props> = ({
   moveToThisSlide,
   navigationControlCounter: counters,
 }) => {
-  const { currentIndex } = useContext(CarouselContext);
+  const { carouselState } = useContext(CarouselContext);
 
   return (
     <StyledUl>
       {counters.map((_, idx) => (
         <StyledButton
           key={idx}
-          activated={currentIndex === idx}
+          activated={carouselState.index === idx}
           onClick={() => moveToThisSlide(idx)}
         />
       ))}

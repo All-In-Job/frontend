@@ -2,8 +2,9 @@ import { FC, RefObject, useContext } from 'react';
 
 import styled from '@emotion/styled';
 
+import { CarouselContext } from 'contexts/CarouselProvider';
+
 import { CAROUSEL_WIDTH, TRANSITION_DURATION } from './Carousel';
-import { CarouselContext } from './CarouselProvider';
 
 type Props = {
   slideState: number[];
