@@ -11,9 +11,11 @@ function Submit(props: SubmitProps) {
   const SubmitButton = styled.button<{ isActive: boolean }>`
     width: 100%;
     padding: 16px 0;
-    background-color: ${props => (props.isActive ? '#FD6B36' : '#e7e6e5')};
+    background-color: ${props =>
+      props.isActive ? props.theme.palette.orange500 : props.theme.palette.background.primary};
     color: #fff;
     border-radius: 14px;
+    cursor: ${props => (props.isActive ? 'pointer' : 'default')};
   `;
 
   return (

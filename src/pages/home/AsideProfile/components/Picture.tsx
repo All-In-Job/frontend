@@ -12,7 +12,6 @@ const Picture: FC<Props> = ({ img }) => {
   const emptyURL =
     'https://imagedelivery.net/0ZP-N9B45ji28JoChYUvWw/f0d1ff60-2d0e-46b6-9f9c-9698fcfeb700/projectCard';
 
-  console.log('img.url ?? emptyURL : ', img.url ?? emptyURL);
   return (
     <Container>
       <Image src={img.url || emptyURL} alt={img.name || 'sample'} />
