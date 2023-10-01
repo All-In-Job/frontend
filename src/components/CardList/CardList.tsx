@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { HomeCardListContext } from 'contexts/homeCardMenuContext';
 
-import Pagination from 'components/commons/Pagination/Pagination';
 import PostCard from 'components/commons/PostCard/PostCard';
 
 import * as S from './CardList.style';
@@ -45,7 +44,6 @@ export const CardList = () => {
           );
         })}
       </S.Section>
-      <Pagination pageItemsCount={120} totalItemsCount={1230} />
     </S.CardListWrapper>
   );
 };
