@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import HomeCardListProvider from 'contexts/homeCardMenuContext';
 
 import { CardList } from 'components/CardList/CardList';
 import { CardListMenuBar } from 'components/CardListMenuBar/CardListMenuBar';
@@ -12,8 +13,10 @@ export const Main = () => {
       <Sidebar>
         <Profile />
       </Sidebar>
-      <CardListMenuBar />
-      <CardList />
+      <HomeCardListProvider>
+        <CardListMenuBar />
+        <CardList />
+      </HomeCardListProvider>
     </>
   );
 };

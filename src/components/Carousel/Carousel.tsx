@@ -1,21 +1,20 @@
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
-
-import { CarouselContext, CarouselProvider } from 'contexts/CarouselProvider';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import * as S from './carousel.styles';
-import { CarouselControls } from './CarouselControls';
-import { ImageSlide } from './ImageSlide';
 
 export type SlideDirection = 'left' | 'right';
 
 export const CAROUSEL_WIDTH = 1113;
-export const TRANSITION_DURATION = 0.5;
+const TRANSITION_DURATION = 0.5;
 
 export const Carousel = () => {
   const slideRef = useRef<HTMLDivElement>(null);
 
   const [slideState, setSlideState] = useState(Array.from({ length: 3 }, (_, idx) => idx));
-  const { carouselState, setCarouselState } = useContext(CarouselContext);
+  const [visibleSlide, setVisibleSlide] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [hasTransition, setHasTransition] = useState(true);
+  const [isNavDisabled, setIsNavDisabled] = useState(false);
 
   const originalSlideLength = useMemo(() => slideState.length, []);
   const navigationControlCounter = useMemo(() => Array.from(new Set(slideState)), []);
@@ -34,9 +33,9 @@ export const Carousel = () => {
       if (ref.current) {
         setInterval(
           () => {
-            if (!carouselState.isNavDisabled) moveToNextSlide();
+            if (!isNavDisabled) onClickRightArrow();
           },
-          carouselState.visibleSlide <= slideState.length - 2
+          visibleSlide <= slideState.length - 2
             ? TRANSITION_DURATION * 2000 + 500
             : TRANSITION_DURATION * 1000 + 500,
         );
@@ -52,88 +51,116 @@ export const Carousel = () => {
       setTimeout(callback, TRANSITION_DURATION * 1000);
     };
 
-    if (carouselState.visibleSlide === 1) {
-      customSetTimeout(() => setCarouselState({ ...carouselState, hasTransition: true }));
+    if (visibleSlide === 1) {
+      customSetTimeout(() => setHasTransition(true));
     }
 
-    if (carouselState.visibleSlide === slideState.length - 1) {
-      setCarouselState({ ...carouselState, index: 0 });
+    if (visibleSlide === slideState.length - 1) {
+      setCurrentIndex(0);
       customSetTimeout(() => {
-        setCarouselState({ ...carouselState, visibleSlide: 1, hasTransition: false });
+        setVisibleSlide(1);
+        setHasTransition(false);
       });
     }
 
-    if (carouselState.visibleSlide === 0) {
-      setCarouselState({ ...carouselState, index: slideState.length % originalSlideLength });
+    if (visibleSlide === 0) {
+      setCurrentIndex(slideState.length % originalSlideLength);
       customSetTimeout(() => {
-        setCarouselState({
-          ...carouselState,
-          hasTransition: false,
-          visibleSlide: slideState.length - 2,
-        });
+        setHasTransition(false);
+        setVisibleSlide(slideState.length - 2);
       });
     }
 
-    if (carouselState.visibleSlide === slideState.length - 2)
-      customSetTimeout(() => setCarouselState({ ...carouselState, hasTransition: true }));
-  }, [carouselState.visibleSlide]);
+    if (visibleSlide === slideState.length - 2) customSetTimeout(() => setHasTransition(true));
+  }, [visibleSlide]);
 
   useEffect(() => {
-    if (carouselState.isNavDisabled)
-      setTimeout(
-        () => setCarouselState({ ...carouselState, isNavDisabled: false }),
-        TRANSITION_DURATION * 1000 + 500,
-      );
-  }, [carouselState.isNavDisabled]);
+    if (isNavDisabled) setTimeout(() => setIsNavDisabled(false), TRANSITION_DURATION * 1000 + 500);
+  }, [isNavDisabled]);
 
-  const moveToPrevSlide = () => {
-    setCarouselState({
-      ...carouselState,
-      isNavDisabled: true,
-      visibleSlide: carouselState.visibleSlide - 1,
-    });
-    if (0 < carouselState.visibleSlide && carouselState.visibleSlide < slideState.length - 1)
-      setCarouselState({ ...carouselState, index: carouselState.index - 1 });
+  const onClickLeftArrow = () => {
+    setVisibleSlide(visibleSlide - 1);
+    setIsNavDisabled(true);
+
+    if (0 < visibleSlide && visibleSlide < slideState.length - 1) setCurrentIndex(currentIndex - 1);
   };
 
-  const moveToNextSlide = () => {
-    setCarouselState({
-      ...carouselState,
-      visibleSlide: carouselState.visibleSlide + 1,
-      isNavDisabled: true,
+  const onClickRightArrow = () => {
+    setVisibleSlide(visibleSlide => {
+      return visibleSlide + 1;
     });
+    setIsNavDisabled(true);
 
-    if (0 < carouselState.visibleSlide && carouselState.visibleSlide < slideState.length - 1)
-      setCarouselState({ ...carouselState, index: carouselState.index + 1 });
+    if (0 < visibleSlide && visibleSlide < slideState.length - 1)
+      setCurrentIndex(currentIndex => currentIndex + 1);
   };
 
   const calculateLeft = () => {
     const slide = slideRef.current;
-    if (slide) return `-${carouselState.visibleSlide * CAROUSEL_WIDTH}px`;
+    if (slide) return `-${visibleSlide * CAROUSEL_WIDTH}px`;
   };
 
-  const moveToTargetSlide = (targetSlideIdx: number) => {
+  const moveToThisSlide = (targetSlideIdx: number) => {
     const slide = slideRef.current;
     if (slide) {
-      setCarouselState({
-        ...carouselState,
-        index: targetSlideIdx,
-        visibleSlide: targetSlideIdx + 1,
-      });
+      setCurrentIndex(targetSlideIdx);
+      setVisibleSlide(targetSlideIdx + 1);
     }
   };
 
   return (
-    <CarouselProvider>
-      <S.container>
-        <CarouselControls
-          moveToThisSlide={moveToTargetSlide}
-          moveToPrevSlide={moveToPrevSlide}
-          moveToNextSlide={moveToNextSlide}
-          navigationControlCounter={navigationControlCounter}
-        />
-        <ImageSlide slideRef={slideRef} slideState={slideState} calculateLeft={calculateLeft} />
-      </S.container>
-    </CarouselProvider>
+    <S.container>
+      <S.ArrowButton direction={'left'} disabled={isNavDisabled} onClick={onClickLeftArrow}>
+        {'<'}
+      </S.ArrowButton>
+      <S.ArrowButton direction={'right'} disabled={isNavDisabled} onClick={onClickRightArrow}>
+        {'>'}
+      </S.ArrowButton>
+      <S.CarouselNavigation>
+        {navigationControlCounter.map((_, idx) => (
+          <S.ControlsButton
+            key={idx}
+            activated={currentIndex === idx}
+            onClick={() => moveToThisSlide(idx)}
+          />
+        ))}
+      </S.CarouselNavigation>
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          overflow: 'hidden',
+        }}
+      >
+        <S.ImageContainer
+          ref={slideRef}
+          count={slideState.length}
+          style={{
+            left: calculateLeft(),
+            transition: hasTransition ? `${TRANSITION_DURATION}s left ease-in-out 0s` : '',
+          }}
+        >
+          {slideState.map((image, idx) => (
+            <div
+              key={idx}
+              style={{
+                flex: 1,
+                width: '100%',
+                height: '100%',
+                fontSize: '120px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              {image}
+            </div>
+          ))}
+        </S.ImageContainer>
+      </div>
+    </S.container>
   );
 };
