@@ -1,5 +1,13 @@
 import styled from '@emotion/styled';
 
+type AuthNumberInputProps = {
+  isAuthRequested: boolean;
+};
+
+type PhoneAuthSendBtnProps = {
+  isActive: boolean;
+};
+
 export const FindIDContainer = styled.div`
   padding: 181px 0;
   background-color: #fd805d;
@@ -65,6 +73,11 @@ export const FindIDTitle = styled.div`
   margin-bottom: 28px;
 `;
 
+export const nameBoxWrapper = styled.div`
+  width: 100%;
+  margin-bottom: 24px;
+`;
+
 export const nameTitle = styled.p`
   width: 100%;
   font-size: 20px;
@@ -77,20 +90,26 @@ export const nameInput = styled.input`
   width: 100%;
   border-radius: 4px;
   padding: 12px;
-  margin-bottom: 24px;
   border: 1px solid var(--black-200, #a0a09f);
-
   &:focus {
     border: 1px solid #fd6b36;
   }
 `;
 
 export const validateInfo = styled.p`
-  width: 100%;
+  display: inline-block;
+  /* width: 100%; */
+  white-space: nowrap;
   font-size: 14px;
   font-weight: bold;
   color: #fd6b36;
-  padding: 0 0 23px 0;
+  padding: 8px 0 0 0;
+`;
+
+export const AuthWBoxWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 8px;
 `;
 
 export const phoneAuthTitle = styled.div`
@@ -102,38 +121,49 @@ export const phoneAuthTitle = styled.div`
 
 export const phoneAuthBox = styled.div`
   width: 100%;
-  display: flex;
   gap: 8px;
   margin-bottom: 10px;
 `;
 
-// export const phoneAuthInput = styled.input`
-//   width: 324px;
-//   height: 35px;
-//   background-color: #f0f0f0;
-//   border-radius: 14px;
-//   padding: 8px 14px;
-//   border: 2px solid #f0f0f0;
-
-//   &:focus {
-//     border: 2px solid #fd6b36;
-//   }
-// `;
-
-export const phoneAuthSendBtn = styled.button`
-  /* width: 60px; */
-  height: 24px;
-  background-color: #ededed;
-  color: #a0a09f;
+export const AuthNumberInput = styled.input<AuthNumberInputProps>`
+  width: 100%;
   border-radius: 4px;
+  padding: 12px;
+  background-color: ${props => (props.isAuthRequested ? '#FFE8DF' : '#ededed')};
+`;
+
+export const phoneAuthInput = styled.input`
+  width: 324px;
+  height: 35px;
+  background-color: #f0f0f0;
+  border-radius: 14px;
+  padding: 8px 14px;
+  border: 2px solid #f0f0f0;
+
+  &:focus {
+    border: 2px solid #fd6b36;
+  }
+`;
+
+export const phoneAuthSendBtn = styled.button<PhoneAuthSendBtnProps>`
+  background-color: ${props => (props.isActive ? '#FFE8DF' : '#E7E6E5')};
+  color: ${props => (props.isActive ? '#FD6B36' : '#a0a09f')};
+  border-radius: 4px;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
   cursor: pointer;
+  padding: 12px;
+  white-space: nowrap;
 `;
 
 export const timeCount = styled.p`
+  display: inline-block;
   width: 100%;
   font-size: 14px;
+  font-weight: bold;
   color: #fd6b36;
-  margin-bottom: 32px;
+  margin: 8px 0 32px 4px;
 `;
 
 export const confirmBtn = styled.button`

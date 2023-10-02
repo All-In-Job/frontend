@@ -10,8 +10,8 @@ import Signup from 'pages/Signup';
 const HomeWithPassion = () => (
   <>
     {/* <Home /> */}
-    <Login />
     <FindID />
+    <Login />
     <PassionTempList />
   </>
 );
