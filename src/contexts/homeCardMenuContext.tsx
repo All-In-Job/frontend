@@ -2,10 +2,8 @@ import { createContext } from 'react';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-type HomeCardType = 'intern' | 'outside' | 'competition' | 'qnet' | 'toeic' | 'toeicBR' | 'toeicSW';
-
 type HomeCardListContext = {
-  selectedCardMenu: (type: HomeCardType) => void;
+  selectedCardMenu: (type: string) => void;
   getParams: string;
 };
 
@@ -18,9 +16,9 @@ const HomeCardListProvider = ({ children }: { children: React.ReactNode }) => {
 
   const navigate = useNavigate();
 
-  if (!getParams) getParams = 'intern';
+  if (!getParams) getParams = 'outside';
 
-  const selectedCardMenu = (type: HomeCardType) => {
+  const selectedCardMenu = (type: string) => {
     navigate(`?menu=${type}`);
   };
 

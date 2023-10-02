@@ -17,13 +17,13 @@ const menus = [
     id: 1,
     icon: MenuBook,
     text: '문학',
-    path: 'intern',
+    path: 'outside',
   },
   {
     id: 2,
     icon: IconDesign,
     text: '디자인',
-    path: 'outside',
+    path: 'intern',
   },
   {
     id: 3,
@@ -41,7 +41,7 @@ const menus = [
     id: 5,
     icon: IconMusic,
     text: '예체능',
-    path: 'toeic',
+    path: 'community',
   },
   {
     id: 6,

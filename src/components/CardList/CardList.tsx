@@ -14,7 +14,7 @@ export const CardList = () => {
   useEffect(() => {
     const crawlingData = async () => {
       const result = await axios.get(
-        `${import.meta.env.VITE_API_CRAWLING}?path=${homeCardList?.getParams}&page=1`,
+        `${import.meta.env.VITE_API_MAIN_CRAWLING}${homeCardList?.getParams}`,
       );
 
       setData(result.data.data);
