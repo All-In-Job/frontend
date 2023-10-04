@@ -1,4 +1,4 @@
-import { HashTagData } from '../type';
+import { HashTagData } from 'components/Badge/type';
 
 export const HashTagListData: HashTagData[] = [
   { id: '1', title: '#기획/아이디어' },

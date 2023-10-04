@@ -2,9 +2,8 @@ import { FC } from 'react';
 
 import styled from '@emotion/styled';
 
-import HashTag from '../HashTag';
-
-import { HashTagData } from './type';
+import HashTag from 'components/Badge/HashTag';
+import { HashTagData } from 'components/Badge/type';
 
 interface Props {
   hashTagList: HashTagData[];

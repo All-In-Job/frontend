@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 import styled from '@emotion/styled';
 
 interface Props {
-  text: string;
+  text: ReactNode;
   isActive: boolean;
 }
 
