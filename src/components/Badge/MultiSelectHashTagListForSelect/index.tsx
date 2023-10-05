@@ -1,9 +1,7 @@
 import { FC } from 'react';
 
-import styled from '@emotion/styled';
-
+import * as S from 'components/Badge/badge.style';
 import { HashTagData } from 'components/Badge/type';
-import HashTag from 'components/HashTag';
 
 interface Props {
   hashTagList: HashTagData[];
@@ -13,28 +11,17 @@ interface Props {
 
 const MultiSelectHashTags: FC<Props> = ({ hashTagList, selectedHashTagList, onSelect }) => {
   return (
-    <Container>
+    <S.Container>
       {hashTagList.map(hash => (
-        <CustomHashTag
+        <S.CustomHashTag
           key={hash.id}
           onClick={() => onSelect(hash)}
           isActive={selectedHashTagList.some(h => h.id === hash.id)}
           text={hash.title as string}
         />
       ))}
-    </Container>
+    </S.Container>
   );
 };
 
 export default MultiSelectHashTags;
-
-const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const CustomHashTag = styled(HashTag)`
-  margin-right: 8px;
-  margin-top: 16px;
-  white-space: nowrap;
-`;
