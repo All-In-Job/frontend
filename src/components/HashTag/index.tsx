@@ -5,10 +5,16 @@ import styled from '@emotion/styled';
 interface Props {
   text: ReactNode;
   isActive: boolean;
+  onClick?: () => void;
+  className?: string;
 }
 
-const HashTag: FC<Props> = ({ text, isActive }) => {
-  return <Container isActive={isActive}>{text}</Container>;
+const HashTag: FC<Props> = ({ text, isActive, onClick, className }) => {
+  return (
+    <Container className={className} onClick={onClick} isActive={isActive}>
+      {text}
+    </Container>
+  );
 };
 
 export default HashTag;

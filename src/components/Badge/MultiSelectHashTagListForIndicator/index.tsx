@@ -2,8 +2,8 @@ import { FC } from 'react';
 
 import styled from '@emotion/styled';
 
-import HashTag from 'components/Badge/HashTag';
 import { HashTagData } from 'components/Badge/type';
+import HashTag from 'components/HashTag';
 
 import { ReactComponent as CloseIcon } from './res/images/close.svg';
 
@@ -16,19 +16,18 @@ const MultiSelectHashTags: FC<Props> = ({ selectedHashTagList, onDeleteClick }) 
   return (
     <Container>
       {selectedHashTagList.map(hash => (
-        <div key={hash.id}>
-          <HashTag
-            isActive={selectedHashTagList.some(h => h.id === hash.id)}
-            text={
-              <>
-                {hash.title}
-                <IconWrapper>
-                  <CloseIcon onClick={() => onDeleteClick(hash)} />
-                </IconWrapper>
-              </>
-            }
-          />
-        </div>
+        <CustomHashTag
+          key={hash.id}
+          isActive={selectedHashTagList.some(h => h.id === hash.id)}
+          text={
+            <>
+              {hash.title}
+              <IconWrapper>
+                <CloseIcon onClick={() => onDeleteClick(hash)} />
+              </IconWrapper>
+            </>
+          }
+        />
       ))}
     </Container>
   );
@@ -36,9 +35,18 @@ const MultiSelectHashTags: FC<Props> = ({ selectedHashTagList, onDeleteClick }) 
 
 export default MultiSelectHashTags;
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
 
 const IconWrapper = styled.div`
   margin-left: 12px;
   cursor: pointer;
+`;
+
+const CustomHashTag = styled(HashTag)`
+  margin-right: 8px;
+  margin-top: 16px;
+  white-space: nowrap;
 `;
