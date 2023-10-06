@@ -10,20 +10,10 @@ export const LoginWrapper = styled.div`
   align-items: center;
   margin: auto;
   background-color: white;
-  max-width: 1039px;
-  box-shadow: 0px 17px 33px #e34a13;
-  border-radius: 60px;
-  padding: 36px;
-`;
-
-export const AdvertiseBox = styled.div`
-  display: flex;
-  flex: 1;
-  align-items: center;
-  background-color: #fddac9;
-  width: 540px;
-  height: 568px;
-  border-radius: 30px;
+  width: 588px;
+  height: 669px;
+  border-radius: 24px;
+  padding: 40px;
 `;
 
 export const LoginBox = styled.div`
@@ -38,49 +28,51 @@ export const CharactorBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 167px;
-  height: 172px;
+  width: 192px;
+  height: 221px;
   background-color: lightgray;
   font-weight: bold;
+  margin-bottom: 24px;
 `;
 
 export const Logo = styled.div`
   display: flex;
   align-items: center;
-  padding: 20px 0 40px;
-  height: 81px;
+  margin-bottom: 72px;
   color: #fd6b36;
-  font-size: 30px;
+  font-size: 39px;
   font-weight: bold;
   cursor: pointer;
+`;
+
+export const AccountActionsBox = styled.div`
+  display: flex;
+  margin-bottom: 32px;
+`;
+
+export const ActionBtn = styled.button`
+  color: #717070;
+  font-size: 17px;
+  cursor: pointer;
+`;
+
+export const divisionLine = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 32px;
 `;
 
 export const SocialLoginBox = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 28px;
-  width: 216px;
-  height: 80px;
-  background-color: #f0f0f0;
-  border-radius: 14px;
-  margin-bottom: 16px;
-  cursor: pointer;
+  gap: 60px;
+  height: 113px;
 `;
 
 export const SocialLoginImg = styled.img`
-  width: 52px;
-  height: 52px;
-`;
-
-export const AccountActionsBox = styled.div`
-  display: flex;
-
-  p {
-    margin: auto;
-    font-weight: bold;
-    padding: 0 10px;
-    color: #aeaaa6;
-    cursor: pointer;
-  }
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 `;
