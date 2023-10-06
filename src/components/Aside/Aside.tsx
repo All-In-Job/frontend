@@ -1,3 +1,5 @@
+import MyInfoNav from 'components/Navigation/MyInfoNav/MyInfoNav';
+
 import * as S from './Aside.styles';
 
 function Aside() {
@@ -18,6 +20,7 @@ function Aside() {
           </li>
         </S.AccountOptions>
       </S.UserSideBar>
+      <MyInfoNav />
 
       <S.ContentsSideBar>홍보문구</S.ContentsSideBar>
     </S.AsideWrapper>
