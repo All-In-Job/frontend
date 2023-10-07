@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 
-export const ActivityContainer = styled.div`
+export const ActivityHistoryContainer = styled.div`
   grid-column: span 12;
 `;
 
-export const ActivityTitle = styled.h1`
+export const Title = styled.h1`
   font-family: SUIT;
   font-size: 24px;
   font-weight: 700;
@@ -12,21 +12,21 @@ export const ActivityTitle = styled.h1`
   letter-spacing: 0.134px;
 `;
 
-export const ActivityList = styled.div`
+export const TabsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 16px 0;
   border-bottom: 2px solid #e1e2e4;
 `;
 
-export const ActivityTabs = styled.ul`
+export const Tabs = styled.ul`
   display: flex;
   align-items: flex-start;
   /* padding: 8px 16px; */
   gap: 25px;
 `;
 
-export const ActivityTab = styled.li<{ isActive: boolean }>`
+export const Tab = styled.li<{ isActive: boolean }>`
   display: flex;
   padding: 8px 16px;
   justify-content: center;
@@ -38,12 +38,13 @@ export const ActivityTab = styled.li<{ isActive: boolean }>`
   cursor: pointer;
 `;
 
-export const Button = styled.button`
+export const AddButton = styled.button`
   display: flex;
   height: 42px;
   padding: 8px 16px;
   justify-content: center;
   align-items: center;
+  gap: 8px;
   color: var(--orange-500, #fd6b36);
   border: 1px solid var(--orange-500, #fd6b36);
   border-radius: 4px;
@@ -114,7 +115,7 @@ export const Enterprise = styled.p`
   line-height: 26px;
 `;
 
-export const Title = styled.h2`
+export const Title2 = styled.h2`
   height: 52px;
   font-family: SUIT;
   font-size: 20px;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import * as S from './ActivityList.style';
-import Modal from './Modal';
+import * as S from './ActivityHistory.style';
+import ActivityHistoryDetails from './ActivityHistoryDetails';
 import { ReactComponent as AddCircle } from './res/img/add_circle.svg';
 
 const Tabs = [
@@ -30,27 +30,27 @@ const Tabs = [
 const ActivityHistory = () => {
   const [clickedTab, setClickedTab] = useState('competition');
   return (
-    <S.ActivityContainer>
-      <S.ActivityTitle>활동내역</S.ActivityTitle>
-      <S.ActivityList>
-        <S.ActivityTabs>
+    <S.ActivityHistoryContainer>
+      <S.Title>활동내역</S.Title>
+      <S.TabsWrapper>
+        <S.Tabs>
           {Tabs.map(tab => (
-            <S.ActivityTab
+            <S.Tab
               key={tab.id}
               onClick={() => setClickedTab(tab.id)}
               isActive={tab.id === clickedTab}
             >
               <S.Name>{tab.name}</S.Name>
-            </S.ActivityTab>
+            </S.Tab>
           ))}
-        </S.ActivityTabs>
-        <S.Button>
-          <AddCircle />
+        </S.Tabs>
+        <S.AddButton>
+          <AddCircle width='16' height='16' />
           추가
-        </S.Button>
-      </S.ActivityList>
-      <Modal />
-    </S.ActivityContainer>
+        </S.AddButton>
+      </S.TabsWrapper>
+      <ActivityHistoryDetails />
+    </S.ActivityHistoryContainer>
   );
 };
 

@@ -1,44 +1,45 @@
 import styled from '@emotion/styled';
 
-import { ReactComponent as AddCircle } from './res/img/add_circle.svg';
-
 const Modal = () => {
   return (
-    <>
-      <TextBox>
-        <p>올인잡님, 활동내역을 추가해서 열정온도를 올려보세요!</p>
-        <Icon>
-          <AddCircle fill='#FD6B36' />
-        </Icon>
-      </TextBox>
-    </>
+    <Container>
+      <ModalWrapper>
+        <ModalBox>
+          <h1>활동내역 수정</h1>
+          <h2>활동내역 분야</h2>
+          <h2>분야 선택</h2>
+        </ModalBox>
+      </ModalWrapper>
+    </Container>
   );
 };
 
 export default Modal;
 
-const TextBox = styled.div`
-  display: flex;
+const Container = styled.div`
+  position: fixed;
   width: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 24px 0px;
-  margin: 24px 0;
-  gap: 4px;
-  border-radius: 12px;
-  background: #ffe8df;
-  p {
-    font-family: SUIT;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 32px;
-    letter-spacing: 0.134px;
-  }
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: 1;
 `;
 
-const Icon = styled.div`
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
+const ModalWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const ModalBox = styled.div`
+  display: flex;
+  width: 492px;
+  padding: 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 24px;
+  background: #fff;
 `;

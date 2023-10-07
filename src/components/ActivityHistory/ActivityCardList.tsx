@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import axios from 'axios';
 
-import * as S from './ActivityList.style';
+import * as S from './ActivityHistory.style';
 import { IGetActivityData } from './api';
 
 interface ActivityCardProps {
