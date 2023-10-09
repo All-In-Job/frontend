@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import { Link } from 'react-router-dom';
-
 import * as S from './postCard.styles';
 
 type PostCardProps = {
@@ -17,7 +15,6 @@ type PostCardProps = {
   isPostCardTag?: boolean;
   isPickButton?: boolean;
   isChangeInfoLayout?: boolean;
-  index: number;
 };
 
 function PostCard(props: PostCardProps) {
@@ -32,14 +29,12 @@ function PostCard(props: PostCardProps) {
       <S.PostCardImgBox imgHeight={props.imgHeight ?? '282px'}>
         <img src={props.mainImage} />
 
-        {props.index < 4 ? <S.PostCardTag>SPECIAL</S.PostCardTag> : null}
+        {props.isPostCardTag && <S.PostCardTag>SPECIAL</S.PostCardTag>}
 
         {props.isPickButton && (
-          <Link to={'/login'}>
-            <S.PickButton onClick={onClickPick}>
-              <S.PickIcon data-ispick={isPick} />
-            </S.PickButton>
-          </Link>
+          <S.PickButton onClick={onClickPick}>
+            <S.PickIcon data-ispick={isPick} />
+          </S.PickButton>
         )}
       </S.PostCardImgBox>
 
