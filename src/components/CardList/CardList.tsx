@@ -40,7 +40,6 @@ export const CardList = () => {
               location='111'
               isPickButton
               isPostCardTag
-              index={idx}
             />
           );
         })}
