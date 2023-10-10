@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 // import PassionTempList from 'components/CardList/PassionTempList/PassionTempList';
 import FindID from 'pages/findID/FindID';
-// import { Home } from 'pages/Home';
+import { Home } from 'pages/Home';
 import Login from 'pages/login/Login';
 import Signup from 'pages/Signup';
 
@@ -19,7 +19,7 @@ import Signup from 'pages/Signup';
 export const router = createBrowserRouter([
   {
     path: '',
-    element: <HomeWithPassion />,
+    element: <Home />,
     children: [
       {
         path: 'login',
