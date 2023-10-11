@@ -10,6 +10,7 @@ export const Layout = styled.div`
   column-gap: 24px;
   justify-content: center;
   margin-top: 70px;
+  min-height: 100vh;
 `;
 
 export const Main = styled.main`
