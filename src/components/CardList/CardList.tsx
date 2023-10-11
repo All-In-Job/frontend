@@ -4,6 +4,7 @@ import axios from 'axios';
 import { HomeCardListContext } from 'contexts/homeCardMenuContext';
 import { useLocation, useMatch } from 'react-router-dom';
 
+import CertificateList from 'components/CertificateList /CertificateList';
 import PostCard from 'components/commons/PostCard/PostCard';
 import CommunityList from 'components/CommunityList/CommunityList';
 
@@ -34,7 +35,20 @@ export const CardList = () => {
       {location.search.includes('community') ? (
         <section>
           {data.map((el, idx) => {
-            return (
+            return location.search.includes('qnet') ? (
+              <div>
+                <CertificateList
+                  key={idx}
+                  user={el.user}
+                  dateCreation={el.createAt}
+                  title={el.title}
+                  path={el.path}
+                  viewCount={el.view}
+                  likeCount='1234'
+                  scrapCount='4234'
+                />
+              </div>
+            ) : (
               <CommunityList
                 key={idx}
                 user={el.user}
