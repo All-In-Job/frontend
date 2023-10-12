@@ -1,20 +1,19 @@
-import { FC } from 'react';
+import { useContext } from 'react';
 
 import styled from '@emotion/styled';
 
 import theme from 'styles/theme';
 
+import { BasicInformationContext } from './BasicInformation';
 import { photos } from './PhotoList';
 
-type Props = {
-  currentPhoto: string;
-};
+export const PhotoListHeader = () => {
+  const { currentFormState } = useContext(BasicInformationContext)!;
 
-export const PhotoListHeader: FC<Props> = ({ currentPhoto }) => {
   return (
     <StyledContainer>
       <StyledPhotoWrapper>
-        <StyledRoundPhoto style={{ backgroundImage: `url(${currentPhoto})` }} />
+        <StyledRoundPhoto style={{ backgroundImage: `url(${currentFormState.currentPhoto})` }} />
       </StyledPhotoWrapper>
       <StyledHeading>프로필 사진을 선택해주세요!</StyledHeading>
     </StyledContainer>

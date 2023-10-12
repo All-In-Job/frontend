@@ -1,4 +1,4 @@
-import { FormEventHandler, useState } from 'react';
+import { createContext, Dispatch, FormEventHandler, SetStateAction, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
@@ -8,9 +8,21 @@ import { InputGroupHeader } from './InputGroupHeader';
 import { PhotoList, photos } from './PhotoList';
 import { PhotoListHeader } from './PhotoListHeader';
 
+const defaultState = {
+  'agree-1': false,
+  'agree-2': false,
+  isPhoneValid: false,
+  currentPhoto: photos[0],
+} as const;
+
+export const BasicInformationContext = createContext<{
+  currentFormState: typeof defaultState;
+  setCurrentFormState: Dispatch<SetStateAction<typeof defaultState>>;
+} | null>(null);
+
 export const BasicInformation = () => {
   const navigate = useNavigate();
-  const [currentPhoto, setCurrentPhoto] = useState(photos[0]);
+  const [currentFormState, setCurrentFormState] = useState(defaultState);
 
   const updateRequestBody: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
@@ -18,16 +30,18 @@ export const BasicInformation = () => {
   };
 
   return (
-    <StyledForm onSubmit={updateRequestBody}>
-      <StyledColumn>
-        <InputGroupHeader />
-        <InputGroup />
-      </StyledColumn>
-      <StyledColumn>
-        <PhotoListHeader currentPhoto={currentPhoto} />
-        <PhotoList currentPhoto={currentPhoto} setCurrentPhoto={setCurrentPhoto} />
-      </StyledColumn>
-    </StyledForm>
+    <BasicInformationContext.Provider value={{ currentFormState, setCurrentFormState }}>
+      <StyledForm onSubmit={updateRequestBody}>
+        <StyledColumn>
+          <InputGroupHeader />
+          <InputGroup />
+        </StyledColumn>
+        <StyledColumn>
+          <PhotoListHeader />
+          <PhotoList />
+        </StyledColumn>
+      </StyledForm>
+    </BasicInformationContext.Provider>
   );
 };
 
