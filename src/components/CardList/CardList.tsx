@@ -39,11 +39,11 @@ export const CardList = () => {
             return selectCertificate ? (
               <CertificateList
                 key={el.id}
-                jmNm={el.jmNm}
-                instiNm={el.instiNm}
-                implNm={el.implNm}
-                scrapCount={0}
-                viewCount={0}
+                title={el.title}
+                institution={el.institution}
+                implNm={'관련부처'}
+                scrap={el.scrap}
+                view={el.view}
               />
             ) : (
               <CommunityList

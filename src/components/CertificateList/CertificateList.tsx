@@ -12,37 +12,35 @@ import * as S from './CertificateList.styles';
 // };
 
 type Certificate = {
-  id: string;
-  jmNm: string;
+  title: string;
   engJmNm?: string | null;
-  instiNm: string;
+  institution: string;
   implNm: string;
-  scrapCount: number;
-  viewCount: number;
+  scrap: number;
+  view: number;
   // examSchedules: ExamSchedule[];
 };
 
-function CertificateList(props: Certificate) {
-  console.log(props);
+function CertificateList({ title, institution, implNm, scrap, view }: Certificate) {
   return (
     <S.CertificateListContainer>
       <S.CertificateInfo>
         <S.Image />
-        <S.Title>{props.jmNm}</S.Title>
+        <S.Title>{title}</S.Title>
         <S.Bottom>
-          <S.Path>{props.instiNm}</S.Path>
-          <S.Path>{props.implNm}</S.Path>
+          <S.Path>{institution}</S.Path>
+          <S.Path>{implNm}</S.Path>
         </S.Bottom>
       </S.CertificateInfo>
       <S.CountWrapper>
         <S.Count>
           <S.ViewIcon />
-          {props.viewCount}
+          {view}
         </S.Count>
         <S.HorizontalIcon />
         <S.Count>
           <S.BookmarkIcon />
-          {props.scrapCount}
+          {scrap}
         </S.Count>
         <S.BookmarkBtn>
           <S.SolidBookmarkIcon />
