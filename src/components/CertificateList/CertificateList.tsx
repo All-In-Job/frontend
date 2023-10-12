@@ -35,9 +35,7 @@ function CertificateList(props: Certification) {
       </S.CertificateInfo>
       <S.CountWrapper>
         <S.Count>
-          <S.Icon>
-            <S.ViewIcon />
-          </S.Icon>
+          <S.ViewIcon />
           {props.viewCount}
         </S.Count>
         <S.HorizontalIcon />
@@ -45,7 +43,9 @@ function CertificateList(props: Certification) {
           <S.BookmarkIcon />
           {props.scrapCount}
         </S.Count>
-        <S.ScriptBtn></S.ScriptBtn>
+        <S.BookmarkBtn>
+          <S.SolidBookmarkIcon />
+        </S.BookmarkBtn>
       </S.CountWrapper>
     </S.CertificateListContainer>
   );
