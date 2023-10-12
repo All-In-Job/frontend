@@ -18,7 +18,7 @@ const InputHeading = styled.h1`
   font-size: 20px;
   display: flex;
 `;
-const Button = styled.div`
+const Button = styled.button`
   background-color: ${theme.palette.background.primary};
   color: ${theme.palette.black200};
   padding: 12px;
