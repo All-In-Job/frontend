@@ -4,7 +4,6 @@ import { ReactComponent as CheckCircleIcon } from 'assets/icons/icon_check_circl
 import theme from 'styles/theme';
 
 import * as S from './BasicInformation.style';
-import { Input } from './Input';
 
 export const InputGroup = () => {
   return (
@@ -22,7 +21,7 @@ const NameInput = () => {
   return (
     <S.Row>
       <S.InputHeading>이름</S.InputHeading>
-      <Input type='text' placeholder='이름을 입력하세요' name='name' />
+      <S.Input type='text' placeholder='이름을 입력하세요' name='name' />
     </S.Row>
   );
 };
@@ -32,11 +31,11 @@ const PhoneInput = () => {
     <S.Row>
       <S.InputHeading>휴대폰 번호</S.InputHeading>
       <S.FlexRow style={{ gap: '8px' }}>
-        <Input type='text' placeholder='휴대폰 11자리를 입력하세요' name='phone' />
+        <S.Input type='text' placeholder='휴대폰 11자리를 입력하세요' name='phone' />
         <S.Button>인증요청</S.Button>
       </S.FlexRow>
       <S.FlexRow style={{ marginTop: '12px', gap: '8px' }}>
-        <Input
+        <S.Input
           type='text'
           placeholder='인증 번호를 입력하세요'
           name='code'
@@ -52,7 +51,7 @@ const NicknameInput = () => {
   return (
     <S.Row>
       <S.InputHeading>닉네임</S.InputHeading>
-      <Input type='text' placeholder='닉네임을 입력하세요' name='nickname' />
+      <S.Input type='text' placeholder='닉네임을 입력하세요' name='nickname' />
     </S.Row>
   );
 };

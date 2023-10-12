@@ -29,6 +29,13 @@ const Button = styled.button`
   align-items: center;
   cursor: pointer;
 `;
+const Input = styled.input`
+  border-radius: 4px;
+  border: 1px solid #a0a09f;
+  padding: 12px;
+  width: 100%;
+`;
+
 const CheckAllButton = styled.button`
   border-radius: 4px;
   border: 1px solid #a0a09f;
@@ -58,4 +65,4 @@ const Submit = styled.button`
   margin-top: 15px;
 `;
 
-export { Container, Row, FlexRow, InputHeading, Button, CheckAllButton, Ul, List, Submit };
+export { Container, Row, FlexRow, InputHeading, Button, Input, CheckAllButton, Ul, List, Submit };
