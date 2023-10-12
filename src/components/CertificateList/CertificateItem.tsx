@@ -21,7 +21,7 @@ type Certificate = {
   // examSchedules: ExamSchedule[];
 };
 
-function CertificateList({ title, institution, implNm, scrap, view = 0 }: Certificate) {
+function CertificateItem({ title, institution, implNm, scrap, view = 0 }: Certificate) {
   return (
     <S.CertificateListContainer>
       <S.CertificateInfo>
@@ -58,4 +58,4 @@ function CertificateList({ title, institution, implNm, scrap, view = 0 }: Certif
   );
 }
 
-export default CertificateList;
+export default CertificateItem;

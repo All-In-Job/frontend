@@ -4,7 +4,7 @@ import axios from 'axios';
 import { HomeCardListContext } from 'contexts/homeCardMenuContext';
 import { useLocation } from 'react-router-dom';
 
-import CertificateList from 'components/CertificateList/CertificateList';
+import CertificateItem from 'components/CertificateList/CertificateItem';
 import PostCard from 'components/commons/PostCard/PostCard';
 import CommunityList from 'components/CommunityList/CommunityList';
 
@@ -37,7 +37,7 @@ export const CardList = () => {
         <section>
           {data.map(el => {
             return selectCertificate ? (
-              <CertificateList
+              <CertificateItem
                 key={el.id}
                 title={el.title}
                 institution={el.institution}
