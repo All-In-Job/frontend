@@ -1,14 +1,20 @@
+import { FC } from 'react';
+
 import styled from '@emotion/styled';
 
 import theme from 'styles/theme';
 
 import { photos } from './PhotoList';
 
-export const PhotoListHeader = () => {
+type Props = {
+  currentPhoto: string;
+};
+
+export const PhotoListHeader: FC<Props> = ({ currentPhoto }) => {
   return (
     <StyledContainer>
       <StyledPhotoWrapper>
-        <StyledRoundPhoto />
+        <StyledRoundPhoto style={{ backgroundImage: `url(${currentPhoto})` }} />
       </StyledPhotoWrapper>
       <StyledHeading>프로필 사진을 선택해주세요!</StyledHeading>
     </StyledContainer>

@@ -1,3 +1,5 @@
+import { Dispatch, FC, SetStateAction } from 'react';
+
 import styled from '@emotion/styled';
 import { ReactComponent as CheckCircleIcon } from 'assets/icons/icon_check_circle.svg';
 
@@ -9,21 +11,29 @@ export const photos = Array.from({ length: 12 }).map((_, idx) => {
   }.jpg`;
 });
 
-export const PhotoList = () => {
+type Props = {
+  currentPhoto: string;
+  setCurrentPhoto: Dispatch<SetStateAction<string>>;
+};
+
+export const PhotoList: FC<Props> = ({ currentPhoto, setCurrentPhoto }) => {
   return (
     <StyledContainer>
-      {photos.map((photo, idx) => (
-        <StyledPhoto
-          $activeIdx={idx === 0}
-          style={{
-            backgroundImage: `url(${photo})`,
-          }}
-        >
-          <div style={{ position: 'absolute', top: 5, right: 5 }}>
-            <CheckCircleIcon fill={idx === 0 ? theme.palette.orange400 : '#D0CFCF'} />
-          </div>
-        </StyledPhoto>
-      ))}
+      {photos.map(photo => {
+        const isSamePhoto = photo === currentPhoto;
+        return (
+          <StyledPhoto
+            key={photo}
+            $activeIdx={isSamePhoto}
+            onClick={() => setCurrentPhoto(photo)}
+            style={{ backgroundImage: `url(${photo})` }}
+          >
+            <div style={{ position: 'absolute', top: 5, right: 5 }}>
+              <CheckCircleIcon fill={isSamePhoto ? theme.palette.orange400 : '#D0CFCF'} />
+            </div>
+          </StyledPhoto>
+        );
+      })}
     </StyledContainer>
   );
 };

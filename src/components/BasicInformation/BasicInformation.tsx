@@ -1,15 +1,16 @@
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 
 import { InputGroup } from './InputGroup';
 import { InputGroupHeader } from './InputGroupHeader';
-import { PhotoList } from './PhotoList';
+import { PhotoList, photos } from './PhotoList';
 import { PhotoListHeader } from './PhotoListHeader';
 
 export const BasicInformation = () => {
   const navigate = useNavigate();
+  const [currentPhoto, setCurrentPhoto] = useState(photos[0]);
 
   const updateRequestBody: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
@@ -23,8 +24,8 @@ export const BasicInformation = () => {
         <InputGroup />
       </StyledColumn>
       <StyledColumn>
-        <PhotoListHeader />
-        <PhotoList />
+        <PhotoListHeader currentPhoto={currentPhoto} />
+        <PhotoList currentPhoto={currentPhoto} setCurrentPhoto={setCurrentPhoto} />
       </StyledColumn>
     </StyledForm>
   );
