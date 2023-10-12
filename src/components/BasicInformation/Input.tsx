@@ -6,10 +6,11 @@ type Props = {
   type: HTMLInputTypeAttribute;
   placeholder: string;
   style?: CSSProperties;
+  name: 'name' | 'nickname' | 'phone' | 'code';
 };
 
-export const Input: FC<Props> = ({ type, placeholder, style }) => {
-  return <StyledInput type={type} placeholder={placeholder} style={style} />;
+export const Input: FC<Props> = ({ type, placeholder, style, name }) => {
+  return <StyledInput type={type} placeholder={placeholder} style={style} name={name} />;
 };
 
 const StyledInput = styled.input`

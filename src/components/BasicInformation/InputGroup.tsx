@@ -22,7 +22,7 @@ const NameInput = () => {
   return (
     <S.Row>
       <S.InputHeading>이름</S.InputHeading>
-      <Input type='text' placeholder='이름을 입력하세요' />
+      <Input type='text' placeholder='이름을 입력하세요' name='name' />
     </S.Row>
   );
 };
@@ -32,13 +32,14 @@ const PhoneInput = () => {
     <S.Row>
       <S.InputHeading>휴대폰 번호</S.InputHeading>
       <S.FlexRow style={{ gap: '8px' }}>
-        <Input type='text' placeholder='휴대폰 11자리를 입력하세요' />
+        <Input type='text' placeholder='휴대폰 11자리를 입력하세요' name='phone' />
         <S.Button>인증요청</S.Button>
       </S.FlexRow>
       <S.FlexRow style={{ marginTop: '12px', gap: '8px' }}>
         <Input
           type='text'
           placeholder='인증 번호를 입력하세요'
+          name='code'
           style={{ backgroundColor: theme.palette.background.primary }}
         />
         <S.Button>인증완료</S.Button>
@@ -51,7 +52,7 @@ const NicknameInput = () => {
   return (
     <S.Row>
       <S.InputHeading>닉네임</S.InputHeading>
-      <Input type='text' placeholder='닉네임을 입력하세요' />
+      <Input type='text' placeholder='닉네임을 입력하세요' name='nickname' />
     </S.Row>
   );
 };
@@ -61,7 +62,7 @@ const Agreement = () => {
     <S.Row style={{ gap: '8px' }}>
       <S.InputHeading>약관동의</S.InputHeading>
       <p>필수항목 및 선택항목 약관에 동의해주세요.</p>
-      <S.CheckAllButton>
+      <S.CheckAllButton type='button'>
         <CheckCircleIcon fill={theme.palette.black200} />
         <S.InputHeading>전체동의</S.InputHeading>
       </S.CheckAllButton>
