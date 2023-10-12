@@ -16,7 +16,7 @@ export const CertificateListContainer = styled.article`
   justify-content: space-between;
   align-items: center;
   gap: 8px;
-  border-top: 1px solid #e1e2e4;
+  border-top: 1px solid ${palette.line.normal};
 `;
 
 export const CertificateInfo = styled.div`
