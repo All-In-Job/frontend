@@ -88,7 +88,6 @@ export const CardList = () => {
   const { search } = useLocation();
   const selectCommunity = search.includes('community');
   const selectCertificate = search.includes('qnet');
-  console.log(search);
   console.log(selectCertificate, selectCommunity);
 
   return (
