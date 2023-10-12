@@ -45,7 +45,7 @@ function CertificateList(props: Certification) {
           <S.BookmarkIcon />
           {props.scrapCount}
         </S.Count>
-        <div></div>
+        <S.ScriptBtn></S.ScriptBtn>
       </S.CountWrapper>
     </S.CertificateListContainer>
   );
