@@ -30,7 +30,7 @@ export default Profile;
 
 const Container = styled.div`
   border-radius: 12px;
-  background: var(--orange-100, #ffe8df);
+  background: ${({ theme }) => theme.palette.orange100};
 `;
 const UserInfo = styled.div`
   display: flex;
@@ -40,7 +40,7 @@ const Avatar = styled.div`
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  border: 2px solid var(--orange-500, #fd6b36);
+  border: 3px solid ${({ theme }) => theme.palette.orange500};
   background-color: white;
 `;
 const UserDescContainer = styled.div`
@@ -57,7 +57,7 @@ const LogoutButton = styled.div`
   margin-left: 30px;
   width: 54px;
   height: 24px;
-  color: var(--black-200, #a0a09f);
+  color: ${({ theme }) => theme.palette.black200};
   cursor: pointer;
   font-size: 12px;
   border-radius: 4px;
@@ -70,11 +70,12 @@ const MarginBottomDesc = styled(Desc)`
 
 const FlexDesc = styled(Desc)`
   display: flex;
+  white-space: nowrap;
 `;
 
 const YellowDesc = styled(Desc)`
   margin-left: 4px;
-  color: #fd6b36;
+  color: ${({ theme }) => theme.palette.orange500};
 `;
 
 const UserInfoWrapper = styled.div`
