@@ -25,6 +25,12 @@ export const CertificateInfo = styled.div`
   padding: 4px 0px;
 `;
 
+export const Image = styled.div`
+  height: 68px;
+  width: 68px;
+  background-color: #d9d9d9;
+`;
+
 export const Title = styled.h1`
   color: ${palette.black500};
   font-family: Bold;

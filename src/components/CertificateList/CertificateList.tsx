@@ -23,9 +23,11 @@ type Certificate = {
 };
 
 function CertificateList(props: Certificate) {
+  console.log(props);
   return (
     <S.CertificateListContainer>
       <S.CertificateInfo>
+        <S.Image />
         <S.Title>{props.jmNm}</S.Title>
         <S.Bottom>
           <S.Path>{props.instiNm}</S.Path>
