@@ -11,7 +11,7 @@ type ExamSchedule = {
   resultDay: string;
 };
 
-type Certification = {
+type Certificate = {
   id: string;
   jmNm: string;
   engJmNm?: string | null;
@@ -22,7 +22,7 @@ type Certification = {
   examSchedules: ExamSchedule[];
 };
 
-function CertificateList(props: Certification) {
+function CertificateList(props: Certificate) {
   console.log(props);
   return (
     <S.CertificateListContainer>
