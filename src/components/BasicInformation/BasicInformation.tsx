@@ -1,4 +1,7 @@
+import { FormEventHandler } from 'react';
+
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 import { InputGroup } from './InputGroup';
 import { InputGroupHeader } from './InputGroupHeader';
@@ -6,8 +9,15 @@ import { PhotoList } from './PhotoList';
 import { PhotoListHeader } from './PhotoListHeader';
 
 export const BasicInformation = () => {
+  const navigate = useNavigate();
+
+  const updateRequestBody: FormEventHandler<HTMLFormElement> = e => {
+    e.preventDefault();
+    navigate('', { state: Object.fromEntries(new FormData(e.currentTarget)) });
+  };
+
   return (
-    <StyledForm>
+    <StyledForm onSubmit={updateRequestBody}>
       <StyledColumn>
         <InputGroupHeader />
         <InputGroup />
