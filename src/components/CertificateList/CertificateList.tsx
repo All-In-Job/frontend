@@ -21,7 +21,7 @@ type Certificate = {
   // examSchedules: ExamSchedule[];
 };
 
-function CertificateList({ title, institution, implNm, scrap, view }: Certificate) {
+function CertificateList({ title, institution, implNm, scrap, view = 0 }: Certificate) {
   return (
     <S.CertificateListContainer>
       <S.CertificateInfo>
@@ -36,13 +36,13 @@ function CertificateList({ title, institution, implNm, scrap, view }: Certificat
       </S.CertificateInfo>
       <S.CountWrapper>
         <S.Count>
-          <S.ViewIcon />
-          {view}
+          <S.BookmarkIcon />
+          {scrap}
         </S.Count>
         <S.HorizontalIcon />
         <S.Count>
-          <S.BookmarkIcon />
-          {scrap}
+          <S.ViewIcon />
+          {view}
         </S.Count>
         <S.BookmarkBtn>
           <S.SolidBookmarkIcon />
