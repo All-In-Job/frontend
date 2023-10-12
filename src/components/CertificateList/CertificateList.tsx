@@ -29,8 +29,14 @@ function CertificateList({ title, institution, implNm, scrap, view = 0 }: Certif
         <S.CertificateInfoText>
           <S.Title>{title}</S.Title>
           <S.Bottom>
-            <S.Path>{implNm}</S.Path>
-            <S.Path>{institution}</S.Path>
+            <S.Path>
+              {'관련부처 : '}
+              {implNm}
+            </S.Path>
+            <S.Path>
+              {'시행기관 : '}
+              {institution}
+            </S.Path>
           </S.Bottom>
         </S.CertificateInfoText>
       </S.CertificateInfo>
