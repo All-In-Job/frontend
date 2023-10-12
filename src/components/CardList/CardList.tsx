@@ -2,8 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 
 import axios from 'axios';
 import { HomeCardListContext } from 'contexts/homeCardMenuContext';
-import { useLocation, useMatch } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
+import CertificateItem from 'components/CertificateList/CertificateItem';
 import PostCard from 'components/commons/PostCard/PostCard';
 import CommunityList from 'components/CommunityList/CommunityList';
 
@@ -23,18 +24,28 @@ export const CardList = () => {
     };
 
     crawlingData();
+    console.log(`${import.meta.env.VITE_API_MAIN_CRAWLING}${homeCardList?.getParams}`);
   }, [homeCardList?.getParams]);
 
-  const location = useLocation();
-  const CommunityPathMatch = useMatch('/?menu=community');
-  console.log(location.search, CommunityPathMatch);
+  const { search } = useLocation();
+  const selectCommunity = search.includes('community');
+  const selectCertificate = search.includes('qnet');
 
   return (
     <S.CardListWrapper>
-      {location.search.includes('community') ? (
+      {selectCertificate || selectCommunity ? (
         <section>
-          {data.map((el, idx) => {
-            return (
+          {data.map(el => {
+            return selectCertificate ? (
+              <CertificateItem
+                key={el.id}
+                title={el.title}
+                institution={el.institution}
+                implNm={'관련부처'}
+                scrap={el.scrap}
+                view={el.view}
+              />
+            ) : (
               <CommunityList
                 key={idx}
                 user={el.user}
