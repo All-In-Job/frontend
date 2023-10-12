@@ -21,14 +21,20 @@ export const CertificateListContainer = styled.article`
 
 export const CertificateInfo = styled.div`
   display: flex;
-  flex-direction: column;
-  padding: 4px 0px;
+  align-items: center;
 `;
 
 export const Image = styled.div`
   height: 68px;
   width: 68px;
+  margin-right: 16px;
   background-color: #d9d9d9;
+`;
+
+export const CertificateInfoText = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0px;
 `;
 
 export const Title = styled.h1`

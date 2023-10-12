@@ -26,11 +26,13 @@ function CertificateList({ title, institution, implNm, scrap, view }: Certificat
     <S.CertificateListContainer>
       <S.CertificateInfo>
         <S.Image />
-        <S.Title>{title}</S.Title>
-        <S.Bottom>
-          <S.Path>{institution}</S.Path>
-          <S.Path>{implNm}</S.Path>
-        </S.Bottom>
+        <S.CertificateInfoText>
+          <S.Title>{title}</S.Title>
+          <S.Bottom>
+            <S.Path>{implNm}</S.Path>
+            <S.Path>{institution}</S.Path>
+          </S.Bottom>
+        </S.CertificateInfoText>
       </S.CertificateInfo>
       <S.CountWrapper>
         <S.Count>
