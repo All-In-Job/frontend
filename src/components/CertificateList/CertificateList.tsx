@@ -1,15 +1,15 @@
 import * as S from './CertificateList.styles';
 
-type ExamSchedule = {
-  id: string;
-  turn: string;
-  wtReceipt: string;
-  wtDday: string;
-  wtResultDay: string;
-  ptReceipt: string;
-  ptDday: string;
-  resultDay: string;
-};
+// type ExamSchedule = {
+//   id: string;
+//   turn: string;
+//   wtReceipt: string;
+//   wtDday: string;
+//   wtResultDay: string;
+//   ptReceipt: string;
+//   ptDday: string;
+//   resultDay: string;
+// };
 
 type Certificate = {
   id: string;
@@ -19,11 +19,10 @@ type Certificate = {
   implNm: string;
   scrapCount: number;
   viewCount: number;
-  examSchedules: ExamSchedule[];
+  // examSchedules: ExamSchedule[];
 };
 
 function CertificateList(props: Certificate) {
-  console.log(props);
   return (
     <S.CertificateListContainer>
       <S.CertificateInfo>
