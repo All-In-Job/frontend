@@ -78,10 +78,11 @@ const Agreement = () => {
 
   const updateAgreeAll: MouseEventHandler<HTMLButtonElement> = () => {
     const agrees: Record<string, boolean> = {};
-    if (isAllChecked)
-      for (const key in currentFormState) key.startsWith('agree') && (agrees[key] = false);
-    if (!isAllChecked)
-      for (const key in currentFormState) key.startsWith('agree') && (agrees[key] = true);
+    const updateAgreeProperties = (value: boolean) => {
+      for (const key in currentFormState) key.startsWith('agree') && (agrees[key] = value);
+    };
+
+    updateAgreeProperties(!isAllChecked);
     setCurrentFormState({ ...currentFormState, ...agrees });
   };
 
