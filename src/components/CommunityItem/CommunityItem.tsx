@@ -6,17 +6,17 @@ interface UserInfo {
   nickname: string;
 }
 
-interface CommunityListProps {
-  user: UserInfo;
-  dateCreation: string;
+interface CommunityItemProps {
+  category: string;
   title: string;
-  path: string;
-  viewCount: string;
-  likeCount: string;
-  scrapCount: string;
+  view: number;
+  like: number;
+  comment: number;
+  date: string;
+  user: UserInfo;
 }
 
-function CommunityList(props: CommunityListProps) {
+function CommunityItem({ user, category, title, view, like, comment, date }: CommunityItemProps) {
   const getTimeDiffString = (pastTime: string) => {
     const now = new Date();
     const past = new Date(pastTime);
@@ -38,34 +38,34 @@ function CommunityList(props: CommunityListProps) {
   };
 
   return (
-    <S.CommunityListContainer>
+    <S.CommunityItemContainer>
       <S.UserInfo>
         <S.Nickname>
           <S.NicknameIcon />
-          {props.user && props.user.nickname}
+          {user && user.nickname}
         </S.Nickname>
-        <S.Time>{getTimeDiffString(props.dateCreation)}</S.Time>
+        <S.Time>{getTimeDiffString(date)}</S.Time>
       </S.UserInfo>
-      <S.Title>{props.title}</S.Title>
-      <S.Bottom>
-        <S.Path>{props.path}</S.Path>
+      <S.Title>{title}</S.Title>
+      <S.PostInfo>
+        <S.Category>{category}</S.Category>
         <S.CountWrapper>
           <S.Count>
             <S.ViewIcon />
-            {props.viewCount}
+            {view}
           </S.Count>
           <S.Count>
             <S.BookmarkIcon />
-            {props.scrapCount}
+            {comment}
           </S.Count>
           <S.Count>
             <S.LikeIcon />
-            {props.likeCount}
+            {like}
           </S.Count>
         </S.CountWrapper>
-      </S.Bottom>
-    </S.CommunityListContainer>
+      </S.PostInfo>
+    </S.CommunityItemContainer>
   );
 }
 
-export default CommunityList;
+export default CommunityItem;

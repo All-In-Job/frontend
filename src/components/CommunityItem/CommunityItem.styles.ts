@@ -6,7 +6,7 @@ import { ReactComponent as Like } from './res/img/like.svg';
 import { ReactComponent as View } from './res/img/view.svg';
 import { ReactComponent as Visibility } from './res/img/visibility.svg';
 
-export const CommunityListContainer = styled.article`
+export const CommunityItemContainer = styled.article`
   display: flex;
   padding: 24px 32px;
   flex-direction: column;
@@ -49,7 +49,7 @@ export const Title = styled.span`
   line-height: 30px;
 `;
 
-export const Bottom = styled.div`
+export const PostInfo = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -73,7 +73,7 @@ export const Count = styled.span`
   line-height: 24px;
 `;
 
-export const Path = styled.span`
+export const Category = styled.span`
   padding: 4px 12px;
   border-radius: 4px;
   color: #fd6b36;
