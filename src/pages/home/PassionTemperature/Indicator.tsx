@@ -2,13 +2,8 @@ import { FC, RefObject } from 'react';
 
 import styled from '@emotion/styled';
 
-import { thermometerPercentList } from 'components/PassionThermometer/mock';
-
-import { ReactComponent as SmileIcon } from '../res/img/smile.svg';
-
-import { SHOW_INDICATOR_PERCENT } from './constants';
-import { FlexCenterContainer } from './PassionTemperature.style';
-import { getTotalPercent } from './utils';
+import { FlexCenterContainer } from 'pages/home/PassionTemperature/passionTemperature.style';
+import { ReactComponent as SmileIcon } from 'pages/home/res/img/smile.svg';
 
 interface Props {
   indicatorRef: RefObject<HTMLElement>;
@@ -16,10 +11,6 @@ interface Props {
 }
 
 const Indicator: FC<Props> = ({ totalWidth, indicatorRef }) => {
-  const totalPercent = getTotalPercent(thermometerPercentList);
-
-  if (totalPercent > SHOW_INDICATOR_PERCENT) return <></>;
-
   return (
     <Container ref={indicatorRef as RefObject<HTMLDivElement>} left={`${totalWidth}px`}>
       <IndicatorText>열정온도 60℃</IndicatorText>
@@ -36,7 +27,7 @@ const Container = styled(FlexCenterContainer)<{ left: string }>`
 `;
 
 const IndicatorText = styled.span`
-  color: var(--orange-500, #fd6b36);
+  color: ${({ theme }) => theme.palette.orange500};
   font-family: SUIT;
   font-size: 16px;
   font-style: normal;

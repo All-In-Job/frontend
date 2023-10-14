@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { BarPieceColor } from 'components/PassionThermometer/types';
+import { BarPieceColor } from 'pages/home/PassionTemperature/Thermometer/types';
 
 import { Desc } from './asideProfile.style';
 import { solutions } from './mock/solution';

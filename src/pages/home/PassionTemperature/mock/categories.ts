@@ -1,4 +1,4 @@
-import { TemperatureCategoryList } from '../type';
+import { TemperatureCategoryList } from 'pages/home/PassionTemperature/type';
 
 export const categoryList: TemperatureCategoryList = {
   CERTIFICATE: {

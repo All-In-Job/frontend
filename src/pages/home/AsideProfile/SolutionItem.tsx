@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-import { BarPieceColor } from 'components/PassionThermometer/types';
+import { BarPieceColor } from 'pages/home/PassionTemperature/Thermometer/types';
 
 import CertificationItem from './components/CertificationItem';
 import CompetitionItem from './components/CompetitionItem';

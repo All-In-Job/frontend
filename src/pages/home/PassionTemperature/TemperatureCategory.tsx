@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 
-import { BAR_PIECE_COLOR } from 'components/PassionThermometer/constants';
-import { BarPieceColor } from 'components/PassionThermometer/types';
-
-import { categoryList } from '../PassionTemperature/mock/categories';
+import { categoryList } from 'pages/home/PassionTemperature/mock/categories';
+import { BAR_PIECE_COLOR } from 'pages/home/PassionTemperature/Thermometer/constants';
+import { BarPieceColor } from 'pages/home/PassionTemperature/Thermometer/types';
 
 const TemperatureCategory = () => {
   return (
@@ -32,9 +31,6 @@ const Container = styled.div`
   margin-top: 24px;
 `;
 const CategoryList = styled.ul`
-  /* display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around; */
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 `;
@@ -44,7 +40,7 @@ const Category = styled.li`
   align-items: flex-start;
   margin-top: 17px;
   margin-bottom: 24px;
-  max-width: 221px;
+
   width: 100%;
   height: 241px;
   padding: 16px;
@@ -54,12 +50,11 @@ const Category = styled.li`
 const CategoryName = styled.span`
   color: var(--title-black, #121110);
   text-align: center;
-  /* Body 1/Medium */
   font-family: SUIT;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 26px; /* 162.5% */
+  line-height: 26px;
   white-space: pre-wrap;
   overflow-x: hidden;
 `;
@@ -81,10 +76,9 @@ const CardHeader = styled.h4<{ color: string }>`
   border-radius: 9999px;
   background-color: ${({ color }) => color};
   color: var(--title-black, #121110);
-  /* Body 1/Bold */
   font-family: SUIT;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 26px; /* 162.5% */
+  line-height: 26px;
 `;

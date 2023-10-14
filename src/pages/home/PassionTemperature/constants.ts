@@ -1,1 +1,0 @@
-export const SHOW_INDICATOR_PERCENT = 44;
