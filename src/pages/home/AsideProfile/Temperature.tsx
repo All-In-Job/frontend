@@ -24,7 +24,7 @@ const Temperature: FC<Props> = ({ temperature }) => {
 
   return (
     <Container>
-      <HeadingDesc size='12px'>`IT 프로그래밍 분야 중 상위 {temperature}%`</HeadingDesc>
+      <HeadingDesc size='12px'>IT 프로그래밍 분야 중 상위 {temperature}%</HeadingDesc>
       <TemperatureWrapper ref={temperatureRef}>
         <SmallTemperature />
         <TemperatureDegree width={`${degree}px`} />
@@ -45,7 +45,7 @@ const Container = styled.div`
 const HeadingDesc = styled(Desc)`
   margin-bottom: 4px;
   text-align: center;
-  color: var(--black-500, #121110);
+  color: ${({ theme }) => theme.palette.black500};
   font-weight: 700;
 `;
 
@@ -59,7 +59,7 @@ const TemperatureDegree = styled.div<{ width: string }>`
   left: 0;
   width: ${({ width }) => width};
   height: 100%;
-  background-color: var(--orange-500, #fd6b36);
+  background-color: ${({ theme }) => theme.palette.orange500};
   clip-path: url(#small-temperature);
 `;
 

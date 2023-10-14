@@ -1,4 +1,4 @@
-import { BarPieceColor } from 'components/PassionThermometer/types';
+import { BarPieceColor } from 'pages/home/PassionTemperature/Thermometer/types';
 
 import { Solution } from '../type';
 

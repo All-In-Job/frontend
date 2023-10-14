@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import { thermometerPercentList } from 'components/PassionThermometer/mock';
-import PassionThermometer from 'components/PassionThermometer/Thermometer';
+import { FlexColumnContainer } from 'pages/home/PassionTemperature/passionTemperature.style';
+import PassionThermometer from 'pages/home/PassionTemperature/Thermometer';
+import { thermometerPercentList } from 'pages/home/PassionTemperature/Thermometer/mock';
 
 import Indicator from './Indicator';
-import { FlexColumnContainer } from './PassionTemperature.style';
 import TemperatureCategory from './TemperatureCategory';
 import { getTotalWidth } from './utils';
 
@@ -16,8 +16,18 @@ const PassionTemperature = () => {
   const indicatorRef = useRef<HTMLElement>(null);
   const [indicatorWidth, setIndicatorWidth] = useState(0);
   useEffect(() => {
-    if (temperatureRef.current == null) return;
-    setTemperatureWidth(temperatureRef.current.clientWidth);
+    function adjustWidth() {
+      if (temperatureRef.current == null) return;
+      setTemperatureWidth(temperatureRef.current.clientWidth);
+    }
+
+    adjustWidth();
+
+    window.addEventListener('resize', adjustWidth);
+
+    return () => {
+      window.removeEventListener('resize', adjustWidth);
+    };
   }, []);
 
   useEffect(() => {
@@ -26,7 +36,6 @@ const PassionTemperature = () => {
   }, []);
 
   const totalWidth = getTotalWidth(temperatureWidth, thermometerPercentList, indicatorWidth);
-
   return (
     <Container>
       <Title>열정온도</Title>
@@ -48,11 +57,13 @@ export default PassionTemperature;
 
 const Container = styled(FlexColumnContainer)`
   height: 128px;
+  max-width: 1155px;
+  min-width: 600px;
 `;
 
 const Title = styled.h2`
   margin-bottom: 16px;
-  color: var(--black-500, #121110);
+  color: ${({ theme }) => theme.palette.black500};
   font-feature-settings: 'ss10' on;
   font-family: SUIT;
   font-size: 24px;
