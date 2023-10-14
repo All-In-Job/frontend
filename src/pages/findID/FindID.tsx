@@ -24,7 +24,7 @@ function FindID() {
   };
 
   const handleAuthClick = () => {
-    if (!isValidPhone) {
+    if (!isValidName || !isValidPhone) {
       return;
     }
 
@@ -117,6 +117,7 @@ function FindID() {
                 value={authCode}
                 onChange={handleAuthCodeChange}
                 placeholder='인증번호를 입력해주세요.'
+                disabled={!isAuthRequested}
                 isAuthRequested={isAuthRequested}
               />
               <S.phoneAuthSendBtn isActive={isValidAuthCode}>인증완료</S.phoneAuthSendBtn>
