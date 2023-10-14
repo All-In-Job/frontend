@@ -2,12 +2,12 @@ import styled from '@emotion/styled';
 
 export const Desc = styled.div<{ size?: string }>`
   font-size: ${({ size }) => size ?? 'inherit'};
-  color: var(--black-500, #121110);
+  color: ${({ theme }) => theme.palette.black500};
 `;
 
 export const LightDesc = styled(Desc)`
   font-size: ${({ size }) => size ?? 'inherit'};
-  color: var(--black-300, #717070);
+  color: ${({ theme }) => theme.palette.black500};
   white-space: nowrap;
 `;
 
