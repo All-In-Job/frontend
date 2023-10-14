@@ -24,7 +24,6 @@ export const CardList = () => {
     };
 
     crawlingData();
-    console.log(`${import.meta.env.VITE_API_MAIN_CRAWLING}${homeCardList?.getParams}`);
   }, [homeCardList?.getParams]);
 
   const { search } = useLocation();
@@ -47,14 +46,14 @@ export const CardList = () => {
               />
             ) : (
               <CommunityItem
-                key={idx}
-                user={el.user}
-                dateCreation={el.createAt}
+                key={el.id}
+                category={el.category}
                 title={el.title}
-                path={el.path}
-                viewCount={el.view}
-                likeCount='1234'
-                scrapCount='4234'
+                view={el.view}
+                like={el.likeCount}
+                comment={el.commentCount}
+                date={el.date}
+                user={el.user}
               />
             );
           })}
