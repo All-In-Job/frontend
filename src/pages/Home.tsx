@@ -4,6 +4,7 @@ import { Outlet, useOutlet } from 'react-router-dom';
 
 import { Main } from 'components/Main/Main';
 import Header from 'components/Navigation/Header/Header';
+import theme from 'styles/theme';
 
 import * as S from './home.style';
 
@@ -29,7 +30,9 @@ export const Home = () => {
   return (
     <>
       <Header />
-      <S.Layout>{outlet ? <Outlet /> : <Main />}</S.Layout>
+      <S.Layout ref={layoutEl} style={{ backgroundColor: outlet ? theme.palette.orange400 : '' }}>
+        {outlet ? <Outlet /> : <Main />}
+      </S.Layout>
     </>
   );
 };
