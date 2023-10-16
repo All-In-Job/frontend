@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { ReactComponent as Bookmark } from './res/img/bookmark.svg';
+
 export const LanguageStudyContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -24,15 +26,24 @@ export const LanguageStudyWrapper = styled.section`
 `;
 
 export const TextBox = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
 `;
 
-export const Tag = styled.div`
+export const TagWrapper = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Tag = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: start;
   align-items: center;
   gap: 8px;
   span {
@@ -47,6 +58,19 @@ export const Tag = styled.div`
   }
 `;
 
+export const Before = styled.span`
+  border: 1px solid var(--black-200, #a0a09f) !important;
+  color: var(--orange-500, #a0a09f) !important;
+`;
+
+export const Imminent = styled.span`
+  background: var(--orange-100, #ffe8df) !important;
+`;
+
+export const BookmarkIcon = styled(Bookmark)`
+  cursor: pointer;
+`;
+
 export const ExamDate = styled.div``;
 export const Deadline = styled.div``;
 export const Schedule = styled.div``;
@@ -59,7 +83,7 @@ export const Title = styled.div`
   letter-spacing: 0.134px;
 `;
 
-export const Button = styled.button`
+export const AcceptBtn = styled.button`
   width: 100%;
   display: flex;
   height: 40px;
@@ -69,4 +93,16 @@ export const Button = styled.button`
   border-radius: 4px;
   color: #f6f6f6;
   background-color: #fd6b36;
+`;
+
+export const Btn = styled.button`
+  width: 100%;
+  display: flex;
+  height: 40px;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  color: #f6f6f6;
+  background-color: #d0cfcf;
 `;
