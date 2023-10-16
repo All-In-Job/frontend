@@ -1,42 +1,108 @@
-import { MouseEventHandler, useContext, useMemo, useRef } from 'react';
+import {
+  ChangeEventHandler,
+  Dispatch,
+  FC,
+  MouseEventHandler,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import { ReactComponent as ArrowForwardIcon } from 'assets/icons/icon_arrow_forward.svg';
 import { ReactComponent as CheckCircleIcon } from 'assets/icons/icon_check_circle.svg';
 
 import theme from 'styles/theme';
 
-import { BasicInformationContext } from './BasicInformation';
+import {
+  BasicInformationContext,
+  INPUT_RULES,
+  type InputFieldType,
+  type InputRuleType,
+} from './BasicInformation';
 import * as S from './BasicInformation.style';
+import { ErrorMessage } from './BasicInformation.style';
+
+type InputProps = {
+  rule: InputRuleType;
+  validateInput: (value: string, name: InputFieldType, rule: InputRuleType) => void;
+};
 
 export const InputGroup = () => {
+  const { name, nickname, phone } = INPUT_RULES;
+  const { currentFormState, setCurrentFormState } = useContext(BasicInformationContext)!;
+  const [isCodeConfirmed, setIsCodeConfirmed] = useState(false);
+
+  const validateInput = (value: string, name: InputFieldType, rule: InputRuleType) => {
+    setCurrentFormState({
+      ...currentFormState,
+      [name]: { value, isValid: rule.regex.test(value) },
+    });
+  };
+
+  const isAllFormFieldsTrue = ((textFields: InputFieldType[]) => {
+    const resultSet: Set<string | boolean> = new Set([]);
+    resultSet.add(textFields.every(field => currentFormState[field].isValid)); // true
+    resultSet.add(currentFormState.agreement.isAllChecked);
+    resultSet.add(isCodeConfirmed);
+
+    return resultSet.size === 1 && resultSet.has(true);
+  })(['name', 'nickname', 'phone']);
+
   return (
     <S.Container>
-      <NameInput />
-      <NicknameInput />
-      <PhoneInput />
+      <NameInput rule={name} validateInput={validateInput} />
+      <NicknameInput rule={nickname} validateInput={validateInput} />
+      <PhoneInput
+        rule={phone}
+        validateInput={validateInput}
+        setIsCodeConfirmed={setIsCodeConfirmed}
+      />
       <Agreement />
-      <S.Submit>확인</S.Submit>
+      <S.Submit disabled={!isCodeConfirmed} $isValid={isAllFormFieldsTrue}>
+        확인
+      </S.Submit>
     </S.Container>
   );
 };
 
-const NameInput = () => {
+const NameInput: FC<InputProps> = ({ rule, validateInput }) => {
+  const { currentFormState } = useContext(BasicInformationContext)!;
+  const { isValid, value } = currentFormState.name;
+
   return (
     <S.Row>
       <S.InputHeading>이름</S.InputHeading>
-      <S.Input type='text' placeholder='이름을 입력하세요' name='name' />
+      <S.Input
+        type='text'
+        name='name'
+        placeholder='이름을 입력하세요'
+        onChange={e => validateInput(e.target.value, 'name', rule)}
+      />
+      {value && !isValid && <ErrorMessage>{INPUT_RULES.name.errorMsg}</ErrorMessage>}
     </S.Row>
   );
 };
 
-const PhoneInput = () => {
-  const phoneInputEl = useRef<HTMLInputElement>(null);
-  const { currentFormState, setCurrentFormState } = useContext(BasicInformationContext)!;
-
-  console.log(currentFormState);
+const PhoneInput: FC<InputProps & { setIsCodeConfirmed: Dispatch<SetStateAction<boolean>> }> = ({
+  rule,
+  validateInput,
+  setIsCodeConfirmed,
+}) => {
+  const { currentFormState } = useContext(BasicInformationContext)!;
+  const { isValid, value } = currentFormState.phone;
+  const [isCodeRequested, setIsCodeRequested] = useState(false);
+  const [code, setCode] = useState('');
 
   const requestPhoneVerification = () => {
-    if (phoneInputEl.current) setCurrentFormState({ ...currentFormState, isPhoneValid: true });
+    // 네트워크 요청 - 인증번호 요청
+    setIsCodeRequested(true);
+  };
+  const requestCodeValidation: MouseEventHandler<HTMLButtonElement> = e => {
+    // 네트워크 요청 - 인증번호 확인
+    console.log(e.target);
+    setIsCodeConfirmed(true);
   };
 
   return (
@@ -44,54 +110,101 @@ const PhoneInput = () => {
       <S.InputHeading>휴대폰 번호</S.InputHeading>
       <S.FlexRow style={{ gap: '8px' }}>
         <S.Input
-          ref={phoneInputEl}
           type='text'
           placeholder='휴대폰 11자리를 입력하세요'
           name='phone'
+          onChange={e => validateInput(e.target.value, 'phone', rule)}
         />
-        <S.Button onClick={requestPhoneVerification}>인증요청</S.Button>
+        <S.Button disabled={!isValid} onClick={requestPhoneVerification} $isValid={isValid}>
+          인증요청
+        </S.Button>
       </S.FlexRow>
       <S.FlexRow style={{ marginTop: '12px', gap: '8px' }}>
         <S.Input
           type='text'
-          placeholder='인증 번호를 입력하세요'
+          placeholder={isCodeRequested ? '인증 번호를 입력하세요' : ''}
           name='code'
-          style={{ backgroundColor: theme.palette.background.primary }}
+          disabled={!isCodeRequested}
+          onChange={e => setCode(e.target.value)}
+          style={{
+            backgroundColor: isCodeRequested ? 'transparent' : theme.palette.background.primary,
+          }}
         />
-        <S.Button>인증완료</S.Button>
+        <S.Button
+          disabled={code === ''}
+          $isValid={isCodeRequested && Boolean(code)}
+          onClick={requestCodeValidation}
+        >
+          인증완료
+        </S.Button>
       </S.FlexRow>
+      {value && !isValid && <ErrorMessage>{INPUT_RULES.phone.errorMsg}</ErrorMessage>}
     </S.Row>
   );
 };
 
-const NicknameInput = () => {
+const NicknameInput: FC<InputProps> = ({ rule, validateInput }) => {
+  const { currentFormState } = useContext(BasicInformationContext)!;
+  const { isValid, value } = currentFormState.nickname;
   return (
     <S.Row>
       <S.InputHeading>닉네임</S.InputHeading>
-      <S.Input type='text' placeholder='닉네임을 입력하세요' name='nickname' />
+      <S.Input
+        type='text'
+        placeholder='닉네임을 입력하세요'
+        name='nickname'
+        onChange={e => validateInput(e.target.value, 'nickname', rule)}
+      />
+      {value && !isValid && <ErrorMessage>{INPUT_RULES.nickname.errorMsg}</ErrorMessage>}
     </S.Row>
   );
 };
 
 const Agreement = () => {
   const { currentFormState, setCurrentFormState } = useContext(BasicInformationContext)!;
+  const { agreement: agreementState } = currentFormState;
+
+  const inputStyle = {
+    position: 'absolute',
+    height: 0,
+    width: 0,
+    cursor: 'pointer',
+  } as const;
 
   const updateAgreeAll: MouseEventHandler<HTMLButtonElement> = () => {
-    const agrees: Record<string, boolean> = {};
     const updateAgreeProperties = (value: boolean) => {
-      for (const key in currentFormState) key.startsWith('agree') && (agrees[key] = value);
+      for (const key in agreementState)
+        key.startsWith('agree-') && (agreementState[key as keyof typeof agreementState] = value);
     };
 
     updateAgreeProperties(!isAllChecked);
-    setCurrentFormState({ ...currentFormState, ...agrees });
+    setCurrentFormState({
+      ...currentFormState,
+      agreement: { ...agreementState, isAllChecked: !isAllChecked },
+    });
   };
 
   const isAllChecked = useMemo(() => {
-    for (const key in currentFormState)
-      if (key.startsWith('agree') && !currentFormState[key as keyof typeof currentFormState])
+    for (const key in agreementState)
+      if (key.startsWith('agree-') && !agreementState[key as keyof typeof agreementState])
         return false;
     return true;
-  }, [currentFormState]);
+  }, [currentFormState.agreement]);
+
+  const updateAgreementState: ChangeEventHandler<HTMLInputElement> = e => {
+    const checkbox = e.currentTarget;
+    setCurrentFormState({
+      ...currentFormState,
+      agreement: { ...agreementState, [checkbox.name]: checkbox.checked },
+    });
+  };
+
+  useEffect(() => {
+    setCurrentFormState({
+      ...currentFormState,
+      agreement: { ...agreementState, isAllChecked },
+    });
+  }, [isAllChecked]);
 
   return (
     <S.Row style={{ gap: '8px' }}>
@@ -102,36 +215,40 @@ const Agreement = () => {
         <S.InputHeading>전체동의</S.InputHeading>
       </S.CheckAllButton>
       <S.Ul>
-        <S.List>
-          <label htmlFor='agree-1'>
+        <li>
+          <S.Label>
             <CheckCircleIcon
-              fill={currentFormState['agree-1'] ? theme.palette.orange400 : theme.palette.black200}
+              fill={agreementState['agree-1'] ? theme.palette.orange400 : theme.palette.black200}
             />
             <input
               name='agree-1'
               type='checkbox'
-              style={{ cursor: 'pointer', borderRadius: '100%' }}
+              style={inputStyle}
+              checked={agreementState['agree-1']}
+              onChange={updateAgreementState}
             />
-            <span>필수</span>
+            <S.Required>필수</S.Required>
             <span>개인정보 수집 및 이용동의</span>
             <ArrowForwardIcon />
-          </label>
-        </S.List>
-        <S.List>
-          <label htmlFor='agree-2'>
+          </S.Label>
+        </li>
+        <li>
+          <S.Label>
             <CheckCircleIcon
-              fill={currentFormState['agree-2'] ? theme.palette.orange400 : theme.palette.black200}
+              fill={agreementState['agree-2'] ? theme.palette.orange400 : theme.palette.black200}
             />
             <input
               name='agree-2'
               type='checkbox'
-              style={{ cursor: 'pointer', borderRadius: '100%' }}
+              style={inputStyle}
+              checked={agreementState['agree-2']}
+              onChange={updateAgreementState}
             />
-            <span>필수</span>
+            <S.Required>필수</S.Required>
             <span>정보보유기간</span>
             <ArrowForwardIcon />
-          </label>
-        </S.List>
+          </S.Label>
+        </li>
       </S.Ul>
     </S.Row>
   );

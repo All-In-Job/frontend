@@ -18,16 +18,17 @@ const InputHeading = styled.h1`
   font-size: 20px;
   display: flex;
 `;
-const Button = styled.button`
-  background-color: ${theme.palette.background.primary};
-  color: ${theme.palette.black200};
+const Button = styled.button<{ $isValid: boolean }>`
+  background-color: ${props =>
+    props.$isValid ? theme.palette.orange300 : theme.palette.background.primary};
+  color: ${props => (props.$isValid ? theme.palette.orange500 : theme.palette.black200)};
   padding: 12px;
   width: 84px;
   border-radius: 4px;
   font-size: 13px;
   display: flex;
   align-items: center;
-  cursor: pointer;
+  cursor: ${props => (props.$isValid ? 'pointer' : 'default')};
 `;
 const Input = styled.input`
   border-radius: 4px;
@@ -51,18 +52,46 @@ const Ul = styled.ul`
   gap: 16px;
   padding: 12px;
 `;
-const List = styled.li`
+const Label = styled.label`
+  position: relative;
   display: flex;
   gap: 8px;
   align-items: center;
-`;
-const Submit = styled.button`
-  background-color: ${theme.palette.background.primary};
-  border-radius: 9999px;
-  padding: 12px;
   cursor: pointer;
-  font-size: 17px;
-  margin-top: 15px;
+`;
+const Required = styled.span`
+  background-color: ${theme.palette.background.primary};
+  color: ${theme.palette.black300};
+  padding: 3px;
+  border-radius: 4px;
 `;
 
-export { Container, Row, FlexRow, InputHeading, Button, Input, CheckAllButton, Ul, List, Submit };
+const Submit = styled.button<{ $isValid: boolean }>`
+  background-color: ${props =>
+    props.$isValid ? theme.palette.orange300 : theme.palette.background.primary};
+  color: ${props => (props.$isValid ? theme.palette.orange500 : theme.palette.black200)};
+  border-radius: 9999px;
+  padding: 12px;
+  font-size: 17px;
+  margin-top: 15px;
+  cursor: ${props => (props.$isValid ? 'pointer' : 'default')};
+`;
+
+const ErrorMessage = styled.p`
+  color: red;
+`;
+
+export {
+  Container,
+  Row,
+  FlexRow,
+  InputHeading,
+  Button,
+  Input,
+  CheckAllButton,
+  Ul,
+  Label,
+  Required,
+  Submit,
+  ErrorMessage,
+};
