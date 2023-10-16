@@ -1,6 +1,15 @@
+import { useNavigate } from 'react-router-dom';
+
 import * as S from './signUp.styles';
 
 function SignUp() {
+  const myCookieData = false;
+  const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    navigate('/basic-info', { state: { myData: myCookieData } });
+  };
+
   return (
     <S.LoginContainer>
       <S.LoginWrapper>
@@ -18,9 +27,15 @@ function SignUp() {
             <a href='https://allinjob.co.kr/login/kakao/callback'>
               <S.SocialLoginImg src='/src/pages/signUp/res/img/kakao.png' alt='kakao' />
             </a>
-            <a href='https://allinjob.co.kr/login/google/callback'>
-              <S.SocialLoginImg src='/src/pages/signUp/res/img/google.png' alt='google' />
-            </a>
+            {/* <a href='https://allinjob.co.kr/login/google/callback'> */}
+            <div>
+              <S.SocialLoginImg
+                onClick={handleNavigation}
+                src='/src/pages/signUp/res/img/google.png'
+                alt='google'
+              />
+            </div>
+            {/* </a> */}
           </S.SocialLoginBox>
         </S.LoginBox>
       </S.LoginWrapper>
