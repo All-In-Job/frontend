@@ -1,40 +1,40 @@
 {
   "result": [
     {
-      "category": "영어",
-      "title": "TOEIC (Reading, Listening)",
+      "id": "영어",
+      "test": "TOEIC (Reading, Listening)",
       "examDate": "2023-12-05",
       "openDate": "2023-10-20",
       "closeDate": "2023-10-31",
       "dateFromToday": "D-12"
     },
     {
-      "category": "영어",
-      "title": "TOEIC (Reading, Listening)",
+      "id": "영어",
+      "test": "TOEIC (Reading, Listening)",
       "examDate": "2023-12-05",
       "openDate": "2023-10-20",
       "closeDate": "2023-10-31",
       "dateFromToday": "D-12"
     },
     {
-      "category": "영어",
-      "title": "TOEIC (Reading, Listening)",
+      "id": "영어",
+      "test": "TOEIC (Reading, Listening)",
       "examDate": "2023-12-05",
       "openDate": "2023-10-20",
       "closeDate": "2023-10-31",
       "dateFromToday": "D-12"
     },
     {
-      "category": "영어",
-      "title": "TOEIC (Reading, Listening)",
+      "id": "영어",
+      "test": "TOEIC (Reading, Listening)",
       "examDate": "2023-12-05",
       "openDate": "2023-10-20",
       "closeDate": "2023-10-31",
       "dateFromToday": "D-12"
     },
     {
-      "category": "영어",
-      "title": "TOEIC (Reading, Listening)",
+      "id": "영어",
+      "test": "TOEIC (Reading, Listening)",
       "examDate": "2023-12-05",
       "openDate": "2023-10-20",
       "closeDate": "2023-10-31",

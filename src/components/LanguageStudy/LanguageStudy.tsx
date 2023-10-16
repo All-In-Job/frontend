@@ -5,27 +5,19 @@ import { Link } from 'react-router-dom';
 import * as S from './LanguageStudy.styles';
 
 const LanguageStudy = () => {
-  // const [expected, setExpected] = useState(false);
-  const now = new Date('2023.10.25');
-  const start = new Date('2023.10.25');
-  // const end = new Date('2023.10.31');
+  const now = new Date();
+  const open = new Date('2023.10.20 12:00');
+  const close = new Date('2023.10.31 10:00');
 
-  console.log(now > start);
-
-  // const getTimeDiffString = ({startDate, endDate}:number) => {
-  //   const now = new Date();
-  //   const start = new Date(startDate);
-  //   const end = new Date(endDate);
-  // };
-
+  console.log(close, open);
   return (
     <S.LanguageStudyContainer>
       <S.LanguageStudyWrapper>
         <S.TextBox>
           <S.TagWrapper>
             <S.Tag>
-              <S.Before>접수예정</S.Before>
-              <span>접수중</span>
+              <S.Disabled>접수예정</S.Disabled>
+              <S.Activate>접수중</S.Activate>
               <S.Imminent>마감임박</S.Imminent>
             </S.Tag>
             <Link to={'/login'}>
@@ -38,10 +30,10 @@ const LanguageStudy = () => {
             <S.Deadline>{`접수마감 : 2023.06.25 (월) 10:00`}</S.Deadline>
           </S.Schedule>
         </S.TextBox>
-        {start >= now ? (
-          <S.Btn>{`2023.06.25 접수예정`}</S.Btn>
+        {open > now ? (
+          <S.DisabledBtn>{`2023.10.20 접수예정`}</S.DisabledBtn>
         ) : (
-          <S.AcceptBtn>접수하기</S.AcceptBtn>
+          <S.ActivateBtn>접수하기</S.ActivateBtn>
         )}
       </S.LanguageStudyWrapper>
     </S.LanguageStudyContainer>

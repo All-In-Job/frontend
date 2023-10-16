@@ -50,21 +50,26 @@ export const Tag = styled.div`
     height: 32px;
     padding: 4px 8px;
     border-radius: 4px;
-    border: 1px solid var(--orange-500, #fd6b36);
-    color: var(--orange-500, #fd6b36);
-    background: var(--black-white-wh, #fff);
+    background: #fff;
     font-size: 15px;
     line-height: 24px;
   }
 `;
 
-export const Before = styled.span`
-  border: 1px solid var(--black-200, #a0a09f) !important;
-  color: var(--orange-500, #a0a09f) !important;
+export const Disabled = styled.span`
+  color: var(--orange-500, #a0a09f);
+  border: 1px solid var(--black-200, #a0a09f);
+`;
+
+export const Activate = styled.span`
+  color: var(--orange-500, #fd6b36);
+  border: 1px solid var(--orange-500, #fd6b36);
 `;
 
 export const Imminent = styled.span`
+  color: var(--orange-500, #fd6b36);
   background: var(--orange-100, #ffe8df) !important;
+  border: 1px solid var(--orange-500, #fd6b36);
 `;
 
 export const BookmarkIcon = styled(Bookmark)`
@@ -83,7 +88,7 @@ export const Title = styled.div`
   letter-spacing: 0.134px;
 `;
 
-export const AcceptBtn = styled.button`
+export const ActivateBtn = styled.button`
   width: 100%;
   display: flex;
   height: 40px;
@@ -93,9 +98,10 @@ export const AcceptBtn = styled.button`
   border-radius: 4px;
   color: #f6f6f6;
   background-color: #fd6b36;
+  cursor: pointer;
 `;
 
-export const Btn = styled.button`
+export const DisabledBtn = styled.button`
   width: 100%;
   display: flex;
   height: 40px;
@@ -105,4 +111,5 @@ export const Btn = styled.button`
   border-radius: 4px;
   color: #f6f6f6;
   background-color: #d0cfcf;
+  pointer-events: none;
 `;
