@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useOutlet } from 'react-router-dom';
 
 import * as S from './signUp.styles';
 
@@ -7,8 +7,12 @@ function SignUp() {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
-    navigate('/basic-info', { state: { myData: myCookieData } });
+    navigate('basic-info', { state: { myData: myCookieData } });
   };
+
+  const outlet = useOutlet();
+
+  if (outlet) return <Outlet />;
 
   return (
     <S.LoginContainer>
