@@ -5,7 +5,7 @@ import FindID from 'pages/findID/FindID';
 // import { Home } from 'pages/Home';
 import { Home } from 'pages/Home';
 import Login from 'pages/login/Login';
-import Signup from 'pages/Signup';
+import Signup from 'pages/signUp/SignUp';
 
 // eslint-disable-next-line react-refresh/only-export-components
 // const HomeWithPassion = () => (
