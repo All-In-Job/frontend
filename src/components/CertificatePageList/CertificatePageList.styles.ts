@@ -29,35 +29,3 @@ export const CertificateItemWrapper = styled.div`
   background-color: white;
   border-radius: 12px;
 `;
-
-export const Table = styled.table`
-  border: solid 1px ${palette.orange300};
-  background-color: ${palette.orange100};
-  color: ${palette.black400};
-  ${textStyle.title02}
-`;
-
-export const Tr = styled.tr`
-  border: solid 1px ${palette.orange300};
-  background-color: ${palette.background.secondary};
-  color: ${palette.black400};
-  ${textStyle.title02}
-`;
-
-export const SecondaryTr = styled(Tr)`
-  background-color: white;
-`;
-
-export const Th = styled.th`
-  border-right: solid 1px ${palette.orange100};
-  color: ${palette.black400};
-  ${textStyle.title02}
-  height: 72px;
-  word-break: break-all;
-  text-align: center;
-  vertical-align: middle;
-
-  :last-child {
-    border-right: solid 1px ${palette.orange300};
-  }
-`;
