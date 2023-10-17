@@ -19,6 +19,8 @@ export const CertificateInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 36px;
+  background-color: ${palette.background.primary50};
+  padding: 32px;
 `;
 
 export const CertificateItemWrapper = styled.div`

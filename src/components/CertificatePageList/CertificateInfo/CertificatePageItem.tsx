@@ -12,7 +12,24 @@ const tableData = {
   septenary: '최종합격발표일',
 };
 
-export const CertificatePageItem = () => {
+type Certificate = {
+  title: string;
+  engJmNm?: string | null;
+  relatedDepartment: string;
+  scrap: number;
+  view: number;
+  location: 'main' | 'page';
+  institution: string;
+  // examSchedules: ExamSchedule[];
+};
+
+export const CertificatePageItem = ({
+  title,
+  institution,
+  relatedDepartment,
+  scrap,
+  view = 0,
+}: Certificate) => {
   return (
     <S.CertificateInfo>
       <S.Container>
@@ -20,12 +37,11 @@ export const CertificatePageItem = () => {
         <S.CertificateItemWrapper>
           <CertificateItem
             location='page'
-            // key={el.id}
-            // title={el.title}
-            // institution={el.institution}
-            // relatedDepartment={el.relatedDepartment}
-            // scrap={el.scrap}
-            // view={el.view}
+            title={title}
+            institution={institution}
+            relatedDepartment={relatedDepartment}
+            scrap={scrap}
+            view={view}
           />
         </S.CertificateItemWrapper>
       </S.Container>
