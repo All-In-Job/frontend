@@ -2,15 +2,18 @@ import { FC, useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import MultiSelectHashTagsForIndicator from 'components/Badge/MultiSelectHashTagListForIndicator';
-import MultiSelectHashTagsForSelect from 'components/Badge/MultiSelectHashTagListForSelect';
+import MultiSelectHashTagsForIndicator from 'components/Badge/MultiSelectIndicator';
 import { HashTagData } from 'components/Badge/type';
+import MultiSelectHashTagsForSelect from 'components/HashTagList';
 
 import BadgeHeader from './BadgeHeader';
 
 interface Props {
   title: string;
   hashTagList: HashTagData[];
+
+  //해쉬태그 선택 했을때 선택된 해시태그 정보를 args 로 받고 통신을 하는 함수
+  onSearch: (hashTagList: HashTagData[]) => void;
   className?: string;
 }
 
@@ -61,7 +64,7 @@ export default MultiSelectTags;
 const Container = styled.div`
   display: flex;
   width: 1200px;
-  padding: 16px 32px;
+  padding: 0 32px 16px 32px;
   flex-direction: column;
   align-items: flex-start;
   background-color: #fff6f2;
