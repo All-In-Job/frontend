@@ -43,7 +43,7 @@ export const CardList = () => {
                 key={el.id}
                 title={el.title}
                 institution={el.institution}
-                implNm={'관련부처'}
+                relatedDepartment={el.relatedDepartment}
                 scrap={el.scrap}
                 view={el.view}
               />

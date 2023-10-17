@@ -14,15 +14,35 @@ import * as S from './CertificateItem.styles';
 type Certificate = {
   title: string;
   engJmNm?: string | null;
-  institution: string;
-  implNm: string;
+  relatedDepartment: string;
   scrap: number;
   view: number;
   location: 'main' | 'page';
+  institution: string;
   // examSchedules: ExamSchedule[];
 };
 
-function CertificateItem({ location, title, institution, implNm, scrap, view = 0 }: Certificate) {
+// {
+//   "data": [
+//     {
+//       "id": "자격증 id : adfhttwerqwrasxczx",
+//       "title": "자격증명 : 에너지산업기사",
+//       "view": 100,
+//       "scrap": 0,
+//       "relatedDepartment": "과련부처 : 통겨청",
+//       "institution": "시행기관 : 한국산업인력공단"
+//     }
+//   ]
+// }
+
+function CertificateItem({
+  location,
+  title,
+  institution,
+  relatedDepartment,
+  scrap,
+  view = 0,
+}: Certificate) {
   return (
     <S.CertificateListContainer location={location}>
       <S.CertificateInfo>
@@ -32,7 +52,7 @@ function CertificateItem({ location, title, institution, implNm, scrap, view = 0
           <S.Bottom>
             <S.Path>
               {'관련부처 : '}
-              {implNm}
+              {relatedDepartment}
             </S.Path>
             <S.Path>
               {'시행기관 : '}

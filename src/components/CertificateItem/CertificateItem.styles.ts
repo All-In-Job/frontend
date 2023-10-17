@@ -46,7 +46,7 @@ export const Title = styled.h1`
 export const Bottom = styled.div`
   width: 100%;
   display: flex;
-  gap: 8px;
+  gap: 16px;
 `;
 
 export const Path = styled.span`
