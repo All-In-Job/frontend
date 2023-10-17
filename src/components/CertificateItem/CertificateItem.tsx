@@ -42,15 +42,19 @@ function CertificateItem({ location, title, institution, implNm, scrap, view = 0
         </S.CertificateInfoText>
       </S.CertificateInfo>
       <S.CountWrapper>
-        <S.Count>
-          <S.BookmarkIcon />
-          {scrap}
-        </S.Count>
-        <S.HorizontalIcon />
-        <S.Count>
-          <S.ViewIcon />
-          {view}
-        </S.Count>
+        {location === 'main' ? (
+          <>
+            <S.Count>
+              <S.BookmarkIcon />
+              {scrap}
+            </S.Count>
+            <S.HorizontalIcon />
+            <S.Count>
+              <S.ViewIcon />
+              {view}
+            </S.Count>
+          </>
+        ) : null}
         <S.BookmarkBtn>
           <S.SolidBookmarkIcon />
         </S.BookmarkBtn>
