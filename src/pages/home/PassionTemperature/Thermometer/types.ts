@@ -1,6 +1,7 @@
-import { Props as BarPieceProps } from './BarPiece';
-
-export type PixelSize = string;
+export interface BarPieceProps {
+  barType: keyof BarPieceColor;
+  percent: number;
+}
 
 export type BarPieceColor = {
   COMPETITION: string;

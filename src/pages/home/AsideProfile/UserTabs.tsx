@@ -38,7 +38,6 @@ const Container = styled.ul`
   align-items: center;
   justify-content: center;
   padding: 12px 14px;
-  //height: 100%;
   border-radius: 0 0 12px 12px;
   background: var(--background-primary-50, #f8f8f8);
 `;

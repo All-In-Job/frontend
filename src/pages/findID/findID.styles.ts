@@ -130,6 +130,10 @@ export const AuthNumberInput = styled.input<AuthNumberInputProps>`
   border-radius: 4px;
   padding: 12px;
   background-color: ${props => (props.isAuthRequested ? '#FFE8DF' : '#ededed')};
+  cursor: ${props =>
+    props.isAuthRequested
+      ? 'auto'
+      : 'not-allowed'}; // 인증요청이 안된 상태면 cursor를 not-allowed로 설정
 `;
 
 export const phoneAuthInput = styled.input`

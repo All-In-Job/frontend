@@ -9,7 +9,6 @@ export const Layout = styled.div`
   grid-template-columns: repeat(12, ${COLUMN_WIDTH}px);
   column-gap: 24px;
   justify-content: center;
-  margin-top: 70px;
 `;
 
 export const Main = styled.main`

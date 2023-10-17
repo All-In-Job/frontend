@@ -1,4 +1,4 @@
-import { ThermometerPercentList } from 'components/PassionThermometer/types';
+import { ThermometerPercentList } from 'pages/home/PassionTemperature/Thermometer/types';
 
 export function getTotalWidth(
   containerWidth: number,
