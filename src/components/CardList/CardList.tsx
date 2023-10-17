@@ -5,7 +5,7 @@ import { HomeCardListContext } from 'contexts/homeCardMenuContext';
 import { useLocation } from 'react-router-dom';
 
 import CertificateItem from 'components/CertificateList/CertificateItem';
-import { CertificatePageList } from 'components/CertificatePageList/CertifcatePageList';
+import { CertificatePageList } from 'components/CertificatePageList/CertificatePageList';
 import PostCard from 'components/commons/PostCard/PostCard';
 import CommunityItem from 'components/CommunityItem/CommunityItem';
 
@@ -33,7 +33,7 @@ export const CardList = () => {
 
   return (
     <S.CardListWrapper>
-      <CertificatePageList></CertificatePageList>
+      <CertificatePageList />
       {selectCertificate || selectCommunity ? (
         <section>
           {data.map(el => {
