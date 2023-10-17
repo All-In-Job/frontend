@@ -1,47 +1,54 @@
 {
-  "result": [
+  "data": [
     {
-      "id": "영어",
+      "id": "adfhttwerqwrasxczx",
       "test": "TOEIC (Reading, Listening)",
+      "path": "toeic,toeicBR",
+      "homePage": "http://~~",
       "examDate": "2023-12-05",
       "openDate": "2023-10-20",
       "closeDate": "2023-10-31",
-      "dateFromToday": "D-12"
+      "Dday": "D-3"
     },
     {
-      "id": "영어",
+      "id": "bdfhttwerqwrasxczx",
       "test": "TOEIC (Reading, Listening)",
+      "path": "toeic,toeicBR",
+      "homePage": "http://~~",
       "examDate": "2023-12-05",
       "openDate": "2023-10-20",
       "closeDate": "2023-10-31",
-      "dateFromToday": "D-12"
+      "Dday": "D-3"
     },
     {
-      "id": "영어",
+      "id": "cdfhttwerqwrasxczx",
       "test": "TOEIC (Reading, Listening)",
+      "path": "toeic,toeicBR",
+      "homePage": "http://~~",
       "examDate": "2023-12-05",
       "openDate": "2023-10-20",
       "closeDate": "2023-10-31",
-      "dateFromToday": "D-12"
+      "Dday": "D-12"
     },
     {
-      "id": "영어",
+      "id": "ddfhttwerqwrasxczx",
       "test": "TOEIC (Reading, Listening)",
+      "path": "toeic,toeicBR",
+      "homePage": "http://~~",
       "examDate": "2023-12-05",
       "openDate": "2023-10-20",
       "closeDate": "2023-10-31",
-      "dateFromToday": "D-12"
+      "Dday": "D-12"
     },
     {
-      "id": "영어",
+      "id": "edfhttwerqwrasxczx",
       "test": "TOEIC (Reading, Listening)",
+      "path": "toeic,toeicBR",
+      "homePage": "http://~~",
       "examDate": "2023-12-05",
       "openDate": "2023-10-20",
       "closeDate": "2023-10-31",
-      "dateFromToday": "D-12"
+      "Dday": "D-12"
     }
-  ],
-  "page": 1,
-  "length": 1,
-  "hasNext": false
+  ]
 }
