@@ -10,13 +10,13 @@ import { ReactComponent as View } from './res/img/view.svg';
 const { palette } = theme;
 const { textStyle } = theme;
 
-export const CertificateListContainer = styled.article`
+export const CertificateListContainer = styled.article<{ location: 'main' | 'page' }>`
   display: flex;
   padding: 24px 34px;
   justify-content: space-between;
   align-items: center;
   gap: 8px;
-  border-top: 1px solid ${palette.line.normal};
+  ${props => (props.location === 'main' ? `border-top: 1px solid ${palette.line.normal}` : '')}
 `;
 
 export const CertificateInfo = styled.div`

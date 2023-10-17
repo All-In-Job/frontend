@@ -1,4 +1,4 @@
-import CertificateItem from 'components/CertificateList/CertificateItem';
+import CertificateItem from 'components/CertificateItem/CertificateItem';
 
 import * as S from './CertificatePageList.styles';
 

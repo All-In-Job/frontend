@@ -1,4 +1,4 @@
-import * as S from './CertificateList.styles';
+import * as S from './CertificateItem.styles';
 
 // type ExamSchedule = {
 //   id: string;
@@ -18,12 +18,13 @@ type Certificate = {
   implNm: string;
   scrap: number;
   view: number;
+  location: 'main' | 'page';
   // examSchedules: ExamSchedule[];
 };
 
-function CertificateItem({ title, institution, implNm, scrap, view = 0 }: Certificate) {
+function CertificateItem({ location, title, institution, implNm, scrap, view = 0 }: Certificate) {
   return (
-    <S.CertificateListContainer>
+    <S.CertificateListContainer location={location}>
       <S.CertificateInfo>
         <S.Image />
         <S.CertificateInfoText>
