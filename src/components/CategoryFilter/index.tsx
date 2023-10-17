@@ -11,25 +11,41 @@ interface Props {
   title: string;
   categoryList: CategoryData[];
 
-  //해쉬태그 선택 했을때 선택된 해시태그 정보를 args 로 받고 통신을 하는 함수
+  //해쉬태그 선택 했을때 선택된 카테고리 정보를 args 로 받고 통신을 하는 함수
   onSearch: (hashTagList: CategoryData[]) => void;
+
+  //내 관심사 스위치 on of 시 작동하는 api 콜백 함수
+  onClickMyInterest: (isOn: boolean) => void;
   className?: string;
 }
 
-const CategoryFilter: FC<Props> = ({ categoryList: hashTagList, title, className }) => {
+const CategoryFilter: FC<Props> = ({
+  categoryList: hashTagList,
+  title,
+  onSearch,
+  onClickMyInterest,
+  className,
+}) => {
   const [selectedCategories, setSelectedCategories] = useState<CategoryData[]>([]);
   const [isMyInterestOn, setIsMyInterestOn] = useState(false);
 
   const handleSelectCategory = (value: CategoryData) => {
+    let result: CategoryData[] = [];
     if (selectedCategories.find(item => item.id === value.id)) {
-      setSelectedCategories(selectedCategories.filter(item => item.id !== value.id));
+      // setSelectedCategories(selectedCategories.filter(item => item.id !== value.id));
+      result = selectedCategories.filter(item => item.id !== value.id);
     } else {
-      setSelectedCategories([...selectedCategories, value]);
+      result = [...selectedCategories, value];
     }
+
+    setSelectedCategories(result);
+    onSearch(result);
   };
 
   const handleClickMyInterestClick = () => {
-    setIsMyInterestOn(pre => !pre);
+    const result: boolean = !isMyInterestOn;
+    setIsMyInterestOn(result);
+    onClickMyInterest(result);
   };
 
   return (

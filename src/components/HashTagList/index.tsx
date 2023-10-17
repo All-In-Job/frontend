@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import * as S from 'components/Badge/badge.style';
-import { HashTagData } from 'components/Badge/type';
 import { Shape } from 'components/HashTag';
+import * as S from 'components/HashTagFilter/badge.style';
+import { HashTagData } from 'components/HashTagFilter/type';
 
 interface Props {
   hashTagList: HashTagData[];
