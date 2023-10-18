@@ -30,13 +30,10 @@ const CategoryFilter: FC<Props> = ({
   const [isMyInterestOn, setIsMyInterestOn] = useState(false);
 
   const handleSelectCategory = (value: CategoryData) => {
-    let result: CategoryData[] = [];
-    if (selectedCategories.find(item => item.id === value.id)) {
-      // setSelectedCategories(selectedCategories.filter(item => item.id !== value.id));
-      result = selectedCategories.filter(item => item.id !== value.id);
-    } else {
-      result = [...selectedCategories, value];
-    }
+    const isContainCategory = selectedCategories.find(item => item.id === value.id);
+    const result = isContainCategory
+      ? selectedCategories.filter(item => item.id !== value.id)
+      : [value];
 
     setSelectedCategories(result);
     onSearch(result);
