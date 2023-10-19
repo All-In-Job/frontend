@@ -42,7 +42,7 @@ const textStyle = {
     fontSize: '24px',
     lineHeight: '32px',
   },
-  title011: {
+  title11: {
     fontSize: '22px',
     lineHeight: '26px',
   },

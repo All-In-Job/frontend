@@ -5,7 +5,7 @@ type CommonTextStyles = {
 
 type TextStyles =
   | 'headLine02'
-  | 'title011'
+  | 'title11'
   | 'title01'
   | 'title02'
   | 'body01'
@@ -38,7 +38,7 @@ export interface Palette {
 
   background: {
     primary: string;
-    primary40: string;
+    primary50: string;
     secondary: string;
   };
 
