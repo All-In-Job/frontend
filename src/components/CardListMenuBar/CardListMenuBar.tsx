@@ -43,8 +43,6 @@ const menus = [
   },
 ];
 
-console.log(menus.length);
-
 export const CardListMenuBar = () => {
   const homeCardList = useContext(HomeCardListContext);
 
