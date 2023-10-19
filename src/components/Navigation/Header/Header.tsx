@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import * as S from './header.styles.ts';
 
 function Header() {
@@ -9,26 +11,32 @@ function Header() {
     {
       name: '공모전',
       subItems: ['공모분야', '시상규모', '수상혜택', '지원대상'],
+      path: 'competition',
     },
     {
       name: '대외활동',
       subItems: ['활동분야', '관심분야', '활동혜택', '활동기간', '지역'],
+      path: 'outside',
     },
     {
       name: '자격증',
       subItems: ['국가기술자격증', '국가전문자격증'],
+      path: 'qnet',
     },
     {
       name: '어학',
       subItems: ['영어', '중국어', '스페인어', '기타'],
+      path: 'language',
     },
     {
       name: '인턴',
       subItems: ['대기업', '중소기업', '스타트업'],
+      path: 'intern',
     },
     {
       name: '취준job담',
       subItems: ['취업선배 Q&A', '공모전/대외활동', '자격증/어학', '인턴', '스터디', '자유게시판'],
+      path: 'community',
     },
   ];
   return (
@@ -48,7 +56,9 @@ function Header() {
           >
             <S.MenuWrapper>
               {menuItems.map(item => (
-                <S.MenuItem key={item.name}>{item.name}</S.MenuItem>
+                <S.MenuItem key={item.name}>
+                  <Link to={`menu/${item.path}`}>{item.name}</Link>
+                </S.MenuItem>
               ))}
               {isHovered ? (
                 <S.HoverMenu>
