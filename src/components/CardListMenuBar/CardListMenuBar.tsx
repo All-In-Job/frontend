@@ -1,66 +1,30 @@
 import { useContext } from 'react';
 
 import styled from '@emotion/styled';
-import { ReactComponent as IconActivity } from 'assets/icons/icon_activity.svg';
-import { ReactComponent as IconBoard } from 'assets/icons/icon_board.svg';
-import { ReactComponent as IconCertification } from 'assets/icons/icon_certification.svg';
-import { ReactComponent as IconContest } from 'assets/icons/icon_contest.svg';
-import { ReactComponent as IconIntern } from 'assets/icons/icon_intern.svg';
-import { HomeCardListContext } from 'contexts/homeCardMenuContext';
-
-type MenusPath = 'intern' | 'outside' | 'competition' | 'qnet' | 'toeic' | 'toeicBR' | 'toeicSW';
-
-const menus = [
-  {
-    id: 1,
-    icon: IconContest,
-    text: '공모전',
-    path: 'competition',
-  },
-  {
-    id: 2,
-    icon: IconActivity,
-    text: '대외활동',
-    path: 'outside',
-  },
-  {
-    id: 3,
-    icon: IconCertification,
-    text: '자격증',
-    path: 'qnet',
-  },
-  {
-    id: 4,
-    icon: IconIntern,
-    text: '인턴',
-    path: 'intern',
-  },
-  {
-    id: 5,
-    icon: IconBoard,
-    text: '취준job담',
-    path: 'community',
-  },
-];
+import { HomeCardListContext } from 'contexts/homeCardMenuContext/homeCardMenuContext';
 
 export const CardListMenuBar = () => {
   const homeCardList = useContext(HomeCardListContext);
 
   return (
-    <MenuBar menusLength={menus.length}>
-      {menus.map(item => {
-        const { id, text, icon: Icon, path } = item;
+    <>
+      {homeCardList && (
+        <MenuBar menusLength={homeCardList?.cardMenus.length}>
+          {homeCardList?.cardMenus.map(item => {
+            const { id, text, icon: Icon, path } = item;
 
-        return (
-          <Menu key={id} onClick={() => homeCardList?.selectedCardMenu(path as MenusPath)}>
-            <StyledIconBox isSelected={homeCardList?.getParams === path}>
-              <Icon fill={homeCardList?.getParams === path ? 'white' : '#FD6B36'} />
-            </StyledIconBox>
-            <MenuText>{text}</MenuText>
-          </Menu>
-        );
-      })}
-    </MenuBar>
+            return (
+              <Menu key={id} onClick={() => homeCardList?.selectedCardMenu(path)}>
+                <StyledIconBox isSelected={homeCardList?.getParams === path}>
+                  <Icon fill={homeCardList?.getParams === path ? 'white' : '#FD6B36'} />
+                </StyledIconBox>
+                <MenuText>{text}</MenuText>
+              </Menu>
+            );
+          })}
+        </MenuBar>
+      )}
+    </>
   );
 };
 

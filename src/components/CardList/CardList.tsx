@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 
 import axios from 'axios';
-import { HomeCardListContext } from 'contexts/homeCardMenuContext';
+import { HomeCardListContext } from 'contexts/homeCardMenuContext/homeCardMenuContext';
 import { useLocation } from 'react-router-dom';
 
 import CertificateItem from 'components/CertificateList/CertificateItem';
