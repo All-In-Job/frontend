@@ -87,7 +87,7 @@ function Header() {
             <S.MenuWrapper>
               {menuItems.map(item => (
                 <S.MenuItem key={item.name}>
-                  <Link to={`menu/${item.path}`}>{item.name}</Link>
+                  <Link to={`menu/${item.path}/${item.subItems[0].subPath}`}>{item.name}</Link>
                 </S.MenuItem>
               ))}
               {isHovered ? (
@@ -108,9 +108,11 @@ function Header() {
                                 width: '125px',
                                 cursor: 'pointer',
                               }}
-                              key={subItem}
+                              key={subItem.subName}
                             >
-                              {subItem}
+                              <Link to={`menu/${item.path}/${subItem.subPath}`}>
+                                {subItem.subName}
+                              </Link>
                             </p>
                           ))}
                         </S.DetailItems>
