@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 
 import { TokenResponse, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const useSocialLogin = (provider: 'kakao' | 'google') => {
   const [user, setUser] = useState<TokenResponse>();
   const [profile, setProfile] = useState([]);
+  const navigate = useNavigate();
 
   const googleLogin = useGoogleLogin({
     onSuccess: codeResponse => setUser(codeResponse),
@@ -52,6 +54,7 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
 
   useEffect(() => {
     user && getUserProfile(user);
+    if (user) navigate('/signup/basic-info', { state: user });
   }, [user]);
 
   return {
