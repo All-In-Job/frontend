@@ -35,6 +35,7 @@ export const Home = () => {
     layout.style.marginTop = height + 'px';
   };
 
+  if (kakaoToken) return null;
   return (
     <>
       <Header />
