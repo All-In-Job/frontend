@@ -12,17 +12,25 @@ import * as S from './CardList.style';
 
 export const CardList = () => {
   const [data, setData] = useState([]);
+  const [isLoad, setIsLoad] = useState(false);
   const homeCardList = useContext(HomeCardListContext);
 
   useEffect(() => {
+    setIsLoad(false);
+
     const crawlingData = async () => {
-      const result = await axios.get(
-        `${import.meta.env.VITE_API_MAIN_CRAWLING}${homeCardList?.getParams}`,
-      );
+      try {
+        const result = await axios.get(
+          `${import.meta.env.VITE_API_MAIN_CRAWLING}${homeCardList?.getParams}`,
+        );
 
-      setData(result.data.data);
+        setData(result.data.data);
+        setIsLoad(true);
+      } catch (error) {
+        console.error(error);
+        setIsLoad(true);
+      }
     };
-
     crawlingData();
   }, [homeCardList?.getParams]);
 
@@ -32,53 +40,57 @@ export const CardList = () => {
 
   return (
     <S.CardListWrapper>
-      {selectCertificate || selectCommunity ? (
-        <section>
-          {data.map(el => {
-            return selectCertificate ? (
-              <CertificateItem
-                key={el.id}
-                title={el.title}
-                institution={el.institution}
-                implNm={'관련부처'}
-                scrap={el.scrap}
-                view={el.view}
-              />
-            ) : (
-              <CommunityItem
-                key={el.id}
-                category={el.category}
-                title={el.title}
-                view={el.view}
-                like={el.likeCount}
-                comment={el.commentCount}
-                date={el.date}
-                user={el.user}
-              />
-            );
-          })}
-        </section>
+      {isLoad ? (
+        selectCertificate || selectCommunity ? (
+          <section>
+            {data.map(el => {
+              return selectCertificate ? (
+                <CertificateItem
+                  key={el.id}
+                  title={el.title}
+                  institution={el.institution}
+                  implNm={'관련부처'}
+                  scrap={el.scrap}
+                  view={el.view}
+                />
+              ) : (
+                <CommunityItem
+                  key={el.id}
+                  category={el.category}
+                  title={el.title}
+                  view={el.view}
+                  like={el.likeCount}
+                  comment={el.commentCount}
+                  date={el.date}
+                  user={el.user}
+                />
+              );
+            })}
+          </section>
+        ) : (
+          <S.Section>
+            {data.map((el, idx) => {
+              return (
+                <PostCard
+                  key={idx}
+                  mainImage={el.mainImage}
+                  infoHost={el.enterprise}
+                  title={el.title}
+                  dateDday={el.Dday}
+                  dateCreation={el.applicationPeriod}
+                  scrapCount='4234'
+                  viewCount={el.view}
+                  location='111'
+                  isPickButton
+                  isPostCardTag
+                  index={idx}
+                />
+              );
+            })}
+          </S.Section>
+        )
       ) : (
-        <S.Section>
-          {data.map((el, idx) => {
-            return (
-              <PostCard
-                key={idx}
-                mainImage={el.mainImage}
-                infoHost={el.enterprise}
-                title={el.title}
-                dateDday={el.Dday}
-                dateCreation={el.applicationPeriod}
-                scrapCount='4234'
-                viewCount={el.view}
-                location='111'
-                isPickButton
-                isPostCardTag
-                index={idx}
-              />
-            );
-          })}
-        </S.Section>
+        <p>Loading...</p>
       )}
     </S.CardListWrapper>
   );
