@@ -6,8 +6,8 @@ import FindID from 'pages/findID/FindID';
 // import { Home } from 'pages/Home';
 import { Home } from 'pages/Home';
 import Login from 'pages/login/Login';
-import MenuList from 'pages/menu/main/MenuList/MenuList';
 import Menu from 'pages/menu/Menu';
+import MenuList from 'pages/menu/MenuList/MenuList';
 import Signup from 'pages/Signup';
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -40,7 +40,9 @@ export const router = createBrowserRouter([
       {
         path: 'menu',
         element: <Menu />,
-        children: [{ path: ':menuName', element: <MenuList /> }],
+        children: [
+          { path: ':menuName', children: [{ path: ':categoryId', element: <MenuList /> }] },
+        ],
       },
     ],
   },
