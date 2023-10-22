@@ -23,6 +23,7 @@ export const Home = () => {
       // 1. 서버에 가입된 유저이면 메인 페이지로 이동
       // navigate('/');
       // 2. 서버에서 가입된 유저가 아니라고 하면 아래 로직 처리
+      window.opener.postMessage({ kakaoToken }, window.location.origin);
     }
   }, []);
 
