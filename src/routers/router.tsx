@@ -38,11 +38,9 @@ export const router = createBrowserRouter([
         element: <FindID />,
       },
       {
-        path: 'menu',
+        path: ':menuName',
         element: <Menu />,
-        children: [
-          { path: ':menuName', children: [{ path: ':categoryId', element: <MenuList /> }] },
-        ],
+        children: [{ path: ':categoryId', element: <MenuList /> }],
       },
     ],
   },

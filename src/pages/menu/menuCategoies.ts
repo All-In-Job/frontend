@@ -165,7 +165,7 @@ const menuCategoies: MenuCategoies[] = [
         ],
       },
       {
-        category: '국가기술자격증',
+        category: '국가전문자격증',
         keywords: [
           '보건복지부',
           '환경부',
