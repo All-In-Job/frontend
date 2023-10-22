@@ -1,6 +1,6 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 
-import { Outlet, useOutlet, useSearchParams } from 'react-router-dom';
+import { Outlet, useNavigate, useOutlet, useSearchParams } from 'react-router-dom';
 
 import { Main } from 'components/Main/Main';
 import Header from 'components/Navigation/Header/Header';
@@ -12,6 +12,7 @@ export const Home = () => {
   const outlet = useOutlet();
   const layoutEl = useRef<HTMLDivElement>(null);
   const kakaoToken = useSearchParams()[0].get('code');
+  const navigate = useNavigate();
 
   useLayoutEffect(() => {
     const Layout = layoutEl.current;
@@ -24,8 +25,20 @@ export const Home = () => {
       // navigate('/');
       // 2. 서버에서 가입된 유저가 아니라고 하면 아래 로직 처리
       window.opener.postMessage({ kakaoToken }, window.location.origin);
+      window.close();
     }
   }, []);
+
+  useEffect(() => {
+    window.addEventListener('message', handleKakaoAuth);
+  }, []);
+
+  const handleKakaoAuth = (e: MessageEvent) => {
+    const { code } = e.data;
+    if (!code) return;
+
+    navigate('/signup/basic-info', { state: code });
+  };
 
   const getHeaderHeight = (header: HTMLElement | null) => {
     if (header) return header.offsetHeight;
