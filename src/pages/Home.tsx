@@ -24,6 +24,7 @@ export const Home = () => {
       // navigate('/');
       // 2. 서버에서 가입된 유저가 아니라고 하면 아래 로직 처리
       window.opener.postMessage({ kakaoToken }, window.location.origin);
+      window.close();
     }
   }, []);
 
