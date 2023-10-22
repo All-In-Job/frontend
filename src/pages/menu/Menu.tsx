@@ -3,8 +3,9 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import { Outlet, useParams } from 'react-router-dom';
 
-import MultiSelectTags from 'components/Badge';
-import { HashTagData } from 'components/Badge/type';
+import MultiSelectTags from 'components/CategoryFilter';
+import { categoryData } from 'components/CategoryFilter/mock/categories';
+import { HashTagData } from 'components/HashTagFilter/type';
 
 import { MenuId, MenuItems, getMenuById } from './menuList';
 
@@ -33,7 +34,13 @@ const Menu = () => {
       </CategoryList>
       <MenuHeadContent>
         {selectedCategory && (
-          <MultiSelectTags title='키워드' hashTagList={selectedCategory} key={foundMenuList?.id} />
+          <MultiSelectTags
+            title='키워드'
+            className=''
+            onSearch={() => {}}
+            onClickMyInterest={() => {}}
+            categoryList={categoryData}
+          />
         )}
       </MenuHeadContent>
 
