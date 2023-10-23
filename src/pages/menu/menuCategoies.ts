@@ -7,13 +7,13 @@ export type MenuItems = {
   keywords?: string[];
 };
 
-export type MenuList = {
+export type MenuCategoies = {
   id: MenuId;
   title: MenuName;
   items: MenuItems[];
 };
 
-const menuList: MenuList[] = [
+const menuCategoies: MenuCategoies[] = [
   {
     id: 'competition',
     title: '공모전',
@@ -165,7 +165,7 @@ const menuList: MenuList[] = [
         ],
       },
       {
-        category: '국가기술자격증',
+        category: '국가전문자격증',
         keywords: [
           '보건복지부',
           '환경부',
@@ -280,19 +280,19 @@ const menuList: MenuList[] = [
     id: 'community',
     title: '취준job담',
     items: [
-      { category: '전체', keywords: [] },
-      { category: '공모전/대외활동', keywords: [] },
-      { category: '자격증/어학', keywords: [] },
-      { category: '인턴', keywords: [] },
-      { category: '스터디', keywords: [] },
-      { category: '취업선배Q&A', keywords: [] },
-      { category: '자유게시판', keywords: [] },
+      { category: '전체' },
+      { category: '공모전/대외활동' },
+      { category: '자격증/어학' },
+      { category: '인턴' },
+      { category: '스터디' },
+      { category: '취업선배Q&A' },
+      { category: '자유게시판' },
     ],
   },
 ];
 
-export const getMenuById = (menuDetailName: MenuId) => {
-  const foundMenuList = menuList.find(menu => menu.id === menuDetailName);
+export const getMenuById = (menuName: MenuId) => {
+  const foundMenuCategories = menuCategoies.find(menu => menu.id === menuName);
 
-  return foundMenuList;
+  return foundMenuCategories;
 };
