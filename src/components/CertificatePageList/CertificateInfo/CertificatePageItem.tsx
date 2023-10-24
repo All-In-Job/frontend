@@ -1,3 +1,5 @@
+import { CertificateItemProps } from 'types/certificate.type';
+
 import CertificateItem from 'components/CertificateItem/CertificateItem';
 
 import * as S from './CertificatePageItem.styles';
@@ -12,24 +14,13 @@ const tableData = {
   septenary: '최종합격발표일',
 };
 
-type Certificate = {
-  title: string;
-  engJmNm?: string | null;
-  relatedDepartment: string;
-  scrap: number;
-  view: number;
-  location: 'main' | 'page';
-  institution: string;
-  // examSchedules: ExamSchedule[];
-};
-
 export const CertificatePageItem = ({
   title,
   institution,
   relatedDepartment,
   scrap,
   view = 0,
-}: Certificate) => {
+}: CertificateItemProps) => {
   return (
     <S.CertificateInfo>
       <S.Container>

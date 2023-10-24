@@ -1,10 +1,6 @@
-import { Certificate } from 'types/certificate.type';
+import { CertificateItemProps } from 'types/certificate.type';
 
 import * as S from './CertificateItem.styles';
-
-interface CertificateItemProps extends Certificate {
-  location: 'page' | 'main';
-}
 
 function CertificateItem({
   location,
