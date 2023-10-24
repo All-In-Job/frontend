@@ -8,7 +8,7 @@ const MenuList = () => {
   return (
     <div>
       <div>{menuName} 리스트 컴포넌트</div>
-      <CertificatePageList />
+      {menuName === 'qnet' && <CertificatePageList />}
     </div>
   );
 };
