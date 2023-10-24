@@ -115,7 +115,7 @@ export const CertificatePageList = () => {
   useEffect(() => {
     requestCrawlingData('qnet', '').then(res => {
       console.log(res);
-      setCertificateList(res);
+      setCertificateList(res.data);
     });
   }, []);
 
