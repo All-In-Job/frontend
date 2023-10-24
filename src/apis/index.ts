@@ -20,6 +20,7 @@ const devUrl = {
 // export const baseURL = import.meta.env.DEV ? devUrl : prodUrl;
 export const baseURL = import.meta.env.DEV ? prodUrl : devUrl;
 
+
 function createAxiosInstance(url: string) {
   return axios.create({ baseURL: url });
 }
@@ -29,3 +30,4 @@ export const internApi = createAxiosInstance(baseURL.intern);
 
 export const communityApi = createAxiosInstance(baseURL.communityApi);
 export const crawlingApi = createAxiosInstance(baseURL.crawlingApi);
+
