@@ -19,7 +19,7 @@ export const CertificatePageItem = ({
   institution,
   relatedDepartment,
   scrap,
-  view = 0,
+  view, // examSchedules,
 }: CertificateItemProps) => {
   return (
     <S.CertificateInfo>

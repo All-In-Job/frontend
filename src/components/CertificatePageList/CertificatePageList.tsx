@@ -113,7 +113,10 @@ export const CertificatePageList = () => {
   const [certificateList, setCertificateList] = useState<Certificate[]>([]);
 
   useEffect(() => {
-    requestCrawlingData('qnet', '').then(res => setCertificateList(res));
+    requestCrawlingData('qnet', '').then(res => {
+      console.log(res);
+      setCertificateList(res);
+    });
   }, []);
 
   return (
