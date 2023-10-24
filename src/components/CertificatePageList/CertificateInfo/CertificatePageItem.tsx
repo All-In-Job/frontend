@@ -19,7 +19,8 @@ export const CertificatePageItem = ({
   institution,
   relatedDepartment,
   scrap,
-  view, // examSchedules,
+  view,
+  examSchedules,
 }: CertificateItemProps) => {
   return (
     <S.CertificateInfo>
@@ -53,13 +54,13 @@ export const CertificatePageItem = ({
           </thead>
           <tfoot>
             <S.SecondaryTr>
-              <S.Th>Hello, world</S.Th>
-              <S.Th>Hello, world</S.Th>
-              <S.Th>Hello, world</S.Th>
-              <S.Th>Hello, world</S.Th>
-              <S.Th>Hello, world</S.Th>
-              <S.Th>Hello, world</S.Th>
-              <S.Th>Hello, world</S.Th>
+              <S.Th>{examSchedules?.turn}</S.Th>
+              <S.Th>{examSchedules?.wtReceipt}</S.Th>
+              <S.Th>{examSchedules?.wtDday}</S.Th>
+              <S.Th>{examSchedules?.wtResultDay}</S.Th>
+              <S.Th>{examSchedules?.ptReceipt}</S.Th>
+              <S.Th>{examSchedules?.ptDday}</S.Th>
+              <S.Th>{examSchedules?.resultDay}</S.Th>
             </S.SecondaryTr>
           </tfoot>
         </S.Table>

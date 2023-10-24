@@ -17,7 +17,7 @@ export type Certificate = {
   scrap: number;
   view: number;
   institution: string;
-  examSchedules?: ExamSchedule[];
+  examSchedules?: ExamSchedule;
 };
 
 export interface CertificateItemProps extends Certificate {

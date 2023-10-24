@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 // import { useParams } from 'react-router-dom';
 
+import { useParams } from 'react-router-dom';
 import { Certificate } from 'types/certificate.type';
 
 import { requestCrawlingData } from 'apis/crawling';
@@ -109,15 +110,19 @@ import * as S from './CertificatePageList.styles';
 // ];
 
 export const CertificatePageList = () => {
-  // const { categoryId } = useParams();
+  const { menuName } = useParams();
+
   const [certificateList, setCertificateList] = useState<Certificate[]>([]);
 
+  const queries = {
+    path: menuName,
+  };
+
   useEffect(() => {
-    requestCrawlingData('qnet', '').then(res => {
-      console.log(res);
+    requestCrawlingData(menuName as string, queries).then(res => {
       setCertificateList(res.data);
     });
-  }, []);
+  }, [menuName]);
 
   return (
     <S.List>

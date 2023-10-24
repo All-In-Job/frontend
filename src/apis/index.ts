@@ -8,16 +8,17 @@ const prodUrl = {
   crawlingApi: import.meta.env.VITE_API_CRAWLING, // /crawling
 };
 // development mode
-// const devUrl = {
-//   competition: '/mocks/compeition.json',
-//   intern: '/mocks/intern.json',
-//   communityApi: '/mocks/community.json',
-//   crawlingApi: '/mocks/crawling.json',
-// };
+const devUrl = {
+  competition: '/mocks/compeition.json',
+  intern: '/mocks/intern.json',
+  communityApi: '/mocks/community.json',
+  crawlingApi: '/mocks/findeCrawling.json',
+  mainCrawlingApi: '/mocks/crawling.json',
+};
 
 // production mode 인지 development mode 인지 체크하여 어떤 url 객체를 사용할지 결정
 // export const baseURL = import.meta.env.DEV ? devUrl : prodUrl;
-export const baseURL = prodUrl;
+export const baseURL = import.meta.env.DEV ? prodUrl : devUrl;
 
 function createAxiosInstance(url: string) {
   return axios.create({ baseURL: url });
