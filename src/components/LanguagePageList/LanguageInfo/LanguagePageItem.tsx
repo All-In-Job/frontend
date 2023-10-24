@@ -1,19 +1,9 @@
 import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
+import { Language } from 'types/language.type';
 
 import * as S from './LanguagePageItem.styles';
-
-type Language = {
-  id: string;
-  path: string;
-  test: string;
-  homPage: string;
-  examDate: string;
-  openDate: string;
-  closeDate: string;
-  Dday: string;
-};
 
 export const LanguagePageItem = ({
   id,

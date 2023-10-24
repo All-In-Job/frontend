@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { ReactComponent as Bookmark } from './res/img/bookmark.svg';
+import { ReactComponent as Bookmark } from '../res/img/bookmark.svg';
 
 export const LanguageContainer = styled.div`
   display: grid;
