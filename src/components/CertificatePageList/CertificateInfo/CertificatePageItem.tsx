@@ -14,6 +14,17 @@ const tableData = {
   septenary: '최종합격발표일',
 };
 
+// function removeYearAfterTilde(str) {
+//   const tildeIndex = str.indexOf("~");
+//   if (tildeIndex !== -1) {
+//     const yearIndex = str.indexOf(".", tildeIndex);
+//     if (yearIndex !== -1) {
+//       return str.substring(0, yearIndex + 1);
+//     }
+//   }
+//   return str;
+// }
+
 export const CertificatePageItem = ({
   title,
   institution,

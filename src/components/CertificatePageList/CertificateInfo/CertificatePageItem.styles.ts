@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h3`
-  ${textStyle.title011}
+  ${textStyle.title11}
 `;
 
 export const CertificateInfo = styled.div`
