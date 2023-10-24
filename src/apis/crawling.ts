@@ -3,13 +3,12 @@ import { Certificate } from 'types/certificate.type';
 
 import { crawlingApi } from './index';
 
-type FuncType = (menu: string, queries: object) => Promise<AxiosResponse<Certificate[]>>;
+type FuncType = (menu: string, queries: object) => Promise<AxiosResponse<{ data: Certificate[] }>>;
 
 export const requestCrawlingData: FuncType = async (menu, queries) => {
-  const res = await crawlingApi({
+  return await crawlingApi({
     method: 'get',
     url: `${menu}`,
     params: { ...queries },
   });
-  return res.data;
 };
