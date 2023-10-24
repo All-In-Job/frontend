@@ -1,15 +1,15 @@
 import * as S from './CertificateItem.styles';
 
-// type ExamSchedule = {
-//   id: string;
-//   turn: string;
-//   wtReceipt: string;
-//   wtDday: string;
-//   wtResultDay: string;
-//   ptReceipt: string;
-//   ptDday: string;
-//   resultDay: string;
-// };
+type ExamSchedule = {
+  id: string;
+  turn: string;
+  wtReceipt: string;
+  wtDday: string;
+  wtResultDay: string;
+  ptReceipt: string;
+  ptDday: string;
+  resultDay: string;
+};
 
 type Certificate = {
   title: string;
@@ -19,7 +19,7 @@ type Certificate = {
   view: number;
   location: 'main' | 'page';
   institution: string;
-  // examSchedules: ExamSchedule[];
+  examSchedules: ExamSchedule[];
 };
 
 // {

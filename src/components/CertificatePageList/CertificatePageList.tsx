@@ -1,3 +1,9 @@
+import { useEffect } from 'react';
+
+// import { useParams } from 'react-router-dom';
+
+import { requestCrawlingData } from 'apis/crawling';
+
 import { CertificatePageItem } from './CertificateInfo/CertificatePageItem';
 import * as S from './CertificatePageList.styles';
 
@@ -101,6 +107,11 @@ const data = [
 ];
 
 export const CertificatePageList = () => {
+  // const { categoryId } = useParams();
+
+  useEffect(() => {
+    requestCrawlingData('qnet', '');
+  }, []);
   return (
     <S.List>
       {data.map(el => (
