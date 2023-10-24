@@ -10,13 +10,13 @@ import { ReactComponent as View } from './res/img/view.svg';
 const { palette } = theme;
 const { textStyle } = theme;
 
-export const CertificateListContainer = styled.article`
+export const CertificateListContainer = styled.article<{ location: 'main' | 'page' }>`
   display: flex;
   padding: 24px 34px;
   justify-content: space-between;
   align-items: center;
   gap: 8px;
-  border-top: 1px solid ${palette.line.normal};
+  ${props => (props.location === 'main' ? `border-top: 1px solid ${palette.line.normal}` : '')}
 `;
 
 export const CertificateInfo = styled.div`
@@ -24,7 +24,7 @@ export const CertificateInfo = styled.div`
   align-items: center;
 `;
 
-export const Image = styled.div`
+export const Image = styled.img`
   height: 68px;
   width: 68px;
   margin-right: 16px;
@@ -46,7 +46,7 @@ export const Title = styled.h1`
 export const Bottom = styled.div`
   width: 100%;
   display: flex;
-  gap: 8px;
+  gap: 16px;
 `;
 
 export const Path = styled.span`

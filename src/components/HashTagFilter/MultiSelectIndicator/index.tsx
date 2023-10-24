@@ -2,8 +2,8 @@ import { FC } from 'react';
 
 import styled from '@emotion/styled';
 
-import * as S from 'components/Badge/badge.style';
-import { HashTagData } from 'components/Badge/type';
+import * as S from 'components/HashTagFilter/badge.style';
+import { HashTagData } from 'components/HashTagFilter/type';
 
 import { ReactComponent as CloseIcon } from './res/images/close.svg';
 

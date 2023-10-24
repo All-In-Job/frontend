@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import styled from '@emotion/styled';
 
-import { ReactComponent as RefreshIcon } from 'components/Badge/res/image/refresh.svg';
+import { ReactComponent as RefreshIcon } from 'components/HashTagFilter/res/image/refresh.svg';
 
 interface Props {
   title: string;
