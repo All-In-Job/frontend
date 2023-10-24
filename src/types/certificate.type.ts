@@ -18,6 +18,7 @@ export type Certificate = {
   view: number;
   institution: string;
   examSchedules?: ExamSchedule;
+  image: string;
 };
 
 export interface CertificateItemProps extends Certificate {

@@ -24,7 +24,7 @@ export const CertificateInfo = styled.div`
   align-items: center;
 `;
 
-export const Image = styled.div`
+export const Image = styled.img`
   height: 68px;
   width: 68px;
   margin-right: 16px;

@@ -9,11 +9,12 @@ function CertificateItem({
   relatedDepartment,
   scrap,
   view = 0,
+  image,
 }: CertificateItemProps) {
   return (
     <S.CertificateListContainer location={location}>
       <S.CertificateInfo>
-        <S.Image />
+        <S.Image src={image}></S.Image>
         <S.CertificateInfoText>
           <S.Title>{title}</S.Title>
           <S.Bottom>
