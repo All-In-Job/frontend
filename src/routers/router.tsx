@@ -1,10 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 // import PassionTempList from 'components/CardList/PassionTempList/PassionTempList';
+
 import FindID from 'pages/findID/FindID';
 // import { Home } from 'pages/Home';
 import { Home } from 'pages/Home';
 import Login from 'pages/login/Login';
+import Menu from 'pages/menu/Menu';
+import MenuList from 'pages/menu/MenuList/MenuList';
 import Signup from 'pages/Signup';
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -33,6 +36,11 @@ export const router = createBrowserRouter([
       {
         path: 'find-id',
         element: <FindID />,
+      },
+      {
+        path: ':menuName',
+        element: <Menu />,
+        children: [{ path: ':categoryId', element: <MenuList /> }],
       },
     ],
   },
