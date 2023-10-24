@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import { ReactComponent as Bookmark } from './res/img/bookmark.svg';
 
-export const LanguageStudyContainer = styled.div`
+export const LanguageContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px 21px;
@@ -14,7 +14,7 @@ export const LanguageStudyContainer = styled.div`
   line-height: 26px;
 `;
 
-export const LanguageStudyWrapper = styled.section`
+export const LanguageWrapper = styled.section`
   width: 100%;
   display: flex;
   padding: 24px 32px;
