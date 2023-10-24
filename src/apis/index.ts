@@ -2,24 +2,32 @@ import axios from 'axios';
 
 // production mode
 const prodUrl = {
-  user: import.meta.env.VITE_API_COMMUNITY_BASE_URL, // '/user'
-  login: import.meta.env.VITE_API_LOGIN_BASE_URL, // '/login'
-  community: import.meta.env.VITE_API_COMMUNITY_BASE_URL, // '/community'
-  crawling: import.meta.env.VITE_API_CRAWLING_BASE_URL, // '/crawling'
+  competition: import.meta.env.VITE_API_COMPETITION_BASE_URL,
+  intern: import.meta.env.VITE_API_COMPETITION_BASE_URL,
+  communityApi: import.meta.env.VITE_API_COMMUNITY_BASE_URL,
+  crawlingApi: import.meta.env.VITE_API_CRAWLING, // /crawling
 };
 // development mode
 const devUrl = {
-  community: '/mocks/community.json',
-  crawling: '/mocks/crawling.json',
+  competition: '/mocks/compeition.json',
+  intern: '/mocks/intern.json',
+  communityApi: '/mocks/community.json',
+  crawlingApi: '/mocks/findeCrawling.json',
+  mainCrawlingApi: '/mocks/crawling.json',
 };
 
-export const baseURL = import.meta.env.DEV ? devUrl : prodUrl;
+// production mode 인지 development mode 인지 체크하여 어떤 url 객체를 사용할지 결정
+// export const baseURL = import.meta.env.DEV ? devUrl : prodUrl;
+export const baseURL = import.meta.env.DEV ? prodUrl : devUrl;
+
 
 function createAxiosInstance(url: string) {
   return axios.create({ baseURL: url });
 }
 
-export const userApi = createAxiosInstance(prodUrl.user);
-export const loginApi = createAxiosInstance(prodUrl.login);
-export const communityApi = createAxiosInstance(baseURL.community);
-export const crawlingApi = createAxiosInstance(baseURL.crawling);
+export const competitionApi = createAxiosInstance(baseURL.competition);
+export const internApi = createAxiosInstance(baseURL.intern);
+
+export const communityApi = createAxiosInstance(baseURL.communityApi);
+export const crawlingApi = createAxiosInstance(baseURL.crawlingApi);
+
