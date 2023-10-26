@@ -1,9 +1,19 @@
+import { useEffect } from 'react';
+
 import { ReactComponent as Bookmark } from 'assets/icons/solid_bookmark.svg';
 import { useParams } from 'react-router-dom';
 
+import { requestDetailCrawlingData } from 'apis/detailCrawling';
+
 export const DetailPage = () => {
-  const { detailId } = useParams();
-  console.log(detailId);
+  const param = useParams();
+
+  useEffect(() => {
+    (async () => {
+      await requestDetailCrawlingData(param.menuName, param.detailId);
+    })();
+  }, [param]);
+
   return (
     <div>
       <div>
