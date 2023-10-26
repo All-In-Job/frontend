@@ -53,6 +53,7 @@ export const CardList = () => {
                   relatedDepartment={el.relatedDepartment}
                   scrap={el.scrap}
                   view={el.view}
+                  image={el.image}
                 />
               ) : (
                 <CommunityItem
