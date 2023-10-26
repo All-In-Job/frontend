@@ -33,6 +33,7 @@ export const LanguagePageList = () => {
     <List>
       {languageList.map(el => (
         <LanguagePageItem
+          key={el.id}
           id={el.id}
           test={el.test}
           homPage={el.homPage}
@@ -47,8 +48,7 @@ export const LanguagePageList = () => {
 };
 
 const List = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 36px;
-  font-family: Bold;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px 21px;
 `;

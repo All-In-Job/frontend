@@ -12,15 +12,13 @@ export const LanguagePageItem = ({
   examDate,
   openDate,
   closeDate,
-  Dday,
 }: Language) => {
-  const [bookmark, setBookmark] = useState(false);
-
-  const onBookmark = () => {
-    setBookmark(prev => !prev);
-  };
-
   const now = new Date();
+  const close = new Date(closeDate);
+  const timeDiff = close.getTime() - now.getTime();
+  const oneDay = 24 * 60 * 60 * 1000;
+  const Dday = Math.floor(timeDiff / oneDay);
+  const [bookmark, setBookmark] = useState(false);
 
   const timestamp = (date: string) => {
     const weekday = ['일', '월', '화', '수', '목', '금', '토'];
@@ -36,6 +34,10 @@ export const LanguagePageItem = ({
     return `${year}.${month}.${day} (${week}) ${hour}:${minute}`;
   };
 
+  const onBookmark = () => {
+    setBookmark(prev => !prev);
+  };
+
   return (
     <S.LanguageContainer>
       <S.LanguageWrapper key={id}>
@@ -47,7 +49,7 @@ export const LanguagePageItem = ({
               ) : (
                 <S.Activate>접수중</S.Activate>
               )}
-              {Dday === 'D-3' ? <S.Imminent>마감임박</S.Imminent> : null}
+              {Dday === 3 ? <S.Imminent>마감임박</S.Imminent> : null}
             </S.Tag>
             <Link to={'/login'} onClick={onBookmark}>
               <S.BookmarkIcon data-ispick={bookmark} />

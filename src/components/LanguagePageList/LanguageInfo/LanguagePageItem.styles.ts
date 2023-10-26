@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 
-import { ReactComponent as Bookmark } from '../res/img/bookmark.svg';
+import { ReactComponent as Bookmark } from 'components/LanguagePageList/res/img/bookmark.svg';
 
 export const LanguageContainer = styled.div`
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px 21px;
+  gap: 32px 21px; */
   color: var(--black-400, #414140);
   font-family: SUIT;
   font-size: 20px;
