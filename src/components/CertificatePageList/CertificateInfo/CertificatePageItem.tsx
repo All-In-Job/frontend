@@ -14,17 +14,6 @@ const tableData = {
   septenary: '최종합격발표일',
 };
 
-// function removeYearAfterTilde(str) {
-//   const tildeIndex = str.indexOf("~");
-//   if (tildeIndex !== -1) {
-//     const yearIndex = str.indexOf(".", tildeIndex);
-//     if (yearIndex !== -1) {
-//       return str.substring(0, yearIndex + 1);
-//     }
-//   }
-//   return str;
-// }
-
 export const CertificatePageItem = ({
   title,
   institution,
@@ -65,17 +54,17 @@ export const CertificatePageItem = ({
               <S.Th>{tableData.septenary}</S.Th>
             </S.Tr>
           </thead>
-          <tfoot>
+          <tbody>
             <S.SecondaryTr>
-              <S.Th>{examSchedules?.turn}</S.Th>
-              <S.Th>{examSchedules?.wtReceipt}</S.Th>
-              <S.Th>{examSchedules?.wtDday}</S.Th>
-              <S.Th>{examSchedules?.wtResultDay}</S.Th>
-              <S.Th>{examSchedules?.ptReceipt}</S.Th>
-              <S.Th>{examSchedules?.ptDday}</S.Th>
-              <S.Th>{examSchedules?.resultDay}</S.Th>
+              <S.Tb>{examSchedules?.turn}</S.Tb>
+              <S.Tb>{examSchedules?.wtReceipt}</S.Tb>
+              <S.Tb>{examSchedules?.wtDday}</S.Tb>
+              <S.Tb>{examSchedules?.wtResultDay}</S.Tb>
+              <S.Tb>{examSchedules?.ptReceipt}</S.Tb>
+              <S.Tb>{examSchedules?.ptDday}</S.Tb>
+              <S.Tb>{examSchedules?.resultDay}</S.Tb>
             </S.SecondaryTr>
-          </tfoot>
+          </tbody>
         </S.Table>
       </S.Container>
     </S.CertificateInfo>
