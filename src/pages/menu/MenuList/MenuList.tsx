@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 
-import { CertificatePageList } from 'components/CertificatePageList/CertificatePageList';
+// import { CertificatePageList } from 'components/CertificatePageList/CertificatePageList';
+import { CommunityPageList } from 'components/CommunityItem/CommunityPageList';
 
 const MenuList = () => {
   const { menuName } = useParams();
@@ -8,7 +9,7 @@ const MenuList = () => {
   return (
     <div>
       <div>{menuName} 리스트 컴포넌트</div>
-      {menuName === 'qnet' && <CertificatePageList />}
+      {menuName === 'community' && <CommunityPageList />}
     </div>
   );
 };

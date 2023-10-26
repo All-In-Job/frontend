@@ -1,4 +1,5 @@
 // import { Link } from 'react-router-dom';
+import { Community } from 'types/community.type';
 
 import * as S from './CommunityItem.styles';
 import { ReactComponent as BookmarkIcon } from './res/img/bookmark.svg';
@@ -6,21 +7,7 @@ import { ReactComponent as LikeIcon } from './res/img/like.svg';
 import { ReactComponent as ViewIcon } from './res/img/view.svg';
 import { ReactComponent as NicknameIcon } from './res/img/visibility.svg';
 
-interface UserInfo {
-  nickname: string;
-}
-
-interface CommunityItemProps {
-  category: string;
-  title: string;
-  view: number;
-  like: number;
-  comment: number;
-  date: string;
-  user: UserInfo;
-}
-
-function CommunityItem({ user, category, title, view, like, comment, date }: CommunityItemProps) {
+function CommunityItem({ user, category, title, view, like, comment, date }: Community) {
   const getTimeDiffString = (pastTime: string) => {
     const now = new Date();
     const past = new Date(pastTime);
