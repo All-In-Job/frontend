@@ -7,7 +7,7 @@ import { LanguagePageList } from 'components/LanguagePageList/LanguagePageList';
 
 const MenuList = () => {
   const { menuName } = useParams();
-
+  
   const menuToComponent: Record<string, JSX.Element> = {
     qnet: <CertificatePageList />,
     language: <LanguagePageList />,

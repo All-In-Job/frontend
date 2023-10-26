@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react';
 
-import { Outlet, useOutlet, useSearchParams } from 'react-router-dom';
+import { Outlet, useLocation, useOutlet, useSearchParams } from 'react-router-dom';
 
 import { Main } from 'components/Main/Main';
 import Header from 'components/Navigation/Header/Header';
@@ -10,8 +10,11 @@ import * as S from './home.style';
 
 export const Home = () => {
   const outlet = useOutlet();
+  const location = useLocation();
+
   const layoutEl = useRef<HTMLDivElement>(null);
   const kakaoToken = useSearchParams()[0].get('code');
+  const orangeBg = ['/login', '/signup', '/find-id'];
 
   useLayoutEffect(() => {
     const Layout = layoutEl.current;
@@ -38,9 +41,19 @@ export const Home = () => {
   return (
     <>
       <Header />
-      <S.Layout ref={layoutEl} style={{ backgroundColor: outlet ? theme.palette.orange400 : '' }}>
+      <S.Layout
+        ref={layoutEl}
+        style={{
+          backgroundColor: orangeBg.find(value => value === location.pathname)
+            ? theme.palette.orange400
+            : '',
+        }}
+      >
         {outlet ? <Outlet /> : <Main />}
       </S.Layout>
     </>
   );
 };
+
+// normal
+// main, menu
