@@ -7,10 +7,15 @@ import { requestDetailCrawlingData } from 'apis/detailCrawling';
 
 export const DetailPage = () => {
   const param = useParams();
+  // const [detailData, setDetailData] = useState();
 
   useEffect(() => {
     (async () => {
-      await requestDetailCrawlingData(param.menuName, param.detailId);
+      try {
+        await requestDetailCrawlingData(param.menuName, param.detailId);
+      } catch (error) {
+        console.error(error);
+      }
     })();
   }, [param]);
 
