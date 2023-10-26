@@ -4,7 +4,7 @@ import axios from 'axios';
 const prodUrl = {
   competition: import.meta.env.VITE_API_COMPETITION_BASE_URL,
   intern: import.meta.env.VITE_API_COMPETITION_BASE_URL,
-  communityApi: import.meta.env.VITE_API_COMMUNITY_BASE_URL,
+  communityApi: import.meta.env.VITE_API_COMMUNITY,
   crawlingApi: import.meta.env.VITE_API_CRAWLING, // /crawling
 };
 // development mode
