@@ -123,7 +123,6 @@ export const CertificatePageList = () => {
       try {
         const res = await requestCrawlingData(menuName as string, queries);
         setCertificateList(res.data.data);
-        console.log(res.data);
       } catch (error) {
         console.error(error);
       }

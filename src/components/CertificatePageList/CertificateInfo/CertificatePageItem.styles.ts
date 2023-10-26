@@ -60,3 +60,5 @@ export const Th = styled.th`
     border-right: solid 1px ${palette.orange300};
   }
 `;
+
+export const Tb = styled(Th)``;

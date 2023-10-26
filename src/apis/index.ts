@@ -4,7 +4,7 @@ import axios from 'axios';
 const baseURLs = {
   competition: import.meta.env.VITE_API_COMPETITION_BASE_URL,
   intern: import.meta.env.VITE_API_COMPETITION_BASE_URL,
-  communityApi: import.meta.env.VITE_API_COMMUNITY_BASE_URL,
+  communityApi: import.meta.env.VITE_API_COMMUNITY,
   crawlingApi: import.meta.env.VITE_API_CRAWLING, // /crawling
 };
 
@@ -17,3 +17,4 @@ export const internApi = createAxiosInstance(baseURLs.intern);
 
 export const communityApi = createAxiosInstance(baseURLs.communityApi);
 export const crawlingApi = createAxiosInstance(baseURLs.crawlingApi);
+
