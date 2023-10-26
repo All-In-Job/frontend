@@ -7,19 +7,19 @@ import { Certificate } from 'types/certificate.type';
 import { requestDetailCrawlingData } from 'apis/detailCrawling';
 
 export const DetailPage = () => {
-  const param = useParams();
+  const { menuName, detailId } = useParams();
   const [detailData, setDetailData] = useState<Certificate>();
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await requestDetailCrawlingData(param.menuName, param.detailId);
+        const res = await requestDetailCrawlingData(menuName, detailId);
         setDetailData(res.data.data);
       } catch (error) {
         console.error(error);
       }
     })();
-  }, [param]);
+  }, [menuName, detailId]);
 
   console.log(detailData);
   return (
