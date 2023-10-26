@@ -39,36 +39,34 @@ export const LanguagePageItem = ({
   };
 
   return (
-    <S.LanguageContainer>
-      <S.LanguageWrapper key={id}>
-        <S.TextBox>
-          <S.TagWrapper>
-            <S.Tag>
-              {new Date(openDate) > now ? (
-                <S.Disabled>접수예정</S.Disabled>
-              ) : (
-                <S.Activate>접수중</S.Activate>
-              )}
-              {Dday === 3 ? <S.Imminent>마감임박</S.Imminent> : null}
-            </S.Tag>
-            <Link to={'/login'} onClick={onBookmark}>
-              <S.BookmarkIcon data-ispick={bookmark} />
-            </Link>
-          </S.TagWrapper>
-          <S.Title>{test}</S.Title>
-          <S.Schedule>
-            <S.ExamDate>{`시험일시 : ${timestamp(examDate)}`}</S.ExamDate>
-            <S.Deadline>{`접수마감 : ${timestamp(closeDate)}`}</S.Deadline>
-          </S.Schedule>
-        </S.TextBox>
-        {new Date(openDate) > now ? (
-          <S.DisabledBtn>{`${timestamp(openDate).slice(0, 10)} 접수예정`}</S.DisabledBtn>
-        ) : (
-          <S.ActivateBtn>
-            <Link to={`${homPage}`}>접수하기</Link>
-          </S.ActivateBtn>
-        )}
-      </S.LanguageWrapper>
-    </S.LanguageContainer>
+    <S.LanguageWrapper key={id}>
+      <S.TextBox>
+        <S.TagWrapper>
+          <S.Tag>
+            {new Date(openDate) > now ? (
+              <S.Disabled>접수예정</S.Disabled>
+            ) : (
+              <S.Activate>접수중</S.Activate>
+            )}
+            {Dday === 3 ? <S.Imminent>마감임박</S.Imminent> : null}
+          </S.Tag>
+          <Link to={'/login'} onClick={onBookmark}>
+            <S.BookmarkIcon data-ispick={bookmark} />
+          </Link>
+        </S.TagWrapper>
+        <S.Title>{test}</S.Title>
+        <S.Schedule>
+          <S.ExamDate>{`시험일시 : ${timestamp(examDate)}`}</S.ExamDate>
+          <S.Deadline>{`접수마감 : ${timestamp(closeDate)}`}</S.Deadline>
+        </S.Schedule>
+      </S.TextBox>
+      {new Date(openDate) > now ? (
+        <S.DisabledBtn>{`${timestamp(openDate).slice(0, 10)} 접수예정`}</S.DisabledBtn>
+      ) : (
+        <S.ActivateBtn>
+          <Link to={`${homPage}`}>접수하기</Link>
+        </S.ActivateBtn>
+      )}
+    </S.LanguageWrapper>
   );
 };

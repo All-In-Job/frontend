@@ -2,18 +2,6 @@ import styled from '@emotion/styled';
 
 import { ReactComponent as Bookmark } from 'components/LanguagePageList/res/img/bookmark.svg';
 
-export const LanguageContainer = styled.div`
-  /* display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px 21px; */
-  color: var(--black-400, #414140);
-  font-family: SUIT;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 26px;
-`;
-
 export const LanguageWrapper = styled.section`
   width: 100%;
   display: flex;
@@ -23,6 +11,12 @@ export const LanguageWrapper = styled.section`
   gap: 24px;
   border-radius: 12px;
   background: var(--background-primary-50, #f8f8f8);
+  color: var(--black-400, #414140);
+  font-family: SUIT;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px;
 `;
 
 export const TextBox = styled.div`

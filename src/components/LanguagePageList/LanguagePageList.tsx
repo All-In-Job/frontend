@@ -30,7 +30,7 @@ export const LanguagePageList = () => {
   }, [menuName]);
 
   return (
-    <List>
+    <LanguageContainer>
       {languageList.map(el => (
         <LanguagePageItem
           key={el.id}
@@ -43,11 +43,11 @@ export const LanguagePageList = () => {
           Dday={el.Dday}
         />
       ))}
-    </List>
+    </LanguageContainer>
   );
 };
 
-const List = styled.div`
+const LanguageContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px 21px;
