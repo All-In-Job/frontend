@@ -15,6 +15,7 @@ const tableData = {
 };
 
 export const CertificatePageItem = ({
+  id,
   title,
   institution,
   relatedDepartment,
@@ -24,7 +25,7 @@ export const CertificatePageItem = ({
   image,
 }: CertificateItemProps) => {
   return (
-    <S.CertificateInfo>
+    <S.CertificateInfo to={id as string}>
       <S.Container>
         <S.Title>자격증 정보</S.Title>
         <S.CertificateItemWrapper>

@@ -35,6 +35,7 @@ export const CertificatePageList = () => {
           image={el.image}
           location='page'
           key={el.id}
+          id={el.id}
           title={el.title}
           institution={el.institution}
           relatedDepartment={el.relatedDepartment}
