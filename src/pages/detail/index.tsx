@@ -1,24 +1,27 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ReactComponent as Bookmark } from 'assets/icons/solid_bookmark.svg';
 import { useParams } from 'react-router-dom';
+import { Certificate } from 'types/certificate.type';
 
 import { requestDetailCrawlingData } from 'apis/detailCrawling';
 
 export const DetailPage = () => {
   const param = useParams();
-  // const [detailData, setDetailData] = useState();
+  const [detailData, setDetailData] = useState<Certificate>();
 
   useEffect(() => {
     (async () => {
       try {
-        await requestDetailCrawlingData(param.menuName, param.detailId);
+        const res = await requestDetailCrawlingData(param.menuName, param.detailId);
+        setDetailData(res.data.data);
       } catch (error) {
         console.error(error);
       }
     })();
   }, [param]);
 
+  console.log(detailData);
   return (
     <div>
       <div>
