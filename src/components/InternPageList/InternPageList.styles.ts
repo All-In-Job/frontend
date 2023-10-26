@@ -25,11 +25,11 @@ export const Heading = styled.span`
   padding: 16px;
   text-align: center;
   border-left: 1px solid var(--orange-100, #ffe8df);
-  &:nth-child(1) {
+  &:nth-of-type(1) {
     flex-basis: 40% !important;
     border-left: none;
   }
-  &:nth-child(2) {
+  &:nth-of-type(2) {
     flex-basis: 47% !important;
   }
 `;
