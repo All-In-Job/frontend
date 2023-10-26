@@ -35,7 +35,7 @@ export const InternPageList = () => {
     <S.InternContainer>
       <S.TableTitle>
         {Table.map(el => {
-          return <S.Heading>{el}</S.Heading>;
+          return <S.Heading key={el}>{el}</S.Heading>;
         })}
       </S.TableTitle>
       {InternPageList.map(el => (
