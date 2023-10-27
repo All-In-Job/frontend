@@ -8,7 +8,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import CategoryFilter from 'components/CategoryFilter';
 import { CategoryData } from 'components/CategoryFilter/type';
-import MultiSelectHashTags from 'components/HashTagList';
+import HashTagFilter from 'components/HashTagFilter';
 
 import { MenuCategoies, MenuId, getMenuById } from './menuCategoies';
 
@@ -56,7 +56,7 @@ const Menu = () => {
           categoryList={categoryList}
           onSearch={updateHashTagList}
         />
-        <MultiSelectHashTags hashTagList={hashTagList} selectedHashTagList={categoryList} />
+        <HashTagFilter title='키워드' hashTagList={hashTagList} />
       </MenuHeadContent>
 
       <Outlet />
