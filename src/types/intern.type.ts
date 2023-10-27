@@ -3,6 +3,7 @@ export type Inter = {
   institution: string;
   view: number;
   mainImage: string;
+  organization: string;
   scrap: number;
   Dday: string;
   location: string;

@@ -4,12 +4,20 @@ import { ReactComponent as Bookmark } from 'components/InternPageList/res/img/bo
 
 import * as S from './InternPageItem.styles';
 
-export const InternPageItem = ({ institution, view, mainImage, Dday, location, title }: Inter) => {
+export const InternPageItem = ({
+  institution,
+  view,
+  mainImage,
+  Dday,
+  location,
+  title,
+  organization,
+}: Inter) => {
   return (
     <S.InternWrapper>
       <S.CompanyBox>
         <S.Img src={mainImage}></S.Img>
-        {'주식회사 컴퍼니'}
+        {organization}
       </S.CompanyBox>
       <S.TextBox>
         <S.Title>{title}</S.Title>

@@ -22,6 +22,7 @@ export const CompanyBox = styled.span`
   color: #000;
   font-size: 20px;
   line-height: 26px;
+  text-align: start !important;
   /* border-right: 1px solid #ffe8df; */
 `;
 

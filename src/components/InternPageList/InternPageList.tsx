@@ -45,6 +45,7 @@ export const InternPageList = () => {
           institution={el.institution}
           view={el.view}
           mainImage={el.mainImage}
+          organization={el.organization}
           scrap={el.scrap}
           Dday={el.Dday}
           location={el.location}
