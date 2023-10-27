@@ -23,7 +23,7 @@ const Menu = () => {
   if (!categoryId) navigate('/');
 
   useEffect(() => {
-    const filteringCategoryList = (menuCategories: MenuCategoies) => {
+    const getCategoryList = (menuCategories: MenuCategoies) => {
       const categories = menuCategories.items.map(
         item => ({ id: item.id, title: item.category }) as CategoryData,
       );
@@ -31,7 +31,7 @@ const Menu = () => {
       setCategoryList(categories);
     };
 
-    filteringCategoryList(foundMenuCategories!);
+    getCategoryList(foundMenuCategories!);
   }, [menuName, foundMenuCategories]);
 
   const updateHashTagList = (selectedCategory: CategoryData[]) => {
@@ -56,7 +56,7 @@ const Menu = () => {
           categoryList={categoryList}
           onSearch={updateHashTagList}
         />
-        <HashTagFilter title='키워드' hashTagList={hashTagList} />
+        <HashTagFilter title='키워드' hashTagList={hashTagList} onSearch={updateHashTagList} />
       </MenuHeadContent>
 
       <Outlet />
