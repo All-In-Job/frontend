@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { useParams } from 'react-router-dom';
 
 import { CategoryData } from 'components/CategoryFilter/type';
 import MultiSelectHashTagsForSelect from 'components/HashTagList';
@@ -28,6 +29,18 @@ const CategoryFilter: FC<Props> = ({
 }) => {
   const [selectedCategories, setSelectedCategories] = useState<CategoryData[]>([]);
   const [isMyInterestOn, setIsMyInterestOn] = useState(false);
+  const { categoryId } = useParams();
+
+  const initialSelectedCategory = hashTagList.find(
+    selectedCategory => selectedCategory.id === categoryId,
+  );
+
+  useEffect(() => {
+    if (initialSelectedCategory) {
+      setSelectedCategories([initialSelectedCategory]);
+      onSearch([initialSelectedCategory]);
+    }
+  }, [categoryId, initialSelectedCategory, onSearch]);
 
   const handleSelectCategory = (value: CategoryData) => {
     const isContainCategory = selectedCategories.find(item => item.id === value.id);

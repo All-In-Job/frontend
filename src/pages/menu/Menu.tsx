@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
@@ -34,19 +34,23 @@ const Menu = () => {
     getCategoryList(foundMenuCategories!);
   }, [menuName, foundMenuCategories]);
 
-  const updateHashTagList = (selectedCategory: CategoryData[]) => {
-    const foundCategory = foundMenuCategories?.items.find(
-      item => item.id === selectedCategory[0].id,
-    );
+  const updateHashTagList = useCallback(
+    (selectedCategory: CategoryData[]) => {
+      const foundCategory = foundMenuCategories?.items.find(
+        item => item.id === selectedCategory[0].id,
+      );
 
-    if (foundCategory) {
-      const keywords =
-        foundCategory.keywords?.map(keyword => ({ id: keyword, title: keyword }) as CategoryData) ||
-        [];
+      if (foundCategory) {
+        const keywords =
+          foundCategory.keywords?.map(
+            keyword => ({ id: keyword, title: keyword }) as CategoryData,
+          ) || [];
 
-      setHashTagList(keywords);
-    }
-  };
+        setHashTagList(keywords);
+      }
+    },
+    [foundMenuCategories?.items],
+  );
 
   return (
     <MenuWrapper>
