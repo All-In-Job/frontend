@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
-import { Certificate } from 'types/certificate.type';
 
-import { requestDetailCrawlingData } from 'apis/detailCrawling';
+import { ResponseData, requestDetailCrawlingData } from 'apis/detailCrawling';
 import { DetailPageInfo } from 'components/DetailPageInfo';
 
 export const DetailPage = () => {
   const { menuName, detailId } = useParams();
-  const [detailData, setDetailData] = useState<Certificate>();
+  const [detailData, setDetailData] = useState<ResponseData>();
 
   useEffect(() => {
     (async () => {
-      try {
-        const res = await requestDetailCrawlingData(menuName, detailId);
-        setDetailData(res.data.data);
-      } catch (error) {
-        console.error(error);
+      if (menuName && detailId) {
+        try {
+          const res = await requestDetailCrawlingData(menuName, detailId);
+          setDetailData(res.data.data);
+        } catch (error) {
+          console.error(error);
+        }
       }
     })();
   }, [menuName, detailId]);
