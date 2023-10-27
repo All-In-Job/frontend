@@ -24,19 +24,27 @@ export const DetailPage = () => {
   }, [menuName, detailId]);
 
   return (
-    <DetailPageInfo
-      title={detailData?.title}
-      dDay={12}
-      bookmarkCount={detailData?.scrap}
-      viewCount={detailData?.view}
-    >
-      <CertificateDetailInfo
-        image={detailData?.image}
+    <>
+      <DetailPageInfo
         title={detailData?.title}
-        enTitle={detailData?.enTitle}
-        relateDepartment={detailData?.relatedDepartment}
-        institution={detailData?.institution}
-      />
-    </DetailPageInfo>
+        dDay={12}
+        bookmarkCount={detailData?.scrap}
+        viewCount={detailData?.view}
+      >
+        <CertificateDetailInfo
+          image={detailData?.image}
+          title={detailData?.title}
+          enTitle={detailData?.enTitle}
+          relateDepartment={detailData?.relatedDepartment}
+          institution={detailData?.institution}
+        />
+      </DetailPageInfo>
+      <div>
+        <h1>시험일정</h1>
+        <ul>
+          <li></li>
+        </ul>
+      </div>
+    </>
   );
 };

@@ -5,7 +5,7 @@ import { Certificate } from 'types/certificate.type';
 
 import { requestCrawlingData } from 'apis/crawling';
 
-import { CertificatePageItem } from './CertificateInfo/CertificatePageItem';
+import { CertificatePageItem } from './CertificatePageItem/CertificatePageItem';
 import * as S from './CertificatePageList.styles';
 
 export const CertificatePageList = () => {
