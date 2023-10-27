@@ -3,9 +3,6 @@ import { useCallback, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
-// import MultiSelectTags from 'components/Badge';
-// import { HashTagData } from 'components/Badge/type';
-
 import CategoryFilter from 'components/CategoryFilter';
 import { CategoryData } from 'components/CategoryFilter/type';
 import HashTagFilter from 'components/HashTagFilter';
