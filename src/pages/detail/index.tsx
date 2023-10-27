@@ -25,7 +25,7 @@ export const DetailPage = () => {
 
   return (
     <DetailPageInfo
-      title={detailData?.title as string}
+      title={detailData?.title}
       dDay={12}
       bookmarkCount={detailData?.scrap}
       viewCount={detailData?.view}
