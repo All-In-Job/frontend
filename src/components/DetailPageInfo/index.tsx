@@ -16,7 +16,7 @@ type Props = {
 
 export const DetailPageInfo = ({ title, dDay, bookmarkCount, viewCount, children }: Props) => {
   return (
-    <>
+    <S.Wrapper>
       <S.Head>
         <S.TitleWrapper>
           <S.DDay>{`D-${dDay}`}</S.DDay>
@@ -30,6 +30,6 @@ export const DetailPageInfo = ({ title, dDay, bookmarkCount, viewCount, children
         <HorizontalRuleIcon />
         <Count count={viewCount} children={<ViewIcon />} />
       </S.CountContainer>
-    </>
+    </S.Wrapper>
   );
 };

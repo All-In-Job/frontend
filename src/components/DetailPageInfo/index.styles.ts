@@ -5,8 +5,13 @@ import theme from 'styles/theme';
 const { palette } = theme;
 const { textStyle } = theme;
 
+export const Wrapper = styled.div`
+  grid-column: span 12;
+`;
+
 export const Head = styled.div`
   display: flex;
+
   justify-content: space-between;
 `;
 

@@ -46,11 +46,11 @@ export const router = createBrowserRouter([
             path: ':categoryId',
             element: <MenuList />,
           },
-          {
-            path: ':categoryId/:detailId',
-            element: <DetailPage />,
-          },
         ],
+      },
+      {
+        path: ':menuName/:categoryId/:detailId',
+        element: <DetailPage />,
       },
     ],
   },

@@ -1,4 +1,4 @@
-import * as S from './CertificateDetailInfo.types';
+import * as S from './CertificateDetailInfo.styles';
 
 type Props = {
   image: string | undefined;
