@@ -4,25 +4,17 @@ import { useParams } from 'react-router-dom';
 import { Certificate } from 'types/certificate.type';
 
 import { requestDetailCrawlingData } from 'apis/detailCrawling';
+import { ScrapButton } from 'components/commons/Buttons/Scrap/ScrapButton';
+import { Count } from 'components/commons/Count/Count';
 
+import * as S from './index.styles';
 import { ReactComponent as CountBookmark } from './res/icon-bookmark.svg';
 import { ReactComponent as HorizontalRuleIcon } from './res/icon-horizontal_rule.svg';
-import { ReactComponent as SolidBookmarkIcon } from './res/icon-solid-bookmark.svg';
 import { ReactComponent as ViewIcon } from './res/icon-view.svg';
-
-// import * as S from './index.styles';
 
 export const DetailPage = () => {
   const { menuName, detailId } = useParams();
   const [detailData, setDetailData] = useState<Certificate>();
-
-  // const DdayCalculator = (date: string) => {
-  //   const stringDate = date.toString();
-  //   const currentDate = new Date().getTime();
-  //   // const Dday = new Date(stringDate.split('~')[0]).getTime();
-  //   const result = Math.ceil((Dday - currentDate) / (1000 * 60 * 60 * 24));
-  //   return result.toString();
-  // };
 
   useEffect(() => {
     (async () => {
@@ -37,25 +29,18 @@ export const DetailPage = () => {
 
   return (
     <div>
-      <div>
-        <div>{`D-`}</div>
-        <h1>{detailData?.title}</h1>
-        <button>
-          <SolidBookmarkIcon />
-          <h4>스크랩</h4>
-        </button>
-        <div>
-          <div>
-            <CountBookmark />
-            <p></p>
-          </div>
-          <HorizontalRuleIcon />
-          <div>
-            <ViewIcon />
-            <p></p>
-          </div>
-        </div>
-      </div>
+      <S.Head>
+        <S.TitleWrapper>
+          <S.DDay>{`D-${12}`}</S.DDay>
+          <S.Title>{detailData?.title}</S.Title>
+        </S.TitleWrapper>
+        <ScrapButton />
+      </S.Head>
+      <S.CountContainer>
+        <Count count={123} children={<CountBookmark />} />
+        <HorizontalRuleIcon />
+        <Count count={123} children={<ViewIcon />} />
+      </S.CountContainer>
     </div>
   );
 };

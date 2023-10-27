@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 export const fontCSS = css`
   @font-face {
     font-family: 'Bold';
-    src: url('src/assets/fonts/SUIT-Bold.woff');
+    src: url('/fonts/SUIT-Bold.woff');
   }
   @font-face {
     font-family: 'ExtraBold';
