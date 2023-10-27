@@ -35,10 +35,3 @@ export const CountContainer = styled.div`
   display: flex;
   justify-content: end;
 `;
-
-export const CountWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  color: ${palette.black200};
-`;
