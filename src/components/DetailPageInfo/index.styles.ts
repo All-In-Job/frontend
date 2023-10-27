@@ -34,4 +34,6 @@ export const Title = styled.h1`
 export const CountContainer = styled.div`
   display: flex;
   justify-content: end;
+  padding-bottom: 12px;
+  border-bottom: 1px solid ${palette.black100};
 `;
