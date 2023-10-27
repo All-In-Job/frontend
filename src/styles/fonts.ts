@@ -7,34 +7,34 @@ export const fontCSS = css`
   }
   @font-face {
     font-family: 'ExtraBold';
-    src: url('src/assets/fonts/SUIT-ExtraBold.woff');
+    src: url('/fonts/SUIT-ExtraBold.woff');
   }
   @font-face {
     font-family: 'ExtraLight';
-    src: url('src/assets/fonts/SUIT-ExtraLight.woff');
+    src: url('/fonts/SUIT-ExtraLight.woff');
   }
   @font-face {
     font-family: 'Heavy';
-    src: url('src/assets/fonts/SUIT-Heavy.woff');
+    src: url('/fonts/SUIT-Heavy.woff');
   }
   @font-face {
     font-family: 'Light';
-    src: url('src/assets/fonts/SUIT-Light.woff');
+    src: url('/fonts/SUIT-Light.woff');
   }
   @font-face {
     font-family: 'Medium';
-    src: url('src/assets/fonts/SUIT-Medium.woff');
+    src: url('/fonts/SUIT-Medium.woff');
   }
   @font-face {
     font-family: 'Regular';
-    src: url('src/assets/fonts/SUIT-Regular.woff');
+    src: url('/fonts/SUIT-Regular.woff');
   }
   @font-face {
     font-family: 'SemiBold';
-    src: url('src/assets/fonts/SUIT-SemiBold.woff');
+    src: url('/fonts/SUIT-SemiBold.woff');
   }
   @font-face {
     font-family: 'Thin';
-    src: url('src/assets/fonts/SUIT-Thin.woff');
+    src: url('/fonts/SUIT-Thin.woff');
   }
 `;
