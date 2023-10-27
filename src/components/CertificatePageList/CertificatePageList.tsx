@@ -13,17 +13,17 @@ export const CertificatePageList = () => {
 
   const [certificateList, setCertificateList] = useState<Certificate[]>([]);
 
-  const queries = {
-    path: menuName,
-  };
-
   useEffect(() => {
     (async () => {
-      try {
-        const res = await requestCrawlingData(menuName as string, queries);
-        setCertificateList(res.data.data);
-      } catch (error) {
-        console.error(error);
+      if (menuName) {
+        try {
+          const res = await requestCrawlingData(menuName, {
+            path: menuName,
+          });
+          setCertificateList(res.data.data);
+        } catch (error) {
+          console.error(error);
+        }
       }
     })();
   }, [menuName]);

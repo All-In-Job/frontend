@@ -10,7 +10,7 @@ type ExamSchedule = {
 };
 
 export type Certificate = {
-  id?: string;
+  id: string;
   title: string;
   enTitle?: string;
   engJmNm?: string;
@@ -18,7 +18,7 @@ export type Certificate = {
   scrap: number;
   view: number;
   institution: string;
-  examSchedules?: ExamSchedule[];
+  examSchedules: ExamSchedule[];
   image: string;
 };
 
