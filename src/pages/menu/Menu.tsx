@@ -8,21 +8,24 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import CategoryFilter from 'components/CategoryFilter';
 import { CategoryData } from 'components/CategoryFilter/type';
+import MultiSelectHashTags from 'components/HashTagList';
 
 import { MenuCategoies, MenuId, getMenuById } from './menuCategoies';
 
 const Menu = () => {
   const [categoryList, setCategoryList] = useState<CategoryData[]>([]);
+  const [hashTagList, setHashTagList] = useState<CategoryData[]>([]);
+
   const { menuName, categoryId } = useParams();
-  const foundMenuCategories = getMenuById(menuName! as MenuId);
   const navigate = useNavigate();
+  const foundMenuCategories = getMenuById(menuName! as MenuId);
 
   if (!categoryId) navigate('/');
 
   useEffect(() => {
     const filteringCategoryList = (menuCategories: MenuCategoies) => {
       const categories = menuCategories.items.map(
-        item => ({ id: item.category, title: item.category }) as CategoryData,
+        item => ({ id: item.id, title: item.category }) as CategoryData,
       );
 
       setCategoryList(categories);
@@ -31,10 +34,29 @@ const Menu = () => {
     filteringCategoryList(foundMenuCategories!);
   }, [menuName, foundMenuCategories]);
 
+  const updateHashTagList = (selectedCategory: CategoryData[]) => {
+    const foundCategory = foundMenuCategories?.items.find(
+      item => item.id === selectedCategory[0].id,
+    );
+
+    if (foundCategory) {
+      const keywords =
+        foundCategory.keywords?.map(keyword => ({ id: keyword, title: keyword }) as CategoryData) ||
+        [];
+
+      setHashTagList(keywords);
+    }
+  };
+
   return (
     <MenuWrapper>
       <MenuHeadContent>
-        <CategoryFilter title={foundMenuCategories?.title as string} categoryList={categoryList} />
+        <CategoryFilter
+          title={foundMenuCategories?.title as string}
+          categoryList={categoryList}
+          onSearch={updateHashTagList}
+        />
+        <MultiSelectHashTags hashTagList={hashTagList} selectedHashTagList={categoryList} />
       </MenuHeadContent>
 
       <Outlet />
