@@ -12,6 +12,7 @@ type ExamSchedule = {
 export type Certificate = {
   id?: string;
   title: string;
+  enTitle: string;
   engJmNm?: string | null;
   relatedDepartment: string;
   scrap: number;

@@ -24,7 +24,12 @@ export const DetailPage = () => {
   }, [menuName, detailId]);
 
   return (
-    <DetailPageInfo title={detailData?.title as string} dDay={12} bookmarkCount={12} viewCount={12}>
+    <DetailPageInfo
+      title={detailData?.title as string}
+      dDay={12}
+      bookmarkCount={detailData?.scrap}
+      viewCount={detailData?.view}
+    >
       <CertificateDetailInfo
         image={detailData?.image}
         title={detailData?.title}
