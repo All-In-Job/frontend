@@ -9,7 +9,6 @@ const baseURLs = {
   crawlingApi: import.meta.env.VITE_API_CRAWLING, // /crawling
 };
 
-
 function createAxiosInstance(url: string) {
   return axios.create({ baseURL: url });
 }
@@ -19,4 +18,3 @@ export const internApi = createAxiosInstance(baseURLs.intern);
 export const communityApi = createAxiosInstance(baseURLs.communityApi);
 export const crawlingApi = createAxiosInstance(baseURLs.crawlingApi);
 export const detailCrawlingApi = createAxiosInstance(baseURLs.detailCrawlingApi);
-

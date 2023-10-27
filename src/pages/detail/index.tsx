@@ -25,7 +25,13 @@ export const DetailPage = () => {
 
   return (
     <DetailPageInfo title={detailData?.title as string} dDay={12} bookmarkCount={12} viewCount={12}>
-      <CertificateDetailInfo image={detailData?.image} />
+      <CertificateDetailInfo
+        image={detailData?.image}
+        title={detailData?.title}
+        enTitle={detailData?.enTitle}
+        relateDepartment={detailData?.relatedDepartment}
+        institution={detailData?.institution}
+      />
     </DetailPageInfo>
   );
 };
