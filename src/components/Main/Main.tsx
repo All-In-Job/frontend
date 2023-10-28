@@ -4,15 +4,15 @@ import HomeCardListProvider from 'contexts/homeCardMenuContext/homeCardMenuConte
 import { CardList } from 'components/CardList/CardList';
 import { CardListMenuBar } from 'components/CardListMenuBar/CardListMenuBar';
 import { Carousel } from 'components/Carousel/Carousel';
-import Profile from 'pages/home/AsideProfile/Profile';
+// import Profile from 'pages/home/AsideProfile/Profile';
 
 export const Main = () => {
   return (
     <>
       <Carousel />
-      <Sidebar>
-        <Profile />
-      </Sidebar>
+      {/*<Sidebar>*/}
+      {/*  <Profile />*/}
+      {/*</Sidebar>*/}
       <HomeCardListProvider>
         <CardListMenuBar />
         <CardList />
