@@ -146,15 +146,25 @@ const PhoneInput: FC<InputProps & { setIsCodeConfirmed: Dispatch<SetStateAction<
 const NicknameInput: FC<InputProps> = ({ rule, validateInput }) => {
   const { currentFormState } = useContext(BasicInformationContext)!;
   const { isValid, value } = currentFormState.nickname;
+
+  const requestDuplicateCheck = () => {
+    // console.log('requesting duplicate check!');
+  };
+
   return (
     <S.Row>
       <S.InputHeading>닉네임</S.InputHeading>
-      <S.Input
-        type='text'
-        placeholder='닉네임을 입력하세요'
-        name='nickname'
-        onChange={e => validateInput(e.target.value, 'nickname', rule)}
-      />
+      <S.FlexRow style={{ gap: '8px' }}>
+        <S.Input
+          type='text'
+          placeholder='닉네임을 입력하세요'
+          name='nickname'
+          onChange={e => validateInput(e.target.value, 'nickname', rule)}
+        />
+        <S.Button disabled={!isValid} onClick={requestDuplicateCheck} $isValid={isValid}>
+          인증요청
+        </S.Button>
+      </S.FlexRow>
       <ErrorMessage>{value && !isValid && INPUT_RULES.nickname.errorMsg}</ErrorMessage>
     </S.Row>
   );
