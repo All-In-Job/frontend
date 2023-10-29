@@ -14,7 +14,7 @@ import { ReactComponent as ArrowForwardIcon } from 'assets/icons/icon_arrow_forw
 import { ReactComponent as CheckCircleIcon } from 'assets/icons/icon_check_circle.svg';
 import { AxiosError } from 'axios';
 
-import { checkNickNameDuplicate } from 'apis/signup';
+import { checkNickNameDuplicate, sendTokenSMS } from 'apis/signup';
 import theme from 'styles/theme';
 
 import {
@@ -97,9 +97,14 @@ const PhoneInput: FC<InputProps & { setIsCodeConfirmed: Dispatch<SetStateAction<
   const [isCodeRequested, setIsCodeRequested] = useState(false);
   const [code, setCode] = useState('');
 
-  const requestPhoneVerification = () => {
+  const requestPhoneVerification = async () => {
     // 네트워크 요청 - 인증번호 요청
-    setIsCodeRequested(true);
+    try {
+      const res = await sendTokenSMS(value);
+      if (res.status === 200) setIsCodeRequested(true);
+    } catch (e) {
+      if (e instanceof AxiosError && e.response) console.log(e.response);
+    }
   };
   const requestCodeValidation: MouseEventHandler<HTMLButtonElement> = e => {
     // 네트워크 요청 - 인증번호 확인
