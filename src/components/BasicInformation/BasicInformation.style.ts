@@ -4,7 +4,7 @@ import theme from 'styles/theme';
 
 const Container = styled.div`
   display: grid;
-  gap: 24px;
+  gap: 12px;
   margin-top: 28px;
 `;
 const Row = styled.div`
@@ -79,6 +79,7 @@ const Submit = styled.button<{ $isValid: boolean }>`
 
 const ErrorMessage = styled.p`
   color: red;
+  height: 16px;
 `;
 
 export {
