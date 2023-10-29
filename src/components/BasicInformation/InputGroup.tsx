@@ -12,7 +12,9 @@ import {
 
 import { ReactComponent as ArrowForwardIcon } from 'assets/icons/icon_arrow_forward.svg';
 import { ReactComponent as CheckCircleIcon } from 'assets/icons/icon_check_circle.svg';
+import { AxiosError } from 'axios';
 
+import { checkNickNameDuplicate } from 'apis/signup';
 import theme from 'styles/theme';
 
 import {
@@ -144,11 +146,25 @@ const PhoneInput: FC<InputProps & { setIsCodeConfirmed: Dispatch<SetStateAction<
 };
 
 const NicknameInput: FC<InputProps> = ({ rule, validateInput }) => {
+  const [isAvaliable, setIsAvailable] = useState<boolean>();
   const { currentFormState } = useContext(BasicInformationContext)!;
   const { isValid, value } = currentFormState.nickname;
 
-  const requestDuplicateCheck = () => {
-    // console.log('requesting duplicate check!');
+  const requestDuplicateCheck = async () => {
+    if (isAvaliable) return;
+
+    try {
+      const res = await checkNickNameDuplicate(currentFormState.nickname.value);
+      setIsAvailable(true);
+      console.log(res);
+    } catch (e) {
+      if (e instanceof AxiosError && e.response) setIsAvailable(false);
+    }
+  };
+
+  const selectErrorMessage = () => {
+    if (value && !isValid) return INPUT_RULES.nickname.errorMsg;
+    if (isAvaliable === false) return '이미 회원가입된 회원입니다.';
   };
 
   return (
@@ -159,13 +175,21 @@ const NicknameInput: FC<InputProps> = ({ rule, validateInput }) => {
           type='text'
           placeholder='닉네임을 입력하세요'
           name='nickname'
-          onChange={e => validateInput(e.target.value, 'nickname', rule)}
+          onChange={e => {
+            setIsAvailable(undefined);
+            validateInput(e.target.value, 'nickname', rule);
+          }}
         />
-        <S.Button disabled={!isValid} onClick={requestDuplicateCheck} $isValid={isValid}>
-          인증요청
+        <S.Button
+          type='button'
+          disabled={!isValid}
+          onClick={requestDuplicateCheck}
+          $isValid={isValid}
+        >
+          {isAvaliable ? '인증완료' : '인증요청'}
         </S.Button>
       </S.FlexRow>
-      <ErrorMessage>{value && !isValid && INPUT_RULES.nickname.errorMsg}</ErrorMessage>
+      <ErrorMessage>{selectErrorMessage()}</ErrorMessage>
     </S.Row>
   );
 };
