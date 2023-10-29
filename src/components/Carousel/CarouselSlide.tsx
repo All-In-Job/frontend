@@ -7,6 +7,8 @@ type Props = {
   images: Props['currentImage'][];
 };
 
+export type CarouselSlideProps = Props;
+
 // currentImage idx: 1 ~ 3
 export const CarouselSlide: FC<Props> = ({ currentImage, images }) => {
   return (

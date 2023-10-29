@@ -1,18 +1,44 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 
 import styled from '@emotion/styled';
 
 import theme from 'styles/theme';
 
-type Props = { length: number; currentImageId: number };
+import { CarouselSlideProps } from './CarouselSlide';
 
-export const CarouselItemSelector: FC<Props> = ({ length, currentImageId }) => {
+type Props = {
+  length: number;
+  currentImageId: number;
+  images: CarouselSlideProps['images'];
+  setCurrentImage: Dispatch<SetStateAction<CarouselSlideProps['currentImage']>>;
+  timerId: number;
+  setSlideInterval: () => void;
+};
+
+export const CarouselItemSelector: FC<Props> = ({
+  length,
+  images,
+  currentImageId,
+  setCurrentImage,
+  timerId,
+  setSlideInterval,
+}) => {
+  const slideToTargetImage = (idx: number) => {
+    setCurrentImage(images[idx + 1]);
+    clearInterval(timerId);
+    setSlideInterval();
+  };
+
   return (
     <StyledContainer>
       <StyledWrapper>
         {Array.from<number>({ length }).map((item, idx) => {
           return (
-            <Selector key={idx} current={currentImageId === idx + 1}>
+            <Selector
+              key={idx}
+              current={currentImageId === idx + 1}
+              onClick={() => slideToTargetImage(idx)}
+            >
               {item}
             </Selector>
           );

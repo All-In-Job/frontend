@@ -26,31 +26,22 @@ images.push(images[1]);
 
 export const Carousel = () => {
   const [currentImage, setCurrentImage] = useState(images[1]);
+  const [timerId, setTimerId] = useState(-1);
 
-  // const setSlideInterval = () => {
-  //   return function () {
-  //     if (timerId) clearInterval(timerId);
-  //     else {
-  //       timerId =  setInterval(() => {
-  //         setCurrentImage(images[count]);
-  //         if (count === images.length - 1) count = 0;
-  //         else count++;
-  //       }, 1000);
-  //     }
-  //   }
-  // }
-
-  // idx: 1 ~ 3: transition
-  // idx: 3 -> 4,
+  const setSlideInterval = () => {
+    let count = 1;
+    setTimerId(
+      setInterval(() => {
+        setCurrentImage(images[count]);
+        console.log(count);
+        if (count === images.length - 1) count = 1;
+        else count++;
+      }, 2000),
+    );
+  };
 
   useEffect(() => {
-    let count = 1;
-    const timerId = setInterval(() => {
-      setCurrentImage(images[count]);
-      console.log(count);
-      if (count === images.length - 1) count = 1;
-      else count++;
-    }, 1000);
+    setSlideInterval();
 
     return () => {
       clearInterval(timerId);
@@ -62,7 +53,14 @@ export const Carousel = () => {
       {/*<CarouselButton direction='right' />*/}
       {/*<CarouselButton direction='left' />*/}
       <CarouselSlide currentImage={currentImage} images={images} />
-      <CarouselItemSelector length={images.length - 2} currentImageId={currentImage.id} />
+      <CarouselItemSelector
+        images={images}
+        timerId={timerId}
+        length={images.length - 2}
+        currentImageId={currentImage.id}
+        setCurrentImage={setCurrentImage}
+        setSlideInterval={setSlideInterval}
+      />
     </StyledContainer>
   );
 };
