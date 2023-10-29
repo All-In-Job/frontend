@@ -4,15 +4,15 @@ import styled from '@emotion/styled';
 
 import theme from 'styles/theme';
 
-type Props = { length: number };
+type Props = { length: number; currentImageId: number };
 
-export const CarouselItemSelector: FC<Props> = ({ length }) => {
+export const CarouselItemSelector: FC<Props> = ({ length, currentImageId }) => {
   return (
     <StyledContainer>
       <StyledWrapper>
         {Array.from<number>({ length }).map((item, idx) => {
           return (
-            <Selector key={idx} current={idx === 0}>
+            <Selector key={idx} current={currentImageId === idx + 1}>
               {item}
             </Selector>
           );
@@ -42,4 +42,5 @@ const Selector = styled.button<{ current: boolean }>`
   width: ${props => (props.current ? '30px' : '11px')};
   height: 11px;
   cursor: pointer;
+  transition: 0.2s all ease-in-out;
 `;
