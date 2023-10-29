@@ -16,3 +16,14 @@ export const sendTokenSMS = async (phone: string) => {
     },
   });
 };
+
+export const validateTokenSNS = async (token: number, phone: string) => {
+  return await signupApi({
+    method: 'POST',
+    url: 'validateToken',
+    data: {
+      token,
+      phone,
+    },
+  });
+};

@@ -14,7 +14,7 @@ import { ReactComponent as ArrowForwardIcon } from 'assets/icons/icon_arrow_forw
 import { ReactComponent as CheckCircleIcon } from 'assets/icons/icon_check_circle.svg';
 import { AxiosError } from 'axios';
 
-import { checkNickNameDuplicate, sendTokenSMS } from 'apis/signup';
+import { checkNickNameDuplicate, sendTokenSMS, validateTokenSNS } from 'apis/signup';
 import theme from 'styles/theme';
 
 import {
@@ -59,6 +59,7 @@ export const InputGroup = () => {
       <PhoneInput
         rule={phone}
         validateInput={validateInput}
+        isCodeConfirmed={isCodeConfirmed}
         setIsCodeConfirmed={setIsCodeConfirmed}
       />
       <Agreement />
@@ -87,11 +88,9 @@ const NameInput: FC<InputProps> = ({ rule, validateInput }) => {
   );
 };
 
-const PhoneInput: FC<InputProps & { setIsCodeConfirmed: Dispatch<SetStateAction<boolean>> }> = ({
-  rule,
-  validateInput,
-  setIsCodeConfirmed,
-}) => {
+const PhoneInput: FC<
+  InputProps & { setIsCodeConfirmed: Dispatch<SetStateAction<boolean>>; isCodeConfirmed: boolean }
+> = ({ rule, validateInput, isCodeConfirmed, setIsCodeConfirmed }) => {
   const { currentFormState } = useContext(BasicInformationContext)!;
   const { isValid, value } = currentFormState.phone;
   const [isCodeRequested, setIsCodeRequested] = useState(false);
@@ -106,10 +105,20 @@ const PhoneInput: FC<InputProps & { setIsCodeConfirmed: Dispatch<SetStateAction<
       if (e instanceof AxiosError && e.response) console.log(e.response);
     }
   };
-  const requestCodeValidation: MouseEventHandler<HTMLButtonElement> = e => {
+  const requestCodeValidation: MouseEventHandler<HTMLButtonElement> = async e => {
     // 네트워크 요청 - 인증번호 확인
-    console.log(e.target);
-    setIsCodeConfirmed(true);
+    const target = e.target as HTMLElement;
+    const tokenInput = target.previousSibling as HTMLInputElement;
+    const token = tokenInput.value;
+    if (!token) return;
+
+    try {
+      const res = await validateTokenSNS(Number(token), currentFormState.phone.value);
+      console.log(res);
+      setIsCodeConfirmed(true);
+    } catch (e) {
+      if (e instanceof AxiosError && e.response) console.log(e.response);
+    }
   };
 
   return (
@@ -132,13 +141,16 @@ const PhoneInput: FC<InputProps & { setIsCodeConfirmed: Dispatch<SetStateAction<
           placeholder={isCodeRequested ? '인증 번호를 입력하세요' : ''}
           name='code'
           disabled={!isCodeRequested}
-          onChange={e => setCode(e.target.value)}
+          onChange={e => {
+            setCode(e.target.value);
+            setIsCodeConfirmed(false);
+          }}
           style={{
             backgroundColor: isCodeRequested ? 'transparent' : theme.palette.background.primary,
           }}
         />
         <S.Button
-          disabled={code === ''}
+          disabled={isCodeConfirmed}
           $isValid={isCodeRequested && Boolean(code)}
           onClick={requestCodeValidation}
         >
