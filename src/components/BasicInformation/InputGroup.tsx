@@ -80,7 +80,7 @@ const NameInput: FC<InputProps> = ({ rule, validateInput }) => {
         placeholder='이름을 입력하세요'
         onChange={e => validateInput(e.target.value, 'name', rule)}
       />
-      {value && !isValid && <ErrorMessage>{INPUT_RULES.name.errorMsg}</ErrorMessage>}
+      <ErrorMessage>{value && !isValid && INPUT_RULES.name.errorMsg}</ErrorMessage>
     </S.Row>
   );
 };
@@ -138,7 +138,7 @@ const PhoneInput: FC<InputProps & { setIsCodeConfirmed: Dispatch<SetStateAction<
           인증완료
         </S.Button>
       </S.FlexRow>
-      {value && !isValid && <ErrorMessage>{INPUT_RULES.phone.errorMsg}</ErrorMessage>}
+      <ErrorMessage>{value && !isValid && INPUT_RULES.phone.errorMsg}</ErrorMessage>
     </S.Row>
   );
 };
@@ -155,7 +155,7 @@ const NicknameInput: FC<InputProps> = ({ rule, validateInput }) => {
         name='nickname'
         onChange={e => validateInput(e.target.value, 'nickname', rule)}
       />
-      {value && !isValid && <ErrorMessage>{INPUT_RULES.nickname.errorMsg}</ErrorMessage>}
+      <ErrorMessage>{value && !isValid && INPUT_RULES.nickname.errorMsg}</ErrorMessage>
     </S.Row>
   );
 };
