@@ -8,6 +8,6 @@ export const signupApi = createAxiosInstance('user');
 
 // export const competitionApi = createAxiosInstance('competition');
 // export const internApi = createAxiosInstance(baseURLs.intern);
-// export const communityApi = createAxiosInstance(baseURLs.communityApi);
+export const communityApi = createAxiosInstance('community');
 export const crawlingApi = createAxiosInstance('crawling/finde');
 export const detailCrawlingApi = createAxiosInstance('crawling/findeDetail');
