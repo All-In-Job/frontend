@@ -7,7 +7,6 @@ import theme from 'styles/theme';
 import { CarouselSlideProps } from './CarouselSlide';
 
 type Props = {
-  length: number;
   currentImageId: number;
   images: CarouselSlideProps['images'];
   setCurrentImage: Dispatch<SetStateAction<CarouselSlideProps['currentImage']>>;
@@ -16,13 +15,14 @@ type Props = {
 };
 
 export const CarouselItemSelector: FC<Props> = ({
-  length,
   images,
   currentImageId,
   setCurrentImage,
   timerId,
   setSlideInterval,
 }) => {
+  const actualImageLength = images.length - 2;
+
   const slideToTargetImage = (idx: number) => {
     setCurrentImage(images[idx + 1]);
     clearInterval(timerId);
@@ -32,7 +32,7 @@ export const CarouselItemSelector: FC<Props> = ({
   return (
     <StyledContainer>
       <StyledWrapper>
-        {Array.from<number>({ length }).map((item, idx) => {
+        {Array.from<number>({ length: actualImageLength }).map((item, idx) => {
           return (
             <Selector
               key={idx}

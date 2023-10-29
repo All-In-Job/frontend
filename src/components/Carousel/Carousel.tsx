@@ -56,7 +56,6 @@ export const Carousel = () => {
       <CarouselItemSelector
         images={images}
         timerId={timerId}
-        length={images.length - 2}
         currentImageId={currentImage.id}
         setCurrentImage={setCurrentImage}
         setSlideInterval={setSlideInterval}
