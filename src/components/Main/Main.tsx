@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import HomeCardListProvider from 'contexts/homeCardMenuContext/homeCardMenuContext';
 
-import { CardList } from 'components/CardList/CardList';
 import { CardListMenuBar } from 'components/CardListMenuBar/CardListMenuBar';
 import { Carousel } from 'components/Carousel/Carousel';
+import { MainPageList } from 'components/MainPageList/MainPageList';
 // import Profile from 'pages/home/AsideProfile/Profile';
 
 export const Main = () => {
@@ -15,7 +15,7 @@ export const Main = () => {
       {/*</Sidebar>*/}
       <HomeCardListProvider>
         <CardListMenuBar />
-        <CardList />
+        <MainPageList />
       </HomeCardListProvider>
     </>
   );

@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
 
-
 import { Outlet, useLocation, useNavigate, useOutlet, useSearchParams } from 'react-router-dom';
 
 import { Main } from 'components/Main/Main';
