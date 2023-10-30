@@ -59,13 +59,13 @@ export const CertificatePageItem = ({
           </thead>
           <tbody>
             <S.SecondaryTr>
-              <S.Tb>{examSchedules[0].turn}</S.Tb>
-              <S.Tb>{examSchedules[0].wtReceipt}</S.Tb>
-              <S.Tb>{examSchedules[0].wtDday}</S.Tb>
-              <S.Tb>{examSchedules[0].wtResultDay}</S.Tb>
-              <S.Tb>{examSchedules[0].ptReceipt}</S.Tb>
-              <S.Tb>{examSchedules[0].ptDday}</S.Tb>
-              <S.Tb>{examSchedules[0].resultDay}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.turn}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.wtReceipt}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.wtDday}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.wtResultDay}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.ptReceipt}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.ptDday}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.resultDay}</S.Tb>
             </S.SecondaryTr>
           </tbody>
         </S.Table>
