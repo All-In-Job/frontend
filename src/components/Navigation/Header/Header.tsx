@@ -10,33 +10,63 @@ function Header() {
   const menuItems = [
     {
       name: '공모전',
-      subItems: ['공모분야', '시상규모', '수상혜택', '지원대상'],
       path: 'competition',
+      subItems: [
+        { subName: '공모분야', subPath: 'competition_field' },
+        { subName: '시상규모', subPath: 'award_scale' },
+        { subName: '수상혜택', subPath: 'award_benefits' },
+        { subName: '지원대상', subPath: 'support_target' },
+      ],
     },
     {
       name: '대외활동',
-      subItems: ['활동분야', '관심분야', '활동혜택', '활동기간', '지역'],
       path: 'outside',
+      subItems: [
+        { subName: '활동분야', subPath: 'activity_field' },
+        { subName: '관심분야', subPath: 'area_of_interest' },
+        { subName: '활동혜택', subPath: 'activity_benefits' },
+        { subName: '활동기간', subPath: 'activity_duration' },
+        { subName: '지역', subPath: 'location' },
+      ],
     },
     {
       name: '자격증',
-      subItems: ['국가기술자격증', '국가전문자격증'],
       path: 'qnet',
+      subItems: [
+        { subName: '국가기술자격증', subPath: 'technical' },
+        { subName: '국가전문자격증', subPath: 'professional' },
+      ],
     },
     {
       name: '어학',
-      subItems: ['영어', '중국어', '스페인어', '기타'],
       path: 'language',
+      subItems: [
+        { subName: '영어', subPath: 'english' },
+        { subName: '중국어', subPath: 'chinese' },
+        { subName: '스페인어', subPath: 'spanish' },
+        { subName: '기타', subPath: 'other' },
+      ],
     },
     {
       name: '인턴',
-      subItems: ['대기업', '중소기업', '스타트업'],
       path: 'intern',
+      subItems: [
+        { subName: '대기업', subPath: 'large_corporation' },
+        { subName: '중소기업', subPath: 'sme' },
+        { subName: '스타트업', subPath: 'startup' },
+      ],
     },
     {
       name: '취준job담',
-      subItems: ['취업선배 Q&A', '공모전/대외활동', '자격증/어학', '인턴', '스터디', '자유게시판'],
       path: 'community',
+      subItems: [
+        { subName: '취업선배 Q&A', subPath: 'job_senior_qa' },
+        { subName: '공모전/대외활동', subPath: 'competitions_external_activities' },
+        { subName: '자격증/어학', subPath: 'certifications_language_proficiency' },
+        { subName: '인턴', subPath: 'intern' },
+        { subName: '스터디', subPath: 'study' },
+        { subName: '자유게시판', subPath: 'general_discussion_board' },
+      ],
     },
   ];
   return (
@@ -57,7 +87,7 @@ function Header() {
             <S.MenuWrapper>
               {menuItems.map(item => (
                 <S.MenuItem key={item.name}>
-                  <Link to={`menu/${item.path}`}>{item.name}</Link>
+                  <Link to={`${item.path}/${item.subItems[0].subPath}`}>{item.name}</Link>
                 </S.MenuItem>
               ))}
               {isHovered ? (
@@ -78,9 +108,9 @@ function Header() {
                                 width: '125px',
                                 cursor: 'pointer',
                               }}
-                              key={subItem}
+                              key={subItem.subName}
                             >
-                              {subItem}
+                              <Link to={`${item.path}/${subItem.subPath}`}>{subItem.subName}</Link>
                             </p>
                           ))}
                         </S.DetailItems>

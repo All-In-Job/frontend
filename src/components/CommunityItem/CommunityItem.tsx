@@ -1,22 +1,13 @@
 // import { Link } from 'react-router-dom';
+import { Community } from 'types/community.type';
 
 import * as S from './CommunityItem.styles';
+import { ReactComponent as BookmarkIcon } from './res/img/bookmark.svg';
+import { ReactComponent as LikeIcon } from './res/img/like.svg';
+import { ReactComponent as ViewIcon } from './res/img/view.svg';
+import { ReactComponent as NicknameIcon } from './res/img/visibility.svg';
 
-interface UserInfo {
-  nickname: string;
-}
-
-interface CommunityItemProps {
-  category: string;
-  title: string;
-  view: number;
-  like: number;
-  comment: number;
-  date: string;
-  user: UserInfo;
-}
-
-function CommunityItem({ user, category, title, view, like, comment, date }: CommunityItemProps) {
+function CommunityItem({ user, category, title, view, like, comment, date }: Community) {
   const getTimeDiffString = (pastTime: string) => {
     const now = new Date();
     const past = new Date(pastTime);
@@ -38,10 +29,10 @@ function CommunityItem({ user, category, title, view, like, comment, date }: Com
   };
 
   return (
-    <S.CommunityItemContainer>
+    <S.CommunityItem>
       <S.UserInfo>
         <S.Nickname>
-          <S.NicknameIcon />
+          <NicknameIcon />
           {user && user.nickname}
         </S.Nickname>
         <S.Time>{getTimeDiffString(date)}</S.Time>
@@ -51,20 +42,20 @@ function CommunityItem({ user, category, title, view, like, comment, date }: Com
         <S.Category>{category}</S.Category>
         <S.CountWrapper>
           <S.Count>
-            <S.ViewIcon />
+            <ViewIcon />
             {view}
           </S.Count>
           <S.Count>
-            <S.BookmarkIcon />
+            <BookmarkIcon />
             {comment}
           </S.Count>
           <S.Count>
-            <S.LikeIcon />
+            <LikeIcon />
             {like}
           </S.Count>
         </S.CountWrapper>
       </S.PostInfo>
-    </S.CommunityItemContainer>
+    </S.CommunityItem>
   );
 }
 

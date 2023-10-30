@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 
 import axios from 'axios';
-import { HomeCardListContext } from 'contexts/homeCardMenuContext';
+import { HomeCardListContext } from 'contexts/homeCardMenuContext/homeCardMenuContext';
 import { useLocation } from 'react-router-dom';
 
-import CertificateItem from 'components/CertificateList/CertificateItem';
+import CertificateItem from 'components/CertificateItem/CertificateItem';
 import PostCard from 'components/commons/PostCard/PostCard';
 import CommunityItem from 'components/CommunityItem/CommunityItem';
 
@@ -46,12 +46,14 @@ export const CardList = () => {
             {data.map(el => {
               return selectCertificate ? (
                 <CertificateItem
+                  location={'main'}
                   key={el.id}
                   title={el.title}
                   institution={el.institution}
-                  implNm={'관련부처'}
+                  relatedDepartment={el.relatedDepartment}
                   scrap={el.scrap}
                   view={el.view}
+                  image={el.image}
                 />
               ) : (
                 <CommunityItem

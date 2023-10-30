@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import HomeCardListProvider from 'contexts/homeCardMenuContext';
+import HomeCardListProvider from 'contexts/homeCardMenuContext/homeCardMenuContext';
 
 import { CardList } from 'components/CardList/CardList';
 import { CardListMenuBar } from 'components/CardListMenuBar/CardListMenuBar';

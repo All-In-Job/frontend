@@ -1,4 +1,4 @@
-import InterestFieldSetup from 'components/InterestFieldSetup/InterestFieldSetup';
+import { BasicInformation } from '../components/BasicInformation/BasicInformation';
 
 const Signup = () => {
   return (
@@ -8,11 +8,11 @@ const Signup = () => {
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        minHeight: '100vh',
-        marginTop: '50px',
+        gridColumn: '2 / span 10',
       }}
     >
-      <InterestFieldSetup />
+      <BasicInformation />
+      {/*<InterestFieldSetup />*/}
     </div>
   );
 };
