@@ -1,47 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
-import MultiSelectTags from 'components/CategoryFilter';
-import { categoryData } from 'components/CategoryFilter/mock/categories';
-import { HashTagData } from 'components/HashTagFilter/type';
+// import MultiSelectTags from 'components/Badge';
+// import { HashTagData } from 'components/Badge/type';
 
-import { MenuId, MenuItems, getMenuById } from './menuList';
+import CategoryFilter from 'components/CategoryFilter';
+import { CategoryData } from 'components/CategoryFilter/type';
+
+import { MenuCategoies, MenuId, getMenuById } from './menuCategoies';
 
 const Menu = () => {
-  const [selectedCategory, setSelectedCategory] = useState<HashTagData[] | null>(null);
+  const [categoryList, setCategoryList] = useState<CategoryData[]>([]);
+  const { menuName, categoryId } = useParams();
+  const foundMenuCategories = getMenuById(menuName! as MenuId);
+  const navigate = useNavigate();
 
-  const { menuName } = useParams();
-  const foundMenuList = getMenuById(menuName! as MenuId);
+  if (!categoryId) navigate('/');
 
-  const handleCategoryClick = (category: MenuItems) => {
-    if (!category || !category.keywords) return;
+  useEffect(() => {
+    const filteringCategoryList = (menuCategories: MenuCategoies) => {
+      const categories = menuCategories.items.map(
+        item => ({ id: item.category, title: item.category }) as CategoryData,
+      );
 
-    const hashTags = category.keywords.map(keyword => ({ id: keyword, title: keyword }));
+      setCategoryList(categories);
+    };
 
-    setSelectedCategory(hashTags);
-  };
+    filteringCategoryList(foundMenuCategories!);
+  }, [menuName, foundMenuCategories]);
 
   return (
     <MenuWrapper>
-      <CategoryList>
-        {foundMenuList?.items.map(item => (
-          <li key={item.category} onClick={() => handleCategoryClick(item)}>
-            {item.category}
-          </li>
-        ))}
-      </CategoryList>
       <MenuHeadContent>
-        {selectedCategory && (
-          <MultiSelectTags
-            title='키워드'
-            className=''
-            onSearch={() => {}}
-            onClickMyInterest={() => {}}
-            categoryList={categoryData}
-          />
-        )}
+        <CategoryFilter title={foundMenuCategories?.title as string} categoryList={categoryList} />
       </MenuHeadContent>
 
       <Outlet />
@@ -57,15 +50,4 @@ const MenuWrapper = styled.div`
 `;
 const MenuHeadContent = styled.div`
   padding-bottom: 32px;
-`;
-
-const CategoryList = styled.ul`
-  display: flex;
-
-  > li {
-    cursor: pointer;
-    border: 1px solid #000;
-    padding: 3px;
-    margin-right: 3px;
-  }
 `;

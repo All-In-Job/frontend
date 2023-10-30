@@ -1,15 +1,11 @@
-import { Outlet, useNavigate, useOutlet } from 'react-router-dom';
+import styled from '@emotion/styled';
+import { Outlet, useOutlet } from 'react-router-dom';
+
+import SocialLoginButton from 'components/Buttons/SocialLoginBtn';
 
 import * as S from './signUp.styles';
 
 function SignUp() {
-  const myCookieData = false;
-  const navigate = useNavigate();
-
-  const handleNavigation = () => {
-    navigate('basic-info', { state: { myData: myCookieData } });
-  };
-
   const outlet = useOutlet();
 
   if (outlet) return <Outlet />;
@@ -28,18 +24,8 @@ function SignUp() {
             <div style={{ flexGrow: '1', height: '1px', backgroundColor: '#E1E2E4' }}></div>
           </S.divisionLine>
           <S.SocialLoginBox>
-            <a href='https://allinjob.co.kr/login/kakao/callback'>
-              <S.SocialLoginImg src='/src/pages/signUp/res/img/kakao.png' alt='kakao' />
-            </a>
-            {/* <a href='https://allinjob.co.kr/login/google/callback'> */}
-            <div>
-              <S.SocialLoginImg
-                onClick={handleNavigation}
-                src='/src/pages/signUp/res/img/google.png'
-                alt='google'
-              />
-            </div>
-            {/* </a> */}
+            <SocialLoginButton provider='kakao' />
+            <SocialLoginButton provider='google' />
           </S.SocialLoginBox>
         </S.LoginBox>
       </S.LoginWrapper>
@@ -48,3 +34,9 @@ function SignUp() {
 }
 
 export default SignUp;
+
+export const SocialLoginImg = styled.img`
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+`;

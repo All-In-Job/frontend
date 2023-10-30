@@ -27,18 +27,22 @@ export const Home = () => {
       window.opener.postMessage({ kakaoToken }, window.location.origin);
       window.close();
     }
-  }, []);
+  }, [kakaoToken]);
 
   useEffect(() => {
+    const handleKakaoAuth = (e: MessageEvent) => {
+      const { kakaoToken } = e.data;
+      if (!kakaoToken) return;
+
+      navigate('/signup/basic-info', { state: kakaoToken });
+    };
+
     window.addEventListener('message', handleKakaoAuth);
-  }, []);
 
-  const handleKakaoAuth = (e: MessageEvent) => {
-    const { code } = e.data;
-    if (!code) return;
-
-    navigate('/signup/basic-info', { state: code });
-  };
+    return () => {
+      window.removeEventListener('message', handleKakaoAuth);
+    };
+  }, [navigate]);
 
   const getHeaderHeight = (header: HTMLElement | null) => {
     if (header) return header.offsetHeight;
