@@ -19,7 +19,7 @@ export type Certificate = {
   view: number;
   institution: string;
   examSchedules: ExamSchedule[];
-  image: string;
+  mainImage: string;
 };
 
 export interface CertificateItemProps extends Certificate {
