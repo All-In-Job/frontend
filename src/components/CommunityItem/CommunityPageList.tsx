@@ -33,8 +33,8 @@ export const CommunityPageList = () => {
           title={el.title}
           date={el.date}
           view={el.view}
-          like={el.likeCount}
-          comment={el.commentCount}
+          likeCount={el.likeCount}
+          commentCount={el.commentCount}
           user={el.user}
         />
       ))}

@@ -6,8 +6,8 @@ export type Community = {
   category: string;
   title: string;
   view: number;
-  like: number;
-  comment: number;
+  likeCount: number;
+  commentCount: number;
   date: string;
   user: UserInfo;
 };
