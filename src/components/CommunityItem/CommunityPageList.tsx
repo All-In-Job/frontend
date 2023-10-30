@@ -17,7 +17,6 @@ export const CommunityPageList = () => {
       try {
         const res = await requestCommunityData();
         setCommunityList(res.data.data);
-        console.log(res.data);
       } catch (error) {
         console.error(error);
       }
