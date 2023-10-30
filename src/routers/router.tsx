@@ -25,32 +25,33 @@ export const router = createBrowserRouter([
   {
     path: '',
     element: <Home />,
-    children: [],
-  },
-  {
-    path: 'login',
-    element: <Login />,
-  },
-  {
-    path: 'signup',
-    element: <Signup />,
-  },
-  {
-    path: 'find-id',
-    element: <FindID />,
-  },
-  {
-    path: ':menuName',
-    element: <Menu />,
     children: [
       {
-        path: ':categoryId',
-        element: <MenuList />,
+        path: 'login',
+        element: <Login />,
+      },
+      {
+        path: 'signup',
+        element: <Signup />,
+      },
+      {
+        path: 'find-id',
+        element: <FindID />,
+      },
+      {
+        path: ':menuName',
+        element: <Menu />,
+        children: [
+          {
+            path: ':categoryId',
+            element: <MenuList />,
+          },
+        ],
+      },
+      {
+        path: ':menuName/:categoryId/:detailId',
+        element: <DetailPage />,
       },
     ],
-  },
-  {
-    path: ':menuName/:categoryId/:detailId',
-    element: <DetailPage />,
   },
 ]);

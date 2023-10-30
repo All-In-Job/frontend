@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useOutlet } from 'react-router-dom';
 
 import { Layout } from 'components/Layout/Layout';
 import { Main } from 'components/Main/Main';
 import Header from 'components/Navigation/Header/Header';
 
 export const Home = () => {
-  // const outlet = useOutlet();
+  const outlet = useOutlet();
 
   const navigate = useNavigate();
 
@@ -24,9 +24,9 @@ export const Home = () => {
 
   return (
     <>
-      <Header />
       <Layout>
-        <Main />
+        <Header />
+        {outlet ? <Outlet /> : <Main />}
       </Layout>
     </>
   );
