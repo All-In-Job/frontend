@@ -38,7 +38,7 @@ export const CertificatePageList = () => {
           id={el.id}
           title={el.title}
           institution={el.institution}
-          relatedDepartment={el.relatedDepartment}
+          relateDepartment={el.relateDepartment}
           scrap={el.scrap}
           view={el.view}
           examSchedules={el.examSchedules}

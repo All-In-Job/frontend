@@ -14,16 +14,18 @@ const tableData = {
   septenary: '최종합격발표일',
 };
 
+type Props = Omit<CertificateItemProps, 'enTitle'>;
+
 export const CertificatePageItem = ({
   id,
   title,
   institution,
-  relatedDepartment,
+  relateDepartment,
   scrap,
   view,
   examSchedules,
   mainImage,
-}: CertificateItemProps) => {
+}: Props) => {
   return (
     <S.CertificateInfo to={id}>
       <S.Container>
@@ -34,7 +36,7 @@ export const CertificatePageItem = ({
             location='page'
             title={title}
             institution={institution}
-            relatedDepartment={relatedDepartment}
+            relateDepartment={relateDepartment}
             scrap={scrap}
             view={view}
             mainImage={mainImage}

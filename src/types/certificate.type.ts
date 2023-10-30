@@ -12,14 +12,13 @@ type ExamSchedule = {
 export type Certificate = {
   id: string;
   title: string;
-  enTitle?: string;
-  engJmNm?: string;
-  relatedDepartment: string;
+  relateDepartment: string;
   scrap: number;
   view: number;
   institution: string;
   examSchedules: ExamSchedule[];
   mainImage: string;
+  enTitle: string;
 };
 
 export interface CertificateItemProps extends Certificate {

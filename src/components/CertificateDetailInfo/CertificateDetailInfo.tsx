@@ -1,15 +1,10 @@
-import * as S from './CertificateDetailInfo.styles';
+import { Certificate } from 'types/certificate.type';
 
-type Props = {
-  image: string | undefined;
-  title: string | undefined;
-  enTitle: string | undefined;
-  relateDepartment: string | undefined;
-  institution: string | undefined;
-};
+import * as S from './CertificateDetailInfo.styles';
+type Props = Omit<Certificate, 'id' | 'scrap' | 'view' | 'examSchedules'>;
 
 export const CertificateDetailInfo = ({
-  image,
+  mainImage,
   title,
   enTitle,
   relateDepartment,
@@ -18,7 +13,7 @@ export const CertificateDetailInfo = ({
   return (
     <S.Wrapper>
       <S.ImageWrapper>
-        <S.Image src={image} />
+        <S.Image src={mainImage} />
       </S.ImageWrapper>
 
       <S.InfoContainer>
