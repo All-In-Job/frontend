@@ -21,7 +21,7 @@ export const LanguagePageList = () => {
     (async () => {
       try {
         const res = await requestCrawlingData(menuName as string, queries);
-        setLanguageList(res.data.data);
+        setLanguageList(res.data.data as Language[]);
         console.log(res.data);
       } catch (error) {
         console.error(error);

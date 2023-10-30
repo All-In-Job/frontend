@@ -23,7 +23,7 @@ export const InternPageList = () => {
     (async () => {
       try {
         const res = await requestCrawlingData(menuName as string, queries);
-        setInternPageList(res.data.data);
+        setInternPageList(res.data.data as Inter[]);
         console.log(res.data);
       } catch (error) {
         console.error(error);
