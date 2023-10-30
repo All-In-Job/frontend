@@ -40,12 +40,6 @@ export const DetailPage = () => {
             institution={detailData.institution}
           />
         </DetailPageInfo>
-        <div>
-          <h1>시험일정</h1>
-          <ul>
-            <li></li>
-          </ul>
-        </div>
       </>
     );
 };
