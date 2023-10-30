@@ -15,8 +15,8 @@ const SocialLoginButton: FC<Props> = ({ provider }) => {
     <SocialLoginImg
       src={
         provider === 'kakao'
-          ? '/assets/images/kakao_login_medium_wide.png'
-          : '/assets/images/google_login.png'
+          ? '/src/assets/images/kakao_login_medium_wide.png'
+          : '/src/assets/images/google_login.png'
       }
       onClick={() => login()}
     />
