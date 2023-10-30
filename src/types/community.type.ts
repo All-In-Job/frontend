@@ -3,6 +3,7 @@ export type UserInfo = {
 };
 
 export type Community = {
+  id: string;
   category: string;
   title: string;
   view: number;

@@ -27,13 +27,14 @@ export const CommunityPageList = () => {
     <List>
       {communityList.map(el => (
         <CommunityItem
+          id={el.id}
           key={el.date}
           category={el.category}
           title={el.title}
           date={el.date}
           view={el.view}
-          likeCount={el.likeCount}
-          commentCount={el.commentCount}
+          like={el.like}
+          comment={el.comment}
           user={el.user}
         />
       ))}
