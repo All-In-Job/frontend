@@ -20,7 +20,7 @@ export const CertificatePageList = () => {
           const res = await requestCrawlingData(menuName, {
             path: menuName,
           });
-          setCertificateList(res.data.data as Certificate[]);
+          setCertificateList(res.data.data);
         } catch (error) {
           console.error(error);
         }
