@@ -10,28 +10,35 @@ type Props = {
 };
 
 export const PostList = ({ data, selectCertificate }: Props) => {
+  console.log(selectCertificate);
   return (
     <section>
       {data.map(el => {
-        return selectCertificate ? (
-          <CertificateItem
-            location={'main'}
-            key={el.id}
-            title={el.title}
-            institution={el.institution}
-            relatedDepartment={el.relatedDepartment}
-            scrap={el.scrap}
-            view={el.view}
-            image={el.image}
-          />
-        ) : (
+        if ('institution' in el) {
+          return (
+            <CertificateItem
+              examSchedules={[]}
+              location={'main'}
+              id=''
+              key={el.id}
+              title={el.title}
+              institution={el.institution}
+              relateDepartment={el.relateDepartment}
+              scrap={el.scrap}
+              view={el.view}
+              mainImage={el.mainImage}
+            />
+          );
+        }
+        return (
           <CommunityItem
             key={el.id}
+            id={el.id}
             category={el.category}
             title={el.title}
             view={el.view}
-            like={el.likeCount}
-            comment={el.commentCount}
+            like={el.like}
+            comment={el.comment}
             date={el.date}
             user={el.user}
           />
