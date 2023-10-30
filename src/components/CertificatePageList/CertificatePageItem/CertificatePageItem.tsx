@@ -22,7 +22,7 @@ export const CertificatePageItem = ({
   scrap,
   view,
   examSchedules,
-  image,
+  mainImage,
 }: CertificateItemProps) => {
   return (
     <S.CertificateInfo to={id}>
@@ -37,7 +37,7 @@ export const CertificatePageItem = ({
             relatedDepartment={relatedDepartment}
             scrap={scrap}
             view={view}
-            image={image}
+            mainImage={mainImage}
             examSchedules={examSchedules}
           />
         </S.CertificateItemWrapper>

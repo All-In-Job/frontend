@@ -32,7 +32,7 @@ export const CertificatePageList = () => {
     <S.List>
       {certificateList.map(el => (
         <CertificatePageItem
-          image={el.image}
+          mainImage={el.mainImage}
           location='page'
           key={el.id}
           id={el.id}
