@@ -17,7 +17,6 @@ export const CommunityPageList = () => {
       try {
         const res = await requestCommunityData();
         setCommunityList(res.data.data);
-        console.log(res.data);
       } catch (error) {
         console.error(error);
       }
@@ -33,8 +32,8 @@ export const CommunityPageList = () => {
           title={el.title}
           date={el.date}
           view={el.view}
-          like={el.likeCount}
-          comment={el.commentCount}
+          likeCount={el.likeCount}
+          commentCount={el.commentCount}
           user={el.user}
         />
       ))}
