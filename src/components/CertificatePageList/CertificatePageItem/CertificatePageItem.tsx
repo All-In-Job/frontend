@@ -14,39 +14,33 @@ const tableData = {
   septenary: '최종합격발표일',
 };
 
-// function removeYearAfterTilde(str) {
-//   const tildeIndex = str.indexOf("~");
-//   if (tildeIndex !== -1) {
-//     const yearIndex = str.indexOf(".", tildeIndex);
-//     if (yearIndex !== -1) {
-//       return str.substring(0, yearIndex + 1);
-//     }
-//   }
-//   return str;
-// }
+type Props = Omit<CertificateItemProps, 'enTitle'>;
 
 export const CertificatePageItem = ({
+  id,
   title,
   institution,
-  relatedDepartment,
+  relateDepartment,
   scrap,
   view,
   examSchedules,
-  image,
-}: CertificateItemProps) => {
+  mainImage,
+}: Props) => {
   return (
-    <S.CertificateInfo>
+    <S.CertificateInfo to={id}>
       <S.Container>
         <S.Title>자격증 정보</S.Title>
         <S.CertificateItemWrapper>
           <CertificateItem
+            id={id}
             location='page'
             title={title}
             institution={institution}
-            relatedDepartment={relatedDepartment}
+            relateDepartment={relateDepartment}
             scrap={scrap}
             view={view}
-            image={image}
+            mainImage={mainImage}
+            examSchedules={examSchedules}
           />
         </S.CertificateItemWrapper>
       </S.Container>
@@ -65,17 +59,17 @@ export const CertificatePageItem = ({
               <S.Th>{tableData.septenary}</S.Th>
             </S.Tr>
           </thead>
-          <tfoot>
+          <tbody>
             <S.SecondaryTr>
-              <S.Th>{examSchedules?.turn}</S.Th>
-              <S.Th>{examSchedules?.wtReceipt}</S.Th>
-              <S.Th>{examSchedules?.wtDday}</S.Th>
-              <S.Th>{examSchedules?.wtResultDay}</S.Th>
-              <S.Th>{examSchedules?.ptReceipt}</S.Th>
-              <S.Th>{examSchedules?.ptDday}</S.Th>
-              <S.Th>{examSchedules?.resultDay}</S.Th>
+              <S.Tb>{examSchedules && examSchedules[0]?.turn}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.wtReceipt}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.wtDday}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.wtResultDay}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.ptReceipt}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.ptDday}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.resultDay}</S.Tb>
             </S.SecondaryTr>
-          </tfoot>
+          </tbody>
         </S.Table>
       </S.Container>
     </S.CertificateInfo>

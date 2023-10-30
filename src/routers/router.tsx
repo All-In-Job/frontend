@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 // import PassionTempList from 'components/CardList/PassionTempList/PassionTempList';
 
 import { BasicInformation } from 'components/BasicInformation/BasicInformation';
+import { DetailPage } from 'pages/detail';
 import FindID from 'pages/findID/FindID';
 // import { Home } from 'pages/Home';
 import { Home } from 'pages/Home';
@@ -47,7 +48,16 @@ export const router = createBrowserRouter([
       {
         path: ':menuName',
         element: <Menu />,
-        children: [{ path: ':categoryId', element: <MenuList /> }],
+        children: [
+          {
+            path: ':categoryId',
+            element: <MenuList />,
+          },
+        ],
+      },
+      {
+        path: ':menuName/:categoryId/:detailId',
+        element: <DetailPage />,
       },
     ],
   },

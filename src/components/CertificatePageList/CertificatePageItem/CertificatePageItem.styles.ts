@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 import theme from 'styles/theme';
 
@@ -15,7 +16,7 @@ export const Title = styled.h3`
   ${textStyle.title11}
 `;
 
-export const CertificateInfo = styled.div`
+export const CertificateInfo = styled(Link)`
   display: flex;
   flex-direction: column;
   gap: 36px;
@@ -60,3 +61,5 @@ export const Th = styled.th`
     border-right: solid 1px ${palette.orange300};
   }
 `;
+
+export const Tb = styled(Th)``;
