@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import { TokenResponse, useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
+import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
+
+import { socialLogin } from 'apis/login';
 
 export const useSocialLogin = (provider: 'kakao' | 'google') => {
   const [user, setUser] = useState<TokenResponse>();
@@ -29,28 +31,38 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
   };
 
   useEffect(() => {
-    const getUserProfile = (user: TokenResponse) => {
-      let requestUrl = '';
+    const getUserProfile = async (user: TokenResponse) => {
+      // let requestUrl = '';
+      //
+      // if (provider === 'google')
+      //   requestUrl = `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`;
+      // if (provider === 'kakao')
+      //   requestUrl =
+      //     'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}';
+      //
+      // axios
+      //   .get(requestUrl, {
+      //     headers: {
+      //       Authorization: `Bearer ${user.access_token}`,
+      //       Accept: 'application/json',
+      //     },
+      //   })
+      //   .then(res => {
+      //     setProfile(res.data);
+      //     console.log(res.data);
+      //     console.log(profile);
+      //   })
+      //   .catch(err => console.log(err));
 
-      if (provider === 'google')
-        requestUrl = `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`;
-      if (provider === 'kakao')
-        requestUrl =
-          'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}';
-
-      axios
-        .get(requestUrl, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-            Accept: 'application/json',
-          },
-        })
-        .then(res => {
-          setProfile(res.data);
-          console.log(res.data);
-          console.log(profile);
-        })
-        .catch(err => console.log(err));
+      try {
+        const res = await socialLogin(provider, user.access_token);
+        console.log(res);
+        setProfile(res.data);
+      } catch (e) {
+        if (e instanceof AxiosError && e.response) {
+          console.log(e.response);
+        }
+      }
     };
 
     user && getUserProfile(user);
