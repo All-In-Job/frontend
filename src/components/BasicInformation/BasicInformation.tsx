@@ -67,7 +67,7 @@ export const BasicInformation = () => {
   const updateRequestBody: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     console.log('request form data!');
-    navigate('interest', { state: Object.fromEntries(new FormData(e.currentTarget)) });
+    navigate('/signup/interest', { state: Object.fromEntries(new FormData(e.currentTarget)) });
   };
 
   return (
