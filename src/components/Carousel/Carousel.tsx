@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -28,18 +28,17 @@ export const Carousel = () => {
   const [currentImage, setCurrentImage] = useState(images[1]);
   const [timerId, setTimerId] = useState(-1);
 
-  const setSlideInterval = useCallback(() => {
+  const setSlideInterval = () => {
     let count = 1;
-    if (timerId === -1)
-      setTimerId(
-        setInterval(() => {
-          setCurrentImage(images[count]);
-          console.log(count);
-          if (count === images.length - 1) count = 1;
-          else count++;
-        }, 2000),
-      );
-  }, [timerId]);
+    setTimerId(
+      setInterval(() => {
+        setCurrentImage(images[count]);
+        console.log(count);
+        if (count === images.length - 1) count = 1;
+        else count++;
+      }, 2000),
+    );
+  };
 
   useEffect(() => {
     setSlideInterval();
@@ -47,7 +46,7 @@ export const Carousel = () => {
     return () => {
       clearInterval(timerId);
     };
-  }, [timerId, setSlideInterval]);
+  }, []);
 
   return (
     <StyledContainer>
