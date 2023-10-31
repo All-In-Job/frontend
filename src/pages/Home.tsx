@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+import styled from '@emotion/styled';
 import { Outlet, useNavigate, useOutlet } from 'react-router-dom';
 
 import { Layout } from 'components/Layout/Layout';
@@ -24,13 +25,16 @@ export const Home = () => {
 
   return (
     <>
-      <Layout>
-        <Header />
-        {outlet ? <Outlet /> : <Main />}
-      </Layout>
+      <Header />
+      <Layout>{outlet ? <Outlet /> : <Main />}</Layout>
     </>
   );
 };
+export const Container = styled.main`
+  display: grid;
+  grid-column: span 12;
+  margin-top: 81px;
+`;
 
 // normal
 // main, menu

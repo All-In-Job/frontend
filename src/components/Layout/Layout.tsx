@@ -11,17 +11,20 @@ type Props = {
 
 export const Layout = ({ children }: Props) => {
   const location = useLocation();
-  const orangeBg = ['/login', '/signup', '/find-id'];
   const layoutEl = useRef<HTMLDivElement>(null);
   const kakaoToken = useSearchParams()[0].get('code');
+
+  const orangeBg = ['/login', '/signup', '/find-id'];
+
+  const setLayoutMarginTop = (layout: HTMLElement, height: number) => {
+    layout.style.marginTop = height + 'px';
+  };
 
   const getHeaderHeight = (header: HTMLElement | null) => {
     if (header) return header.offsetHeight;
     return 0;
   };
-  const setLayoutMarginTop = (layout: HTMLElement, height: number) => {
-    layout.style.marginTop = height + 'px';
-  };
+
   useLayoutEffect(() => {
     const Layout = layoutEl.current;
     Layout &&
