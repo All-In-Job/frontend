@@ -1,4 +1,4 @@
-type ExamSchedule = {
+export type ExamSchedule = {
   id: string;
   turn: string;
   wtReceipt: string;

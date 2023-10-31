@@ -5,6 +5,7 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import theme from 'styles/theme';
 
 import * as S from './layout.styles';
+
 type Props = {
   children: ReactNode;
 };

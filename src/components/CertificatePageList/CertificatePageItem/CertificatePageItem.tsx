@@ -1,18 +1,9 @@
 import { CertificateItemProps } from 'types/certificate.type';
 
+import { CertificateExamSchedule } from 'components/CertificateExamSchedule/CertificateExamSchedule';
 import CertificateItem from 'components/CertificateItem/CertificateItem';
 
 import * as S from './CertificatePageItem.styles';
-
-const tableData = {
-  primary: '구분',
-  secondary: `필기원서접수(휴일제외)`,
-  tertiary: '필기시험',
-  quaternary: '필기합격발표일',
-  quinary: '실기원서접수(휴일제외)',
-  senary: '실기시험',
-  septenary: '최종합격발표일',
-};
 
 type Props = Omit<CertificateItemProps, 'enTitle'>;
 
@@ -47,30 +38,17 @@ export const CertificatePageItem = ({
 
       <S.Container>
         <S.Title>시험정보 정보</S.Title>
-        <S.Table>
-          <thead>
-            <S.Tr>
-              <S.Th>{tableData.primary}</S.Th>
-              <S.Th>{tableData.secondary}</S.Th>
-              <S.Th>{tableData.tertiary}</S.Th>
-              <S.Th>{tableData.quaternary}</S.Th>
-              <S.Th>{tableData.quinary}</S.Th>
-              <S.Th>{tableData.senary}</S.Th>
-              <S.Th>{tableData.septenary}</S.Th>
-            </S.Tr>
-          </thead>
-          <tbody>
-            <S.SecondaryTr>
-              <S.Tb>{examSchedules && examSchedules[0]?.turn}</S.Tb>
-              <S.Tb>{examSchedules && examSchedules[0]?.wtReceipt}</S.Tb>
-              <S.Tb>{examSchedules && examSchedules[0]?.wtDday}</S.Tb>
-              <S.Tb>{examSchedules && examSchedules[0]?.wtResultDay}</S.Tb>
-              <S.Tb>{examSchedules && examSchedules[0]?.ptReceipt}</S.Tb>
-              <S.Tb>{examSchedules && examSchedules[0]?.ptDday}</S.Tb>
-              <S.Tb>{examSchedules && examSchedules[0]?.resultDay}</S.Tb>
-            </S.SecondaryTr>
-          </tbody>
-        </S.Table>
+        <CertificateExamSchedule
+          id={examSchedules[0].id}
+          key={examSchedules[0]?.id}
+          turn={examSchedules[0]?.turn}
+          wtReceipt={examSchedules[0]?.wtReceipt}
+          wtDday={examSchedules[0]?.wtDday}
+          wtResultDay={examSchedules[0]?.wtResultDay}
+          ptReceipt={examSchedules[0]?.ptReceipt}
+          ptDday={examSchedules[0]?.ptDday}
+          resultDay={examSchedules[0]?.resultDay}
+        />
       </S.Container>
     </S.CertificateInfo>
   );

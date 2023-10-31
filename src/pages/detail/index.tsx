@@ -6,6 +6,8 @@ import { ResponseData, requestDetailCrawlingData } from 'apis/detailCrawling';
 import { CertificateDetailInfo } from 'components/CertificateDetailInfo/CertificateDetailInfo';
 import { DetailPageInfo } from 'components/DetailPageInfo';
 
+import * as S from './index.styles';
+
 export const DetailPage = () => {
   const { menuName, detailId } = useParams();
   const [detailData, setDetailData] = useState<ResponseData>();
@@ -40,6 +42,9 @@ export const DetailPage = () => {
             institution={detailData.institution}
           />
         </DetailPageInfo>
+        <div>
+          <S.Title>{'시험일정'}</S.Title>
+        </div>
       </>
     );
 };
