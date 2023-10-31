@@ -1,4 +1,4 @@
-import { CertificateItemProps } from 'types/certificate.type';
+import { CertificateItemProps, ExamSchedule } from 'types/certificate.type';
 
 import { CertificateExamSchedule } from 'components/CertificateExamSchedule/CertificateExamSchedule';
 import CertificateItem from 'components/CertificateItem/CertificateItem';
@@ -17,6 +17,10 @@ export const CertificatePageItem = ({
   examSchedules,
   mainImage,
 }: Props) => {
+  const pathProps = (data: ExamSchedule[]) => {
+    return data && examSchedules[0];
+  };
+
   return (
     <S.CertificateInfo to={id}>
       <S.Container>
@@ -39,15 +43,15 @@ export const CertificatePageItem = ({
       <S.Container>
         <S.Title>시험정보 정보</S.Title>
         <CertificateExamSchedule
-          id={examSchedules[0].id}
-          key={examSchedules[0]?.id}
-          turn={examSchedules[0]?.turn}
-          wtReceipt={examSchedules[0]?.wtReceipt}
-          wtDday={examSchedules[0]?.wtDday}
-          wtResultDay={examSchedules[0]?.wtResultDay}
-          ptReceipt={examSchedules[0]?.ptReceipt}
-          ptDday={examSchedules[0]?.ptDday}
-          resultDay={examSchedules[0]?.resultDay}
+          id={pathProps(examSchedules)?.id}
+          key={pathProps(examSchedules)?.id}
+          turn={pathProps(examSchedules)?.turn}
+          wtReceipt={pathProps(examSchedules)?.wtReceipt}
+          wtDday={pathProps(examSchedules)?.wtDday}
+          wtResultDay={pathProps(examSchedules)?.wtResultDay}
+          ptReceipt={pathProps(examSchedules)?.ptReceipt}
+          ptDday={pathProps(examSchedules)?.ptDday}
+          resultDay={pathProps(examSchedules)?.resultDay}
         />
       </S.Container>
     </S.CertificateInfo>
