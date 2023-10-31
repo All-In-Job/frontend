@@ -56,8 +56,14 @@ const Menu = () => {
           title={foundMenuCategories?.title as string}
           categoryList={categoryList}
           onSearch={updateHashTagList}
+          onClickMyInterest={() => true}
         />
-        <HashTagFilter title='키워드' hashTagList={hashTagList} onSearch={updateHashTagList} />
+        <HashTagFilter
+          title='키워드'
+          hashTagList={hashTagList}
+          onSearch={updateHashTagList}
+          onRefresh={() => function () {}}
+        />
       </MenuHeadContent>
 
       <Outlet />
