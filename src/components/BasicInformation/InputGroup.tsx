@@ -53,6 +53,7 @@ export const InputGroup = () => {
   const isAllFormFieldsTrue = ((textFields: InputFieldType[]) => {
     const resultSet: Set<string | boolean> = new Set([]);
     resultSet.add(textFields.every(field => currentFormState[field].isValid)); // true
+    resultSet.add(currentFormState.nickname.isConfirmed);
     resultSet.add(currentFormState.agreement.isAllChecked);
     resultSet.add(isCodeConfirmed);
 
@@ -70,7 +71,7 @@ export const InputGroup = () => {
         setIsCodeConfirmed={setIsCodeConfirmed}
       />
       <Agreement />
-      <S.Submit disabled={!isCodeConfirmed} $isValid={isAllFormFieldsTrue}>
+      <S.Submit disabled={!isAllFormFieldsTrue} $isValid={isAllFormFieldsTrue}>
         확인
       </S.Submit>
     </S.Container>
@@ -237,12 +238,12 @@ const PhoneInput: FC<
 };
 
 const NicknameInput: FC<InputProps> = ({ rule, validateInput }) => {
-  const [isAvaliable, setIsAvailable] = useState<boolean>();
+  const [isAvailable, setIsAvailable] = useState<boolean>();
   const { currentFormState, setCurrentFormState } = useContext(BasicInformationContext)!;
   const { isValid, isConfirmed, value } = currentFormState.nickname;
 
   const requestDuplicateCheck = async () => {
-    if (isAvaliable) return;
+    if (isAvailable) return;
 
     try {
       const res = await checkNickNameDuplicate(currentFormState.nickname.value);
@@ -259,7 +260,7 @@ const NicknameInput: FC<InputProps> = ({ rule, validateInput }) => {
 
   const selectErrorMessage = () => {
     if (value && !isValid) return INPUT_RULES.nickname.errorMsg;
-    if (isAvaliable === false) return '이미 회원가입된 회원입니다.';
+    if (isAvailable === false) return '이미 회원가입된 회원입니다.';
   };
 
   return (
@@ -281,7 +282,7 @@ const NicknameInput: FC<InputProps> = ({ rule, validateInput }) => {
           onClick={requestDuplicateCheck}
           style={updateVerificationBtn(isValid, isConfirmed)}
         >
-          {isAvaliable ? '확인완료' : '중복확인'}
+          {isAvailable ? '확인완료' : '중복확인'}
         </S.Button>
       </S.FlexRow>
       <ErrorMessage>{selectErrorMessage()}</ErrorMessage>
