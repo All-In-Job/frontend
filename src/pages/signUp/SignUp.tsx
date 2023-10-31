@@ -1,8 +1,15 @@
+import styled from '@emotion/styled';
+import { Outlet, useOutlet } from 'react-router-dom';
+
 import SocialLoginButton from 'components/Buttons/SocialLoginBtn';
 
-import * as S from './login.styles';
+import * as S from './signUp.styles';
 
-function Login() {
+function SignUp() {
+  const outlet = useOutlet();
+
+  if (outlet) return <Outlet />;
+
   return (
     <S.LoginContainer>
       <S.LoginWrapper>
@@ -10,13 +17,10 @@ function Login() {
           <S.CharactorBox />
           <S.Logo>ALL IN JOB</S.Logo>
           <S.AccountActionsBox>
-            <S.ActionBtn>가입 계정 찾기</S.ActionBtn>
-            <span style={{ margin: '0 8px', color: '#E1E2E4' }}>|</span>
             <S.ActionBtn>회원가입</S.ActionBtn>
           </S.AccountActionsBox>
           <S.divisionLine>
             <div style={{ flexGrow: '1', height: '1px', backgroundColor: '#E1E2E4' }}></div>
-            <span style={{ margin: '0 4px', padding: '0' }}>OR</span>
             <div style={{ flexGrow: '1', height: '1px', backgroundColor: '#E1E2E4' }}></div>
           </S.divisionLine>
           <S.SocialLoginBox>
@@ -29,4 +33,10 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;
+
+export const SocialLoginImg = styled.img`
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+`;

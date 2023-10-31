@@ -1,7 +1,7 @@
 import { createContext, Dispatch, FormEventHandler, SetStateAction, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { InputGroup } from './InputGroup';
 import { InputGroupHeader } from './InputGroupHeader';
@@ -59,6 +59,8 @@ export const INPUT_RULES: Record<InputFieldType, InputRuleType> = {
 export const BasicInformation = () => {
   const navigate = useNavigate();
   const [currentFormState, setCurrentFormState] = useState(defaultState);
+  const location = useLocation();
+  console.log(location.state);
 
   const updateRequestBody: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
