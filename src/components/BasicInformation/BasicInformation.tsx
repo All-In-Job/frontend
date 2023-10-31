@@ -22,10 +22,12 @@ const defaultState = {
   nickname: {
     value: '',
     isValid: false,
+    isConfirmed: false,
   },
   phone: {
     value: '',
     isValid: false,
+    isCodeChecked: false,
   },
   agreement: {
     'agree-1': false,
@@ -63,7 +65,7 @@ export const BasicInformation = () => {
   const updateRequestBody: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     console.log('request form data!');
-    navigate('', { state: Object.fromEntries(new FormData(e.currentTarget)) });
+    navigate('interest', { state: Object.fromEntries(new FormData(e.currentTarget)) });
   };
 
   return (

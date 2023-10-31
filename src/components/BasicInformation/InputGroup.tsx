@@ -31,6 +31,13 @@ type InputProps = {
   validateInput: (value: string, name: InputFieldType, rule: InputRuleType) => void;
 };
 
+const updateVerificationBtn = (isValid: boolean, isConfirmed: boolean) => {
+  const palette = theme.palette;
+  if (isConfirmed) return { color: palette.orange100, backgroundColor: palette.orange500 };
+  if (isValid) return { color: palette.orange500, backgroundColor: palette.orange100 };
+  return { color: palette.black200, backgroundColor: palette.background.primary };
+};
+
 export const InputGroup = () => {
   const { name, nickname, phone } = INPUT_RULES;
   const { currentFormState, setCurrentFormState } = useContext(BasicInformationContext)!;
@@ -92,15 +99,24 @@ const PhoneInput: FC<
   InputProps & { setIsCodeConfirmed: Dispatch<SetStateAction<boolean>>; isCodeConfirmed: boolean }
 > = ({ rule, validateInput, isCodeConfirmed, setIsCodeConfirmed }) => {
   const { currentFormState } = useContext(BasicInformationContext)!;
-  const { isValid, value } = currentFormState.phone;
+  const { isValid, isCodeChecked, value } = currentFormState.phone;
   const [isCodeRequested, setIsCodeRequested] = useState(false);
   const [code, setCode] = useState('');
+  const [countdown, setCountdown] = useState({
+    minutes: 5,
+    seconds: 0,
+  });
+  const [intervalId, setIntervalId] = useState(0);
 
-  const requestPhoneVerification = async () => {
+  const requestPhoneVerificationCode = async () => {
     // 네트워크 요청 - 인증번호 요청
     try {
-      const res = await sendTokenSMS(value);
-      if (res.status === 200) setIsCodeRequested(true);
+      if (isCodeRequested) return;
+      if (!isCodeRequested) {
+        const res = await sendTokenSMS(value);
+        if (res.status === 200) setIsCodeRequested(true);
+        else return;
+      }
     } catch (e) {
       if (e instanceof AxiosError && e.response) console.log(e.response);
     }
@@ -114,12 +130,63 @@ const PhoneInput: FC<
 
     try {
       const res = await validateTokenSNS(Number(token), currentFormState.phone.value);
-      console.log(res);
-      setIsCodeConfirmed(true);
+      if (res.data.data) {
+        setIsCodeConfirmed(true);
+        clearInterval(intervalId);
+        setIntervalId(-1);
+      } else setIsCodeConfirmed(false);
     } catch (e) {
       if (e instanceof AxiosError && e.response) console.log(e.response);
     }
   };
+  const filterMessage = () => {
+    if (isCodeRequested && intervalId > 0)
+      return (
+        <>
+          <span>인증 번호가 요청되었습니다. 인증 완료 버튼을 눌러주세요.</span>
+          <span>
+            유효시간: {countdown.minutes}:{String(countdown.seconds).padStart(2, '0')}
+          </span>
+        </>
+      );
+    if (value && !isValid) return INPUT_RULES.phone.errorMsg;
+    if (intervalId === -1) return '인증이 완료되었습니다.';
+    return null;
+  };
+
+  useEffect(() => {
+    if (isCodeRequested) {
+      let minutes = 0;
+      let seconds = 59;
+
+      let timerId = setTimeout(() => {
+        setCountdown({ minutes: --countdown.minutes, seconds: 59 });
+        clearTimeout(timerId);
+        timerId = -1;
+
+        setIntervalId(
+          setInterval(() => {
+            if (timerId === -1) {
+              if (seconds === 0 && minutes === 0) clearInterval(intervalId);
+              if (seconds === 0 && minutes > 0) {
+                seconds = 59;
+                minutes = minutes - 1;
+                setCountdown(prevState => ({ minutes: --prevState.minutes, seconds: 59 }));
+              } else if (minutes >= 0 && seconds > 0) {
+                seconds = seconds - 1;
+                setCountdown(prevState => ({ ...prevState, seconds }));
+              }
+            }
+          }, 1000),
+        );
+      }, 1000);
+    }
+  }, [isCodeRequested]);
+
+  useEffect(() => {
+    // 인증 번호 제한 시간 다 지났는데도 유저가 인증번호로 인증 안했으면 다시 인증 요청 보낼 수 있도록 isCodeRequested 상태 초기값으로 되돌림.
+    if (countdown.minutes === 0 && countdown.seconds === 0) setIsCodeRequested(false);
+  }, [countdown]);
 
   return (
     <S.Row>
@@ -131,7 +198,12 @@ const PhoneInput: FC<
           name='phone'
           onChange={e => validateInput(e.target.value, 'phone', rule)}
         />
-        <S.Button disabled={!isValid} onClick={requestPhoneVerification} $isValid={isValid}>
+        <S.Button
+          type='button'
+          disabled={!isValid}
+          onClick={requestPhoneVerificationCode}
+          style={updateVerificationBtn(isValid, isCodeChecked)}
+        >
           인증요청
         </S.Button>
       </S.FlexRow>
@@ -150,22 +222,24 @@ const PhoneInput: FC<
           }}
         />
         <S.Button
+          type='button'
           disabled={isCodeConfirmed}
-          $isValid={isCodeRequested && Boolean(code)}
+          // $isValid={isCodeRequested && Boolean(code)}
           onClick={requestCodeValidation}
+          style={updateVerificationBtn(!!code, isCodeConfirmed)}
         >
           인증완료
         </S.Button>
       </S.FlexRow>
-      <ErrorMessage>{value && !isValid && INPUT_RULES.phone.errorMsg}</ErrorMessage>
+      <ErrorMessage>{filterMessage()}</ErrorMessage>
     </S.Row>
   );
 };
 
 const NicknameInput: FC<InputProps> = ({ rule, validateInput }) => {
   const [isAvaliable, setIsAvailable] = useState<boolean>();
-  const { currentFormState } = useContext(BasicInformationContext)!;
-  const { isValid, value } = currentFormState.nickname;
+  const { currentFormState, setCurrentFormState } = useContext(BasicInformationContext)!;
+  const { isValid, isConfirmed, value } = currentFormState.nickname;
 
   const requestDuplicateCheck = async () => {
     if (isAvaliable) return;
@@ -173,6 +247,10 @@ const NicknameInput: FC<InputProps> = ({ rule, validateInput }) => {
     try {
       const res = await checkNickNameDuplicate(currentFormState.nickname.value);
       setIsAvailable(true);
+      setCurrentFormState({
+        ...currentFormState,
+        nickname: { ...currentFormState.nickname, isConfirmed: true },
+      });
       console.log(res);
     } catch (e) {
       if (e instanceof AxiosError && e.response) setIsAvailable(false);
@@ -201,9 +279,9 @@ const NicknameInput: FC<InputProps> = ({ rule, validateInput }) => {
           type='button'
           disabled={!isValid}
           onClick={requestDuplicateCheck}
-          $isValid={isValid}
+          style={updateVerificationBtn(isValid, isConfirmed)}
         >
-          {isAvaliable ? '인증완료' : '인증요청'}
+          {isAvaliable ? '확인완료' : '중복확인'}
         </S.Button>
       </S.FlexRow>
       <ErrorMessage>{selectErrorMessage()}</ErrorMessage>
