@@ -1,7 +1,7 @@
 import { CertificateItemProps, ExamSchedule } from 'types/certificate.type';
 
-import { CertificateExamSchedule } from 'components/CertificateExamSchedule/CertificateExamSchedule';
-import CertificateItem from 'components/CertificateItem/CertificateItem';
+import { CertificateExamSchedule } from 'components/Certificate/CertificateExamSchedule/CertificateExamSchedule';
+import CertificateItem from 'components/Certificate/CertificateItem/CertificateItem';
 
 import * as S from './CertificatePageItem.styles';
 

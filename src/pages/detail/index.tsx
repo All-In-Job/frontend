@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import { ExamSchedule } from 'types/certificate.type';
 
 import { ResponseData, requestDetailCrawlingData } from 'apis/detailCrawling';
-import { CertificateDetailInfo } from 'components/CertificateDetailInfo/CertificateDetailInfo';
-import { CertificateExamSchedule } from 'components/CertificateExamSchedule/CertificateExamSchedule';
+import { CertificateDetailInfo } from 'components/Certificate/CertificateDetailInfo/CertificateDetailInfo';
+import { CertificateExamSchedule } from 'components/Certificate/CertificateExamSchedule/CertificateExamSchedule';
 import { DetailPageInfo } from 'components/DetailPageInfo';
 
 import * as S from './index.styles';
