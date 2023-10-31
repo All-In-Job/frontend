@@ -46,7 +46,7 @@ export const Carousel = () => {
     return () => {
       clearInterval(timerId);
     };
-  }, [timerId]);
+  }, []);
 
   return (
     <StyledContainer>
