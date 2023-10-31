@@ -2,7 +2,7 @@ import * as S from './Count.styles';
 
 type Props = {
   children: React.ReactNode;
-  count: number;
+  count: number | undefined;
 };
 
 export const Count = ({ children, count }: Props) => {

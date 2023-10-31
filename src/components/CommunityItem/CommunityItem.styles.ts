@@ -1,12 +1,6 @@
 import styled from '@emotion/styled';
 
-import { ReactComponent as Bookmark } from './res/img/bookmark.svg';
-import { ReactComponent as Horizontal } from './res/img/horizontal_rule.svg';
-import { ReactComponent as Like } from './res/img/like.svg';
-import { ReactComponent as View } from './res/img/view.svg';
-import { ReactComponent as Visibility } from './res/img/visibility.svg';
-
-export const CommunityItemContainer = styled.article`
+export const CommunityItem = styled.article`
   display: flex;
   padding: 24px 32px;
   flex-direction: column;
@@ -79,13 +73,3 @@ export const Category = styled.span`
   color: #fd6b36;
   border: 1px solid #fd6b36;
 `;
-
-export const NicknameIcon = styled(Visibility)``;
-
-export const ViewIcon = styled(View)``;
-
-export const BookmarkIcon = styled(Bookmark)``;
-
-export const LikeIcon = styled(Like)``;
-
-export const HorizontalIcon = styled(Horizontal)``;

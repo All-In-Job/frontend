@@ -4,9 +4,9 @@ import { Certificate } from 'types/certificate.type';
 
 export type ResponseData = Certificate;
 
-type FuncType = (path: string, id: string) => Promise<AxiosResponse<{ data: ResponseData }>>;
+type FuncType<T> = (path: T, id: T) => Promise<AxiosResponse<{ data: ResponseData }>>;
 
-export const requestDetailCrawlingData: FuncType = async (path, id) => {
+export const requestDetailCrawlingData: FuncType<string | undefined> = async (path, id) => {
   return await detailCrawlingApi({
     method: 'get',
     params: { path: path, id: id },

@@ -7,16 +7,16 @@ import { ReactComponent as HorizontalRuleIcon } from './res/icon-horizontal_rule
 import { ReactComponent as ViewIcon } from './res/icon-view.svg';
 
 type Props = {
-  title: string;
-  dDay: number;
-  bookmarkCount: number;
-  viewCount: number;
-  children: React.ReactNode;
+  title: string | undefined;
+  dDay: number | undefined;
+  bookmarkCount: number | undefined;
+  viewCount: number | undefined;
+  children: React.ReactNode | undefined;
 };
 
 export const DetailPageInfo = ({ title, dDay, bookmarkCount, viewCount, children }: Props) => {
   return (
-    <>
+    <S.Wrapper>
       <S.Head>
         <S.TitleWrapper>
           <S.DDay>{`D-${dDay}`}</S.DDay>
@@ -30,6 +30,6 @@ export const DetailPageInfo = ({ title, dDay, bookmarkCount, viewCount, children
         <HorizontalRuleIcon />
         <Count count={viewCount} children={<ViewIcon />} />
       </S.CountContainer>
-    </>
+    </S.Wrapper>
   );
 };

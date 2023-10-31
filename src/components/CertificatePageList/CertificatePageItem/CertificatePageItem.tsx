@@ -14,29 +14,33 @@ const tableData = {
   septenary: '최종합격발표일',
 };
 
+type Props = Omit<CertificateItemProps, 'enTitle'>;
+
 export const CertificatePageItem = ({
   id,
   title,
   institution,
-  relatedDepartment,
+  relateDepartment,
   scrap,
   view,
   examSchedules,
-  image,
-}: CertificateItemProps) => {
+  mainImage,
+}: Props) => {
   return (
-    <S.CertificateInfo to={id as string}>
+    <S.CertificateInfo to={id}>
       <S.Container>
         <S.Title>자격증 정보</S.Title>
         <S.CertificateItemWrapper>
           <CertificateItem
+            id={id}
             location='page'
             title={title}
             institution={institution}
-            relatedDepartment={relatedDepartment}
+            relateDepartment={relateDepartment}
             scrap={scrap}
             view={view}
-            image={image}
+            mainImage={mainImage}
+            examSchedules={examSchedules}
           />
         </S.CertificateItemWrapper>
       </S.Container>
@@ -57,13 +61,13 @@ export const CertificatePageItem = ({
           </thead>
           <tbody>
             <S.SecondaryTr>
-              <S.Tb>{examSchedules?.turn}</S.Tb>
-              <S.Tb>{examSchedules?.wtReceipt}</S.Tb>
-              <S.Tb>{examSchedules?.wtDday}</S.Tb>
-              <S.Tb>{examSchedules?.wtResultDay}</S.Tb>
-              <S.Tb>{examSchedules?.ptReceipt}</S.Tb>
-              <S.Tb>{examSchedules?.ptDday}</S.Tb>
-              <S.Tb>{examSchedules?.resultDay}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.turn}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.wtReceipt}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.wtDday}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.wtResultDay}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.ptReceipt}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.ptDday}</S.Tb>
+              <S.Tb>{examSchedules && examSchedules[0]?.resultDay}</S.Tb>
             </S.SecondaryTr>
           </tbody>
         </S.Table>

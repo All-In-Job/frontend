@@ -1,21 +1,21 @@
 import styled from '@emotion/styled';
 import HomeCardListProvider from 'contexts/homeCardMenuContext/homeCardMenuContext';
 
-import { CardList } from 'components/CardList/CardList';
 import { CardListMenuBar } from 'components/CardListMenuBar/CardListMenuBar';
 import { Carousel } from 'components/Carousel/Carousel';
-import Profile from 'pages/home/AsideProfile/Profile';
+import { MainPageList } from 'components/MainPageList/MainPageList';
+// import Profile from 'pages/home/AsideProfile/Profile';
 
 export const Main = () => {
   return (
     <>
       <Carousel />
-      <Sidebar>
-        <Profile />
-      </Sidebar>
+      {/*<Sidebar>*/}
+      {/*  <Profile />*/}
+      {/*</Sidebar>*/}
       <HomeCardListProvider>
         <CardListMenuBar />
-        <CardList />
+        <MainPageList />
       </HomeCardListProvider>
     </>
   );

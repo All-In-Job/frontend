@@ -10,15 +10,15 @@ type ExamSchedule = {
 };
 
 export type Certificate = {
-  id?: string;
+  id: string;
   title: string;
-  engJmNm?: string | null;
-  relatedDepartment: string;
+  relateDepartment: string;
   scrap: number;
   view: number;
   institution: string;
-  examSchedules?: ExamSchedule[];
-  image: string;
+  examSchedules: ExamSchedule[];
+  mainImage: string;
+  enTitle: string;
 };
 
 export interface CertificateItemProps extends Certificate {

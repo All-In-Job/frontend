@@ -5,7 +5,7 @@ import { Certificate } from 'types/certificate.type';
 
 import { requestCrawlingData } from 'apis/crawling';
 
-import { CertificatePageItem } from './CertificateInfo/CertificatePageItem';
+import { CertificatePageItem } from './CertificatePageItem/CertificatePageItem';
 import * as S from './CertificatePageList.styles';
 
 export const CertificatePageList = () => {
@@ -13,17 +13,17 @@ export const CertificatePageList = () => {
 
   const [certificateList, setCertificateList] = useState<Certificate[]>([]);
 
-  const queries = {
-    path: menuName,
-  };
-
   useEffect(() => {
     (async () => {
-      try {
-        const res = await requestCrawlingData(menuName as string, queries);
-        setCertificateList(res.data.data);
-      } catch (error) {
-        console.error(error);
+      if (menuName) {
+        try {
+          const res = await requestCrawlingData(menuName, {
+            path: menuName,
+          });
+          setCertificateList(res.data.data as Certificate[]);
+        } catch (error) {
+          console.error(error);
+        }
       }
     })();
   }, [menuName]);
@@ -32,13 +32,13 @@ export const CertificatePageList = () => {
     <S.List>
       {certificateList.map(el => (
         <CertificatePageItem
-          image={el.image}
+          mainImage={el.mainImage}
           location='page'
           key={el.id}
           id={el.id}
           title={el.title}
           institution={el.institution}
-          relatedDepartment={el.relatedDepartment}
+          relateDepartment={el.relateDepartment}
           scrap={el.scrap}
           view={el.view}
           examSchedules={el.examSchedules}

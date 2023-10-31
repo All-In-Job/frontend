@@ -2,25 +2,27 @@ import { CertificateItemProps } from 'types/certificate.type';
 
 import * as S from './CertificateItem.styles';
 
-function CertificateItem({
+type Props = Omit<CertificateItemProps, 'enTitle'>;
+
+const CertificateItem = ({
   location,
   title,
   institution,
-  relatedDepartment,
+  relateDepartment,
   scrap,
   view = 0,
-  image,
-}: CertificateItemProps) {
+  mainImage,
+}: Props) => {
   return (
     <S.CertificateListContainer location={location}>
       <S.CertificateInfo>
-        <S.Image src={image}></S.Image>
+        <S.Image src={mainImage}></S.Image>
         <S.CertificateInfoText>
           <S.Title>{title}</S.Title>
           <S.Bottom>
             <S.Path>
               {'관련부처 : '}
-              {relatedDepartment}
+              {relateDepartment}
             </S.Path>
             <S.Path>
               {'시행기관 : '}
@@ -49,6 +51,6 @@ function CertificateItem({
       </S.CountWrapper>
     </S.CertificateListContainer>
   );
-}
+};
 
 export default CertificateItem;
