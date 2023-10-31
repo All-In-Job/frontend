@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { useParams } from 'react-router-dom';
 
 import MultiSelectHashTagsForIndicator from 'components/HashTagFilter/MultiSelectIndicator';
 import { HashTagData } from 'components/HashTagFilter/type';
@@ -22,6 +23,12 @@ interface Props {
 
 const HashTagFilter: FC<Props> = ({ hashTagList, title, onSearch, onRefresh, className }) => {
   const [selectedHashs, setSelectedHashs] = useState<HashTagData[]>([]);
+
+  const { categoryId } = useParams();
+
+  useEffect(() => {
+    setSelectedHashs([]);
+  }, [categoryId]);
 
   const handleSelectedHashTags = (value: HashTagData) => {
     let result: HashTagData[] = [];
