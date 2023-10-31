@@ -5,6 +5,7 @@ function createAxiosInstance(url: string) {
 }
 
 export const signupApi = createAxiosInstance('user');
+export const loginApi = createAxiosInstance('login');
 
 export const communityApi = createAxiosInstance('community');
 export const crawlingApi = createAxiosInstance('crawling/finde');
