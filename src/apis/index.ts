@@ -1,24 +1,11 @@
 import axios from 'axios';
 
-// production mode
-const baseURLs = {
-  mainCrawlingApi: import.meta.env.VITE_API_MAIN_CRAWLING,
-  competition: import.meta.env.VITE_API_COMPETITION_BASE_URL,
-  intern: import.meta.env.VITE_API_COMPETITION_BASE_URL,
-  communityApi: import.meta.env.VITE_API_COMMUNITY,
-  detailCrawlingApi: import.meta.env.VITE_API_CRAWLING_DETAIL,
-  crawlingApi: import.meta.env.VITE_API_CRAWLING, // /crawling
-};
-
 function createAxiosInstance(url: string) {
-  return axios.create({ baseURL: url });
+  return axios.create({ baseURL: `${import.meta.env.VITE_API_BASE_URL}/${url}` });
 }
 
 export const signupApi = createAxiosInstance('user');
 
-export const competitionApi = createAxiosInstance(baseURLs.competition);
-export const internApi = createAxiosInstance(baseURLs.intern);
-export const communityApi = createAxiosInstance(baseURLs.communityApi);
-export const mainCrawlingApi = createAxiosInstance(baseURLs.mainCrawlingApi);
-export const crawlingApi = createAxiosInstance(baseURLs.crawlingApi);
-export const detailCrawlingApi = createAxiosInstance(baseURLs.detailCrawlingApi);
+export const communityApi = createAxiosInstance('community');
+export const crawlingApi = createAxiosInstance('crawling/finde');
+export const detailCrawlingApi = createAxiosInstance('crawling/findeDetail');
