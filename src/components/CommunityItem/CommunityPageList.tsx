@@ -17,7 +17,6 @@ export const CommunityPageList = () => {
       try {
         const res = await requestCommunityData();
         setCommunityList(res.data.data);
-        console.log(res.data);
       } catch (error) {
         console.error(error);
       }
@@ -28,13 +27,14 @@ export const CommunityPageList = () => {
     <List>
       {communityList.map(el => (
         <CommunityItem
+          id={el.id}
           key={el.date}
           category={el.category}
           title={el.title}
           date={el.date}
           view={el.view}
-          like={el.likeCount}
-          comment={el.commentCount}
+          like={el.like}
+          comment={el.comment}
           user={el.user}
         />
       ))}

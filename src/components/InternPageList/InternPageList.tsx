@@ -8,23 +8,21 @@ import { requestCrawlingData } from 'apis/crawling';
 import { InternPageItem } from './InternInfo/InternPageItem';
 import * as S from './InternPageList.styles';
 
+const TableName = ['기업명', '공고명', '지역', '마감일', '조회수', '스크랩'];
+
 export const InternPageList = () => {
-  const Table = ['기업명', '공고명', '지역', '마감일', '조회수', '스크랩'];
-
   const { menuName } = useParams();
-
   const [InternPageList, setInternPageList] = useState<Inter[]>([]);
 
-  const queries = {
-    path: menuName,
-  };
-
   useEffect(() => {
+    const queries = {
+      path: menuName,
+    };
+
     (async () => {
       try {
         const res = await requestCrawlingData(menuName as string, queries);
-        setInternPageList(res.data.data);
-        console.log(res.data);
+        setInternPageList(res.data.data as Inter[]);
       } catch (error) {
         console.error(error);
       }
@@ -34,7 +32,7 @@ export const InternPageList = () => {
   return (
     <S.InternContainer>
       <S.TableTitle>
-        {Table.map(el => {
+        {TableName.map(el => {
           return <S.Heading key={el}>{el}</S.Heading>;
         })}
       </S.TableTitle>

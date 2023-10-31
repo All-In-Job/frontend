@@ -6,14 +6,12 @@ import { Language } from 'types/language.type';
 import { crawlingApi } from './index';
 
 type FuncType = (
-  menu: string,
-  queries: object,
+  path: string,
 ) => Promise<AxiosResponse<{ data: Certificate[] | Language[] | Inter[] }>>;
 
-export const requestCrawlingData: FuncType = async (menu, queries) => {
+export const requestCrawlingData: FuncType = async path => {
   return await crawlingApi({
     method: 'get',
-    url: `${menu}`,
-    params: { ...queries },
+    url: `${path}`,
   });
 };

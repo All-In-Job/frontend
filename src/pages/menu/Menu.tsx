@@ -1,40 +1,69 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
-// import MultiSelectTags from 'components/Badge';
-// import { HashTagData } from 'components/Badge/type';
-
 import CategoryFilter from 'components/CategoryFilter';
 import { CategoryData } from 'components/CategoryFilter/type';
+import HashTagFilter from 'components/HashTagFilter';
 
 import { MenuCategoies, MenuId, getMenuById } from './menuCategoies';
 
 const Menu = () => {
   const [categoryList, setCategoryList] = useState<CategoryData[]>([]);
+  const [hashTagList, setHashTagList] = useState<CategoryData[]>([]);
+
   const { menuName, categoryId } = useParams();
-  const foundMenuCategories = getMenuById(menuName! as MenuId);
   const navigate = useNavigate();
+  const foundMenuCategories = getMenuById(menuName! as MenuId);
 
   if (!categoryId) navigate('/');
 
   useEffect(() => {
-    const filteringCategoryList = (menuCategories: MenuCategoies) => {
+    const getCategoryList = (menuCategories: MenuCategoies) => {
       const categories = menuCategories.items.map(
-        item => ({ id: item.category, title: item.category }) as CategoryData,
+        item => ({ id: item.id, title: item.category }) as CategoryData,
       );
 
       setCategoryList(categories);
     };
 
-    filteringCategoryList(foundMenuCategories!);
+    getCategoryList(foundMenuCategories!);
   }, [menuName, foundMenuCategories]);
+
+  const updateHashTagList = useCallback(
+    (selectedCategory: CategoryData[]) => {
+      const foundCategory = foundMenuCategories?.items.find(
+        item => item.id === selectedCategory[0].id,
+      );
+
+      if (foundCategory) {
+        const keywords =
+          foundCategory.keywords?.map(
+            keyword => ({ id: keyword, title: keyword }) as CategoryData,
+          ) || [];
+
+        setHashTagList(keywords);
+      }
+    },
+    [foundMenuCategories?.items],
+  );
 
   return (
     <MenuWrapper>
       <MenuHeadContent>
-        <CategoryFilter title={foundMenuCategories?.title as string} categoryList={categoryList} />
+        <CategoryFilter
+          title={foundMenuCategories?.title as string}
+          categoryList={categoryList}
+          onSearch={updateHashTagList}
+          onClickMyInterest={() => true}
+        />
+        <HashTagFilter
+          title='키워드'
+          hashTagList={hashTagList}
+          onSearch={updateHashTagList}
+          onRefresh={() => function () {}}
+        />
       </MenuHeadContent>
 
       <Outlet />

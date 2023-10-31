@@ -11,6 +11,7 @@ type PhoneAuthSendBtnProps = {
 export const FindIDContainer = styled.div`
   padding: 181px 0;
   background-color: #fd805d;
+  grid-column: span 12;
 `;
 
 export const FindIDWrapper = styled.div`

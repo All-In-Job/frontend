@@ -10,19 +10,17 @@ import { LanguagePageItem } from './LanguageInfo/LanguagePageItem';
 
 export const LanguagePageList = () => {
   const { menuName } = useParams();
-
   const [languageList, setLanguageList] = useState<Language[]>([]);
 
-  const queries = {
-    path: menuName,
-  };
-
   useEffect(() => {
+    const queries = {
+      path: menuName,
+    };
+
     (async () => {
       try {
         const res = await requestCrawlingData(menuName as string, queries);
-        setLanguageList(res.data.data);
-        console.log(res.data);
+        setLanguageList(res.data.data as Language[]);
       } catch (error) {
         console.error(error);
       }

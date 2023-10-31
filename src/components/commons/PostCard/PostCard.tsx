@@ -1,26 +1,24 @@
 import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
+import { PostCardProps } from 'types/postCard.type';
 
 import * as S from './postCard.styles';
 
-type PostCardProps = {
-  mainImage: string;
-  infoHost: string;
-  title: string;
-  dateDday: string;
-  dateCreation: string;
-  scrapCount: string;
-  viewCount: string;
-  location?: string;
-  imgHeight?: string;
-  isPostCardTag?: boolean;
-  isPickButton?: boolean;
-  isChangeInfoLayout?: boolean;
-  index: number;
-};
-
-function PostCard(props: PostCardProps) {
+function PostCard({
+  mainImage,
+  enterprise,
+  title,
+  Dday,
+  applicationPeriod,
+  scrapCount,
+  view,
+  location,
+  imgHeight,
+  isPickButton,
+  isChangeInfoLayout,
+  index,
+}: PostCardProps) {
   const [isPick, setIsPick] = useState(false);
 
   const onClickPick = () => {
@@ -29,12 +27,12 @@ function PostCard(props: PostCardProps) {
 
   return (
     <S.PostCardContainer>
-      <S.PostCardImgBox imgHeight={props.imgHeight ?? '282px'}>
-        <img src={props.mainImage} />
+      <S.PostCardImgBox imgHeight={imgHeight ?? '282px'}>
+        <img src={mainImage} />
 
-        {props.index < 4 ? <S.PostCardTag>SPECIAL</S.PostCardTag> : null}
+        {index < 4 ? <S.PostCardTag>SPECIAL</S.PostCardTag> : null}
 
-        {props.isPickButton && (
+        {isPickButton && (
           <Link to={'/login'}>
             <S.PickButton onClick={onClickPick}>
               <S.PickIcon data-ispick={isPick} />
@@ -43,36 +41,36 @@ function PostCard(props: PostCardProps) {
         )}
       </S.PostCardImgBox>
 
-      <S.PostCardInfo isChangeInfoLayout={props.isChangeInfoLayout ? true : false}>
-        {props.isChangeInfoLayout ? (
+      <S.PostCardInfo isChangeInfoLayout={isChangeInfoLayout ? true : false}>
+        {isChangeInfoLayout ? (
           <>
-            <S.InfoTitle>{props.title}</S.InfoTitle>
-            <S.InfoHost>{props.infoHost}</S.InfoHost>
-            {props.location && <S.Location>{props.location}</S.Location>}
+            <S.InfoTitle>{title}</S.InfoTitle>
+            <S.InfoHost>{enterprise}</S.InfoHost>
+            {location && <S.Location>{location}</S.Location>}
           </>
         ) : (
           <>
-            <S.InfoHost>{props.infoHost}</S.InfoHost>
-            <S.InfoTitle>{props.title}</S.InfoTitle>
+            <S.InfoHost>{enterprise}</S.InfoHost>
+            <S.InfoTitle>{title}</S.InfoTitle>
           </>
         )}
         <S.InfoDate>
-          <S.DateDday>{props.dateDday}</S.DateDday>
-          <S.DateCreation>{props.dateCreation}</S.DateCreation>
+          <S.DateDday>{Dday}</S.DateDday>
+          <S.DateCreation>{applicationPeriod}</S.DateCreation>
         </S.InfoDate>
       </S.PostCardInfo>
 
       <S.PostCardFooter>
         <li>
           <S.SmallBookmarkIcon />
-          <S.FooterCount>{props.scrapCount}</S.FooterCount>
+          <S.FooterCount>{scrapCount}</S.FooterCount>
         </li>
         <li>
           <S.DevideLine />
         </li>
         <li>
           <S.VisibilityIcon />
-          <S.FooterCount>{props.viewCount}</S.FooterCount>
+          <S.FooterCount>{view}</S.FooterCount>
         </li>
       </S.PostCardFooter>
     </S.PostCardContainer>
