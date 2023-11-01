@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
+import { FC, useContext } from 'react';
 
 import styled from '@emotion/styled';
+import { MenuListContext } from 'contexts/menuListContext';
 
 import MultiSelectHashTagsForIndicator from 'components/HashTagFilter/MultiSelectIndicator';
 import { HashTagData } from 'components/HashTagFilter/type';
@@ -21,31 +22,31 @@ interface Props {
 }
 
 const HashTagFilter: FC<Props> = ({ hashTagList, title, onSearch, onRefresh, className }) => {
-  const [selectedHashs, setSelectedHashs] = useState<HashTagData[]>([]);
+  const menuList = useContext(MenuListContext);
 
   const handleSelectedHashTags = (value: HashTagData) => {
     let result: HashTagData[] = [];
 
-    if (selectedHashs.find(item => item.id === value.id)) {
-      result = selectedHashs.filter(item => item.id !== value.id);
+    if (menuList?.selectedHashs.find(item => item.id === value.id)) {
+      result = menuList.selectedHashs.filter(item => item.id !== value.id);
     } else {
-      result = [...selectedHashs, value];
+      result = [...(menuList?.selectedHashs ?? []), value];
     }
 
-    setSelectedHashs(result);
+    menuList?.setSelectedHashs(result);
     onSearch(result);
   };
 
   const handleDeleteClick = (value: HashTagData) => {
-    setSelectedHashs(selectedHashs.filter(item => item.id !== value.id));
+    menuList?.setSelectedHashs(menuList.selectedHashs.filter(item => item.id !== value.id));
   };
 
   const handleClickRefresh = () => {
-    setSelectedHashs([]);
+    menuList?.setSelectedHashs([]);
     onRefresh();
   };
 
-  const HashTagFilter = selectedHashs.length !== 0;
+  const HashTagFilter = menuList?.selectedHashs.length !== 0;
 
   return (
     <Container className={className}>
@@ -56,13 +57,13 @@ const HashTagFilter: FC<Props> = ({ hashTagList, title, onSearch, onRefresh, cla
       />
       <MultiSelectHashTagsForSelect
         onSelect={handleSelectedHashTags}
-        selectedHashTagList={selectedHashs}
+        selectedHashTagList={menuList?.selectedHashs ?? []}
         hashTagList={hashTagList}
       />
       {HashTagFilter && <Border />}
       <MultiSelectHashTagsForIndicator
         onDeleteClick={handleDeleteClick}
-        selectedHashTagList={selectedHashs}
+        selectedHashTagList={menuList?.selectedHashs ?? []}
       />
     </Container>
   );
