@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   grid-column: span 12;
 `;
 const Title = styled.div`
-  margin: 32px 0 24px 0;
+  margin: 0 0 24px 0;
   color: var(--black-500, #121110);
   font-family: SUIT;
   font-size: 24px;

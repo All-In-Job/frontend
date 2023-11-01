@@ -55,7 +55,7 @@ export const Tbody = styled.tbody`
   }
 `;
 
-export const HorizontalRule = styled.div`
+export const HorizontalRule = styled.tbody`
   width: 100%;
   margin: 8px 24px;
   border-top: 1px solid #e1e2e4;

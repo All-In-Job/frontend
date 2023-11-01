@@ -6,6 +6,8 @@ import { ExamSchedule } from 'types/certificate.type';
 import { ResponseData, requestDetailCrawlingData } from 'apis/detailCrawling';
 import { CertificateDetailInfo } from 'components/Certificate/CertificateDetailInfo/CertificateDetailInfo';
 import { CertificateExamSchedule } from 'components/Certificate/CertificateExamSchedule/CertificateExamSchedule';
+import { CommonDetailPageInfo } from 'components/CommonDetailPageInfo/CommonDetailPageInfo';
+import { DetailDescription } from 'components/CommonDetailPageInfo/DetailDescription';
 import { DetailPageInfo } from 'components/DetailPageInfo';
 
 import * as S from './index.styles';
@@ -43,6 +45,23 @@ export const DetailPage = () => {
           viewCount={detailData.view}
         >
           {/* 상황에 맞는 컴포넌트 추가 */}
+          <CommonDetailPageInfo
+            menuName={menuName}
+            mainImage={detailData.mainImage}
+            enterprise={detailData.enterprise}
+            institution={detailData.institution}
+            target={detailData.target}
+            date={detailData.date}
+            participationPeriod={detailData.participationPeriod}
+            preferentialTreatment={detailData.preferentialTreatment}
+            scale={detailData.scale}
+            benefits={detailData.benefits}
+            interests={detailData.interests}
+            field={detailData.field}
+            homePage={detailData.homePage}
+            location={detailData.location}
+            personnel={detailData.personnel}
+          />
           {menuName === 'qnet' && (
             <CertificateDetailInfo
               mainImage={detailData.mainImage}
@@ -54,20 +73,23 @@ export const DetailPage = () => {
           )}
         </DetailPageInfo>
         <S.Container>
-          <S.Title>{'시험일정'}</S.Title>
           {/* 상황에 맞는 컴포넌트 추가 */}
+          <DetailDescription />
           {menuName === 'qnet' && (
-            <CertificateExamSchedule
-              id={pathProps(detailData.examSchedules)?.id}
-              key={pathProps(detailData.examSchedules)?.id}
-              turn={pathProps(detailData.examSchedules)?.turn}
-              wtReceipt={pathProps(detailData.examSchedules)?.wtReceipt}
-              wtDday={pathProps(detailData.examSchedules)?.wtDday}
-              wtResultDay={pathProps(detailData.examSchedules)?.wtResultDay}
-              ptReceipt={pathProps(detailData.examSchedules)?.ptReceipt}
-              ptDday={pathProps(detailData.examSchedules)?.ptDday}
-              resultDay={pathProps(detailData.examSchedules)?.resultDay}
-            />
+            <>
+              <S.Title>{'시험일정'}</S.Title>
+              <CertificateExamSchedule
+                id={pathProps(detailData.examSchedules)?.id}
+                key={pathProps(detailData.examSchedules)?.id}
+                turn={pathProps(detailData.examSchedules)?.turn}
+                wtReceipt={pathProps(detailData.examSchedules)?.wtReceipt}
+                wtDday={pathProps(detailData.examSchedules)?.wtDday}
+                wtResultDay={pathProps(detailData.examSchedules)?.wtResultDay}
+                ptReceipt={pathProps(detailData.examSchedules)?.ptReceipt}
+                ptDday={pathProps(detailData.examSchedules)?.ptDday}
+                resultDay={pathProps(detailData.examSchedules)?.resultDay}
+              />
+            </>
           )}
         </S.Container>
       </>

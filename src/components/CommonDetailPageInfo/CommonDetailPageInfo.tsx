@@ -3,74 +3,127 @@ import { Common } from 'types/common.type';
 
 import * as S from './CommonDetailPageInfo.styles';
 
-const tableData = {
-  organization: '주최기관',
-  period: '접수기간',
-  awardsScale: '시상규모',
-  target: '참여대상',
-  benefits: '활동혜택',
-  institution: '기업형태',
-  interests: '관심분야',
-  homepage: '홈페이지',
-};
-
 export const CommonDetailPageInfo = ({
+  menuName,
   mainImage,
   enterprise,
   institution,
   target,
   date,
+  participationPeriod,
+  preferentialTreatment,
   scale,
   benefits,
   interests,
+  field,
   homePage,
+  location,
+  personnel,
 }: Common) => {
+  const competitionRender = menuName === 'competition';
+  const outsideRender = menuName === 'outside';
+  const internRender = menuName === 'intern';
+
   return (
     <S.Container>
       <S.Img src={mainImage} />
       <S.Table>
         <S.Tbody>
           <tr>
-            <th>{tableData.organization}</th>
+            <th>{'주최기관'}</th>
             <td>{enterprise}</td>
           </tr>
           <tr>
-            <th>{tableData.period}</th>
+            <th>{'접수기관'}</th>
             <td>{date}</td>
           </tr>
-          <tr>
-            <th>{tableData.awardsScale}</th>
-            <td>{scale + '만원'}</td>
-          </tr>
-          <tr>
-            <th>{tableData.target}</th>
-            <td>{target}</td>
-          </tr>
+
+          {competitionRender && (
+            <>
+              <tr>
+                <th>{'시상규모'}</th>
+                <td>{scale + '만원'}</td>
+              </tr>
+              <tr>
+                <th>{'참여대상'}</th>
+                <td>{target}</td>
+              </tr>
+            </>
+          )}
+
+          {outsideRender && (
+            <tr>
+              <th>{'활동기간'}</th>
+              <td>{participationPeriod}</td>
+            </tr>
+          )}
+
+          {internRender && (
+            <tr>
+              <th>{'모집직무'}</th>
+              <td>{preferentialTreatment}</td>
+            </tr>
+          )}
+
+          {(outsideRender || internRender) && (
+            <tr>
+              <th>{outsideRender ? '활동지역' : '근무지역'}</th>
+              <td>{location}</td>
+            </tr>
+          )}
         </S.Tbody>
+
         <S.Tbody>
+          {outsideRender && (
+            <>
+              <tr>
+                <th>{'참여대상'}</th>
+                <td>{target}</td>
+              </tr>
+              <tr>
+                <th>{'모집인원'}</th>
+                <td>{personnel}</td>
+              </tr>
+            </>
+          )}
           <tr>
-            <th>{tableData.benefits}</th>
+            <th>{'활동혜택'}</th>
             <td>{benefits}</td>
           </tr>
           <tr>
-            <th>{tableData.institution}</th>
+            <th>{'기업형태'}</th>
             <td>{institution}</td>
           </tr>
         </S.Tbody>
+
         <S.HorizontalRule />
         <S.Tbody>
+          {outsideRender && (
+            <tr>
+              <th>{'활동분야'}</th>
+              <td className='tag'>
+                {field &&
+                  field.split(',').map((el, idx) => {
+                    return <span key={idx}>{el}</span>;
+                  })}
+              </td>
+            </tr>
+          )}
           <tr>
-            <th>{tableData.interests}</th>
+            <th>{competitionRender ? '공모분야' : '관심분야'}</th>
             <td className='tag'>
-              {interests.split(',').map(el => {
-                return <span key={el}>{el}</span>;
-              })}
+              {interests &&
+                interests.split(',').map((el, idx) => {
+                  return <span key={idx}>{el}</span>;
+                })}
             </td>
           </tr>
           <tr>
-            <th>{tableData.homepage}</th>
+            <th>{'홈페이지'}</th>
             <td>
-              <Link to={homePage}>{homePage}</Link>
+              <Link to={homePage} target='_blank'>
+                {homePage}
+              </Link>
             </td>
           </tr>
         </S.Tbody>
