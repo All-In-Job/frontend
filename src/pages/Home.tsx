@@ -28,10 +28,8 @@ export const Home = () => {
 
   return (
     <>
-      <Layout>
-        <Header />
-        {outlet ? <Outlet /> : <Main />}
-      </Layout>
+      <Header />
+      <Layout>{outlet ? <Outlet /> : <Main />}</Layout>
     </>
   );
 };

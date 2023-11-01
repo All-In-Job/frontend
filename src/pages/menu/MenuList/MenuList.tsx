@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import { CertificatePageList } from 'components/CertificatePageList/CertificatePageList';
+import { CertificatePageList } from 'components/Certificate/CertificatePageList/CertificatePageList';
 import { CommunityPageList } from 'components/CommunityItem/CommunityPageList';
 import { InternPageList } from 'components/InternPageList/InternPageList';
 import { LanguagePageList } from 'components/LanguagePageList/LanguagePageList';
