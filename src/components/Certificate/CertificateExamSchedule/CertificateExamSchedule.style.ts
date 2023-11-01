@@ -10,6 +10,7 @@ export const Table = styled.table`
   background-color: ${palette.orange100};
   color: ${palette.black400};
   ${textStyle.title02}
+  width: 100%;
 `;
 
 export const Tr = styled.tr`
