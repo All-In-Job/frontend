@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+
+import { MenuListContext } from 'contexts/menuListContext';
 import { useParams } from 'react-router-dom';
 
 import { CertificatePageList } from 'components/CertificatePageList/CertificatePageList';
@@ -7,6 +10,9 @@ import { LanguagePageList } from 'components/LanguagePageList/LanguagePageList';
 
 const MenuList = () => {
   const { menuName } = useParams();
+  const menuList = useContext(MenuListContext);
+
+  console.log(menuList);
 
   const menuToComponent: Record<string, JSX.Element> = {
     qnet: <CertificatePageList />,
