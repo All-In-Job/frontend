@@ -3,7 +3,6 @@ export type MenuId = 'competition' | 'outside' | 'qnet' | 'language' | 'intern' 
 export type MenuName = '공모전' | '대외활동' | '자격증' | '어학' | '인턴' | '취준job담';
 
 export type MenuItems = {
-  id: string;
   category: string;
   keywords?: string[];
 };
@@ -20,7 +19,6 @@ const menuCategoies: MenuCategoies[] = [
     title: '공모전',
     items: [
       {
-        id: 'competition_field',
         category: '공모분야',
         keywords: [
           '기획/아이디어',
@@ -41,12 +39,10 @@ const menuCategoies: MenuCategoies[] = [
         ],
       },
       {
-        id: 'award_scale',
         category: '시상규모',
         keywords: ['1천만원 미만', '1천만원~3천만원', '3천만원~5천만원', '5천만원 이상'],
       },
       {
-        id: 'award_benefits',
         category: '수상혜택',
         keywords: [
           '입사 가산점',
@@ -58,7 +54,6 @@ const menuCategoies: MenuCategoies[] = [
         ],
       },
       {
-        id: 'support_target',
         category: '지원대상',
         keywords: ['청소년', '대상 제한 없음', '대학생', '직장인/일반인'],
       },
@@ -69,7 +64,6 @@ const menuCategoies: MenuCategoies[] = [
     title: '대외활동',
     items: [
       {
-        id: 'activity_field',
         category: '활동분야',
         keywords: [
           '서포터즈',
@@ -85,7 +79,6 @@ const menuCategoies: MenuCategoies[] = [
         ],
       },
       {
-        id: 'area_of_interest',
         category: '관심분야',
         keywords: [
           '여행/호텔/항공',
@@ -111,7 +104,6 @@ const menuCategoies: MenuCategoies[] = [
         ],
       },
       {
-        id: 'activity_benefits',
         category: '활동혜택',
         keywords: [
           '활동비',
@@ -127,12 +119,10 @@ const menuCategoies: MenuCategoies[] = [
         ],
       },
       {
-        id: 'activity_duration',
         category: '활동기간',
         keywords: ['3개월 이하', '3개월~6개월', '6개월~1년', '1년 이상'],
       },
       {
-        id: 'location',
         category: '지역',
         keywords: [
           '지역 제한없음',
@@ -160,7 +150,6 @@ const menuCategoies: MenuCategoies[] = [
     title: '자격증',
     items: [
       {
-        id: 'technical',
         category: '국가기술자격증',
         keywords: [
           '경영/회계/사무',
@@ -176,7 +165,6 @@ const menuCategoies: MenuCategoies[] = [
         ],
       },
       {
-        id: 'professional',
         category: '국가전문자격증',
         keywords: [
           '보건복지부',
@@ -206,7 +194,6 @@ const menuCategoies: MenuCategoies[] = [
     title: '어학',
     items: [
       {
-        id: 'english',
         category: '영어',
         keywords: [
           'TOEIC',
@@ -217,12 +204,10 @@ const menuCategoies: MenuCategoies[] = [
         ],
       },
       {
-        id: 'japanese',
         category: '일본어',
         keywords: ['JPT', 'SJPT일본어 말하기 시험'],
       },
       {
-        id: 'chinese',
         category: '중국어',
         keywords: ['TSC중국어 말하기 시험'],
       },
@@ -233,7 +218,6 @@ const menuCategoies: MenuCategoies[] = [
     title: '인턴',
     items: [
       {
-        id: 'company_type',
         category: '기업형태',
         keywords: [
           '대기업',
@@ -250,7 +234,6 @@ const menuCategoies: MenuCategoies[] = [
         ],
       },
       {
-        id: 'job_position',
         category: '모집직무',
         keywords: [
           '영업/고객상담',
@@ -271,7 +254,6 @@ const menuCategoies: MenuCategoies[] = [
         ],
       },
       {
-        id: 'work_location',
         category: '근무지역',
         keywords: [
           '지역 제한없음',
@@ -298,13 +280,13 @@ const menuCategoies: MenuCategoies[] = [
     id: 'community',
     title: '취준job담',
     items: [
-      { id: 'all', category: '전체' },
-      { id: 'competitions_external_activities', category: '공모전/대외활동' },
-      { id: 'certifications_language_proficiency', category: '자격증/어학' },
-      { id: 'intern', category: '인턴' },
-      { id: 'study', category: '스터디' },
-      { id: 'job_senior_qa', category: '취업선배Q&A' },
-      { id: 'general_discussion_board', category: '자유게시판' },
+      { category: '전체' },
+      { category: '공모전/대외활동' },
+      { category: '자격증/어학' },
+      { category: '인턴' },
+      { category: '스터디' },
+      { category: '취업선배Q&A' },
+      { category: '자유게시판' },
     ],
   },
 ];

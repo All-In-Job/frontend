@@ -17,7 +17,7 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
     window.open(
       `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${
         import.meta.env.VITE_API_KAKAO_CLIENT_ID
-      }&redirect_uri=http://${location.host}/`,
+      }&redirect_uri=http://${window.location.origin}/`,
       'PopupWin',
       'width=500,height=600',
     );
@@ -28,34 +28,34 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
     if (provider === 'kakao') kakaoLogin();
   };
 
+  const getUserProfile = (user: TokenResponse) => {
+    let requestUrl = '';
+
+    if (provider === 'google')
+      requestUrl = `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`;
+    if (provider === 'kakao')
+      requestUrl =
+        'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}';
+
+    axios
+      .get(requestUrl, {
+        headers: {
+          Authorization: `Bearer ${user.access_token}`,
+          Accept: 'application/json',
+        },
+      })
+      .then(res => {
+        setProfile(res.data);
+        console.log(res.data);
+        console.log(profile);
+      })
+      .catch(err => console.log(err));
+  };
+
   useEffect(() => {
-    const getUserProfile = (user: TokenResponse) => {
-      let requestUrl = '';
-
-      if (provider === 'google')
-        requestUrl = `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`;
-      if (provider === 'kakao')
-        requestUrl =
-          'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}';
-
-      axios
-        .get(requestUrl, {
-          headers: {
-            Authorization: `Bearer ${user.access_token}`,
-            Accept: 'application/json',
-          },
-        })
-        .then(res => {
-          setProfile(res.data);
-          console.log(res.data);
-          console.log(profile);
-        })
-        .catch(err => console.log(err));
-    };
-
     user && getUserProfile(user);
     if (user) navigate('/signup/basic-info', { state: user });
-  }, [user, provider, profile, navigate]);
+  }, [user]);
 
   return {
     login,
