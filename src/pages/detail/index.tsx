@@ -40,6 +40,7 @@ export const DetailPage = () => {
           bookmarkCount={detailData?.scrap}
           viewCount={detailData?.view}
         >
+          {/* 상황에 맞는 컴포넌트 추가 */}
           <CertificateDetailInfo
             mainImage={detailData.mainImage}
             title={detailData.title}
@@ -50,6 +51,7 @@ export const DetailPage = () => {
         </DetailPageInfo>
         <S.Container>
           <S.Title>{'시험일정'}</S.Title>
+          {/* 상황에 맞는 컴포넌트 추가 */}
           <CertificateExamSchedule
             id={pathProps(detailData.examSchedules)?.id}
             key={pathProps(detailData.examSchedules)?.id}
