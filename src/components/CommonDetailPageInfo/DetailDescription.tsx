@@ -2,18 +2,20 @@ import styled from '@emotion/styled';
 
 export const DetailDescription = () => {
   return (
-    <>
-      <HorizontalRule />
+    <Wrapper>
       <Title>상세내용</Title>
       <DetailDescriptionBox>
         <div>공고명 : 2023 Meta Spark AR 콘텐츠 공모전</div>
         <div>공모주제 : 사업화 아이디어</div>
         <div>제출 마감 : 2023.8.21 ~ 2023.9.14</div>
       </DetailDescriptionBox>
-    </>
+    </Wrapper>
   );
 };
 
+const Wrapper = styled.div`
+  grid-column: span 12;
+`;
 const Title = styled.div`
   margin: 32px 0 24px 0;
   color: var(--black-500, #121110);
@@ -42,8 +44,8 @@ const DetailDescriptionBox = styled.div`
   line-height: 26px;
 `;
 
-export const HorizontalRule = styled.div`
-  width: 100%;
-  margin: 8px 0;
-  border-top: 1px solid #d0cfcf;
-`;
+// export const HorizontalRule = styled.div`
+//   width: 100%;
+//   margin: 8px 0;
+//   border-top: 1px solid #d0cfcf;
+// `;

@@ -1,11 +1,12 @@
 export type Common = {
   title: string;
   mainImage: string;
-  organization: string;
+  enterprise: string;
   institution: string;
+  target: string;
   date: string;
+  scale: number;
   benefits: string;
-  location: string;
   interests: string;
-  hompage: string;
+  homePage: string;
 };
