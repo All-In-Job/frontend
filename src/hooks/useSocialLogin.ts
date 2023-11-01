@@ -1,23 +1,30 @@
 import { useEffect, useState } from 'react';
 
 import { TokenResponse, useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
+import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+import { socialLogin } from 'apis/login';
+
 export const useSocialLogin = (provider: 'kakao' | 'google') => {
-  const [user, setUser] = useState<TokenResponse>();
-  const [profile, setProfile] = useState([]);
+  const [user, setUser] = useState<TokenResponse | null>(null);
+  const [socialLoginResponse, setSocialLoginResponse] = useState({
+    email: '',
+    accessToken: '',
+  });
+
   const navigate = useNavigate();
 
   const googleLogin = useGoogleLogin({
     onSuccess: codeResponse => setUser(codeResponse),
     onError: error => console.log('Login Failed:', error),
   });
+
   const kakaoLogin = () => {
     window.open(
       `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${
         import.meta.env.VITE_API_KAKAO_CLIENT_ID
-      }&redirect_uri=http://${window.location.origin}/`,
+      }&redirect_uri=http://${location.host}/`,
       'PopupWin',
       'width=500,height=600',
     );
@@ -28,34 +35,32 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
     if (provider === 'kakao') kakaoLogin();
   };
 
-  const getUserProfile = (user: TokenResponse) => {
-    let requestUrl = '';
-
-    if (provider === 'google')
-      requestUrl = `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`;
-    if (provider === 'kakao')
-      requestUrl =
-        'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}';
-
-    axios
-      .get(requestUrl, {
-        headers: {
-          Authorization: `Bearer ${user.access_token}`,
-          Accept: 'application/json',
-        },
-      })
-      .then(res => {
-        setProfile(res.data);
-        console.log(res.data);
-        console.log(profile);
-      })
-      .catch(err => console.log(err));
-  };
-
   useEffect(() => {
+    const getUserProfile = async (user: TokenResponse) => {
+      try {
+        const res = await socialLogin(provider, user.access_token);
+
+        const emailRegex1 = new RegExp(/[a-z0-9]+@[a-z]+\.([a-z]{2})+\.[a-z]{2}/);
+        const emailRegex2 = new RegExp(/[a-z0-9]+@[a-z]+\.([a-z]{2,3})/);
+
+        const { data } = res.data;
+
+        if (emailRegex1.test(data) || emailRegex2.test(data))
+          setSocialLoginResponse({ email: data, accessToken: '' });
+        else setSocialLoginResponse({ email: '', accessToken: data });
+        setUser(null);
+      } catch (e) {
+        if (e instanceof AxiosError && e.response) console.log(e.response);
+      }
+    };
+
     user && getUserProfile(user);
-    if (user) navigate('/signup/basic-info', { state: user });
-  }, [user]);
+
+    // if (user) navigate('/signup/basic-info', { state: user });
+    if (socialLoginResponse.email)
+      navigate('/signup/basic-info', { state: socialLoginResponse.email });
+    if (socialLoginResponse.accessToken) navigate('/', { state: socialLoginResponse.accessToken });
+  }, [user, socialLoginResponse]);
 
   return {
     login,
