@@ -44,7 +44,6 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
         const emailRegex2 = new RegExp(/[a-z0-9]+@[a-z]+\.([a-z]{2,3})/);
 
         const { data } = res.data;
-        console.log(data);
 
         if (emailRegex1.test(data) || emailRegex2.test(data))
           setSocialLoginResponse({ email: data, accessToken: '' });
