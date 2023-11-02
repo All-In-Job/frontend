@@ -1,4 +1,3 @@
-// import { Link } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
 import * as S from './CommunityItem.styles';
@@ -7,7 +6,7 @@ import { ReactComponent as LikeIcon } from './res/img/like.svg';
 import { ReactComponent as ViewIcon } from './res/img/view.svg';
 import { ReactComponent as NicknameIcon } from './res/img/visibility.svg';
 
-function CommunityItem({ user, category, title, view, like, comment, date }: Community) {
+function CommunityItem({ id, user, category, title, view, like, comment, date }: Community) {
   const getTimeDiffString = (pastTime: string) => {
     const now = new Date();
     const past = new Date(pastTime);
@@ -29,7 +28,7 @@ function CommunityItem({ user, category, title, view, like, comment, date }: Com
   };
 
   return (
-    <S.CommunityItem>
+    <S.CommunityItem to={id}>
       <S.UserInfo>
         <S.Nickname>
           <NicknameIcon />
