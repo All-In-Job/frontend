@@ -1,10 +1,6 @@
 import styled from '@emotion/styled';
-import { ReactComponent as Horizontal } from 'assets/icons/icon-horizontal_rule.svg';
 
 import theme from 'styles/theme';
-
-import { ReactComponent as Like } from './res/icon-like-solid.svg';
-import { ReactComponent as Share } from './res/icon-share.svg';
 
 const { palette } = theme;
 const { textStyle } = theme;
@@ -72,6 +68,7 @@ export const ArticleTitle = styled.div`
   ${textStyle.title11}
   color: ${palette.black500};
 `;
+
 export const Article = styled.div`
   ${textStyle.title02}
   font-family: Medium;
@@ -82,6 +79,8 @@ export const Article = styled.div`
 export const ArticleFooter = styled.div`
   border-top: 1px solid ${palette.black100};
   display: flex;
+  justify-content: space-between;
+  padding-top: 24px;
 `;
 
 export const ButtonContainer = styled.div`
@@ -93,7 +92,6 @@ export const IconBtn = styled.button`
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-top: 24px;
   ${textStyle.title01}
   color: ${palette.black200};
 `;
@@ -101,10 +99,5 @@ export const IconBtn = styled.button`
 export const CountContainer = styled.div`
   display: flex;
   gap: 8px;
+  align-items: center;
 `;
-
-export const HorizontalIcon = styled(Horizontal)``;
-export const HorizontalIcon = styled(Horizontal)``;
-export const HorizontalIcon = styled(Horizontal)``;
-export const LikeSolidIcon = styled(Like)``;
-export const ShareSolidIcon = styled(Share)``;
