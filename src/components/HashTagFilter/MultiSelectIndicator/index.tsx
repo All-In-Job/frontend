@@ -21,7 +21,7 @@ const MultiSelectHashTags: FC<Props> = ({ selectedHashTagList, onDeleteClick }) 
           isActive={selectedHashTagList.some(h => h.id === hash.id)}
           text={
             <>
-              {hash.title}
+              #{hash.title}
               <IconWrapper>
                 <CloseIcon onClick={() => onDeleteClick(hash)} />
               </IconWrapper>
