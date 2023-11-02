@@ -36,23 +36,26 @@ export const DetailPage = () => {
   if (detailData)
     return (
       <>
-        <DetailPageInfo
-          title={detailData.title}
-          dDay={12}
-          bookmarkCount={detailData.scrap}
-          viewCount={detailData.view}
-        >
-          {/* 상황에 맞는 컴포넌트 추가 */}
-          {menuName === 'qnet' && (
-            <CertificateDetailInfo
-              mainImage={detailData.mainImage}
-              title={detailData.title}
-              enTitle={detailData.enTitle}
-              relateDepartment={detailData.relateDepartment}
-              institution={detailData.institution}
-            />
-          )}
-        </DetailPageInfo>
+        {menuName !== 'community' && (
+          <DetailPageInfo
+            title={detailData.title}
+            dDay={12}
+            bookmarkCount={detailData.scrap}
+            viewCount={detailData.view}
+          >
+            {/* 상황에 맞는 컴포넌트 추가 */}
+            {menuName === 'qnet' && (
+              <CertificateDetailInfo
+                mainImage={detailData.mainImage}
+                title={detailData.title}
+                enTitle={detailData.enTitle}
+                relateDepartment={detailData.relateDepartment}
+                institution={detailData.institution}
+              />
+            )}
+          </DetailPageInfo>
+        )}
+
         <S.Container>
           <S.Title>{'시험일정'}</S.Title>
           {/* 상황에 맞는 컴포넌트 추가 */}
