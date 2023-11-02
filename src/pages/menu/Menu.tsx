@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react';
 
 import styled from '@emotion/styled';
-import MenuListProvider from 'contexts/menuListContext';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import CategoryFilter from 'components/CategoryFilter';
@@ -56,26 +55,24 @@ const Menu = () => {
   );
 
   return (
-    <MenuListProvider>
-      <MenuWrapper>
-        <MenuHeadContent>
-          <CategoryFilter
-            title={foundMenuCategories?.title as string}
-            categoryList={categoryList}
-            onSearch={searchKeywordsByCategory}
-            onClickMyInterest={() => true}
-          />
-          <HashTagFilter
-            title='키워드'
-            hashTagList={keywords}
-            onSearch={searchSelectedKeywords}
-            onRefresh={() => function () {}}
-          />
-        </MenuHeadContent>
+    <MenuWrapper>
+      <MenuHeadContent>
+        <CategoryFilter
+          title={foundMenuCategories?.title as string}
+          categoryList={categoryList}
+          onSearch={searchKeywordsByCategory}
+          onClickMyInterest={() => true}
+        />
+        <HashTagFilter
+          title='키워드'
+          hashTagList={keywords}
+          onSearch={searchSelectedKeywords}
+          onRefresh={() => function () {}}
+        />
+      </MenuHeadContent>
 
-        <Outlet context={{ selectedKeyword }} />
-      </MenuWrapper>
-    </MenuListProvider>
+      <Outlet context={{ selectedKeyword }} />
+    </MenuWrapper>
   );
 };
 

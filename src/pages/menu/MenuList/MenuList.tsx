@@ -1,6 +1,3 @@
-import { useContext } from 'react';
-
-import { MenuListContext } from 'contexts/menuListContext';
 import { useOutletContext, useParams } from 'react-router-dom';
 
 import { CertificatePageList } from 'components/Certificate/CertificatePageList/CertificatePageList';
@@ -15,10 +12,7 @@ type UseOutletType = {
 
 const MenuList = () => {
   const { menuName } = useParams();
-  const menuList = useContext(MenuListContext);
   const { selectedKeyword } = useOutletContext<UseOutletType>();
-
-  console.log(menuList);
   console.log(selectedKeyword);
 
   const menuToComponent: Record<string, JSX.Element> = {
