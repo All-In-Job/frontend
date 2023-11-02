@@ -44,6 +44,7 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
         const emailRegex2 = new RegExp(/[a-z0-9]+@[a-z]+\.([a-z]{2,3})/);
 
         const { data } = res.data;
+        console.log(data);
 
         if (emailRegex1.test(data) || emailRegex2.test(data))
           setSocialLoginResponse({ email: data, accessToken: '' });
@@ -57,9 +58,8 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
     user && getUserProfile(user);
 
     // if (user) navigate('/signup/basic-info', { state: user });
-    if (socialLoginResponse.email)
-      navigate('/signup/basic-info', { state: socialLoginResponse.email });
-    if (socialLoginResponse.accessToken) navigate('/', { state: socialLoginResponse.accessToken });
+    if (socialLoginResponse.email) navigate('/signup/basic-info', { state: socialLoginResponse });
+    if (socialLoginResponse.accessToken) navigate('/', { state: socialLoginResponse });
   }, [user, socialLoginResponse]);
 
   return {
