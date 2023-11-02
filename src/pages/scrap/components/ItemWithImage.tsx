@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
@@ -29,10 +29,16 @@ const ItemWithImage: FC<SectionData> = ({
   const isQnet = examSchedules && receptionSchedules;
   const isIntern = !(location == null);
 
+  const [imgSrc, setImgSrc] = useState(mainImage);
+
   return (
     <Item>
       <ImageContainer>
-        <img src={mainImage} alt='mainImage' />
+        <Img
+          src={imgSrc}
+          onError={() => setImgSrc('https://cdn2.thecatapi.com/images/37o.jpg')}
+          alt='mainImage'
+        />
         <BookMarkWrapper onClick={moveToBookMark}>
           <BookMarkIcon />
         </BookMarkWrapper>
@@ -70,16 +76,17 @@ export default ItemWithImage;
 
 const Item = styled.li`
   margin-right: 24px;
-  width: 282px;
+  width: 230px;
 `;
 
 const ImageContainer = styled.div`
   position: relative;
   margin-bottom: 16px;
-  width: 282px;
+  width: 230px;
   height: 282px;
   border-radius: 12px;
   background: var(--background-primary, #ededed);
+  overflow: hidden;
 `;
 const BookMarkWrapper = styled.div`
   position: absolute;
@@ -189,4 +196,10 @@ const Vertical = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;

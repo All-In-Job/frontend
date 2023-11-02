@@ -29,7 +29,6 @@ const LeftBody = styled.main`
   grid-column: 1 / 11;
   flex-direction: column;
   width: 100%;
-  border: 1px solid black;
 `;
 
 const RightAside = styled.aside`
