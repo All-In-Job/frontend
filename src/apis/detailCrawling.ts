@@ -1,7 +1,7 @@
 import { detailCrawlingApi } from 'apis';
 import { AxiosResponse } from 'axios';
 import { Certificate } from 'types/certificate.type';
-import { Rest } from 'types/common.type';
+import { Rest } from 'types/rest.type';
 
 export type ResponseData = (Certificate | Rest) & { title: string; scrap: number; view: number };
 

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Rest } from 'types/common.type';
+import { Rest } from 'types/rest.type';
 
 import * as S from './CommonDetailPageInfo.styles';
 
