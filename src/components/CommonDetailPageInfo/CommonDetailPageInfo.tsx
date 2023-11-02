@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { Common } from 'types/common.type';
+import { Rest } from 'types/common.type';
 
 import * as S from './CommonDetailPageInfo.styles';
 
 export const CommonDetailPageInfo = ({
   menuName,
   mainImage,
-  enterprise,
+  organization,
   institution,
   target,
   date,
@@ -19,7 +19,7 @@ export const CommonDetailPageInfo = ({
   homePage,
   location,
   personnel,
-}: Common) => {
+}: Rest) => {
   const competitionRender = menuName === 'competition';
   const outsideRender = menuName === 'outside';
   const internRender = menuName === 'intern';
@@ -31,7 +31,7 @@ export const CommonDetailPageInfo = ({
         <S.Tbody>
           <tr>
             <th>{'주최기관'}</th>
-            <td>{enterprise}</td>
+            <td>{organization}</td>
           </tr>
           <tr>
             <th>{'접수기관'}</th>

@@ -1,6 +1,7 @@
-export type Common = {
+export type Rest = {
+  type: 'rest';
   mainImage: string;
-  enterprise: string;
+  organization: string;
   institution: string;
   target: string;
   date: string;
