@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import * as S from './header.styles.ts';
 
@@ -68,6 +68,12 @@ function Header() {
       ],
     },
   ];
+
+  const nav = useNavigate();
+  const moveToScrap = () => {
+    nav('/scrap');
+  };
+
   return (
     <>
       <S.HeaderContainer>
@@ -121,7 +127,7 @@ function Header() {
             </S.MenuWrapper>
           </div>
           <div style={{ flex: 1, display: 'flex', justifyContent: 'right' }}>
-            <S.CharactorBox>캐릭터</S.CharactorBox>
+            <S.CharactorBox onClick={() => moveToScrap()}>캐릭터</S.CharactorBox>
           </div>
         </S.MenuContainer>
       </S.HeaderContainer>
