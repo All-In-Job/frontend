@@ -1,5 +1,10 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 
+import { AxiosError } from 'axios';
+import { useLocation } from 'react-router-dom';
+
+import { createUser } from 'apis/signup';
+import { InputFieldType } from 'components/BasicInformation/BasicInformation';
 import Submit from 'components/commons/Buttons/Submit/Submit';
 
 import interestTags from './data/interestTags.json';
@@ -29,6 +34,10 @@ const departments = [
   '학과20',
 ];
 
+type SignupFormInputFieldsType = Record<
+  'email' | 'provider' | InputFieldType | 'currentPhoto',
+  string
+>;
 type InterestTag = {
   name: string;
   keyWords: string[];
@@ -48,6 +57,8 @@ function InterestFieldSetup() {
   const [selectedKeyWords, setSelectedKeyWords] = useState<string[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [isActive, setIsActive] = useState(false);
+
+  const locationState = useLocation().state as SignupFormInputFieldsType;
 
   const getValueDepartmentInput = (e: ChangeEvent<HTMLInputElement>) => {
     setDepartmentInput(e.target.value);
@@ -104,12 +115,36 @@ function InterestFieldSetup() {
     setIsActive(choiceDepartment !== '' && selectedKeyWords.length > 0);
   }, [choiceDepartment, selectedKeyWords]);
 
-  const submitButton = () => {
-    console.log({
-      name: interestTag.name,
-      keywords: selectedKeyWords,
-      choiceDepartment: choiceDepartment,
-    });
+  const submitButton = async () => {
+    try {
+      const payload = {
+        major: '컴퓨터공학',
+        interests: [
+          {
+            competition: ['기획/아이디어', '과학/공학'],
+          },
+          {
+            outside: ['서포터즈', '멘토링'],
+          },
+          {
+            intern: ['대기업', '중견기업'],
+          },
+          {
+            language: ['toeic', 'toeicWT', 'ch'],
+          },
+          {
+            qnet: ['환경.에너지', '정보통신'],
+          },
+        ],
+      };
+
+      const res = await createUser({ ...locationState, ...payload });
+      console.log('회원가입 성공:', res);
+    } catch (e) {
+      if (e instanceof AxiosError && e.response) {
+        console.log(e.response);
+      }
+    }
   };
 
   return (
