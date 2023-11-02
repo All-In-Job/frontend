@@ -2,7 +2,7 @@ import { Certificate } from 'types/certificate.type';
 import { Community } from 'types/community.type';
 
 import CertificateItem from 'components/Certificate/CertificateItem/CertificateItem';
-import CommunityItem from 'components/CommunityItem/CommunityItem';
+import CommunityItem from 'components/Community/CommunityItem/CommunityItem';
 
 type Props = {
   data: Certificate[] | Community[];
