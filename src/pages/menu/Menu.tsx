@@ -73,7 +73,7 @@ const Menu = () => {
           />
         </MenuHeadContent>
 
-        <Outlet />
+        <Outlet context={{ selectedKeyword }} />
       </MenuWrapper>
     </MenuListProvider>
   );
