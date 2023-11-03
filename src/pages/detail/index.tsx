@@ -7,8 +7,6 @@ import { ResponseData, requestDetailCrawlingData } from 'apis/detailCrawling';
 import { CertificateDetailInfo } from 'components/Certificate/CertificateDetailInfo/CertificateDetailInfo';
 import { CertificateExamSchedule } from 'components/Certificate/CertificateExamSchedule/CertificateExamSchedule';
 import { DetailPageInfo } from 'components/DetailPageInfo';
-import { DetailDescription } from 'components/RestDetailPageInfo/DetailDescription';
-import { RestDetailPageInfo } from 'components/RestDetailPageInfo/RestDetailPageInfo';
 
 import * as S from './index.styles';
 
@@ -45,30 +43,8 @@ export const DetailPage = () => {
           viewCount={detailData.view}
         >
           {/* 상황에 맞는 컴포넌트 추가 */}
-          {'enterprise' in detailData && (
-            <RestDetailPageInfo
-              type={detailData.type}
-              menuName={menuName}
-              mainImage={detailData.mainImage}
-              enterprise={detailData.enterprise}
-              institution={detailData.institution}
-              target={detailData.target}
-              period={detailData.period}
-              participationPeriod={detailData.participationPeriod}
-              preferentialTreatment={detailData.preferentialTreatment}
-              scale={detailData.scale}
-              benefits={detailData.benefits}
-              interests={detailData.interests}
-              field={detailData.field}
-              homePage={detailData.homePage}
-              location={detailData.location}
-              personnel={detailData.personnel}
-            />
-          )}
-
-          {'enTitle' in detailData && (
+          {menuName === 'qnet' && (
             <CertificateDetailInfo
-              type={detailData.type}
               mainImage={detailData.mainImage}
               title={detailData.title}
               enTitle={detailData.enTitle}
@@ -78,14 +54,9 @@ export const DetailPage = () => {
           )}
         </DetailPageInfo>
         <S.Container>
-          <S.Title>{'enterprise' in detailData ? '상세내용' : '시험일정'}</S.Title>
-
+          <S.Title>{'시험일정'}</S.Title>
           {/* 상황에 맞는 컴포넌트 추가 */}
-          {'enterprise' in detailData && (
-            <DetailDescription type={detailData.type} detail={detailData.detail} />
-          )}
-
-          {'enTitle' in detailData && (
+          {menuName === 'qnet' && (
             <CertificateExamSchedule
               id={pathProps(detailData.examSchedules)?.id}
               key={pathProps(detailData.examSchedules)?.id}

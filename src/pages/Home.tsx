@@ -12,15 +12,19 @@ export const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const handleKakaoAuth = (e: MessageEvent) => {
+      const { kakaoToken } = e.data;
+      if (!kakaoToken) return;
+
+      navigate('/signup/basic-info', { state: kakaoToken });
+    };
+
     window.addEventListener('message', handleKakaoAuth);
-  }, []);
 
-  const handleKakaoAuth = (e: MessageEvent) => {
-    const { code } = e.data;
-    if (!code) return;
-
-    navigate('/signup/basic-info', { state: code });
-  };
+    return () => {
+      window.removeEventListener('message', handleKakaoAuth);
+    };
+  }, [navigate]);
 
   return (
     <>

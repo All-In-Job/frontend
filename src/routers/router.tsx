@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 // import PassionTempList from 'components/CardList/PassionTempList/PassionTempList';
-// import { BasicInformation } from 'components/BasicInformation/BasicInformation';
-// import InterestFieldSetup from 'components/InterestFieldSetup/InterestFieldSetup';
+import { BasicInformation } from 'components/BasicInformation/BasicInformation';
+import InterestFieldSetup from 'components/InterestFieldSetup/InterestFieldSetup';
 import { DetailPage } from 'pages/detail';
 import FindID from 'pages/findID/FindID';
 // import { Home } from 'pages/Home'
@@ -39,6 +39,16 @@ export const router = createBrowserRouter([
       {
         path: 'signup',
         element: <Signup />,
+        children: [
+          {
+            path: 'basic-info',
+            element: <BasicInformation />,
+          },
+          {
+            path: 'interest',
+            element: <InterestFieldSetup />,
+          },
+        ],
       },
       {
         path: 'find-id',
