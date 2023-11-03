@@ -69,11 +69,19 @@ function Header() {
       ],
     },
   ];
+
+  // const nav = useNavigate();
+  // const moveToScrap = () => {
+  //   nav('/scrap');
+  // };
+
   return (
     <>
       <S.HeaderContainer>
         <S.MenuContainer>
-          <S.HeaderLogo>ALL IN JOB</S.HeaderLogo>
+          <S.HeaderLogo>
+            <Link to='/'>ALL IN JOB</Link>
+          </S.HeaderLogo>
           <div
             style={{
               flex: 2,
@@ -98,7 +106,7 @@ function Header() {
                       <div
                         key={item.name}
                         style={{
-                          width: '125px',
+                          width: 'fit-content',
                         }}
                       >
                         <S.DetailItems>
@@ -121,9 +129,7 @@ function Header() {
               ) : null}
             </S.MenuWrapper>
           </div>
-          <div style={{ flex: 1, display: 'flex', justifyContent: 'right' }}>
-            <S.CharactorBox>캐릭터</S.CharactorBox>
-          </div>
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'right' }}></div>
         </S.MenuContainer>
       </S.HeaderContainer>
       {isHovered && <S.Overlay />}
