@@ -25,21 +25,15 @@ export const LoginBox = styled.div`
   justify-content: center;
 `;
 
-export const CharactorBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 192px;
-  height: 221px;
-  background-color: lightgray;
-  font-weight: bold;
-  margin-bottom: 24px;
+export const LogoBox = styled.img`
+  width: 292px;
+  margin: 16px 0;
 `;
 
 export const Logo = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 72px;
+  margin-bottom: 64px;
   color: #fd6b36;
   font-size: 39px;
   font-weight: bold;

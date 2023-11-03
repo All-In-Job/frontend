@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 export const HeaderContainer = styled.header`
   display: flex;
+  justify-content: center;
   align-items: center;
   width: 100vw;
   margin: 0;
@@ -14,6 +15,7 @@ export const HeaderContainer = styled.header`
 
 export const MenuContainer = styled.nav`
   display: flex;
+  max-width: 1200px;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -39,11 +41,13 @@ export const HeaderLogo = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  //padding: 20px 60px;
+  justify-content: center;
   height: 81px;
   color: #fd6b36;
   font-size: 30px;
   font-weight: bold;
+  white-space: nowrap;
+  margin-right: 40px;
   cursor: pointer;
 `;
 
@@ -108,8 +112,8 @@ export const MenuDetailWrapper = styled.div`
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 80px;
-  //border: 1px red solid;
+  /* gap: 10px; */
+  margin-left: 20px;
 `;
 
 export const divisionLine = styled.div`
@@ -123,10 +127,9 @@ export const MenuWrapper = styled.ul`
   position: relative;
   display: flex;
   align-items: center;
-  gap: 80px;
   width: 100%;
   height: 81px;
-  //border: 1px red solid;
+  /* gap: 10px; */
 `;
 
 export const Box = styled.div`
