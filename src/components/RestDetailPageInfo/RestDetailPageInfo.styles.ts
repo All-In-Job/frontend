@@ -12,7 +12,6 @@ export const Img = styled.img`
   height: 388px;
   object-fit: cover;
   border-radius: 12px;
-  /* background: var(--background-primary, #ededed); */
 `;
 
 export const Table = styled.table`

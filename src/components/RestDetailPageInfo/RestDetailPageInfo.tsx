@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Rest } from 'types/rest.type';
 
-import * as S from './CommonDetailPageInfo.styles';
+import * as S from './RestDetailPageInfo.styles';
 
 type Props = Omit<Rest, 'detail'> & { menuName: string | undefined };
 
-export const CommonDetailPageInfo = ({
+export const RestDetailPageInfo = ({
   menuName,
   mainImage,
   enterprise,

@@ -6,9 +6,9 @@ import { ExamSchedule } from 'types/certificate.type';
 import { ResponseData, requestDetailCrawlingData } from 'apis/detailCrawling';
 import { CertificateDetailInfo } from 'components/Certificate/CertificateDetailInfo/CertificateDetailInfo';
 import { CertificateExamSchedule } from 'components/Certificate/CertificateExamSchedule/CertificateExamSchedule';
-import { CommonDetailPageInfo } from 'components/CommonDetailPageInfo/CommonDetailPageInfo';
-import { DetailDescription } from 'components/CommonDetailPageInfo/DetailDescription';
 import { DetailPageInfo } from 'components/DetailPageInfo';
+import { DetailDescription } from 'components/RestDetailPageInfo/DetailDescription';
+import { RestDetailPageInfo } from 'components/RestDetailPageInfo/RestDetailPageInfo';
 
 import * as S from './index.styles';
 
@@ -46,7 +46,7 @@ export const DetailPage = () => {
         >
           {/* 상황에 맞는 컴포넌트 추가 */}
           {'enterprise' in detailData && (
-            <CommonDetailPageInfo
+            <RestDetailPageInfo
               type={detailData.type}
               menuName={menuName}
               mainImage={detailData.mainImage}
