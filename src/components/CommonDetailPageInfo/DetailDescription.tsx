@@ -1,13 +1,30 @@
 import styled from '@emotion/styled';
+import { Rest } from 'types/rest.type';
 
-export const DetailDescription = () => {
+type DetailProps = Omit<
+  Rest,
+  | 'mainImage'
+  | 'enterprise'
+  | 'institution'
+  | 'target'
+  | 'period'
+  | 'participationPeriod'
+  | 'preferentialTreatment'
+  | 'scale'
+  | 'benefits'
+  | 'interests'
+  | 'field'
+  | 'homePage'
+  | 'location'
+  | 'personnel'
+  | 'menuName'
+>;
+export const DetailDescription = ({ detail }: DetailProps) => {
   return (
     <Wrapper>
-      <Title>상세내용</Title>
+      {/* <Title>상세내용</Title> */}
       <DetailDescriptionBox>
-        <div>공고명 : 2023 Meta Spark AR 콘텐츠 공모전</div>
-        <div>공모주제 : 사업화 아이디어</div>
-        <div>제출 마감 : 2023.8.21 ~ 2023.9.14</div>
+        <div dangerouslySetInnerHTML={{ __html: detail }}></div>
       </DetailDescriptionBox>
     </Wrapper>
   );
@@ -16,21 +33,21 @@ export const DetailDescription = () => {
 const Wrapper = styled.div`
   grid-column: span 12;
 `;
-const Title = styled.div`
-  margin: 0 0 24px 0;
-  color: var(--black-500, #121110);
-  font-family: SUIT;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 32px;
-  letter-spacing: 0.134px;
-`;
+// const Title = styled.div`
+//   margin: 0 0 24px 0;
+//   color: var(--black-500, #121110);
+//   font-family: SUIT;
+//   font-size: 24px;
+//   font-style: normal;
+//   font-weight: 700;
+//   line-height: 32px;
+//   letter-spacing: 0.134px;
+// `;
 
 const DetailDescriptionBox = styled.div`
   display: flex;
   width: 100%;
-  height: 749px;
+  height: 100%;
   padding: 32px;
   justify-content: flex-start;
   align-items: start;
@@ -43,9 +60,3 @@ const DetailDescriptionBox = styled.div`
   font-weight: 500;
   line-height: 26px;
 `;
-
-// export const HorizontalRule = styled.div`
-//   width: 100%;
-//   margin: 8px 0;
-//   border-top: 1px solid #d0cfcf;
-// `;

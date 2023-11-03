@@ -78,25 +78,25 @@ export const DetailPage = () => {
           )}
         </DetailPageInfo>
         <S.Container>
+          <S.Title>{'enterprise' in detailData ? '상세내용' : '시험일정'}</S.Title>
+
           {/* 상황에 맞는 컴포넌트 추가 */}
-          <DetailDescription />
-          {menuName === 'qnet' && (
-            <>
-              <S.Title>{'시험일정'}</S.Title>
-              {detailData.type === 'certificate' && (
-                <CertificateExamSchedule
-                  id={pathProps(detailData.examSchedules)?.id}
-                  key={pathProps(detailData.examSchedules)?.id}
-                  turn={pathProps(detailData.examSchedules)?.turn}
-                  wtReceipt={pathProps(detailData.examSchedules)?.wtReceipt}
-                  wtDday={pathProps(detailData.examSchedules)?.wtDday}
-                  wtResultDay={pathProps(detailData.examSchedules)?.wtResultDay}
-                  ptReceipt={pathProps(detailData.examSchedules)?.ptReceipt}
-                  ptDday={pathProps(detailData.examSchedules)?.ptDday}
-                  resultDay={pathProps(detailData.examSchedules)?.resultDay}
-                />
-              )}
-            </>
+          {'enterprise' in detailData && (
+            <DetailDescription type={detailData.type} detail={detailData.detail} />
+          )}
+
+          {detailData.type === 'certificate' && (
+            <CertificateExamSchedule
+              id={pathProps(detailData.examSchedules)?.id}
+              key={pathProps(detailData.examSchedules)?.id}
+              turn={pathProps(detailData.examSchedules)?.turn}
+              wtReceipt={pathProps(detailData.examSchedules)?.wtReceipt}
+              wtDday={pathProps(detailData.examSchedules)?.wtDday}
+              wtResultDay={pathProps(detailData.examSchedules)?.wtResultDay}
+              ptReceipt={pathProps(detailData.examSchedules)?.ptReceipt}
+              ptDday={pathProps(detailData.examSchedules)?.ptDday}
+              resultDay={pathProps(detailData.examSchedules)?.resultDay}
+            />
           )}
         </S.Container>
       </>

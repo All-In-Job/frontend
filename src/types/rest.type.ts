@@ -5,8 +5,8 @@ export type Rest = {
   institution: string;
   target: string;
   period: string;
-  participationPeriod: string;
-  preferentialTreatment: string;
+  participationPeriod: string; //활동기간
+  preferentialTreatment: string; //모집직무
   scale: number;
   benefits: string;
   interests: string;
@@ -14,6 +14,5 @@ export type Rest = {
   homePage: string;
   location: string;
   personnel: string;
-
-  menuName: string | undefined;
+  detail: string;
 };

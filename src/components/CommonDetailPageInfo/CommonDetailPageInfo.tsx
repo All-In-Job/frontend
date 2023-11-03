@@ -3,6 +3,8 @@ import { Rest } from 'types/rest.type';
 
 import * as S from './CommonDetailPageInfo.styles';
 
+type Props = Omit<Rest, 'detail'> & { menuName: string | undefined };
+
 export const CommonDetailPageInfo = ({
   menuName,
   mainImage,
@@ -19,7 +21,7 @@ export const CommonDetailPageInfo = ({
   homePage,
   location,
   personnel,
-}: Rest) => {
+}: Props) => {
   const competitionRender = menuName === 'competition';
   const outsideRender = menuName === 'outside';
   const internRender = menuName === 'intern';
@@ -107,7 +109,7 @@ export const CommonDetailPageInfo = ({
               <th>{'활동분야'}</th>
               <td className='tag'>
                 {field &&
-                  field.split(',').map((el, idx) => {
+                  field.split(',').map((el: string, idx: number) => {
                     return <span key={idx}>{el}</span>;
                   })}
               </td>
