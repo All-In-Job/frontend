@@ -22,7 +22,6 @@ type DetailProps = Omit<
 export const DetailDescription = ({ detail }: DetailProps) => {
   return (
     <Wrapper>
-      {/* <Title>상세내용</Title> */}
       <DetailDescriptionBox>
         <div dangerouslySetInnerHTML={{ __html: detail }}></div>
       </DetailDescriptionBox>
@@ -33,16 +32,6 @@ export const DetailDescription = ({ detail }: DetailProps) => {
 const Wrapper = styled.div`
   grid-column: span 12;
 `;
-// const Title = styled.div`
-//   margin: 0 0 24px 0;
-//   color: var(--black-500, #121110);
-//   font-family: SUIT;
-//   font-size: 24px;
-//   font-style: normal;
-//   font-weight: 700;
-//   line-height: 32px;
-//   letter-spacing: 0.134px;
-// `;
 
 const DetailDescriptionBox = styled.div`
   display: flex;
