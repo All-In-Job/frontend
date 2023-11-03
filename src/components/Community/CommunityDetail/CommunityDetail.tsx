@@ -8,6 +8,7 @@ import { Community } from 'types/community.type';
 import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
 import { Count } from 'components/commons/Count/Count';
 
+import { Comment } from './Comment/Comment';
 import * as S from './CommunityDetail.styles';
 import { ReactComponent as CommendIcon } from './res/icon-commend.svg';
 import { ReactComponent as LikeSolidIcon } from './res/icon-like-solid.svg';
@@ -58,6 +59,17 @@ export const CommunityDetail = () => {
           </S.CountContainer>
         </S.ArticleFooter>
       </S.Body>
+      <S.Footer>
+        <S.Title>댓글</S.Title>
+        <S.CommentInputContainer>
+          <S.Profile src={detailData?.user.profileImage} />
+          <S.CommentInput placeholder='댓글을 남겨보세요!' />
+          <S.SubmitButton>등록</S.SubmitButton>
+        </S.CommentInputContainer>
+        <S.CommentContainer>
+          <Comment />
+        </S.CommentContainer>
+      </S.Footer>
     </S.Container>
   );
 };

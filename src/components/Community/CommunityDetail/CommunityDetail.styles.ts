@@ -101,3 +101,41 @@ export const CountContainer = styled.div`
   gap: 8px;
   align-items: center;
 `;
+
+export const Footer = styled.div`
+  border-radius: 12px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+`;
+
+export const Title = styled.div`
+  ${textStyle.headLine02}
+`;
+
+export const CommentInputContainer = styled.form`
+  display: flex;
+  padding-bottom: 27px;
+  border-bottom: 1px solid ${palette.black100};
+`;
+
+export const CommentInput = styled.input`
+  margin-left: 8px;
+  padding: 0px 8px;
+  flex: 1 0 auto;
+  &::placeholder {
+    ${textStyle.title02}
+    color: ${palette.black200};
+  }
+`;
+
+export const SubmitButton = styled.button`
+  ${textStyle.body01}
+  color: ${palette.black300};
+  padding: 8px 16px;
+  border-radius: 4px;
+  background-color: ${palette.background.primary};
+`;
+
+export const CommentContainer = styled.ul``;

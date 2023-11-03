@@ -1,6 +1,3 @@
-// export type UserInfo = {
-//   nickname: string;
-// };
 export type UserInfo = {
   id: string;
   email: string;
