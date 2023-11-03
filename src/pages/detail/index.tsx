@@ -45,15 +45,15 @@ export const DetailPage = () => {
           viewCount={detailData.view}
         >
           {/* 상황에 맞는 컴포넌트 추가 */}
-          {'organization' in detailData && (
+          {'enterprise' in detailData && (
             <CommonDetailPageInfo
               type={detailData.type}
               menuName={menuName}
               mainImage={detailData.mainImage}
-              organization={detailData.organization}
+              enterprise={detailData.enterprise}
               institution={detailData.institution}
               target={detailData.target}
-              date={detailData.date}
+              period={detailData.period}
               participationPeriod={detailData.participationPeriod}
               preferentialTreatment={detailData.preferentialTreatment}
               scale={detailData.scale}

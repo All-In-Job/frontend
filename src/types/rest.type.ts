@@ -1,10 +1,10 @@
 export type Rest = {
   type: 'rest';
   mainImage: string;
-  organization: string;
+  enterprise: string;
   institution: string;
   target: string;
-  date: string;
+  period: string;
   participationPeriod: string;
   preferentialTreatment: string;
   scale: number;
