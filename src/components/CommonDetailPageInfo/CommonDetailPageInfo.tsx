@@ -6,10 +6,10 @@ import * as S from './CommonDetailPageInfo.styles';
 export const CommonDetailPageInfo = ({
   menuName,
   mainImage,
-  organization,
+  enterprise,
   institution,
   target,
-  date,
+  period,
   participationPeriod,
   preferentialTreatment,
   scale,
@@ -31,11 +31,11 @@ export const CommonDetailPageInfo = ({
         <S.Tbody>
           <tr>
             <th>{'주최기관'}</th>
-            <td>{organization}</td>
+            <td>{enterprise}</td>
           </tr>
           <tr>
-            <th>{'접수기관'}</th>
-            <td>{date}</td>
+            <th>{'접수기간'}</th>
+            <td>{period}</td>
           </tr>
 
           {competitionRender && (
