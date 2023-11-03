@@ -65,7 +65,7 @@ export const CommonDetailPageInfo = ({
             </tr>
           )}
 
-          {(outsideRender || internRender) && (
+          {!competitionRender && (
             <tr>
               <th>{outsideRender ? '활동지역' : '근무지역'}</th>
               <td>{location}</td>
@@ -86,10 +86,14 @@ export const CommonDetailPageInfo = ({
               </tr>
             </>
           )}
-          <tr>
-            <th>{'활동혜택'}</th>
-            <td>{benefits}</td>
-          </tr>
+
+          {!internRender && (
+            <tr>
+              <th>{'활동혜택'}</th>
+              <td>{benefits}</td>
+            </tr>
+          )}
+
           <tr>
             <th>{'기업형태'}</th>
             <td>{institution}</td>
@@ -109,15 +113,19 @@ export const CommonDetailPageInfo = ({
               </td>
             </tr>
           )}
-          <tr>
-            <th>{competitionRender ? '공모분야' : '관심분야'}</th>
-            <td className='tag'>
-              {interests &&
-                interests.split(',').map((el, idx) => {
-                  return <span key={idx}>{el}</span>;
-                })}
-            </td>
-          </tr>
+
+          {!internRender && (
+            <tr>
+              <th>{competitionRender ? '공모분야' : '관심분야'}</th>
+              <td className='tag'>
+                {interests &&
+                  interests.split(',').map((el: string, idx: number) => {
+                    return <span key={idx}>{el}</span>;
+                  })}
+              </td>
+            </tr>
+          )}
+
           <tr>
             <th>{'홈페이지'}</th>
             <td>
