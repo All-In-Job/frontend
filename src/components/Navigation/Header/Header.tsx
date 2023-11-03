@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import * as S from './header.styles.ts';
 
@@ -69,10 +69,10 @@ function Header() {
     },
   ];
 
-  const nav = useNavigate();
-  const moveToScrap = () => {
-    nav('/scrap');
-  };
+  // const nav = useNavigate();
+  // const moveToScrap = () => {
+  //   nav('/scrap');
+  // };
 
   return (
     <>
