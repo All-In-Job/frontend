@@ -1,7 +1,7 @@
 import { createContext, Dispatch, FormEventHandler, SetStateAction, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { InputGroup } from './InputGroup';
 import { InputGroupHeader } from './InputGroupHeader';
@@ -59,11 +59,25 @@ export const INPUT_RULES: Record<InputFieldType, InputRuleType> = {
 export const BasicInformation = () => {
   const navigate = useNavigate();
   const [currentFormState, setCurrentFormState] = useState(defaultState);
+  const { email, provider } = useLocation().state as {
+    email: string;
+    provider: 'google' | 'kakao';
+  };
 
   const updateRequestBody: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
-    console.log('request form data!');
-    navigate('', { state: Object.fromEntries(new FormData(e.currentTarget)) });
+
+    const { name, nickname, phone, currentPhoto } = currentFormState;
+    const payload = {
+      name: name.value,
+      nickname: nickname.value,
+      phone: phone.value,
+      profileImage: currentPhoto,
+    };
+
+    navigate('/signup/interest', {
+      state: { email, provider, ...payload },
+    });
   };
 
   return (

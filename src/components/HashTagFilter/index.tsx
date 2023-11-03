@@ -1,7 +1,7 @@
-import { FC, useContext } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { MenuListContext } from 'contexts/menuListContext';
+import { useParams } from 'react-router-dom';
 
 import MultiSelectHashTagsForIndicator from 'components/HashTagFilter/MultiSelectIndicator';
 import { HashTagData } from 'components/HashTagFilter/type';
@@ -22,31 +22,44 @@ interface Props {
 }
 
 const HashTagFilter: FC<Props> = ({ hashTagList, title, onSearch, onRefresh, className }) => {
-  const menuList = useContext(MenuListContext);
+  const [selectedHashs, setSelectedHashs] = useState<HashTagData[]>([]);
+  const { menuName } = useParams();
+
+  useEffect(() => {
+    setSelectedHashs([]);
+  }, [menuName]);
+
+  useEffect(() => {
+    const resetHashtahs = () => {
+      if (menuName === 'qnet' || menuName === 'language') setSelectedHashs([]);
+    };
+
+    resetHashtahs();
+  }, [hashTagList]);
 
   const handleSelectedHashTags = (value: HashTagData) => {
     let result: HashTagData[] = [];
 
-    if (menuList?.selectedHashs.find(item => item.id === value.id)) {
-      result = menuList.selectedHashs.filter(item => item.id !== value.id);
+    if (selectedHashs.find(item => item.id === value.id)) {
+      result = selectedHashs.filter(item => item.id !== value.id);
     } else {
-      result = [...(menuList?.selectedHashs ?? []), value];
+      result = [...selectedHashs, value];
     }
 
-    menuList?.setSelectedHashs(result);
+    setSelectedHashs(result);
     onSearch(result);
   };
 
   const handleDeleteClick = (value: HashTagData) => {
-    menuList?.setSelectedHashs(menuList.selectedHashs.filter(item => item.id !== value.id));
+    setSelectedHashs(selectedHashs.filter(item => item.id !== value.id));
   };
 
   const handleClickRefresh = () => {
-    menuList?.setSelectedHashs([]);
+    setSelectedHashs([]);
     onRefresh();
   };
 
-  const HashTagFilter = menuList?.selectedHashs.length !== 0;
+  const HashTagFilter = selectedHashs.length !== 0;
 
   return (
     <Container className={className}>
@@ -57,13 +70,13 @@ const HashTagFilter: FC<Props> = ({ hashTagList, title, onSearch, onRefresh, cla
       />
       <MultiSelectHashTagsForSelect
         onSelect={handleSelectedHashTags}
-        selectedHashTagList={menuList?.selectedHashs ?? []}
+        selectedHashTagList={selectedHashs}
         hashTagList={hashTagList}
       />
       {HashTagFilter && <Border />}
       <MultiSelectHashTagsForIndicator
         onDeleteClick={handleDeleteClick}
-        selectedHashTagList={menuList?.selectedHashs ?? []}
+        selectedHashTagList={selectedHashs}
       />
     </Container>
   );
