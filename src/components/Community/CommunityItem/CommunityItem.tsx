@@ -6,7 +6,9 @@ import { ReactComponent as LikeIcon } from './res/img/like.svg';
 import { ReactComponent as ViewIcon } from './res/img/view.svg';
 import { ReactComponent as NicknameIcon } from './res/img/visibility.svg';
 
-function CommunityItem({ id, user, category, title, view, like, comment, date }: Community) {
+type Props = Omit<Community, 'detail' | 'userId' | 'comments' | 'communityLikes'>;
+
+function CommunityItem({ id, user, category, title, view, like, comment, date }: Props) {
   const getTimeDiffString = (pastTime: string) => {
     const now = new Date();
     const past = new Date(pastTime);

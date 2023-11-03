@@ -27,6 +27,7 @@ export const DetailPage = () => {
         const res = await requestDetailCrawlingData(menuName, detailId);
         if (res) {
           setDetailData(res.data.data);
+          console.log(res);
         }
       } catch (error) {
         console.error(error);
