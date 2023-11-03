@@ -66,7 +66,7 @@ export const DetailPage = () => {
             />
           )}
 
-          {detailData.type === 'certificate' && (
+          {'enTitle' in detailData && (
             <CertificateDetailInfo
               type={detailData.type}
               mainImage={detailData.mainImage}
@@ -85,7 +85,7 @@ export const DetailPage = () => {
             <DetailDescription type={detailData.type} detail={detailData.detail} />
           )}
 
-          {detailData.type === 'certificate' && (
+          {'enTitle' in detailData && (
             <CertificateExamSchedule
               id={pathProps(detailData.examSchedules)?.id}
               key={pathProps(detailData.examSchedules)?.id}
