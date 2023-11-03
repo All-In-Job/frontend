@@ -27,3 +27,11 @@ export const validateTokenSNS = async (token: number, phone: string) => {
     },
   });
 };
+
+export const createUser = async (data: object) => {
+  return await signupApi({
+    method: 'POST',
+    url: 'createUser',
+    data,
+  });
+};

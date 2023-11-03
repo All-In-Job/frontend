@@ -1,76 +1,78 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import styled from '@emotion/styled';
-import MenuListProvider from 'contexts/menuListContext';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import CategoryFilter from 'components/CategoryFilter';
 import { CategoryData } from 'components/CategoryFilter/type';
 import HashTagFilter from 'components/HashTagFilter';
+import { HashTagData } from 'components/HashTagFilter/type';
 
-import { MenuCategoies, MenuId, getMenuById } from './menuCategoies';
+import { MenuId, getMenuById } from './menuCategoies';
 
 const Menu = () => {
-  const [categoryList, setCategoryList] = useState<CategoryData[]>([]);
-  const [hashTagList, setHashTagList] = useState<CategoryData[]>([]);
+  const [keywords, setKeywords] = useState<HashTagData[]>([]);
+  const [selectedKeyword, setSelectedKeyword] = useState<HashTagData[]>([]);
 
   const { menuName, categoryId } = useParams();
   const navigate = useNavigate();
   const foundMenuCategories = getMenuById(menuName! as MenuId);
 
+  const categoryList: CategoryData[] =
+    foundMenuCategories?.items.map(item => ({
+      id: item.id,
+      title: item.category,
+    })) || [];
+
   if (!categoryId) navigate('/');
 
-  useEffect(() => {
-    const getCategoryList = (menuCategories: MenuCategoies) => {
-      const categories = menuCategories.items.map(
-        item => ({ id: item.id, title: item.category }) as CategoryData,
-      );
-
-      setCategoryList(categories);
-    };
-
-    getCategoryList(foundMenuCategories!);
-  }, [menuName, foundMenuCategories]);
-
-  const updateHashTagList = useCallback(
+  const searchKeywordsByCategory = useCallback(
     (selectedCategory: CategoryData[]) => {
-      const foundCategory = foundMenuCategories?.items.find(
-        item => item.id === selectedCategory[0].id,
-      );
+      if (selectedCategory.length > 0) {
+        const foundItem = foundMenuCategories?.items.find(
+          item => item.id === selectedCategory[0].id,
+        );
 
-      if (foundCategory) {
-        const keywords =
-          foundCategory.keywords?.map(
-            keyword => ({ id: keyword, title: keyword }) as CategoryData,
-          ) || [];
+        if (foundItem) {
+          const keywords = foundItem?.keywords || {};
+          const keywordsArr: HashTagData[] = Object.entries(keywords).map(([id, title]) => ({
+            id,
+            title,
+          }));
 
-        setHashTagList(keywords);
+          setKeywords(keywordsArr);
+        }
       }
     },
-    [foundMenuCategories?.items],
+    [foundMenuCategories],
+  );
+
+  const searchSelectedKeywords = useCallback(
+    (selectedKeywords: HashTagData[]) => {
+      setSelectedKeyword(selectedKeywords);
+    },
+    [selectedKeyword],
   );
 
   return (
-    <MenuListProvider>
-      <MenuWrapper>
-        <MenuHeadContent>
-          <CategoryFilter
-            title={foundMenuCategories?.title as string}
-            categoryList={categoryList}
-            onSearch={updateHashTagList}
-            onClickMyInterest={() => true}
-          />
-          <HashTagFilter
-            title='키워드'
-            hashTagList={hashTagList}
-            onSearch={updateHashTagList}
-            onRefresh={() => function () {}}
-          />
-        </MenuHeadContent>
+    <MenuWrapper>
+      <MenuHeadContent>
+        <CategoryFilter
+          title={foundMenuCategories?.title as string}
+          categoryList={categoryList}
+          onSearch={searchKeywordsByCategory}
+          onClickMyInterest={() => true}
+        />
+        <HashTagFilter
+          title='키워드'
+          hashTagList={keywords}
+          onSearch={searchSelectedKeywords}
+          onRefresh={() => function () {}}
+        />
+      </MenuHeadContent>
 
-        <Outlet />
-      </MenuWrapper>
-    </MenuListProvider>
+      <Outlet context={{ selectedKeyword }} />
+    </MenuWrapper>
   );
 };
 

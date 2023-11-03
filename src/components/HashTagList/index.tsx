@@ -20,7 +20,7 @@ const MultiSelectHashTags: FC<Props> = ({ hashTagList, selectedHashTagList, onSe
           key={hash.id}
           onClick={() => onSelect(hash)}
           isActive={selectedHashTagList.some(h => h.id === hash.id)}
-          text={hash.title as string}
+          text={shape === 'rect' ? hash.title : (`#${hash.title}` as string)}
         />
       ))}
     </S.Container>
