@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ReactComponent as HorizontalIcon } from 'assets/icons/icon-horizontal_rule.svg';
 import { ReactComponent as ViewIcon } from 'assets/icons/icon-view.svg';
 import { useParams } from 'react-router-dom';
+import { Community } from 'types/community.type';
 
 import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
 import { Count } from 'components/commons/Count/Count';
@@ -15,28 +16,29 @@ import { ReactComponent as ShareSolidIcon } from './res/icon-share.svg';
 
 export const CommunityDetail = () => {
   const { detailId } = useParams();
-
+  const [detailData, setDetailData] = useState<Community>();
   useEffect(() => {
     (async () => {
-      await requestDetailCrawlingApiData(detailId as string);
+      const ret = await requestDetailCrawlingApiData(detailId as string);
+      setDetailData(ret.data.data);
     })();
   }, []);
   return (
     <S.Container>
       <S.Head>
-        <h1>취준job담</h1> <S.Category>{'category'}</S.Category>
+        <h1>취준job담</h1> <S.Category>{detailData?.category}</S.Category>
       </S.Head>
       <S.Body>
         <S.ArticleHeader>
-          <S.Profile />
+          <S.Profile src={detailData?.user.profileImage} />
           <div>
-            <S.Nickname>{'hello'}님</S.Nickname>
+            <S.Nickname>{detailData?.user.nickname}님</S.Nickname>
             <S.TimeDiff>12잔</S.TimeDiff>
           </div>
         </S.ArticleHeader>
 
-        <S.ArticleTitle>is Title</S.ArticleTitle>
-        <S.Article>contents</S.Article>
+        <S.ArticleTitle>{detailData?.title}</S.ArticleTitle>
+        <S.Article>{detailData?.detail}</S.Article>
 
         <S.ArticleFooter>
           <S.ButtonContainer>
@@ -48,11 +50,11 @@ export const CommunityDetail = () => {
             </S.IconBtn>
           </S.ButtonContainer>
           <S.CountContainer>
-            <Count count={1} children={<ViewIcon />} />
+            <Count count={detailData?.view} children={<ViewIcon />} />
             <HorizontalIcon />
-            <Count count={1} children={<CommendIcon />} />
+            <Count count={detailData?.comment} children={<CommendIcon />} />
             <HorizontalIcon />
-            <Count count={1} children={<LikeIcon />} />
+            <Count count={detailData?.like} children={<LikeIcon />} />
           </S.CountContainer>
         </S.ArticleFooter>
       </S.Body>

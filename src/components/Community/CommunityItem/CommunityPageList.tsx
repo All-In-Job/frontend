@@ -52,7 +52,6 @@ export const CommunityPageList = () => {
       try {
         const res = await requestCommunityData();
         setCommunityList(res.data.data);
-        // setCommunityList([mockData]);
       } catch (error) {
         console.error(error);
       }
