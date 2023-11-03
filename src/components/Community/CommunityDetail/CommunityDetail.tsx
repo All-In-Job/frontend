@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
+
 import { ReactComponent as HorizontalIcon } from 'assets/icons/icon-horizontal_rule.svg';
 import { ReactComponent as ViewIcon } from 'assets/icons/icon-view.svg';
+import { useParams } from 'react-router-dom';
 
+import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
 import { Count } from 'components/commons/Count/Count';
 
 import * as S from './CommunityDetail.styles';
@@ -10,6 +14,13 @@ import { ReactComponent as LikeIcon } from './res/icon-like.svg';
 import { ReactComponent as ShareSolidIcon } from './res/icon-share.svg';
 
 export const CommunityDetail = () => {
+  const { detailId } = useParams();
+
+  useEffect(() => {
+    (async () => {
+      await requestDetailCrawlingApiData(detailId as string);
+    })();
+  }, []);
   return (
     <S.Container>
       <S.Head>
