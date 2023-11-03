@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 export const LoginContainer = styled.div`
   padding: 181px 0;
   background-color: #fd805d;
-  grid-column: span 12;
 `;
 
 export const LoginWrapper = styled.div`

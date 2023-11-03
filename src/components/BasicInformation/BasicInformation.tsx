@@ -22,12 +22,10 @@ const defaultState = {
   nickname: {
     value: '',
     isValid: false,
-    isConfirmed: false,
   },
   phone: {
     value: '',
     isValid: false,
-    isCodeChecked: false,
   },
   agreement: {
     'agree-1': false,
@@ -53,7 +51,7 @@ export const INPUT_RULES: Record<InputFieldType, InputRuleType> = {
     errorMsg: '2자리 이상의 영문, 한글만 입력해주세요.',
   },
   phone: {
-    regex: /^(01[016789])[0-9]{4}[0-9]{4}$/,
+    regex: /01[016789][^0][0-9]{2,3}[0-9]{3,4}/,
     errorMsg: '올바른 전화번호를 입력해주세요',
   },
 };

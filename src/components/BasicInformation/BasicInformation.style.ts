@@ -4,7 +4,7 @@ import theme from 'styles/theme';
 
 const Container = styled.div`
   display: grid;
-  gap: 12px;
+  gap: 24px;
   margin-top: 28px;
 `;
 const Row = styled.div`
@@ -18,14 +18,17 @@ const InputHeading = styled.h1`
   font-size: 20px;
   display: flex;
 `;
-const Button = styled.button<{ $isValid?: boolean }>`
+const Button = styled.button<{ $isValid: boolean }>`
+  background-color: ${props =>
+    props.$isValid ? theme.palette.orange300 : theme.palette.background.primary};
+  color: ${props => (props.$isValid ? theme.palette.orange500 : theme.palette.black200)};
   padding: 12px;
   width: 84px;
   border-radius: 4px;
   font-size: 13px;
   display: flex;
   align-items: center;
-  cursor: pointer;
+  cursor: ${props => (props.$isValid ? 'pointer' : 'default')};
 `;
 const Input = styled.input`
   border-radius: 4px;
@@ -65,8 +68,8 @@ const Required = styled.span`
 
 const Submit = styled.button<{ $isValid: boolean }>`
   background-color: ${props =>
-    props.$isValid ? theme.palette.orange500 : theme.palette.background.primary};
-  color: ${props => (props.$isValid ? theme.palette.orange100 : theme.palette.black200)};
+    props.$isValid ? theme.palette.orange300 : theme.palette.background.primary};
+  color: ${props => (props.$isValid ? theme.palette.orange500 : theme.palette.black200)};
   border-radius: 9999px;
   padding: 12px;
   font-size: 17px;
@@ -76,10 +79,6 @@ const Submit = styled.button<{ $isValid: boolean }>`
 
 const ErrorMessage = styled.p`
   color: red;
-  height: 16px;
-  font-size: 14px;
-  display: flex;
-  justify-content: space-between;
 `;
 
 export {

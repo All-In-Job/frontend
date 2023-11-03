@@ -1,5 +1,3 @@
-import SocialLoginButton from 'components/Buttons/SocialLoginBtn';
-
 import * as S from './login.styles';
 
 function Login() {
@@ -20,8 +18,12 @@ function Login() {
             <div style={{ flexGrow: '1', height: '1px', backgroundColor: '#E1E2E4' }}></div>
           </S.divisionLine>
           <S.SocialLoginBox>
-            <SocialLoginButton provider='kakao' />
-            <SocialLoginButton provider='google' />
+            <a href='https://allinjob.co.kr/login/kakao/callback'>
+              <S.SocialLoginImg src='/src/pages/login/res/img/kakao.png' alt='kakao' />
+            </a>
+            <a href='https://allinjob.co.kr/login/google/callback'>
+              <S.SocialLoginImg src='/src/pages/login/res/img/google.png' alt='google' />
+            </a>
           </S.SocialLoginBox>
         </S.LoginBox>
       </S.LoginWrapper>
