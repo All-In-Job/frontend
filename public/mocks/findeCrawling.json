@@ -1,0 +1,156 @@
+{
+  "data": [
+    {
+      "id": "TxeBIosBk9tppZrQDufq",
+      "institution": "한국산업인력공단",
+      "scrap": 0,
+      "view": 0,
+      "relatedDepartment": "산업통상자원부",
+      "examSchedules": null,
+      "title": "시각디자인기사",
+      "image": "https://www.q-net.or.kr/qnet/images/content/hrdkorea_logo.gif"
+    },
+    {
+      "id": "QheBIosBk9tppZrQDuep",
+      "institution": "한국산업인력공단",
+      "scrap": 0,
+      "view": 0,
+      "relatedDepartment": "보건복지부",
+      "examSchedules": null,
+      "title": "미용사(메이크업)",
+      "image": "https://www.q-net.or.kr/qnet/images/content/hrdkorea_logo.gif"
+    },
+    {
+      "id": "RBeBIosBk9tppZrQDuey",
+      "institution": "한국산업인력공단",
+      "scrap": 0,
+      "view": 0,
+      "relatedDepartment": "식품의약품안전처",
+      "examSchedules": null,
+      "title": "식품가공기능사",
+      "image": "https://www.q-net.or.kr/qnet/images/content/hrdkorea_logo.gif"
+    },
+    {
+      "id": "UBeBIosBk9tppZrQDufq",
+      "institution": "한국산업인력공단",
+      "scrap": 0,
+      "view": 0,
+      "relatedDepartment": "산업통상자원부",
+      "examSchedules": null,
+      "title": "제품디자인기술사",
+      "image": "https://www.q-net.or.kr/qnet/images/content/hrdkorea_logo.gif"
+    },
+    {
+      "id": "UReBIosBk9tppZrQDufq",
+      "institution": "한국산업인력공단",
+      "scrap": 0,
+      "view": 0,
+      "relatedDepartment": "환경부",
+      "examSchedules": {
+        "wtResultDay": "2023.10.11",
+        "resultDay": "2023.12.15",
+        "wtDday": "2023.08.26",
+        "ptReceipt": "2023.09.05~2023.10.20",
+        "wtReceipt": "2023.07.24~2023.07.27",
+        "turn": "2023년정기기술사131회",
+        "ptDday": "2023.11.11~2023.11.21"
+      },
+      "title": "폐기물처리기술사",
+      "image": "https://www.q-net.or.kr/qnet/images/content/hrdkorea_logo.gif"
+    },
+    {
+      "id": "PxeBIosBk9tppZrQDueh",
+      "institution": "한국산업인력공단",
+      "scrap": 0,
+      "view": 0,
+      "relatedDepartment": "보건복지부",
+      "examSchedules": null,
+      "title": "미용사(일반)",
+      "image": "https://www.q-net.or.kr/qnet/images/content/hrdkorea_logo.gif"
+    },
+    {
+      "id": "TBeBIosBk9tppZrQDufp",
+      "institution": "한국산업인력공단",
+      "scrap": 0,
+      "view": 0,
+      "relatedDepartment": "고용노동부",
+      "examSchedules": null,
+      "title": "기계설계기사",
+      "image": "https://www.q-net.or.kr/qnet/images/content/hrdkorea_logo.gif"
+    },
+    {
+      "id": "TReBIosBk9tppZrQDufq",
+      "institution": "한국산업인력공단",
+      "scrap": 0,
+      "view": 0,
+      "relatedDepartment": "산업통상자원부",
+      "examSchedules": null,
+      "title": "제품디자인기사",
+      "image": "https://www.q-net.or.kr/qnet/images/content/hrdkorea_logo.gif"
+    },
+    {
+      "id": "RxeBIosBk9tppZrQDue-",
+      "institution": "한국산업인력공단",
+      "scrap": 0,
+      "view": 0,
+      "relatedDepartment": "고용노동부",
+      "examSchedules": {
+        "wtResultDay": "2023.09.22",
+        "resultDay": "2023.12.13",
+        "wtDday": "2023.09.02~2023.09.17",
+        "ptReceipt": "2023.10.10~2023.10.13",
+        "wtReceipt": "2023.08.07~2023.08.10[빈자리접수:2023.08.27~2023.08.28]",
+        "turn": "2023년정기기사4회",
+        "ptDday": "2023.11.04~2023.11.17"
+      },
+      "title": "직업상담사1급",
+      "image": "https://www.q-net.or.kr/qnet/images/content/hrdkorea_logo.gif"
+    },
+    {
+      "id": "QReBIosBk9tppZrQDueo",
+      "institution": "한국산업인력공단",
+      "scrap": 0,
+      "view": 0,
+      "relatedDepartment": "산업통상자원부",
+      "examSchedules": {
+        "wtResultDay": "2023.10.11",
+        "resultDay": "2023.12.20",
+        "wtDday": "2023.09.19~2023.09.24",
+        "ptReceipt": "2023.10.16~2023.10.19빈자리접수:2023.11.12~2023.11.13",
+        "wtReceipt": "2023.08.28~2023.08.31[빈자리접수:2023.09.13~2023.09.14]",
+        "turn": "2023년정기기능사4회",
+        "ptDday": "2023.11.18~2023.12.05"
+      },
+      "title": "신재생에너지발전설비기능사(태양광)",
+      "image": "https://www.q-net.or.kr/qnet/images/content/hrdkorea_logo.gif"
+    },
+    {
+      "id": "YfmBIosBSJ-8qZb7DuLs",
+      "institution": "한국산업인력공단",
+      "scrap": 0,
+      "view": 0,
+      "relatedDepartment": "산업통상자원부",
+      "examSchedules": null,
+      "title": "에너지관리기능장",
+      "image": "https://www.q-net.or.kr/qnet/images/content/hrdkorea_logo.gif"
+    },
+    {
+      "id": "SheBIosBk9tppZrQDuff",
+      "institution": "한국산업인력공단",
+      "scrap": 0,
+      "view": 0,
+      "relatedDepartment": "환경부",
+      "examSchedules": {
+        "wtResultDay": "2023.09.22",
+        "resultDay": "2023.12.13",
+        "wtDday": "2023.09.02~2023.09.17",
+        "ptReceipt": "2023.10.10~2023.10.13",
+        "wtReceipt": "2023.08.07~2023.08.10[빈자리접수:2023.08.27~2023.08.28]",
+        "turn": "2023년정기기사4회",
+        "ptDday": "2023.11.04~2023.11.17"
+      },
+      "title": "소음진동기사",
+      "image": "https://www.q-net.or.kr/qnet/images/content/hrdkorea_logo.gif"
+    }
+  ]
+}

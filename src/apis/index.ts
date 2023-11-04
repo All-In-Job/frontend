@@ -10,3 +10,4 @@ export const loginApi = createAxiosInstance('login');
 export const communityApi = createAxiosInstance('community');
 export const crawlingApi = createAxiosInstance('crawling/finde');
 export const detailCrawlingApi = createAxiosInstance('crawling/findeDetail');
+export const detailCommunityApi = createAxiosInstance('community');
