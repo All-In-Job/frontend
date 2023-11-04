@@ -1,10 +1,5 @@
-import { useEffect, useState } from 'react';
-
 import styled from '@emotion/styled';
 
-import theme from 'styles/theme';
-
-// import { CarouselButton } from './CarouselButton';
 import { CarouselItemSelector } from './CarouselItemSelector';
 import { CarouselSlide } from './CarouselSlide';
 
@@ -25,49 +20,16 @@ images.unshift(images[images.length - 1]);
 images.push(images[1]);
 
 export const Carousel = () => {
-  const [currentImage, setCurrentImage] = useState(images[1]);
-  const [timerId, setTimerId] = useState(-1);
-
-  const setSlideInterval = () => {
-    let count = 1;
-    setTimerId(
-      setInterval(() => {
-        setCurrentImage(images[count]);
-        console.log(count);
-        if (count === images.length - 1) count = 1;
-        else count++;
-      }, 2000),
-    );
-  };
-
-  useEffect(() => {
-    setSlideInterval();
-
-    return () => {
-      clearInterval(timerId);
-    };
-  }, []);
-
   return (
     <StyledContainer>
-      {/*<CarouselButton direction='right' />*/}
-      {/*<CarouselButton direction='left' />*/}
-      <CarouselSlide currentImage={currentImage} images={images} />
-      <CarouselItemSelector
-        images={images}
-        timerId={timerId}
-        currentImageId={currentImage.id}
-        setCurrentImage={setCurrentImage}
-        setSlideInterval={setSlideInterval}
-      />
+      <CarouselSlide />
+      <CarouselItemSelector />
     </StyledContainer>
   );
 };
 
 const StyledContainer = styled.div`
+  background-color: gray;
   grid-column: span 12;
-  background-color: ${theme.palette.orange100};
-  position: relative;
   height: 439px;
-  overflow: hidden;
 `;
