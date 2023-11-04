@@ -4,9 +4,10 @@
     "title": "제목 : 공모전 활동",
     "detail": "상세내용 : html코드",
     "date": "등록 시간 : 2023-09-16",
-    "view": 0,
+    "view": 2,
     "like": 0,
-    "comment": 0,
+    "comment": 1,
+    "category": "공모전/대외활동",
     "userId": "유저 아이디 :255617b0-446c-477e-96c9-cb9fe54bc6cc",
     "user": {
       "id": "유저 아이디 :255617b0-446c-477e-96c9-cb9fe54bc6cc",
@@ -21,15 +22,16 @@
     "comments": [
       {
         "id": "comments id : 255617b0-446c-477e-96c9-cb9fe54bc6cc",
-        "comment": "댓글 내용: 굳",
-        "date": "댓글 생성 시간 : 2023-09-16",
-        "userId": "댓글 단 사람의 id : 255617b0-446c-477e-96c9-cb9fe54bc6cc"
+        "nickname": "아아무개",
+        "comment": "댓글을 달고있는 나는 멋져",
+        "date": "2023-09-16",
+        "userId": "255617b0-446c-477e-96c9-cb9fe54bc6cc"
       }
     ],
     "communityLikes": [
       {
-        "id": "커뮤니티 좋아요 id : 255617b0-446c-477e-96c9-cb9fe54bc6cc",
-        "userId": "좋아요한 사람 id : 255617b0-446c-477e-96c9-cb9fe54bc6cc"
+        "id": "255617b0-446c-477e-96c9-cb9fe54bc6cc",
+        "userId": "255617b0-446c-477e-96c9-cb9fe54bc6cc"
       }
     ]
   }

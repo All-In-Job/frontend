@@ -73,7 +73,7 @@ export const CommunityDetail = () => {
         </S.CommentInputContainer>
         <S.CommentContainer>
           {detailData?.comments.map(ele => (
-            <Comment key={ele.id} nickname={''} comment={ele.comment} />
+            <Comment key={ele.id} nickname={ele.nickname} comment={ele.comment} />
           ))}
         </S.CommentContainer>
       </S.Footer>
