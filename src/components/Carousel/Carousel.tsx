@@ -23,7 +23,6 @@ const images: Image[] = [
   },
   { id: 3, source: 'https://wallpapers.com/images/hd/mountain-top-t6qhv1lk4j0au09t.jpg' },
 ];
-// images.unshift({ ...images[images.length - 1] });
 images.push({ ...images[0] });
 images[images.length - 1].id = 4;
 
@@ -33,15 +32,23 @@ export const TRANSITION_DURATION = 0.3;
 export const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransition, setIsTransition] = useState(true);
+  const [timerId, setTimerId] = useState(-1);
+  const [isClickedSelector, setIsClickedSelector] = useState(-1);
 
   const beforeLastIndex = currentIndex < images.length - 1;
   const startLastSlide = currentIndex === images.length - 1;
   const isTransitionOff = !isTransition;
 
   const moveToNextImageAfter = (seconds: number) => {
-    setTimeout(() => {
-      if (beforeLastIndex) setCurrentIndex(currentIndex + 1);
-    }, seconds * 1000);
+    clearTimeout(timerId);
+    setTimerId(
+      setTimeout(() => {
+        if (beforeLastIndex) {
+          if (isClickedSelector) setIsClickedSelector(-1);
+          setCurrentIndex(currentIndex + 1);
+        }
+      }, seconds * 1000),
+    );
   };
 
   const turnOffTransitionAfterSlide = (seconds: number) => {
@@ -57,9 +64,10 @@ export const Carousel = () => {
   };
 
   useEffect(() => {
+    clearTimeout(timerId);
     if (startLastSlide) turnOffTransitionAfterSlide(TRANSITION_DURATION);
     else moveToNextImageAfter(IMAGE_SHOW_SECONDS);
-  }, [currentIndex]);
+  }, [currentIndex, isClickedSelector]);
 
   useEffect(() => {
     if (isTransitionOff) {
@@ -76,7 +84,14 @@ export const Carousel = () => {
         isTransition={isTransition}
         setIsTransition={setIsTransition}
       />
-      <CarouselItemSelector images={images} currentIndex={currentIndex} />
+      <CarouselItemSelector
+        images={images}
+        currentIndex={currentIndex}
+        setCurrentIndex={setCurrentIndex}
+        timerId={timerId}
+        isClickedSelector={isClickedSelector}
+        setIsClickedSelector={setIsClickedSelector}
+      />
     </StyledContainer>
   );
 };

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -9,20 +9,44 @@ import { Image } from './Carousel';
 type Props = {
   images: Image[];
   currentIndex: number;
+  setCurrentIndex: Dispatch<SetStateAction<number>>;
+  timerId: number;
+  setIsClickedSelector: Dispatch<SetStateAction<number>>;
+  isClickedSelector: number;
 };
 
-export const CarouselItemSelector: FC<Props> = ({ images, currentIndex }) => {
+export const CarouselItemSelector: FC<Props> = ({
+  images,
+  currentIndex,
+  setCurrentIndex,
+  timerId,
+  setIsClickedSelector,
+  isClickedSelector,
+}) => {
   const isLastImage = currentIndex === images.length - 1;
   const focusOnFirstSelector = (idx: number) => {
     const isFirstSelector = idx === 0;
     return isFirstSelector && isLastImage;
   };
 
+  const moveToTargetImage = (idx: number) => {
+    setCurrentIndex(idx);
+    setIsClickedSelector(idx + 1);
+    clearTimeout(timerId);
+  };
+
+  console.log(isClickedSelector);
+
   return (
     <StyledContainer>
       {Array.from({ length: images.length - 1 }).map((_, idx) => {
         return (
-          <StyledCircle key={idx} isTarget={currentIndex === idx || focusOnFirstSelector(idx)} />
+          <StyledCircle
+            disabled={isClickedSelector === idx + 1}
+            onClick={() => moveToTargetImage(idx)}
+            key={idx}
+            isTarget={currentIndex === idx || focusOnFirstSelector(idx)}
+          />
         );
       })}
     </StyledContainer>
