@@ -12,10 +12,18 @@ type Props = {
 };
 
 export const CarouselItemSelector: FC<Props> = ({ images, currentIndex }) => {
+  const isLastImage = currentIndex === images.length - 1;
+  const focusOnFirstSelector = (idx: number) => {
+    const isFirstSelector = idx === 0;
+    return isFirstSelector && isLastImage;
+  };
+
   return (
     <StyledContainer>
-      {Array.from({ length: images.length - 2 }).map((_, idx) => {
-        return <StyledCircle key={idx} isTarget={currentIndex === idx + 1} />;
+      {Array.from({ length: images.length - 1 }).map((_, idx) => {
+        return (
+          <StyledCircle key={idx} isTarget={currentIndex === idx || focusOnFirstSelector(idx)} />
+        );
       })}
     </StyledContainer>
   );
