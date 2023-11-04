@@ -52,15 +52,17 @@ export const Carousel = () => {
   };
 
   const turnOffTransitionAfterSlide = (seconds: number) => {
-    setTimeout(() => {
-      setIsTransition(false);
-    }, seconds * 1000);
+    setTimerId(
+      setTimeout(() => {
+        setIsTransition(false);
+      }, seconds * 1000),
+    );
   };
 
   const startSlideAgainAfter = (seconds: number) => {
     setTimeout(() => {
       setIsTransition(true);
-    }, seconds * 1000);
+    }, seconds * 100);
   };
 
   useEffect(() => {

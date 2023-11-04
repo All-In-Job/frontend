@@ -35,8 +35,6 @@ export const CarouselItemSelector: FC<Props> = ({
     clearTimeout(timerId);
   };
 
-  console.log(isClickedSelector);
-
   return (
     <StyledContainer>
       {Array.from({ length: images.length - 1 }).map((_, idx) => {
