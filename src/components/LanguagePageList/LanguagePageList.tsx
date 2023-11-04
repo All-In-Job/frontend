@@ -5,16 +5,19 @@ import { useParams } from 'react-router-dom';
 import { Language } from 'types/language.type';
 
 import { requestCrawlingData } from 'apis/crawling';
+import { useControlPageParam } from 'hooks/useControlPageParam';
 
 import { LanguagePageItem } from './LanguageInfo/LanguagePageItem';
 
 export const LanguagePageList = () => {
   const { menuName } = useParams();
   const [languageList, setLanguageList] = useState<Language[]>([]);
+  const { getPageParam, increasePage, decreasePage } = useControlPageParam();
 
   useEffect(() => {
     const queries = {
       path: menuName,
+      page: getPageParam,
     };
 
     (async () => {
@@ -29,6 +32,8 @@ export const LanguagePageList = () => {
 
   return (
     <LanguageContainer>
+      <button onClick={increasePage}>+</button>
+      <button onClick={decreasePage}>-</button>
       {languageList.map(el => (
         <LanguagePageItem
           key={el.id}
