@@ -51,7 +51,6 @@ export const CommunityDetail = () => {
         />
         <S.ArticleTitle>{detailData?.title}</S.ArticleTitle>
         <S.Article>{detailData?.detail}</S.Article>
-
         <S.ArticleFooter>
           <S.ButtonContainer>
             <S.IconBtn>
