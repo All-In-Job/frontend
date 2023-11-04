@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
-// import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
+import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
 import { Count } from 'components/commons/Count/Count';
 
 import { Comment } from './Comment/Comment';
@@ -20,17 +20,23 @@ import { ReactComponent as ShareSolidIcon } from './res/icon-share.svg';
 export const CommunityDetail = () => {
   const { detailId } = useParams();
   const [detailData, setDetailData] = useState<Community>();
+
+  const requestMockupData = async () => {
+    const ret = await axios.get('/mocks/detailCommunity.json');
+    setDetailData(ret.data.data);
+  };
+
   useEffect(() => {
-    // (async () => {
-    //   const ret = await requestDetailCrawlingApiData(detailId as string);
-    //   setDetailData(ret.data.data);
-    // })();
     (async () => {
-      const ret = await axios.get('/mocks/detailCommunity.json');
-      setDetailData(ret.data.data);
+      try {
+        const ret = await requestDetailCrawlingApiData(detailId as string);
+        setDetailData(ret.data.data);
+      } catch (error) {
+        requestMockupData();
+      }
     })();
   }, []);
-  console.log(detailId);
+
   return (
     <S.Container>
       <S.Head>
