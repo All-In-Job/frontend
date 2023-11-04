@@ -2,14 +2,16 @@ import { useEffect, useState } from 'react';
 
 import { ReactComponent as HorizontalIcon } from 'assets/icons/icon-horizontal_rule.svg';
 import { ReactComponent as ViewIcon } from 'assets/icons/icon-view.svg';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
-import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
+// import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
 import { Count } from 'components/commons/Count/Count';
 
 import { Comment } from './Comment/Comment';
 import * as S from './CommunityDetail.styles';
+import { ContentInfo } from './ContentsInfo/ContentInfo';
 import { ReactComponent as CommendIcon } from './res/icon-commend.svg';
 import { ReactComponent as LikeSolidIcon } from './res/icon-like-solid.svg';
 import { ReactComponent as LikeIcon } from './res/icon-like.svg';
@@ -19,25 +21,27 @@ export const CommunityDetail = () => {
   const { detailId } = useParams();
   const [detailData, setDetailData] = useState<Community>();
   useEffect(() => {
+    // (async () => {
+    //   const ret = await requestDetailCrawlingApiData(detailId as string);
+    //   setDetailData(ret.data.data);
+    // })();
     (async () => {
-      const ret = await requestDetailCrawlingApiData(detailId as string);
+      const ret = await axios.get('/mocks/detailCommunity.json');
       setDetailData(ret.data.data);
     })();
   }, []);
+  console.log(detailId);
   return (
     <S.Container>
       <S.Head>
         <h1>취준job담</h1> <S.Category>{detailData?.category}</S.Category>
       </S.Head>
-      <S.Body>
-        <S.ArticleHeader>
-          <S.Profile src={detailData?.user.profileImage} />
-          <div>
-            <S.Nickname>{detailData?.user.nickname}님</S.Nickname>
-            <S.TimeDiff>12잔</S.TimeDiff>
-          </div>
-        </S.ArticleHeader>
 
+      <S.Body>
+        <ContentInfo
+          profileImage={detailData?.user.profileImage}
+          nickname={detailData?.user.nickname}
+        />
         <S.ArticleTitle>{detailData?.title}</S.ArticleTitle>
         <S.Article>{detailData?.detail}</S.Article>
 
@@ -59,6 +63,7 @@ export const CommunityDetail = () => {
           </S.CountContainer>
         </S.ArticleFooter>
       </S.Body>
+
       <S.Footer>
         <S.Title>댓글</S.Title>
         <S.CommentInputContainer>
@@ -67,7 +72,9 @@ export const CommunityDetail = () => {
           <S.SubmitButton>등록</S.SubmitButton>
         </S.CommentInputContainer>
         <S.CommentContainer>
-          <Comment />
+          {detailData?.comments.map(ele => (
+            <Comment key={ele.id} nickname={''} comment={ele.comment} />
+          ))}
         </S.CommentContainer>
       </S.Footer>
     </S.Container>

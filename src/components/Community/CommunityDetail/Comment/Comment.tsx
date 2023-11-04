@@ -1,20 +1,21 @@
+import { ContentInfo } from 'components/Community/CommunityDetail/ContentsInfo/ContentInfo';
 import { ReactComponent as LikeSolidIcon } from 'components/Community/CommunityDetail/res/icon-like-solid.svg';
 
 import * as S from './Comment.style';
 
-export const Comment = () => {
+type Props = {
+  profileImage?: string;
+  nickname?: string;
+  comment?: string;
+};
+
+export const Comment = ({ profileImage, nickname, comment }: Props) => {
   return (
     <S.Comment>
-      <S.ArticleHeader>
-        <S.Profile src={'detailData?.user.profileImage'} />
-        <div>
-          <S.Nickname>{'detailData?.user.nickname'}님</S.Nickname>
-          <S.TimeDiff>12잔</S.TimeDiff>
-        </div>
-      </S.ArticleHeader>
+      <ContentInfo profileImage={profileImage} nickname={nickname} />
 
       <S.CommentContent>
-        <p>{'comments'}</p>
+        <p>{comment}</p>
         <S.IconBtn>
           <LikeSolidIcon /> <p>좋아요</p>
         </S.IconBtn>

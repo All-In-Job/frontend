@@ -42,28 +42,6 @@ export const Body = styled.article`
   gap: 32px;
 `;
 
-export const ArticleHeader = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-export const Profile = styled.img`
-  background-color: ${palette.background.primary};
-  border-radius: 100%;
-  height: 44px;
-  width: 44px;
-`;
-
-export const Nickname = styled.div`
-  ${textStyle.title02}
-`;
-
-export const TimeDiff = styled.div`
-  ${textStyle.label03}
-  color: ${palette.black200};
-`;
-
 export const ArticleTitle = styled.div`
   ${textStyle.title11}
   color: ${palette.black500};
@@ -118,6 +96,13 @@ export const CommentInputContainer = styled.form`
   display: flex;
   padding-bottom: 27px;
   border-bottom: 1px solid ${palette.black100};
+`;
+
+export const Profile = styled.img`
+  background-color: ${palette.background.primary};
+  border-radius: 100%;
+  height: 44px;
+  width: 44px;
 `;
 
 export const CommentInput = styled.input`
