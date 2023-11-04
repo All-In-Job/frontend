@@ -68,6 +68,10 @@ export const router = createBrowserRouter([
         path: ':menuName/:categoryId/:detailId',
         element: <DetailPage />,
       },
+      {
+        path: ':menuName/newpost',
+        element: <div></div>,
+      },
     ],
   },
 ]);
