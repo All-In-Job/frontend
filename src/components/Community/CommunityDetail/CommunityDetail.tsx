@@ -39,6 +39,7 @@ export const CommunityDetail = () => {
 
       <S.Body>
         <ContentInfo
+          date={detailData?.date}
           profileImage={detailData?.user.profileImage}
           nickname={detailData?.user.nickname}
         />
@@ -73,7 +74,7 @@ export const CommunityDetail = () => {
         </S.CommentInputContainer>
         <S.CommentContainer>
           {detailData?.comments.map(ele => (
-            <Comment key={ele.id} nickname={ele.nickname} comment={ele.comment} />
+            <Comment key={ele.id} nickname={ele.nickname} comment={ele.comment} date={ele.date} />
           ))}
         </S.CommentContainer>
       </S.Footer>

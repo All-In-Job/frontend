@@ -12,7 +12,6 @@ export type UserInfo = {
 export type Comments = {
   id: string;
   nickname: string;
-
   comment: string;
   date: string;
   userId: string;

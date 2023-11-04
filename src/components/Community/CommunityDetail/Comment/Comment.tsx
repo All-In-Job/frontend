@@ -3,16 +3,17 @@ import { ReactComponent as LikeSolidIcon } from 'components/Community/CommunityD
 
 import * as S from './Comment.style';
 
-type Props = {
+type Comments = {
   profileImage?: string;
   nickname?: string;
   comment?: string;
+  date: string;
 };
 
-export const Comment = ({ profileImage, nickname, comment }: Props) => {
+export const Comment = ({ profileImage, nickname, comment, date }: Comments) => {
   return (
     <S.Comment>
-      <ContentInfo profileImage={profileImage} nickname={nickname} />
+      <ContentInfo profileImage={profileImage} nickname={nickname} date={date} />
 
       <S.CommentContent>
         <p>{comment}</p>
