@@ -29,13 +29,13 @@ images[0].id = 1;
 images[images.length - 1].id = 5;
 
 export const Carousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1);
 
   return (
     <StyledContainer>
       <button onClick={() => setCurrentIndex(currentIndex + 1)}>button</button>
       <CarouselSlide images={images} currentIndex={currentIndex} />
-      <CarouselItemSelector images={images} />
+      <CarouselItemSelector images={images} currentIndex={currentIndex} />
     </StyledContainer>
   );
 };

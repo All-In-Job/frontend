@@ -25,7 +25,7 @@ const StyledContainer = styled.div<{ imageCount: number; currentIndex: number }>
   width: ${props => props.imageCount * 100}%;
   height: 100%;
   display: flex;
-  margin-left: ${props => (props.currentIndex + 1) * IMAGE_WIDTH * -1}px;
+  margin-left: ${props => props.currentIndex * IMAGE_WIDTH * -1}px;
   transition: 0.3s all ease-in-out;
 `;
 const StyledImage = styled.div<{ image: Image }>`

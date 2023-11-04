@@ -2,17 +2,20 @@ import { FC } from 'react';
 
 import styled from '@emotion/styled';
 
+import theme from 'styles/theme';
+
 import { Image } from './Carousel';
 
 type Props = {
   images: Image[];
+  currentIndex: number;
 };
 
-export const CarouselItemSelector: FC<Props> = ({ images }) => {
+export const CarouselItemSelector: FC<Props> = ({ images, currentIndex }) => {
   return (
     <StyledContainer>
       {Array.from({ length: images.length - 2 }).map((_, idx) => {
-        return <StyledCircle key={idx} />;
+        return <StyledCircle key={idx} isTarget={currentIndex === idx + 1} />;
       })}
     </StyledContainer>
   );
@@ -26,10 +29,11 @@ const StyledContainer = styled.div`
   justify-content: center;
   gap: 4px;
 `;
-const StyledCircle = styled.button`
-  width: 11px;
+const StyledCircle = styled.button<{ isTarget: boolean }>`
+  width: ${props => (props.isTarget ? '31px' : '11px')};
   height: 11px;
-  border-radius: 100%;
+  border-radius: 20px;
   cursor: pointer;
-  background-color: #d9d9d9;
+  background-color: ${props => (props.isTarget ? theme.palette.orange500 : '#d9d9d9')};
+  transition: 0.3s width ease-in-out;
 `;
