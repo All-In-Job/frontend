@@ -11,13 +11,6 @@ export const ContentInfo = styled.div`
   gap: 8px;
 `;
 
-export const Profile = styled.img`
-  background-color: ${palette.background.primary};
-  border-radius: 100%;
-  height: 44px;
-  width: 44px;
-`;
-
 export const Nickname = styled.div`
   ${textStyle.title02}
 `;

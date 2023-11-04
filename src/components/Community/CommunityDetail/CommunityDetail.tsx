@@ -8,6 +8,7 @@ import { Community } from 'types/community.type';
 
 import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
 import { Count } from 'components/commons/Count/Count';
+import { ProfileImage } from 'components/Community/ProfileImage/ProfileImage';
 
 import { Comment } from './Comment/Comment';
 import * as S from './CommunityDetail.styles';
@@ -73,7 +74,7 @@ export const CommunityDetail = () => {
       <S.Footer>
         <S.Title>댓글</S.Title>
         <S.CommentInputContainer>
-          <S.Profile src={detailData?.user.profileImage} />
+          <ProfileImage />
           <S.CommentInput placeholder='댓글을 남겨보세요!' />
           <S.SubmitButton>등록</S.SubmitButton>
         </S.CommentInputContainer>
