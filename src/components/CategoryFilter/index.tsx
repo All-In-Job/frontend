@@ -29,18 +29,19 @@ const CategoryFilter: FC<Props> = ({
 }) => {
   const [selectedCategories, setSelectedCategories] = useState<CategoryData[]>([]);
   const [isMyInterestOn, setIsMyInterestOn] = useState(false);
+
   const { categoryId } = useParams();
 
-  const initialSelectedCategory = hashTagList.find(
-    selectedCategory => selectedCategory.id === categoryId,
-  );
-
   useEffect(() => {
-    if (initialSelectedCategory) {
-      setSelectedCategories([initialSelectedCategory]);
-      onSearch([initialSelectedCategory]);
-    }
-  }, [categoryId, initialSelectedCategory, onSearch]);
+    const setInitialCategory = () => {
+      const initialCategory = hashTagList.filter(item => item.id === categoryId);
+
+      setSelectedCategories(initialCategory);
+      onSearch(initialCategory);
+    };
+
+    setInitialCategory();
+  }, [categoryId]);
 
   const handleSelectCategory = (value: CategoryData) => {
     const isContainCategory = selectedCategories.find(item => item.id === value.id);

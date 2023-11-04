@@ -58,8 +58,11 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
 
     // if (user) navigate('/signup/basic-info', { state: user });
     if (socialLoginResponse.email)
-      navigate('/signup/basic-info', { state: socialLoginResponse.email });
-    if (socialLoginResponse.accessToken) navigate('/', { state: socialLoginResponse.accessToken });
+      navigate('/signup/basic-info', { state: { email: socialLoginResponse.email, provider } });
+    if (socialLoginResponse.accessToken) {
+      localStorage.setItem('accessToken', socialLoginResponse.accessToken);
+      navigate('/', { state: socialLoginResponse });
+    }
   }, [user, socialLoginResponse]);
 
   return {

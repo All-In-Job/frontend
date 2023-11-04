@@ -14,7 +14,7 @@ function SignUp() {
     <S.LoginContainer>
       <S.LoginWrapper>
         <S.LoginBox>
-          <S.CharactorBox />
+          <S.LogoBox src='/src/assets/images/mainLogo.png' />
           <S.Logo>ALL IN JOB</S.Logo>
           <S.AccountActionsBox>
             <S.ActionBtn>회원가입</S.ActionBtn>
