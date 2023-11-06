@@ -15,14 +15,16 @@ export const NewPost = () => {
     <S.Container>
       <S.Title>올인잡님의 생각을 나눠보세요!</S.Title>
       <form>
-        <S.SelectContainer>
-          <label htmlFor='select'>주제</label>
-          <DropDownSelect options={options} placeholder='주제를 선택해주세요!' />
-        </S.SelectContainer>
-        <div>
-          <label></label>
-          <input type='text' />
-        </div>
+        <S.InputContainer>
+          <S.SelectWrapper>
+            <label>주제</label>
+            <DropDownSelect options={options} placeholder='주제를 선택해주세요!' />
+          </S.SelectWrapper>
+          <S.InputWrapper>
+            <label>제목</label>
+            <S.Input type='text' placeholder='제목을 입력해주세요!' />
+          </S.InputWrapper>
+        </S.InputContainer>
         <div></div>
       </form>
     </S.Container>

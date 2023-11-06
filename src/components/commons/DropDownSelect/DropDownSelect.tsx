@@ -20,8 +20,9 @@ const customStyles: StylesConfig = {
   }),
   placeholder: provided => ({
     ...provided,
-    color: palette.black200,
     ...textStyle.title02,
+    fontFamily: 'Medium',
+    color: palette.black200,
   }),
   menu: provided => ({
     ...provided,

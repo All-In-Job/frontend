@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import Select from 'react-select';
 
 import theme from 'styles/theme';
 
@@ -18,9 +17,32 @@ export const Title = styled.h1`
   margin: 32px 0px;
 `;
 
-export const SelectContainer = styled.div`
+export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 25px;
 `;
 
-export const StyleSelect = styled(Select)``;
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  & label {
+    ${textStyle.title01}
+  }
+`;
+export const SelectWrapper = styled(InputWrapper)`
+  width: 588px;
+`;
+
+export const Input = styled.input`
+  padding: 12px;
+  border: 1px solid ${palette.black200};
+  border-radius: 4px;
+  &::placeholder {
+    ${textStyle.title02}
+    font-family: Medium;
+    color: ${palette.black200};
+  }
+`;
