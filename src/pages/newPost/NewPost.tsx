@@ -1,4 +1,4 @@
-import { DropDownSelect } from 'components/commons/Select/Select';
+import { DropDownSelect } from 'components/commons/DropDownSelect/DropDownSelect';
 
 import * as S from './newPost.styles';
 
