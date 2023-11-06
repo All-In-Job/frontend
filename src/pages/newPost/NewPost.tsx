@@ -17,7 +17,7 @@ export const NewPost = () => {
       <form>
         <S.SelectContainer>
           <label htmlFor='select'>주제</label>
-          <DropDownSelect options={options} />
+          <DropDownSelect options={options} placeholder='주제를 선택해주세요!' />
         </S.SelectContainer>
         <div>
           <label></label>

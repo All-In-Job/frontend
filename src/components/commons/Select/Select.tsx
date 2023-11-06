@@ -8,9 +8,6 @@ const { textStyle } = theme;
 const { palette } = theme;
 
 const customStyles: StylesConfig = {
-  container: provided => ({
-    ...provided,
-  }),
   control: (provided, state) => ({
     ...provided,
     '&:hover': 'none',
@@ -20,6 +17,11 @@ const customStyles: StylesConfig = {
         : `${palette.black200} 1px solid`,
     borderRadius: state.menuIsOpen ? '4px 4px 0px 0px' : provided.borderRadius,
     boxShadow: state.menuIsOpen ? '0px 3px 6px #00000047' : 'none',
+  }),
+  placeholder: provided => ({
+    ...provided,
+    color: palette.black200,
+    ...textStyle.title02,
   }),
   menu: provided => ({
     ...provided,
@@ -62,11 +64,13 @@ const DropdownIndicator = (props: DropdownIndicatorProps) => {
 
 type Props = {
   options: { value: string; label: string }[];
+  placeholder: string;
 };
 
-export const DropDownSelect = ({ options }: Props) => {
+export const DropDownSelect = ({ options, placeholder }: Props) => {
   return (
     <Select
+      placeholder={placeholder}
       openMenuOnFocus={false}
       options={options}
       components={{ DropdownIndicator }}
