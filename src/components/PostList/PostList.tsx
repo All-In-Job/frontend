@@ -27,6 +27,7 @@ export const PostList = ({ data }: Props) => {
                 scrap={el.scrap}
                 view={el.view}
                 mainImage={el.mainImage}
+                type={el.type}
               />
             );
           }
