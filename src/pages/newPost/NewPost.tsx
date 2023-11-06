@@ -1,5 +1,10 @@
+import { useState } from 'react';
+
+import ReactQuill from 'react-quill';
+
 import { DropDownSelect } from 'components/commons/DropDownSelect/DropDownSelect';
 
+import 'react-quill/dist/quill.snow.css';
 import * as S from './newPost.styles';
 
 const options = [
@@ -11,6 +16,7 @@ const options = [
 ];
 
 export const NewPost = () => {
+  const [value, setValue] = useState('');
   return (
     <S.Container>
       <S.Title>올인잡님의 생각을 나눠보세요!</S.Title>
@@ -25,7 +31,7 @@ export const NewPost = () => {
             <S.Input type='text' placeholder='제목을 입력해주세요!' />
           </S.InputWrapper>
         </S.InputContainer>
-        <div></div>
+        <ReactQuill theme='snow' value={value} onChange={setValue} />
       </form>
     </S.Container>
   );
