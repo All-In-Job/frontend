@@ -8,6 +8,8 @@ import { CertificateDetailInfo } from 'components/Certificate/CertificateDetailI
 import { CertificateExamSchedule } from 'components/Certificate/CertificateExamSchedule/CertificateExamSchedule';
 import { CommunityDetail } from 'components/Community/CommunityDetail/CommunityDetail';
 import { DetailPageInfo } from 'components/DetailPageInfo';
+import { DetailDescription } from 'components/RestDetailPageInfo/DetailDescription';
+import { RestDetailPageInfo } from 'components/RestDetailPageInfo/RestDetailPageInfo';
 
 import * as S from './index.styles';
 
@@ -40,44 +42,68 @@ export const DetailPage = () => {
       <>
         <CommunityDetail />
         {menuName !== 'community' && (
-          <>
-            <DetailPageInfo
-              title={detailData.title}
-              dDay={12}
-              bookmarkCount={detailData.scrap}
-              viewCount={detailData.view}
-            >
-              {/* 상황에 맞는 컴포넌트 추가 */}
-              {menuName === 'qnet' && (
-                <CertificateDetailInfo
-                  mainImage={detailData.mainImage}
-                  title={detailData.title}
-                  enTitle={detailData.enTitle}
-                  relateDepartment={detailData.relateDepartment}
-                  institution={detailData.institution}
-                />
-              )}
-            </DetailPageInfo>
+          <DetailPageInfo
+            title={detailData.title}
+            dDay={12}
+            bookmarkCount={detailData.scrap}
+            viewCount={detailData.view}
+          >
+            {/* 상황에 맞는 컴포넌트 추가 */}
+            {'enterprise' in detailData && (
+              <RestDetailPageInfo
+                type={detailData.type}
+                menuName={menuName}
+                mainImage={detailData.mainImage}
+                enterprise={detailData.enterprise}
+                institution={detailData.institution}
+                target={detailData.target}
+                period={detailData.period}
+                participationPeriod={detailData.participationPeriod}
+                preferentialTreatment={detailData.preferentialTreatment}
+                scale={detailData.scale}
+                benefits={detailData.benefits}
+                interests={detailData.interests}
+                field={detailData.field}
+                homePage={detailData.homePage}
+                location={detailData.location}
+                personnel={detailData.personnel}
+              />
+            )}
 
-            <S.Container>
-              <S.Title>{'시험일정'}</S.Title>
-              {/* 상황에 맞는 컴포넌트 추가 */}
-              {menuName === 'qnet' && (
-                <CertificateExamSchedule
-                  id={pathProps(detailData.examSchedules)?.id}
-                  key={pathProps(detailData.examSchedules)?.id}
-                  turn={pathProps(detailData.examSchedules)?.turn}
-                  wtReceipt={pathProps(detailData.examSchedules)?.wtReceipt}
-                  wtDday={pathProps(detailData.examSchedules)?.wtDday}
-                  wtResultDay={pathProps(detailData.examSchedules)?.wtResultDay}
-                  ptReceipt={pathProps(detailData.examSchedules)?.ptReceipt}
-                  ptDday={pathProps(detailData.examSchedules)?.ptDday}
-                  resultDay={pathProps(detailData.examSchedules)?.resultDay}
-                />
-              )}
-            </S.Container>
-          </>
+            {'enTitle' in detailData && (
+              <CertificateDetailInfo
+                type={detailData.type}
+                mainImage={detailData.mainImage}
+                title={detailData.title}
+                enTitle={detailData.enTitle}
+                relateDepartment={detailData.relateDepartment}
+                institution={detailData.institution}
+              />
+            )}
+          </DetailPageInfo>
         )}
+        <S.Container>
+          <S.Title>{'enterprise' in detailData ? '상세내용' : '시험일정'}</S.Title>
+
+          {/* 상황에 맞는 컴포넌트 추가 */}
+          {'enterprise' in detailData && (
+            <DetailDescription type={detailData.type} detail={detailData.detail} />
+          )}
+
+          {'enTitle' in detailData && (
+            <CertificateExamSchedule
+              id={pathProps(detailData.examSchedules)?.id}
+              key={pathProps(detailData.examSchedules)?.id}
+              turn={pathProps(detailData.examSchedules)?.turn}
+              wtReceipt={pathProps(detailData.examSchedules)?.wtReceipt}
+              wtDday={pathProps(detailData.examSchedules)?.wtDday}
+              wtResultDay={pathProps(detailData.examSchedules)?.wtResultDay}
+              ptReceipt={pathProps(detailData.examSchedules)?.ptReceipt}
+              ptDday={pathProps(detailData.examSchedules)?.ptDday}
+              resultDay={pathProps(detailData.examSchedules)?.resultDay}
+            />
+          )}
+        </S.Container>
       </>
     );
 };

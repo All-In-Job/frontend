@@ -10,6 +10,7 @@ export type ExamSchedule = {
 };
 
 export type Certificate = {
+  type: 'certificate';
   id: string;
   title: string;
   relateDepartment: string;
