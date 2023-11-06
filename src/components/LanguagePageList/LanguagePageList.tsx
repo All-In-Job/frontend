@@ -38,12 +38,11 @@ export const LanguagePageList = () => {
         <LanguagePageItem
           key={el.id}
           id={el.id}
-          test={el.test}
-          homPage={el.homPage}
+          title={el.title}
+          homePage={el.homePage}
           examDate={el.examDate}
           openDate={el.openDate}
           closeDate={el.closeDate}
-          Dday={el.Dday}
         />
       ))}
     </LanguageContainer>
