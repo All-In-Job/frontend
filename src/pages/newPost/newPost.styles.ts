@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Select from 'react-select';
 
 import theme from 'styles/theme';
 
@@ -22,11 +23,4 @@ export const SelectContainer = styled.div`
   flex-direction: column;
 `;
 
-export const Select = styled.select`
-  appearance: none;
-  padding: 12px;
-  background-color: red;
-  & option {
-    background-color: white;
-  }
-`;
+export const StyleSelect = styled(Select)``;
