@@ -1,36 +1,52 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 
 import styled from '@emotion/styled';
 
+import { Image } from './Carousel';
+
 type Props = {
-  currentImage: { id: number; source: string };
-  images: Props['currentImage'][];
+  images: { id: number; source: string }[];
+  currentIndex: number;
+  isTransition: boolean;
+  setIsTransition: Dispatch<SetStateAction<boolean>>;
 };
 
-export type CarouselSlideProps = Props;
+const IMAGE_WIDTH = 1200;
 
-// currentImage idx: 1 ~ 3
-export const CarouselSlide: FC<Props> = ({ currentImage, images }) => {
+export const CarouselSlide: FC<Props> = ({
+  images,
+  currentIndex,
+  isTransition,
+  // setIsTransition,
+}) => {
   return (
-    <StyledContainer idx={currentImage.id}>
-      {images.map((image, idx) => {
-        return <StyledImage key={image.id + idx} source={image.source} />;
-      })}
+    <StyledContainer
+      imageCount={images.length}
+      currentIndex={currentIndex}
+      isTransition={isTransition}
+    >
+      {images.map(image => (
+        <StyledImage key={image.id} image={image} />
+      ))}
     </StyledContainer>
   );
 };
 
-const StyledContainer = styled.div<{ idx: number }>`
-  width: 400%;
+const StyledContainer = styled.div<{
+  imageCount: number;
+  currentIndex: number;
+  isTransition: boolean;
+}>`
+  width: ${props => props.imageCount * 100}%;
   height: 100%;
-  margin-left: ${props => `${props.idx * 1200 * -1}px`};
-  transition: 0.5s ease-in-out;
+  display: flex;
+  margin-left: ${props => props.currentIndex * IMAGE_WIDTH * -1}px;
+  transition: ${props => (props.isTransition ? '0.3s all ease-in-out' : '')};
 `;
-const StyledImage = styled.div<{ source: string }>`
-  width: 1200px;
+const StyledImage = styled.div<{ image: Image }>`
+  width: 100%;
   height: 100%;
-  background-size: cover;
+  background-image: url(${props => props.image.source});
   background-position: center;
-  background-image: ${props => (props.source ? `url(${props.source})` : null)};
-  display: inline-block;
+  background-size: cover;
 `;
