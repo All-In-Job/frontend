@@ -5,26 +5,26 @@ import { ReactComponent as Bookmark } from 'components/InternPageList/res/img/bo
 import * as S from './InternPageItem.styles';
 
 export const InternPageItem = ({
-  institution,
+  preferentialTreatment,
   view,
   mainImage,
-  Dday,
+  closeDate,
   location,
   title,
-  organization,
+  enterprise,
 }: Inter) => {
   return (
     <S.InternWrapper>
       <S.CompanyBox>
         <S.Img src={mainImage}></S.Img>
-        {organization}
+        {enterprise}
       </S.CompanyBox>
       <S.TextBox>
         <S.Title>{title}</S.Title>
-        {institution}
+        {preferentialTreatment}
       </S.TextBox>
       <S.Location>{location}</S.Location>
-      <S.date>{Dday}</S.date>
+      <S.date>{closeDate}</S.date>
       <S.View>{view}</S.View>
       <S.Scrap>
         <S.BookmarkBtn>
