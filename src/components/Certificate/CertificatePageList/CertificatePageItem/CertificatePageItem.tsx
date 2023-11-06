@@ -16,6 +16,7 @@ export const CertificatePageItem = ({
   view,
   examSchedules,
   mainImage,
+  type,
 }: Props) => {
   const pathProps = (data: ExamSchedule[]) => {
     return data && examSchedules[0];
@@ -36,6 +37,7 @@ export const CertificatePageItem = ({
             view={view}
             mainImage={mainImage}
             examSchedules={examSchedules}
+            type={type}
           />
         </S.CertificateItemWrapper>
       </S.Container>

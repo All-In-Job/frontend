@@ -42,6 +42,7 @@ export const CertificatePageList = () => {
           scrap={el.scrap}
           view={el.view}
           examSchedules={el.examSchedules}
+          type={el.type}
         />
       ))}
     </S.List>
