@@ -1,41 +1,54 @@
 import styled from '@emotion/styled';
 
 export const InternWrapper = styled.div`
+  width: 100%;
   display: flex;
   padding: 8px 0px 8px 16px;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #e1e2e4;
+  & > a {
+    width: 66%;
+    display: flex;
+  }
   & > span {
-    flex-basis: 13%;
-    flex-grow: 1;
-    padding: 16px;
+    justify-content: center;
+    width: 8%;
+    margin: 16px;
     text-align: center;
+    &:nth-of-type(1) {
+      width: 10% !important;
+    }
   }
 `;
 
 export const CompanyBox = styled.span`
-  flex-basis: 40% !important;
+  width: 41%;
   display: flex;
   align-items: center;
-  gap: 24px;
+  padding: 0 !important;
   color: #000;
   font-size: 20px;
   line-height: 26px;
   text-align: start !important;
-  /* border-right: 1px solid #ffe8df; */
+  span {
+    padding: 16px;
+  }
 `;
 
 export const Img = styled.img`
-  width: 68px;
-  height: 68px;
+  width: 84px;
+  height: 100%;
+  padding: 11px 8px;
 `;
 
 export const TextBox = styled.span`
+  width: 58%;
   display: flex;
+  padding: 16px;
+  justify-content: center;
   flex-direction: column;
   gap: 8px;
-  flex-basis: 47% !important;
   text-align: left !important;
 `;
 
@@ -46,6 +59,15 @@ export const Title = styled.span`
   line-height: 26px;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+`;
+
+export const JobRole = styled.span`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const Scrap = styled.span`
@@ -66,6 +88,12 @@ export const BookmarkBtn = styled.div`
   background: var(--background-secondary, #fff6f2);
 `;
 
-export const Location = styled.span``;
+export const Location = styled.span`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+`;
 export const date = styled.span``;
 export const View = styled.span``;

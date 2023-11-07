@@ -12,7 +12,7 @@ export const TableTitle = styled.div`
   width: 100%;
   height: 48px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   color: #414140;
   background-color: #fff6f2;
@@ -20,16 +20,18 @@ export const TableTitle = styled.div`
 
 export const Heading = styled.span`
   height: 100%;
-  flex-basis: 13%;
-  flex-grow: 1;
+  width: 9.7%;
   padding: 16px;
   text-align: center;
   border-left: 1px solid var(--orange-100, #ffe8df);
   &:nth-of-type(1) {
-    flex-basis: 40% !important;
+    width: 25% !important;
     border-left: none;
   }
   &:nth-of-type(2) {
-    flex-basis: 47% !important;
+    width: 34.5% !important;
+  }
+  &:nth-of-type(3) {
+    width: 11.4% !important;
   }
 `;

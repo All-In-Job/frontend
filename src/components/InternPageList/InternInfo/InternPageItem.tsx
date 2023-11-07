@@ -1,3 +1,4 @@
+import { Link, useParams } from 'react-router-dom';
 import { Inter } from 'types/intern.type';
 
 import { ReactComponent as Bookmark } from 'components/InternPageList/res/img/bookmark.svg';
@@ -5,26 +6,31 @@ import { ReactComponent as Bookmark } from 'components/InternPageList/res/img/bo
 import * as S from './InternPageItem.styles';
 
 export const InternPageItem = ({
-  institution,
+  id,
+  preferentialTreatment,
   view,
   mainImage,
-  Dday,
+  closeDate,
   location,
   title,
-  organization,
+  enterprise,
 }: Inter) => {
+  const { menuName, categoryId } = useParams();
+
   return (
     <S.InternWrapper>
-      <S.CompanyBox>
-        <S.Img src={mainImage}></S.Img>
-        {organization}
-      </S.CompanyBox>
-      <S.TextBox>
-        <S.Title>{title}</S.Title>
-        {institution}
-      </S.TextBox>
+      <Link to={`/${menuName}/${categoryId}/${id}`} target={'_blank'}>
+        <S.CompanyBox>
+          <S.Img src={mainImage}></S.Img>
+          <span>{enterprise}</span>
+        </S.CompanyBox>
+        <S.TextBox>
+          <S.Title>{title}</S.Title>
+          <S.JobRole>{preferentialTreatment}</S.JobRole>
+        </S.TextBox>
+      </Link>
       <S.Location>{location}</S.Location>
-      <S.date>{Dday}</S.date>
+      <S.date>{closeDate}</S.date>
       <S.View>{view}</S.View>
       <S.Scrap>
         <S.BookmarkBtn>
