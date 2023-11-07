@@ -1,11 +1,11 @@
 export type Inter = {
   id: string;
-  institution: string;
+  preferentialTreatment: string;
   view: number;
   mainImage: string;
-  organization: string;
+  enterprise: string;
   scrap: number;
-  Dday: string;
+  closeDate: string;
   location: string;
   title: string;
 };

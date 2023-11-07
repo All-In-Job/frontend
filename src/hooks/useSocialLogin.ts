@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 
 import { useGoogleLogin } from '@react-oauth/google';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import { socialLogin } from 'apis/login';
 
 export const useSocialLogin = (provider: 'kakao' | 'google') => {
+  const [kakaoToken, setKakaoToken] = useState<string | null>(null);
   const [socialAccessToken, setSocialAccessToken] = useState<string | null>(null);
   const [socialLoginResponse, setSocialLoginResponse] = useState({
     email: '',
@@ -20,30 +21,39 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
     onError: error => console.log('Login Failed:', error),
   });
 
-  const kakaoLogin = () => {
+  const openKakaoPopupWindow = () => {
     const popup = window.open(
       `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${
         import.meta.env.VITE_API_KAKAO_CLIENT_ID
-      }&redirect_uri=http://${location.host}/`,
+      }&redirect_uri=http://${location.host}/&scope=account_email`,
       'PopupWin',
       'width=500,height=600',
     );
 
-    const handleKakaoAuth = (e: MessageEvent) => {
+    const storeKakaoToken = (e: MessageEvent) => {
       const { kakaoToken } = e.data;
-      if (!kakaoToken) return;
-      setSocialAccessToken(kakaoToken);
-    };
 
+      if (!kakaoToken) return;
+      setKakaoToken(kakaoToken);
+    };
     if (popup) {
-      window.removeEventListener('message', handleKakaoAuth);
-      window.addEventListener('message', handleKakaoAuth);
+      window.removeEventListener('message', storeKakaoToken);
+      window.addEventListener('message', storeKakaoToken);
     }
+  };
+
+  const getKakaoAccessToken = async (token: string) => {
+    const { data } = await axios.post(
+      `https://kauth.kakao.com/oauth/token?client_id=${
+        import.meta.env.VITE_API_KAKAO_CLIENT_ID
+      }&redirect_uri=http://${location.host}/&code=${token}&grant_type=authorization_code`,
+    );
+    setSocialAccessToken(data.access_token);
   };
 
   const login = () => {
     if (provider === 'google') googleLogin();
-    if (provider === 'kakao') kakaoLogin();
+    if (provider === 'kakao') openKakaoPopupWindow();
   };
 
   const sendSocialAccessTokenToServer = async (token: string) => {
@@ -61,6 +71,10 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
       if (e instanceof AxiosError && e.response) console.log(e.response);
     }
   };
+
+  useEffect(() => {
+    if (kakaoToken) getKakaoAccessToken(kakaoToken);
+  }, [kakaoToken]);
 
   useEffect(() => {
     socialAccessToken && sendSocialAccessTokenToServer(socialAccessToken);

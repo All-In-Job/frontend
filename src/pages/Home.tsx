@@ -7,10 +7,14 @@ import Header from 'components/Navigation/Header/Header';
 export const Home = () => {
   const outlet = useOutlet();
 
+  const isNotLoginPage = location.pathname !== '/login';
+
   return (
     <>
-      <Header />
-      <Layout>{outlet ? <Outlet /> : <Main />}</Layout>
+      <Layout>
+        {isNotLoginPage && <Header />}
+        {outlet ? <Outlet /> : <Main />}
+      </Layout>
     </>
   );
 };

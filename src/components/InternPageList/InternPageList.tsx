@@ -40,12 +40,12 @@ export const InternPageList = () => {
         <InternPageItem
           key={el.id}
           id={el.id}
-          institution={el.institution}
+          preferentialTreatment={el.preferentialTreatment}
           view={el.view}
           mainImage={el.mainImage}
-          organization={el.organization}
+          enterprise={el.enterprise}
           scrap={el.scrap}
-          Dday={el.Dday}
+          closeDate={el.closeDate}
           location={el.location}
           title={el.title}
         />
