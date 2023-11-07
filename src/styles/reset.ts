@@ -32,8 +32,18 @@ export const resetCSS = css`
   *[hidden] {
       display: none;
   }
+  html {
+    min-height: 100vh;
+    height: 100%;
+  }
   body {
     line-height: 1;
+    min-height: 100%;
+    height: 100%;
+  }
+  #root {
+    min-height: 100%;
+    height: 100%;
   }
   menu, ol, ul {
     list-style: none;
