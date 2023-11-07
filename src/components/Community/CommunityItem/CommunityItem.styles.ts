@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
-export const CommunityItem = styled.article`
+export const CommunityItem = styled(Link)`
   display: flex;
   padding: 24px 32px;
   flex-direction: column;

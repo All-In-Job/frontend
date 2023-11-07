@@ -68,6 +68,12 @@ function Header() {
       ],
     },
   ];
+
+  // const nav = useNavigate();
+  // const moveToScrap = () => {
+  //   nav('/scrap');
+  // };
+
   return (
     <>
       <S.HeaderContainer>

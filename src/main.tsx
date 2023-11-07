@@ -21,5 +21,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         </GlobalStyles>
       </ThemeProvider>
     </RecoilRoot>
+    ,
   </React.StrictMode>,
 );

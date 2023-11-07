@@ -1,4 +1,4 @@
-type ExamSchedule = {
+export type ExamSchedule = {
   id: string;
   turn: string;
   wtReceipt: string;
@@ -10,6 +10,7 @@ type ExamSchedule = {
 };
 
 export type Certificate = {
+  type: 'certificate';
   id: string;
   title: string;
   relateDepartment: string;

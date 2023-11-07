@@ -17,6 +17,7 @@ export default AsideProfile;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  min-width: 288px;
   width: 100%;
   height: 100%;
 `;
