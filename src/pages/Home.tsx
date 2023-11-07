@@ -11,6 +11,8 @@ export const Home = () => {
 
   const navigate = useNavigate();
 
+  const isNotLoginPage = location.pathname !== '/login';
+
   useEffect(() => {
     const handleKakaoAuth = (e: MessageEvent) => {
       const { kakaoToken } = e.data;
@@ -29,7 +31,7 @@ export const Home = () => {
   return (
     <>
       <Layout>
-        <Header />
+        {isNotLoginPage && <Header />}
         {outlet ? <Outlet /> : <Main />}
       </Layout>
     </>
