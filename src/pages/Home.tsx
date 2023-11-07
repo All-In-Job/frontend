@@ -7,12 +7,17 @@ import Header from 'components/Navigation/Header/Header';
 export const Home = () => {
   const outlet = useOutlet();
 
-  const isNotLoginPage = location.pathname !== '/login';
+  const isHeaderShown = () => {
+    const { pathname } = location;
+    if (pathname.includes('login')) return null;
+    if (pathname.includes('signup')) return null;
+    return <Header />;
+  };
 
   return (
     <>
       <Layout>
-        {isNotLoginPage && <Header />}
+        {isHeaderShown()}
         {outlet ? <Outlet /> : <Main />}
       </Layout>
     </>
