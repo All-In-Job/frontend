@@ -118,7 +118,8 @@ function InterestFieldSetup() {
   const submitButton = async () => {
     try {
       const payload = {
-        major: '컴퓨터공학',
+        가정교육과: '소비자생활문화산업학과',
+        // major: { mainMajor: '가정교육과', subMajor: '소비자생활문화산업학과' },
         interests: [
           {
             competition: ['기획/아이디어', '과학/공학'],
