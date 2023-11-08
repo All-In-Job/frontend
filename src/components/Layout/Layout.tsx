@@ -24,8 +24,10 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
 
   useLayoutEffect(() => {
     const Layout = layoutEl.current;
-    Layout &&
-      setLayoutMarginTop(Layout, getHeaderHeight(Layout.previousSibling as HTMLHeadElement));
+    if (Layout) {
+      const Header = Layout.previousSibling;
+      setLayoutMarginTop(Layout, getHeaderHeight(Header as HTMLHeadElement));
+    }
 
     if (kakaoToken) {
       // 서버에 카카오 액세스 토큰 전송하여 가입된 유저인지 확인
