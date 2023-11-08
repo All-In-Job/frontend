@@ -1,4 +1,4 @@
-import { ReactNode, useLayoutEffect, useRef } from 'react';
+import { FC, PropsWithChildren, useLayoutEffect, useRef } from 'react';
 
 import { useLocation, useSearchParams } from 'react-router-dom';
 
@@ -6,11 +6,7 @@ import theme from 'styles/theme';
 
 import * as S from './layout.styles';
 
-type Props = {
-  children: ReactNode;
-};
-
-export const Layout = ({ children }: Props) => {
+export const Layout: FC<PropsWithChildren> = ({ children }) => {
   const location = useLocation();
   const layoutEl = useRef<HTMLDivElement>(null);
   const kakaoToken = useSearchParams()[0].get('code');
