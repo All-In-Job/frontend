@@ -132,6 +132,8 @@ function Header() {
         </S.MenuContainer>
       </S.HeaderContainer>
       {isHovered && <S.Overlay />}
+
+      <S.ContainerBox />
     </>
   );
 }

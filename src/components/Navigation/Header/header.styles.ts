@@ -11,6 +11,7 @@ export const HeaderContainer = styled.header`
   z-index: 1002;
   background-color: white;
   padding: 0 20px;
+  border: 1px solid #e1e2e4;
 `;
 
 export const MenuContainer = styled.nav`
@@ -42,7 +43,7 @@ export const HeaderLogo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 81px;
+  height: 70px;
   color: #fd6b36;
   font-size: 30px;
   font-weight: bold;
@@ -90,7 +91,7 @@ export const DetailItems = styled.div`
 
 export const HoverMenu = styled.div`
   position: fixed;
-  top: 81px;
+  top: 70px;
   left: 0;
   width: 100vw;
   height: 250px;
@@ -128,11 +129,15 @@ export const MenuWrapper = styled.ul`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 81px;
+  height: 70px;
   /* gap: 10px; */
 `;
 
 export const Box = styled.div`
   background-color: lightgrey;
   border: 1px solid black;
+`;
+
+export const ContainerBox = styled.div`
+  height: 70px;
 `;

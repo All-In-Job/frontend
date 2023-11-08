@@ -10,6 +10,7 @@ import { Home } from 'pages/Home';
 import Login from 'pages/login/Login';
 import Menu from 'pages/menu/Menu';
 import MenuList from 'pages/menu/MenuList/MenuList';
+import MyInfo from 'pages/myInfo/MyInfo';
 import ScrapPage from 'pages/scrap/ScrapPage';
 import Signup from 'pages/signUp/SignUp';
 
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
             element: <InterestFieldSetup />,
           },
         ],
+      },
+      {
+        path: 'my-info',
+        element: <MyInfo />,
       },
       {
         path: 'find-id',
