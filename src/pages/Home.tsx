@@ -16,10 +16,8 @@ export const Home = () => {
 
   return (
     <>
-      <Layout>
-        {isHeaderShown()}
-        {outlet ? <Outlet /> : <Main />}
-      </Layout>
+      {isHeaderShown()}
+      <Layout>{outlet ? <Outlet /> : <Main />}</Layout>
     </>
   );
 };
