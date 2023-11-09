@@ -13,6 +13,7 @@ import Calendar from './Calendar/Calendar';
 import { menuList, MenuList, getMenuById, MenuId } from './Category';
 import * as S from './Modal.styles';
 import { ReactComponent as Close } from './res/img/close.svg';
+import { ReactComponent as ExpandMore } from './res/img/expand_more.svg';
 
 const Modal = () => {
   const setIsModalVisible = useSetRecoilState(isAcitiviyModalState);
@@ -111,13 +112,16 @@ const Modal = () => {
         <S.ActivityWrapper>
           <S.H2>활동내역 분야</S.H2>
           <S.SelectBox show={CategoryOptions}>
-            <S.SelectInput
-              type='text'
-              placeholder='활동내역 분야를 선택해주세요.'
-              defaultValue={currentCategory}
-              onClick={() => setCategoryOptions(prev => !prev)}
-              show={CategoryOptions}
-            />
+            <label>
+              <S.SelectInput
+                type='text'
+                placeholder='활동내역 분야를 선택해주세요.'
+                defaultValue={currentCategory}
+                onClick={() => setCategoryOptions(prev => !prev)}
+                show={CategoryOptions}
+              />
+              <ExpandMore />
+            </label>
             <S.SelectOptions show={CategoryOptions} style={{ zIndex: 3 }}>
               {menuList.slice(0, 5).map(el => {
                 return (
@@ -133,13 +137,16 @@ const Modal = () => {
         <S.ActivityWrapper>
           <S.H2>분야 선택</S.H2>
           <S.SelectBox show={KeywordOptions}>
-            <S.SelectInput
-              type='text'
-              placeholder='활동 분야를 선택해주세요.'
-              defaultValue={currentKeyword}
-              onClick={() => setKeywordOptions(prev => !prev)}
-              show={KeywordOptions}
-            />
+            <label>
+              <S.SelectInput
+                type='text'
+                placeholder='활동 분야를 선택해주세요.'
+                defaultValue={currentKeyword}
+                onClick={() => setKeywordOptions(prev => !prev)}
+                show={KeywordOptions}
+              />
+              <ExpandMore />
+            </label>
             {foundMenuList?.items.slice(0, 1).map(item => {
               return (
                 <S.SelectOptions key={item.category} show={KeywordOptions}>

@@ -62,6 +62,14 @@ export const H1 = styled.h1`
 
 export const ActivityWrapper = styled.div`
   width: 100%;
+  label {
+    position: relative;
+    svg {
+      position: absolute;
+      top: 0;
+      right: 7px;
+    }
+  }
 `;
 
 export const H2 = styled.h2`
@@ -79,6 +87,20 @@ export const SelectBox = styled.div<{ show: boolean }>`
     props.show
       ? '0px 9px 28px 8px rgba(0, 0, 0, 0.05), 0px 6px 16px 0px rgba(0, 0, 0, 0.08), 0px 3px 6px -4px rgba(0, 0, 0, 0.12)'
       : 'none'};
+  label {
+    position: relative;
+    cursor: pointer;
+    svg {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      transform: rotate(${props => (props.show ? '180deg' : '0deg')});
+      path {
+        fill: ${props =>
+          props.show ? props.theme.palette.orange500 : props.theme.palette.black300};
+      }
+    }
+  }
 `;
 
 export const SelectBtn = styled.input<{ show: boolean }>`
@@ -92,7 +114,6 @@ export const SelectBtn = styled.input<{ show: boolean }>`
   font-weight: 500;
   line-height: 24px;
   border-radius: ${props => (props.show ? '4px 4px 0px 0px' : '4px')};
-  cursor: pointer;
   &::before {
     content: '⌵';
     position: absolute;
@@ -104,6 +125,7 @@ export const SelectBtn = styled.input<{ show: boolean }>`
 `;
 
 export const SelectInput = styled.input<{ show: boolean }>`
+  width: 100%;
   height: 48px;
   padding: 12px;
   color: ${props => (props.show ? '#FD6B36' : '#121110')}!important;
