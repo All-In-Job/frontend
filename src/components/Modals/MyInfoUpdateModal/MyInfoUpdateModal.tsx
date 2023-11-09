@@ -2,9 +2,11 @@ import { createContext, Dispatch, FormEventHandler, SetStateAction, useState } f
 
 import styled from '@emotion/styled';
 import { ReactComponent as CloseIcon } from 'assets/icons/close.svg';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { photos } from 'components/BasicInformation/PhotoList';
 import { ModalBackground } from 'components/Modals/ModalBackground';
+import { isMyInfoUpdateModalVisible } from 'store/modal';
 
 import { InterestFieldSection } from './InterestFieldSection';
 import { NicknameSection } from './NicknameSection';
@@ -35,6 +37,8 @@ export const MyInfoUpdateModal = () => {
     photo: photos[0],
     nickname: '',
   });
+  const isMyInfoUpdateModalVisibleValue = useRecoilValue(isMyInfoUpdateModalVisible);
+  const setIsMyInfoUpdateModalVisible = useSetRecoilState(isMyInfoUpdateModalVisible);
 
   const requestMyInfoUpdate: FormEventHandler = e => {
     e.preventDefault();
@@ -48,21 +52,27 @@ export const MyInfoUpdateModal = () => {
     //    })
   };
 
-  return (
-    <ModalBackground>
-      <MyInfoUpdateContext.Provider value={{ formState, setFormState }}>
-        <StyledForm onSubmit={requestMyInfoUpdate}>
-          <StyledHeader>
-            <StyledTitle>프로필 수정</StyledTitle>
-            <CloseIcon />
-          </StyledHeader>
-          <ProfileImageSection />
-          <NicknameSection />
-          <InterestFieldSection />
-        </StyledForm>
-      </MyInfoUpdateContext.Provider>
-    </ModalBackground>
-  );
+  const closeModal = () => {
+    setIsMyInfoUpdateModalVisible(false);
+  };
+
+  if (isMyInfoUpdateModalVisibleValue)
+    return (
+      <ModalBackground>
+        <MyInfoUpdateContext.Provider value={{ formState, setFormState }}>
+          <StyledForm onSubmit={requestMyInfoUpdate}>
+            <StyledHeader>
+              <StyledTitle>프로필 수정</StyledTitle>
+              <CloseIcon onClick={closeModal} />
+            </StyledHeader>
+            <ProfileImageSection />
+            <NicknameSection />
+            <InterestFieldSection />
+          </StyledForm>
+        </MyInfoUpdateContext.Provider>
+      </ModalBackground>
+    );
+  return null;
 };
 
 const StyledForm = styled.form`
