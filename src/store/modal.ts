@@ -8,6 +8,6 @@ export const isModalVisibleState = atom({
 });
 
 export const isAcitiviyModalState = atom({
-  key: 'isModalVisible',
+  key: 'isAcitiviyModalVisible',
   default: false,
 });

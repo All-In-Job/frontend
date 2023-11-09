@@ -26,6 +26,8 @@ export const ModalContainer = styled.div`
 `;
 
 export const Form = styled.form`
+  width: 492px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;

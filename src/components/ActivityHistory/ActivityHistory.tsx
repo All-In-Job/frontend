@@ -1,5 +1,9 @@
 import { useState } from 'react';
 
+import { useRecoilState } from 'recoil';
+
+import { isAcitiviyModalState } from 'store/modal';
+
 import * as S from './ActivityHistory.styles';
 import Modal from './Modal';
 import { ReactComponent as AddIcon } from './res/img/add_circle.svg';
@@ -31,10 +35,13 @@ const Tabs = [
 
 const ActivityHistory = () => {
   const [clickedTab, setClickedTab] = useState('competition');
-  const [modalOpen, setModalOpen] = useState(false);
+  const [isAcitiviyModalVisible, setIsModalVisible] = useRecoilState(isAcitiviyModalState);
   const onModalOpen = () => {
-    setModalOpen(prev => !prev);
+    setIsModalVisible(prev => !prev);
+    console.log(isAcitiviyModalVisible);
   };
+
+  // console.log(isAcitiviyModalVisible);
   return (
     <S.ActivityHistory>
       <S.Heading>활동내역</S.Heading>
@@ -74,7 +81,7 @@ const ActivityHistory = () => {
         </S.ActivityBox>
         <S.Description>활동내용 (메타버스 콘텐츠 아이디어 기획)</S.Description>
       </S.ActivityList>
-      {modalOpen ? <Modal onModalOpen={() => setModalOpen(prev => !prev)} /> : null}
+      {isAcitiviyModalVisible ? <Modal /> : null}
     </S.ActivityHistory>
   );
 };

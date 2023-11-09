@@ -2,7 +2,12 @@ import { ChangeEvent, useEffect, useState } from 'react';
 
 // import { ActivityHistory } from 'types/activityHistory';
 
+import { useSetRecoilState } from 'recoil';
+
+// import { menuList } from 'pages/menu/menuList';
 import { requestActivityCrawlingData } from 'apis/activityHistoryCrawling';
+import { ModalBackground } from 'components/Modals/ModalBackground';
+import { isAcitiviyModalState } from 'store/modal';
 
 import Calendar from './Calendar/Calendar';
 import { menuList, MenuList, getMenuById, MenuId } from './Category';
@@ -10,11 +15,16 @@ import * as S from './Modal.styles';
 import { ReactComponent as Close } from './res/img/close.svg';
 // import { SelectBox } from './SelectBox';
 
-interface IModal {
-  onModalOpen: () => void;
-}
+// interface IModal {
+//   onModalOpen: () => void;
+// }
 
-const Modal = ({ onModalOpen }: IModal) => {
+const Modal = () => {
+  const setIsModalVisible = useSetRecoilState(isAcitiviyModalState);
+  const onModalOpen = () => {
+    setIsModalVisible(prev => !prev);
+  };
+  // const { register, handleSubmit, setValue } = useForm<IForm>();
   const [menuId, setMenuId] = useState('');
   const foundMenuList = getMenuById(menuId! as MenuId);
 
@@ -97,40 +107,39 @@ const Modal = ({ onModalOpen }: IModal) => {
   console.log(searchTitle);
 
   return (
-    <S.Overlay>
-      <S.ModalContainer>
-        <S.Form>
-          <S.TitleBox>
-            <S.H1>활동내역 추가</S.H1>
-            <Close onClick={onModalOpen} />
-          </S.TitleBox>
+    <ModalBackground>
+      <S.Form>
+        <S.TitleBox>
+          <S.H1>활동내역 추가</S.H1>
+          <Close onClick={onModalOpen} />
+        </S.TitleBox>
 
-          <S.ActivityWrapper>
-            <S.H2>활동내역 분야</S.H2>
-            <S.SelectBox show={CategoryOptions}>
-              <S.SelectInput
-                type='text'
-                placeholder='활동내역 분야를 선택해주세요.'
-                defaultValue={currentCategory}
-                onClick={() => setCategoryOptions(prev => !prev)}
-                show={CategoryOptions}
-              />
-              <S.SelectOptions show={CategoryOptions} style={{ zIndex: 3 }}>
-                {menuList.slice(0, 5).map(el => {
-                  return (
-                    <S.Option key={el.id} onClick={() => onSelectCategory(el)}>
-                      {el.title}
-                    </S.Option>
-                  );
-                })}
-              </S.SelectOptions>
-            </S.SelectBox>
-          </S.ActivityWrapper>
+        <S.ActivityWrapper>
+          <S.H2>활동내역 분야</S.H2>
+          <S.SelectBox show={CategoryOptions}>
+            <S.SelectInput
+              type='text'
+              placeholder='활동내역 분야를 선택해주세요.'
+              defaultValue={currentCategory}
+              onClick={() => setCategoryOptions(prev => !prev)}
+              show={CategoryOptions}
+            />
+            <S.SelectOptions show={CategoryOptions} style={{ zIndex: 3 }}>
+              {menuList.slice(0, 5).map(el => {
+                return (
+                  <S.Option key={el.id} onClick={() => onSelectCategory(el)}>
+                    {el.title}
+                  </S.Option>
+                );
+              })}
+            </S.SelectOptions>
+          </S.SelectBox>
+        </S.ActivityWrapper>
 
-          <S.ActivityWrapper>
-            <S.H2>분야 선택</S.H2>
-            <S.SelectBox show={KeywordOptions}>
-              {/* <S.SelectBtn
+        <S.ActivityWrapper>
+          <S.H2>분야 선택</S.H2>
+          <S.SelectBox show={KeywordOptions}>
+            {/* <S.SelectBtn
                 type='text'
                 placeholder='활동 분야를 선택해주세요.'
                 onClick={() => setKeywordOptions(prev => !prev)}
@@ -139,82 +148,81 @@ const Modal = ({ onModalOpen }: IModal) => {
               >
                 {currentKeyword}
               </S.SelectBtn> */}
-              <S.SelectInput
-                type='text'
-                placeholder='활동 분야를 선택해주세요.'
-                defaultValue={currentKeyword}
-                onClick={() => setKeywordOptions(prev => !prev)}
-                show={KeywordOptions}
-              />
-              {foundMenuList?.items.slice(0, 1).map(item => {
-                return (
-                  <S.SelectOptions key={item.category} show={KeywordOptions}>
-                    {item.keywords?.map(keyword => {
-                      return (
-                        <S.Option key={keyword} onClick={onSelectKeyword}>
-                          {`${keyword}`}
-                        </S.Option>
-                      );
-                    })}
-                  </S.SelectOptions>
-                );
-              })}
-            </S.SelectBox>
-          </S.ActivityWrapper>
-
-          <S.ActivityWrapper>
-            <S.H2>활동명</S.H2>
-            <S.Input
+            <S.SelectInput
               type='text'
-              placeholder='활동명을 입력해주세요.'
-              value={inputTitleValue}
-              onChange={onChangeInputTitleValue}
-              onFocus={onFocusInput}
-              onBlur={onBlurInput}
+              placeholder='활동 분야를 선택해주세요.'
+              defaultValue={currentKeyword}
+              onClick={() => setKeywordOptions(prev => !prev)}
+              show={KeywordOptions}
             />
-            {isVisibleTitle && (
-              <S.SelectWrapper>
-                <S.SelectOptions1 style={{ zIndex: 1 }}>
-                  {searchTitle?.map(title => (
-                    <S.Option key={title} onMouseDown={() => onSelectTitle(title)}>
-                      {title}
-                    </S.Option>
-                  ))}
-                </S.SelectOptions1>
-              </S.SelectWrapper>
-            )}
-            {/* <S.SelectOptions show={isVisibleTitle} style={{ zIndex: 1 }}>
+            {foundMenuList?.items.slice(0, 1).map(item => {
+              return (
+                <S.SelectOptions key={item.category} show={KeywordOptions}>
+                  {item.keywords?.map(keyword => {
+                    return (
+                      <S.Option key={keyword} onClick={onSelectKeyword}>
+                        {`${keyword}`}
+                      </S.Option>
+                    );
+                  })}
+                </S.SelectOptions>
+              );
+            })}
+          </S.SelectBox>
+        </S.ActivityWrapper>
+
+        <S.ActivityWrapper>
+          <S.H2>활동명</S.H2>
+          <S.Input
+            type='text'
+            placeholder='활동명을 입력해주세요.'
+            value={inputTitleValue}
+            onChange={onChangeInputTitleValue}
+            onFocus={onFocusInput}
+            onBlur={onBlurInput}
+          />
+          {isVisibleTitle && (
+            <S.SelectWrapper>
+              <S.SelectOptions1 style={{ zIndex: 1 }}>
+                {searchTitle?.map(title => (
+                  <S.Option key={title} onMouseDown={() => onSelectTitle(title)}>
+                    {title}
+                  </S.Option>
+                ))}
+              </S.SelectOptions1>
+            </S.SelectWrapper>
+          )}
+          {/* <S.SelectOptions show={isVisibleTitle} style={{ zIndex: 1 }}>
               {searchTitle?.map(title => (
                 <S.Option key={title} onMouseDown={() => onSelectTitle(title)}>
                   {title}
                 </S.Option>
               ))}
             </S.SelectOptions> */}
+        </S.ActivityWrapper>
+
+        {menuId === 'language' ? (
+          <S.ActivityWrapper>
+            <S.H2>점수</S.H2>
+            <S.Input type='text' placeholder='점수를 입력해주세요' />
           </S.ActivityWrapper>
-
-          {menuId === 'language' ? (
-            <S.ActivityWrapper>
-              <S.H2>점수</S.H2>
-              <S.Input type='text' placeholder='점수를 입력해주세요' />
-            </S.ActivityWrapper>
-          ) : menuId === 'intern' ? (
-            <S.ActivityWrapper>
-              <S.H2>활동 기간</S.H2>
-              <Calendar />
-            </S.ActivityWrapper>
-          ) : null}
-
-          <S.ActivityWrapper style={{ zIndex: 0 }}>
-            <S.H2>활동 내용</S.H2>
-            <S.Textarea
-              placeholder='활동 내용을 입력해주세요.&#10;활동했던 내용을 요약해서 적어보세요!'
-            />
+        ) : menuId === 'intern' ? (
+          <S.ActivityWrapper>
+            <S.H2>활동 기간</S.H2>
+            <Calendar />
           </S.ActivityWrapper>
+        ) : null}
 
-          <S.Submit type='submit'>저장</S.Submit>
-        </S.Form>
-      </S.ModalContainer>
-    </S.Overlay>
+        <S.ActivityWrapper style={{ zIndex: 0 }}>
+          <S.H2>활동 내용</S.H2>
+          <S.Textarea
+            placeholder='활동 내용을 입력해주세요.&#10;활동했던 내용을 요약해서 적어보세요!'
+          />
+        </S.ActivityWrapper>
+
+        <S.Submit type='submit'>저장</S.Submit>
+      </S.Form>
+    </ModalBackground>
   );
 };
 
