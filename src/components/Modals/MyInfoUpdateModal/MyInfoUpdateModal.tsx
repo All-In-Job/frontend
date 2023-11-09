@@ -8,7 +8,7 @@ import { NicknameSection } from './NicknameSection';
 import { ProfileImageSection } from './ProfileImageSection';
 
 const MODAL_WIDTH_RATIO = 2.67;
-const MODAL_HEIGHT_RATIO = 1.35;
+const MODAL_HEIGHT_RATIO = 1.15;
 
 export const MyInfoUpdateModal = () => {
   return (
