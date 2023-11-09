@@ -1,3 +1,5 @@
+import { FormEventHandler } from 'react';
+
 import styled from '@emotion/styled';
 import { ReactComponent as CloseIcon } from 'assets/icons/close.svg';
 
@@ -11,9 +13,13 @@ const MODAL_WIDTH_RATIO = 2.67;
 const MODAL_HEIGHT_RATIO = 1.15;
 
 export const MyInfoUpdateModal = () => {
+  const requestMyInfoUpdate: FormEventHandler = e => {
+    e.preventDefault();
+  };
+
   return (
     <ModalBackground>
-      <StyledContainer>
+      <StyledForm onSubmit={requestMyInfoUpdate}>
         <StyledHeader>
           <StyledTitle>프로필 수정</StyledTitle>
           <CloseIcon />
@@ -21,12 +27,12 @@ export const MyInfoUpdateModal = () => {
         <ProfileImageSection />
         <NicknameSection />
         <InterestFieldSection />
-      </StyledContainer>
+      </StyledForm>
     </ModalBackground>
   );
 };
 
-const StyledContainer = styled.div`
+const StyledForm = styled.form`
   background-color: white;
   width: ${window.innerWidth / MODAL_WIDTH_RATIO}px;
   height: ${window.innerHeight / MODAL_HEIGHT_RATIO}px;
