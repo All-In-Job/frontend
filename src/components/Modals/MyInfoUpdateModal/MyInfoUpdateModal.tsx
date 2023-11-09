@@ -39,6 +39,13 @@ export const MyInfoUpdateModal = () => {
   const requestMyInfoUpdate: FormEventHandler = e => {
     e.preventDefault();
     console.log('formState:', formState);
+    // const res = await updateProfile(formState)
+    //   .then(res => console.log(res))
+    //   .catch(e => {
+    //      if (e instanceof AxiosError && e.response) {
+    //          console.log(e.response)
+    //      }
+    //    })
   };
 
   return (
