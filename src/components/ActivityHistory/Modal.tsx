@@ -1,26 +1,86 @@
-import { useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
-// import { menuList } from 'pages/menu/menuList';
+// import { ActivityHistory } from 'types/activityHistory';
 
-import Calendar from './Calendar';
+import { requestActivityCrawlingData } from 'apis/activityHistoryCrawling';
+
+import Calendar from './Calendar/Calendar';
 import { menuList, MenuList, getMenuById, MenuId } from './Category';
 import * as S from './Modal.styles';
 import { ReactComponent as Close } from './res/img/close.svg';
+// import { SelectBox } from './SelectBox';
 
 interface IModal {
   onModalOpen: () => void;
 }
 
 const Modal = ({ onModalOpen }: IModal) => {
-  // const { register, handleSubmit, setValue } = useForm<IForm>();
   const [menuId, setMenuId] = useState('');
   const foundMenuList = getMenuById(menuId! as MenuId);
 
-  const [currentCategory, setCurrentCategory] = useState('활동내역 분야를 선택해주세요.');
+  const [currentCategory, setCurrentCategory] = useState('');
   const [CategoryOptions, setCategoryOptions] = useState(false);
 
-  const [currentKeyword, setCurrentKeyword] = useState('활동 분야를 선택해주세요.');
+  const [currentKeyword, setCurrentKeyword] = useState('');
   const [KeywordOptions, setKeywordOptions] = useState(false);
+
+  // 활동명 검색
+  const [activityData, setActivityData] = useState<string[]>([]);
+  const [inputTitleValue, setInputTitleValue] = useState<string>('');
+  const [isVisibleTitle, setIsVisibleTitle] = useState(false);
+
+  // const titleList = activityData.map(list => list.title);
+  const searchTitle = activityData.filter(title => title.includes(inputTitleValue));
+
+  const onChangeInputTitleValue = (e: ChangeEvent<HTMLInputElement>) =>
+    setInputTitleValue(e.target.value);
+
+  const onSelectTitle = (title: string) => setInputTitleValue(title);
+
+  const onFocusInput = () => setIsVisibleTitle(true);
+
+  const onBlurInput = () => setIsVisibleTitle(false);
+
+  const updateData = async () => {
+    const queries = {
+      path: encodeURI(currentKeyword),
+    };
+    (async () => {
+      try {
+        const res = await requestActivityCrawlingData(menuId as string, queries);
+        const titleList = res.data.data.map(list => list.title);
+        setActivityData(titleList);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  };
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      if (currentKeyword) updateData();
+    }, 500);
+    return () => {
+      clearTimeout(debounce);
+    };
+  }, [currentKeyword]);
+
+  // useEffect(() => {
+  //   const queries = {
+  //     path: encodeURI(currentKeyword),
+  //   };
+
+  //   if (currentKeyword) {
+  //     (async () => {
+  //       try {
+  //         const res = await requestActivityCrawlingData(menuId as string, queries);
+  //         setActivityData(res.data.data);
+  //       } catch (error) {
+  //         console.error(error);
+  //       }
+  //     })();
+  //   }
+  // }, [currentKeyword]);
 
   const onSelectCategory = (menu: MenuList) => {
     setMenuId(menu.id);
@@ -34,6 +94,8 @@ const Modal = ({ onModalOpen }: IModal) => {
     setKeywordOptions(prev => !prev);
   };
 
+  console.log(searchTitle);
+
   return (
     <S.Overlay>
       <S.ModalContainer>
@@ -46,13 +108,13 @@ const Modal = ({ onModalOpen }: IModal) => {
           <S.ActivityWrapper>
             <S.H2>활동내역 분야</S.H2>
             <S.SelectBox show={CategoryOptions}>
-              <S.SelectBtn
-                type='button'
+              <S.SelectInput
+                type='text'
+                placeholder='활동내역 분야를 선택해주세요.'
+                defaultValue={currentCategory}
                 onClick={() => setCategoryOptions(prev => !prev)}
                 show={CategoryOptions}
-              >
-                {currentCategory}
-              </S.SelectBtn>
+              />
               <S.SelectOptions show={CategoryOptions} style={{ zIndex: 3 }}>
                 {menuList.slice(0, 5).map(el => {
                   return (
@@ -68,21 +130,29 @@ const Modal = ({ onModalOpen }: IModal) => {
           <S.ActivityWrapper>
             <S.H2>분야 선택</S.H2>
             <S.SelectBox show={KeywordOptions}>
-              <S.SelectBtn
-                type='button'
+              {/* <S.SelectBtn
+                type='text'
+                placeholder='활동 분야를 선택해주세요.'
                 onClick={() => setKeywordOptions(prev => !prev)}
                 show={KeywordOptions}
                 style={{ zIndex: 2 }}
               >
                 {currentKeyword}
-              </S.SelectBtn>
+              </S.SelectBtn> */}
+              <S.SelectInput
+                type='text'
+                placeholder='활동 분야를 선택해주세요.'
+                defaultValue={currentKeyword}
+                onClick={() => setKeywordOptions(prev => !prev)}
+                show={KeywordOptions}
+              />
               {foundMenuList?.items.slice(0, 1).map(item => {
                 return (
                   <S.SelectOptions key={item.category} show={KeywordOptions}>
                     {item.keywords?.map(keyword => {
                       return (
                         <S.Option key={keyword} onClick={onSelectKeyword}>
-                          {`#${keyword}`}
+                          {`${keyword}`}
                         </S.Option>
                       );
                     })}
@@ -94,7 +164,32 @@ const Modal = ({ onModalOpen }: IModal) => {
 
           <S.ActivityWrapper>
             <S.H2>활동명</S.H2>
-            <S.Input type='text' placeholder='활동명을 입력해주세요.' />
+            <S.Input
+              type='text'
+              placeholder='활동명을 입력해주세요.'
+              value={inputTitleValue}
+              onChange={onChangeInputTitleValue}
+              onFocus={onFocusInput}
+              onBlur={onBlurInput}
+            />
+            {isVisibleTitle && (
+              <S.SelectWrapper>
+                <S.SelectOptions1 style={{ zIndex: 1 }}>
+                  {searchTitle?.map(title => (
+                    <S.Option key={title} onMouseDown={() => onSelectTitle(title)}>
+                      {title}
+                    </S.Option>
+                  ))}
+                </S.SelectOptions1>
+              </S.SelectWrapper>
+            )}
+            {/* <S.SelectOptions show={isVisibleTitle} style={{ zIndex: 1 }}>
+              {searchTitle?.map(title => (
+                <S.Option key={title} onMouseDown={() => onSelectTitle(title)}>
+                  {title}
+                </S.Option>
+              ))}
+            </S.SelectOptions> */}
           </S.ActivityWrapper>
 
           {menuId === 'language' ? (
@@ -109,7 +204,7 @@ const Modal = ({ onModalOpen }: IModal) => {
             </S.ActivityWrapper>
           ) : null}
 
-          <S.ActivityWrapper>
+          <S.ActivityWrapper style={{ zIndex: 0 }}>
             <S.H2>활동 내용</S.H2>
             <S.Textarea
               placeholder='활동 내용을 입력해주세요.&#10;활동했던 내용을 요약해서 적어보세요!'

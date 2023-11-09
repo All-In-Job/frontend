@@ -79,7 +79,7 @@ export const SelectBox = styled.div<{ show: boolean }>`
       : 'none'};
 `;
 
-export const SelectBtn = styled.button<{ show: boolean }>`
+export const SelectBtn = styled.input<{ show: boolean }>`
   height: 48px;
   padding: 12px;
   color: ${props => (props.show ? '#FD6B36' : '#a0a09f')}!important;
@@ -101,7 +101,40 @@ export const SelectBtn = styled.button<{ show: boolean }>`
   }
 `;
 
+export const SelectInput = styled.input<{ show: boolean }>`
+  height: 48px;
+  padding: 12px;
+  color: ${props => (props.show ? '#FD6B36' : '#121110')}!important;
+  border: 1px solid ${props => (props.show ? '#FD6B36' : '#a0a09f')};
+  background: #fff;
+  text-align: start;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 24px;
+  border-radius: ${props => (props.show ? '4px 4px 0px 0px' : '4px')};
+  caret-color: transparent;
+  cursor: pointer;
+  ::placeholder {
+    color: ${props => (props.show ? '#FD6B36' : '#a0a09f')};
+  }
+  ::-webkit-input-placeholder {
+    color: ${props => (props.show ? '#FD6B36' : '#a0a09f')};
+  }
+  :-ms-input-placeholder {
+    color: ${props => (props.show ? '#FD6B36' : '#a0a09f')};
+  }
+  &::before {
+    content: '⌵';
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    color: ${props => (props.show ? '#FD6B36' : '#717070')};
+    font-size: 24px;
+  }
+`;
+
 export const SelectOptions = styled.ul<{ show: boolean }>`
+  position: relative;
   display: flex;
   width: 100%;
   height: 240px;
@@ -128,14 +161,49 @@ export const SelectOptions = styled.ul<{ show: boolean }>`
   }
 `;
 
+export const SelectWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+export const SelectOptions1 = styled.ul`
+  position: absolute;
+  display: flex;
+  width: 100%;
+  max-height: 240px;
+  flex-direction: column;
+  align-items: start;
+  background: var(--black-white-wh, #fff);
+  overflow: auto;
+  z-index: 1;
+  box-shadow:
+    0px 9px 28px 8px rgba(0, 0, 0, 0.05),
+    0px 6px 16px 0px rgba(0, 0, 0, 0.08),
+    0px 3px 6px -4px rgba(0, 0, 0, 0.12);
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  ::-webkit-scrollbar-thumb {
+    height: 48px;
+    background-color: var(--orange-500, #fd6b36);
+  }
+  ::-webkit-scrollbar-track {
+    background-color: var(--orange-100, #ffe8df);
+  }
+`;
+
 export const Option = styled.li`
   width: 100%;
   height: 48px;
+  min-height: 48px;
   padding: 12px;
   color: var(--black-200, #121110) !important;
   font-size: 17px;
   font-weight: 500;
   line-height: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   &:hover {
     border: 1px solid var(--line-normal, #e1e2e4);
     background: var(--background-primary, #ededed);
@@ -159,6 +227,7 @@ export const Input = styled.input`
   }
   :focus {
     border: 1px solid var(--orange-500, #fd6b36);
+    border-radius: 4px 4px 0px 0px;
   }
 `;
 
