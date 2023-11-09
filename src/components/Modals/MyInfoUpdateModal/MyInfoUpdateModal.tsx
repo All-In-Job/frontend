@@ -1,33 +1,59 @@
-import { FormEventHandler } from 'react';
+import { createContext, Dispatch, FormEventHandler, SetStateAction, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { ReactComponent as CloseIcon } from 'assets/icons/close.svg';
 
+import { photos } from 'components/BasicInformation/PhotoList';
 import { ModalBackground } from 'components/Modals/ModalBackground';
 
 import { InterestFieldSection } from './InterestFieldSection';
 import { NicknameSection } from './NicknameSection';
 import { ProfileImageSection } from './ProfileImageSection';
 
+export type MyInfoUpdateModalContext = {
+  formState: MyInfoFormState;
+  setFormState: Dispatch<SetStateAction<MyInfoFormState>>;
+};
+export type MyInfoFormState = {
+  photo: string;
+  nickname: string;
+};
+
 const MODAL_WIDTH_RATIO = 2.67;
 const MODAL_HEIGHT_RATIO = 1.15;
 
+export const MyInfoUpdateContext = createContext<MyInfoUpdateModalContext>({
+  formState: {
+    photo: photos[0],
+    nickname: '',
+  },
+  setFormState: () => {},
+});
+
 export const MyInfoUpdateModal = () => {
+  const [formState, setFormState] = useState<MyInfoFormState>({
+    photo: photos[0],
+    nickname: '',
+  });
+
   const requestMyInfoUpdate: FormEventHandler = e => {
     e.preventDefault();
+    console.log('formState:', formState);
   };
 
   return (
     <ModalBackground>
-      <StyledForm onSubmit={requestMyInfoUpdate}>
-        <StyledHeader>
-          <StyledTitle>프로필 수정</StyledTitle>
-          <CloseIcon />
-        </StyledHeader>
-        <ProfileImageSection />
-        <NicknameSection />
-        <InterestFieldSection />
-      </StyledForm>
+      <MyInfoUpdateContext.Provider value={{ formState, setFormState }}>
+        <StyledForm onSubmit={requestMyInfoUpdate}>
+          <StyledHeader>
+            <StyledTitle>프로필 수정</StyledTitle>
+            <CloseIcon />
+          </StyledHeader>
+          <ProfileImageSection />
+          <NicknameSection />
+          <InterestFieldSection />
+        </StyledForm>
+      </MyInfoUpdateContext.Provider>
     </ModalBackground>
   );
 };
