@@ -84,19 +84,30 @@ export const BasicInformation = () => {
 
   return (
     <BasicInformationContext.Provider value={{ currentFormState, setCurrentFormState }}>
-      <StyledForm onSubmit={updateRequestBody}>
-        <StyledColumn>
-          <InputGroupHeader />
-          <InputGroup />
-        </StyledColumn>
-        <StyledColumn>
-          <PhotoListHeader />
-          <PhotoList />
-        </StyledColumn>
-      </StyledForm>
+      <StyledContainer>
+        <StyledForm onSubmit={updateRequestBody}>
+          <StyledColumn>
+            <InputGroupHeader />
+            <InputGroup />
+          </StyledColumn>
+          <StyledColumn>
+            <PhotoListHeader />
+            <PhotoList />
+          </StyledColumn>
+        </StyledForm>
+      </StyledContainer>
     </BasicInformationContext.Provider>
   );
 };
+
+const StyledContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  grid-column: span 12;
+`;
 
 const StyledForm = styled.form`
   width: 988px;
@@ -104,6 +115,7 @@ const StyledForm = styled.form`
   grid-template-columns: repeat(2, 1fr);
   border-radius: 24px;
   background-color: white;
+  grid-column-start: 2;
 `;
 const StyledColumn = styled.div`
   padding: 40px;
