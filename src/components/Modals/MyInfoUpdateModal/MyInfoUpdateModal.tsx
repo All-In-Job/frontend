@@ -1,6 +1,6 @@
 // import styled from '@emotion/styled';
 
-import { ModalBackground } from './ModalBackground';
+import { ModalBackground } from 'components/Modals/ModalBackground';
 
 // const MODAL_WIDTH_RATIO = 2.67;
 // const MODAL_HEIGHT_RATIO = 1.35;
