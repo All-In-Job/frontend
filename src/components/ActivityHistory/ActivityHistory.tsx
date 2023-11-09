@@ -38,10 +38,8 @@ const ActivityHistory = () => {
   const [isAcitiviyModalVisible, setIsModalVisible] = useRecoilState(isAcitiviyModalState);
   const onModalOpen = () => {
     setIsModalVisible(prev => !prev);
-    console.log(isAcitiviyModalVisible);
   };
 
-  // console.log(isAcitiviyModalVisible);
   return (
     <S.ActivityHistory>
       <S.Heading>활동내역</S.Heading>

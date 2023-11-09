@@ -13,18 +13,12 @@ import Calendar from './Calendar/Calendar';
 import { menuList, MenuList, getMenuById, MenuId } from './Category';
 import * as S from './Modal.styles';
 import { ReactComponent as Close } from './res/img/close.svg';
-// import { SelectBox } from './SelectBox';
-
-// interface IModal {
-//   onModalOpen: () => void;
-// }
 
 const Modal = () => {
   const setIsModalVisible = useSetRecoilState(isAcitiviyModalState);
   const onModalOpen = () => {
     setIsModalVisible(prev => !prev);
   };
-  // const { register, handleSubmit, setValue } = useForm<IForm>();
   const [menuId, setMenuId] = useState('');
   const foundMenuList = getMenuById(menuId! as MenuId);
 
@@ -139,15 +133,6 @@ const Modal = () => {
         <S.ActivityWrapper>
           <S.H2>분야 선택</S.H2>
           <S.SelectBox show={KeywordOptions}>
-            {/* <S.SelectBtn
-                type='text'
-                placeholder='활동 분야를 선택해주세요.'
-                onClick={() => setKeywordOptions(prev => !prev)}
-                show={KeywordOptions}
-                style={{ zIndex: 2 }}
-              >
-                {currentKeyword}
-              </S.SelectBtn> */}
             <S.SelectInput
               type='text'
               placeholder='활동 분야를 선택해주세요.'
@@ -192,13 +177,6 @@ const Modal = () => {
               </S.SelectOptions1>
             </S.SelectWrapper>
           )}
-          {/* <S.SelectOptions show={isVisibleTitle} style={{ zIndex: 1 }}>
-              {searchTitle?.map(title => (
-                <S.Option key={title} onMouseDown={() => onSelectTitle(title)}>
-                  {title}
-                </S.Option>
-              ))}
-            </S.SelectOptions> */}
         </S.ActivityWrapper>
 
         {menuId === 'language' ? (
