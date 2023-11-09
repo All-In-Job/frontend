@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { ReactComponent as CloseIcon } from 'assets/icons/close.svg';
 
 import { ModalBackground } from 'components/Modals/ModalBackground';
 
@@ -12,10 +13,15 @@ const MODAL_HEIGHT_RATIO = 1.35;
 export const MyInfoUpdateModal = () => {
   return (
     <ModalBackground>
-      <StyledContainer>MyInfoUpdateModal</StyledContainer>
-      <ProfileImageSection />
-      <NicknameSection />
-      <InterestFieldSection />
+      <StyledContainer>
+        <StyledHeader>
+          <StyledTitle>프로필 수정</StyledTitle>
+          <CloseIcon />
+        </StyledHeader>
+        <ProfileImageSection />
+        <NicknameSection />
+        <InterestFieldSection />
+      </StyledContainer>
     </ModalBackground>
   );
 };
@@ -24,4 +30,15 @@ const StyledContainer = styled.div`
   background-color: white;
   width: ${window.innerWidth / MODAL_WIDTH_RATIO}px;
   height: ${window.innerHeight / MODAL_HEIGHT_RATIO}px;
+  border-radius: 24px;
+  padding: 40px;
+`;
+const StyledHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+`;
+const StyledTitle = styled.h1`
+  font-size: 24px;
 `;
