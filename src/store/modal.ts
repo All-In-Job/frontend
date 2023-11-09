@@ -6,3 +6,8 @@ export const isModalVisibleState = atom({
     myInfoUpdate: false,
   },
 });
+
+export const isAcitiviyModalState = atom({
+  key: 'isAcitiviyModalVisible',
+  default: false,
+});
