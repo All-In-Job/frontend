@@ -1,13 +1,7 @@
 import { atom } from 'recoil';
 
-export const isModalVisibleState = atom({
-  key: 'isModalVisible',
-  default: {
-    myInfoUpdate: false,
-  },
-});
+const generateOptions = (state: string) => ({ key: state, default: false });
 
-export const isAcitiviyModalState = atom({
-  key: 'isAcitiviyModalVisible',
-  default: false,
-});
+export const isMyInfoUpdateModalVisible = atom(generateOptions('isMyInfoUpdateModalVisible'));
+
+export const isActivityModalState = atom(generateOptions('isActivityModalState'));
