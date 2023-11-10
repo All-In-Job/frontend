@@ -81,6 +81,7 @@ export const H2 = styled.h2`
 export const SelectBox = styled.div<{ show: boolean }>`
   position: relative;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   box-shadow: ${props =>
@@ -103,26 +104,26 @@ export const SelectBox = styled.div<{ show: boolean }>`
   }
 `;
 
-export const SelectBtn = styled.input<{ show: boolean }>`
-  height: 48px;
-  padding: 12px;
-  color: ${props => (props.show ? '#FD6B36' : '#a0a09f')}!important;
-  border: 1px solid ${props => (props.show ? '#FD6B36' : '#a0a09f')};
-  background: #fff;
-  text-align: start;
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 24px;
-  border-radius: ${props => (props.show ? '4px 4px 0px 0px' : '4px')};
-  &::before {
-    content: '⌵';
-    position: absolute;
-    top: 10px;
-    right: 12px;
-    color: ${props => (props.show ? '#FD6B36' : '#717070')};
-    font-size: 24px;
-  }
-`;
+// export const SelectBtn = styled.input<{ show: boolean }>`
+//   height: 48px;
+//   padding: 12px;
+//   color: ${props => (props.show ? '#FD6B36' : '#a0a09f')}!important;
+//   border: 1px solid ${props => (props.show ? '#FD6B36' : '#a0a09f')};
+//   background: #fff;
+//   text-align: start;
+//   font-size: 17px;
+//   font-weight: 500;
+//   line-height: 24px;
+//   border-radius: ${props => (props.show ? '4px 4px 0px 0px' : '4px')};
+//   &::before {
+//     content: '⌵';
+//     position: absolute;
+//     top: 10px;
+//     right: 12px;
+//     color: ${props => (props.show ? '#FD6B36' : '#717070')};
+//     font-size: 24px;
+//   }
+// `;
 
 export const SelectInput = styled.input<{ show: boolean }>`
   width: 100%;
@@ -136,6 +137,7 @@ export const SelectInput = styled.input<{ show: boolean }>`
   font-weight: 500;
   line-height: 24px;
   border-radius: ${props => (props.show ? '4px 4px 0px 0px' : '4px')};
+  box-sizing: border-box;
   caret-color: transparent;
   cursor: pointer;
   ::placeholder {
