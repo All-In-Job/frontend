@@ -39,4 +39,5 @@ const StyledBody = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   background-color: ${theme.palette.background.secondary};
+  border-radius: 12px;
 `;
