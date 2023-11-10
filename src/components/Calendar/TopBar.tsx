@@ -1,5 +1,9 @@
 import { FC } from 'react';
 
+import styled from '@emotion/styled';
+
+import theme from 'styles/theme';
+
 type CurrentDate = {
   year: number;
   month: number;
@@ -36,31 +40,30 @@ export const TopBar: FC<TopBarPropsType> = ({ currentDate, setCurrentDate }) => 
   };
 
   return (
-    <header
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '40px',
-        marginTop: '10px',
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
-      }}
-    >
+    <StyledContainer style={{}}>
       <button style={buttonStyle} onClick={() => changeMonth('prev')}>
         {'<'}
       </button>
-      <div
-        style={{
-          display: 'grid',
-          placeItems: 'center',
-        }}
-      >
+      <StyledDate>
         <span>
           {currentDate.year}년 {currentDate.month + 1}월
         </span>
-      </div>
+      </StyledDate>
       <button style={buttonStyle} onClick={() => changeMonth('next')}>
         {'>'}
       </button>
-    </header>
+    </StyledContainer>
   );
 };
+
+const StyledContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-bottom: 1px ${theme.palette.line.normal} solid;
+`;
+const StyledDate = styled.div`
+  display: grid;
+  place-items: center;
+`;
