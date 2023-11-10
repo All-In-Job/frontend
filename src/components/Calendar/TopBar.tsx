@@ -40,7 +40,7 @@ export const TopBar: FC<TopBarPropsType> = ({ currentDate, setCurrentDate }) => 
   };
 
   return (
-    <StyledContainer style={{}}>
+    <StyledContainer>
       <button style={buttonStyle} onClick={() => changeMonth('prev')}>
         {'<'}
       </button>
