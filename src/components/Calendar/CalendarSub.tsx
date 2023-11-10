@@ -7,4 +7,5 @@ export const CalendarSub = () => {
 const StyledContainer = styled.div`
   grid-column: span 1;
   background-color: white;
+  border-radius: 12px;
 `;

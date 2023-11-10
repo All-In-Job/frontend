@@ -38,4 +38,5 @@ const StyledContainer = styled.div`
   height: 100%;
   background-color: white;
   padding: 20px 32px;
+  border-radius: 12px;
 `;
