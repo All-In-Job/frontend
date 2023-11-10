@@ -35,7 +35,6 @@ const Button = styled.button`
   width: 30px;
   height: 100%;
   border-radius: 4px;
-  margin-right: 24px;
   background-color: ${props => props.theme.palette.background.primary};
   cursor: pointer;
 

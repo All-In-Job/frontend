@@ -1,7 +1,10 @@
 import { useState } from 'react';
 
+import styled from '@emotion/styled';
+
 import ArrowButton from './ArrowButton/ArrowButton';
-import * as S from './pagination.styles';
+import MenuListNumber from './NumberLayout/MenuListNumber';
+import MyPageNumber from './NumberLayout/MyPageNumber';
 import { ReactComponent as LeftArrow } from './res/img/arrow_left.svg';
 import { ReactComponent as RightArrow } from './res/img/arrow_right.svg';
 
@@ -43,30 +46,18 @@ function Pagination(props: PaginationProps) {
   };
 
   return (
-    <S.PaginationContainer>
+    <PaginationContainer>
       <ArrowButton icon={LeftArrow} isDisabled={targetPage === 1} onClick={onClickPrevPage} />
 
       {props.isChangeNumberLayout ? (
-        <S.PaginationLayout02>
-          <span>{targetPage}</span>
-          <span>/</span>
-          <span>{lastPage}</span>
-        </S.PaginationLayout02>
+        <MyPageNumber lastPage={lastPage} targetPage={targetPage} />
       ) : (
-        <S.PaginationLayout01>
-          {new Array(10).fill(1).map(
-            (_, index) =>
-              index + startPage <= lastPage && (
-                <S.NumberButton
-                  key={index}
-                  isActive={index + startPage === targetPage}
-                  onClick={() => onClickPageNumber(index + startPage)}
-                >
-                  {index + startPage}
-                </S.NumberButton>
-              ),
-          )}
-        </S.PaginationLayout01>
+        <MenuListNumber
+          currentPage={targetPage}
+          handlePageClick={onClickPageNumber}
+          lastPage={lastPage}
+          startPage={startPage}
+        />
       )}
 
       <ArrowButton
@@ -74,8 +65,15 @@ function Pagination(props: PaginationProps) {
         isDisabled={targetPage === lastPage}
         onClick={onClickNextPage}
       />
-    </S.PaginationContainer>
+    </PaginationContainer>
   );
 }
 
 export default Pagination;
+
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+`;
