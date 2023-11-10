@@ -1,3 +1,5 @@
+import { createContext, useState } from 'react';
+
 import styled from '@emotion/styled';
 
 import theme from 'styles/theme';
@@ -5,17 +7,38 @@ import theme from 'styles/theme';
 import { CalendarMain } from './CalendarMain';
 import { CalendarSub } from './CalendarSub';
 
+type CalendarContextType = {
+  calendarState: CalendarStateType;
+  setCalendarState: (value: CalendarStateType) => void;
+};
+type CalendarStateType = { date: null | number; schedules: ScheduleType[] };
+type ScheduleType = { title: string; color: string };
+
+export const CalendarContext = createContext<CalendarContextType | null>(null);
+
 export const Calendar = () => {
+  const [calendarState, setCalendarState] = useState<CalendarStateType>({
+    schedules: [
+      {
+        title: '',
+        color: '',
+      },
+    ],
+    date: 0,
+  });
+
   return (
-    <StyledContainer>
-      <StyledHeader>
-        <StyledTitle>나만의 달력</StyledTitle>
-      </StyledHeader>
-      <StyledBody>
-        <CalendarMain />
-        <CalendarSub />
-      </StyledBody>
-    </StyledContainer>
+    <CalendarContext.Provider value={{ calendarState, setCalendarState }}>
+      <StyledContainer>
+        <StyledHeader>
+          <StyledTitle>나만의 달력</StyledTitle>
+        </StyledHeader>
+        <StyledBody>
+          <CalendarMain />
+          <CalendarSub />
+        </StyledBody>
+      </StyledContainer>
+    </CalendarContext.Provider>
   );
 };
 
