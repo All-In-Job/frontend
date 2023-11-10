@@ -11,8 +11,12 @@ type CalendarContextType = {
   calendarState: CalendarStateType;
   setCalendarState: (value: CalendarStateType) => void;
 };
-type CalendarStateType = { date: null | number; schedules: ScheduleType[] };
+type CalendarStateType = { schedules: ScheduleType[]; year: number; month: number; date: number };
 type ScheduleType = { title: string; color: string };
+
+export const Purple = '#EEB9FF';
+export const Blue = '#AAD6FF';
+export const Red = '#FFC1BD';
 
 export const CalendarContext = createContext<CalendarContextType | null>(null);
 
@@ -24,8 +28,12 @@ export const Calendar = () => {
         color: '',
       },
     ],
-    date: 0,
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    date: new Date().getDate(),
   });
+
+  console.log(calendarState);
 
   return (
     <CalendarContext.Provider value={{ calendarState, setCalendarState }}>
@@ -59,7 +67,7 @@ const StyledBody = styled.div`
   width: 100%;
   padding: 40px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(10, 1fr);
   gap: 24px;
   background-color: ${theme.palette.background.secondary};
   border-radius: 12px;

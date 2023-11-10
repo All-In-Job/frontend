@@ -1,7 +1,8 @@
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 
 import theme from 'styles/theme';
 
+import { CalendarContext } from './Calendar';
 import { ClickedDate } from './config';
 import { RowProps } from './Row';
 
@@ -14,6 +15,8 @@ type DateProps = {
 
 export const Date: FC<DateProps> = ({ nth, day, clickedDate, setClickedDate, idx }) => {
   const [hovered, setHovered] = useState(false);
+  const { calendarState } = useContext(CalendarContext)!;
+
   const isCurrentDateClicked = nth === clickedDate?.nth && clickedDate.date === day;
 
   const controlTextColor = () => {
@@ -32,6 +35,7 @@ export const Date: FC<DateProps> = ({ nth, day, clickedDate, setClickedDate, idx
     const bgColor = theme.palette.orange100;
     if (typeof day === 'number' && hovered) return bgColor;
     if (isCurrentDateClicked) return bgColor;
+    if (day === calendarState.date) return bgColor;
     return undefined;
   };
 

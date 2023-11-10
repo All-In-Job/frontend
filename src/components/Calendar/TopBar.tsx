@@ -1,8 +1,10 @@
-import { FC } from 'react';
+import { FC, useContext, useEffect } from 'react';
 
 import styled from '@emotion/styled';
 
 import theme from 'styles/theme';
+
+import { CalendarContext } from './Calendar';
 
 type CurrentDate = {
   year: number;
@@ -14,6 +16,12 @@ type TopBarPropsType = {
 };
 
 export const TopBar: FC<TopBarPropsType> = ({ currentDate, setCurrentDate }) => {
+  const { calendarState, setCalendarState } = useContext(CalendarContext)!;
+
+  useEffect(() => {
+    setCalendarState({ ...calendarState, year: currentDate.year, month: currentDate.month + 1 });
+  }, [currentDate]);
+
   const buttonStyle = {
     borderRadius: '100%',
     border: 'none',

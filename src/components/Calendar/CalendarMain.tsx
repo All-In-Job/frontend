@@ -34,7 +34,7 @@ export const CalendarMain = () => {
 };
 
 const StyledContainer = styled.div`
-  grid-column: span 3;
+  grid-column: span 6;
   height: 100%;
   background-color: white;
   padding: 20px 32px;

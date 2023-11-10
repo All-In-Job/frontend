@@ -2,7 +2,7 @@ import { FC, MouseEvent, useContext } from 'react';
 
 import styled from '@emotion/styled';
 
-import { CalendarContext } from './Calendar';
+import { Blue, CalendarContext, Purple, Red } from './Calendar';
 import { ClickedDate, Dates } from './config';
 import { Date } from './Date';
 
@@ -13,35 +13,32 @@ export type RowProps = {
   setClickedDate: (value: ClickedDate) => void;
 };
 
-const Purple = '#EEB9FF';
-const Blue = '#AAD6FF';
-const Red = '#FFC1BD';
-const tempSchedules = [
-  {
-    date: 10,
-    items: [
-      { title: '2023 Meta Spark AR 콘텐츠 공모전1', color: Red },
-      { title: '2023 Meta Spark AR 콘텐츠 공모전2', color: Blue },
-    ],
-  },
-  {
-    date: 15,
-    items: [
-      { title: '2023 Meta Spark AR 콘텐츠 공모전3', color: Red },
-      { title: '2023 Meta Spark AR 콘텐츠 공모전4', color: Purple },
-    ],
-  },
-  {
-    date: 20,
-    items: [
-      { title: '2023 Meta Spark AR 콘텐츠 공모전5', color: Purple },
-      { title: '2023 Meta Spark AR 콘텐츠 공모전6', color: Blue },
-    ],
-  },
-];
-
 export const Row: FC<RowProps> = ({ dates, nth, clickedDate, setClickedDate }) => {
-  const { setCalendarState } = useContext(CalendarContext)!;
+  const { calendarState, setCalendarState } = useContext(CalendarContext)!;
+
+  const tempSchedules = [
+    {
+      date: 10,
+      items: [
+        { title: '2023 Meta Spark AR 콘텐츠 공모전1', color: Red },
+        { title: '2023 Meta Spark AR 콘텐츠 공모전2', color: Blue },
+      ],
+    },
+    {
+      date: 15,
+      items: [
+        { title: '2023 Meta Spark AR 콘텐츠 공모전3', color: Red },
+        { title: '2023 Meta Spark AR 콘텐츠 공모전4', color: Purple },
+      ],
+    },
+    {
+      date: 20,
+      items: [
+        { title: '2023 Meta Spark AR 콘텐츠 공모전5', color: Purple },
+        { title: '2023 Meta Spark AR 콘텐츠 공모전6', color: Blue },
+      ],
+    },
+  ];
 
   const saveSchedules = (e: MouseEvent, date: string | number) => {
     if (typeof date !== 'number') return;
@@ -51,9 +48,9 @@ export const Row: FC<RowProps> = ({ dates, nth, clickedDate, setClickedDate }) =
 
     const schedules = children.map(child => ({
       title: child.textContent!,
-      color: child.style.color,
+      color: child.style.backgroundColor,
     }));
-    setCalendarState({ schedules, date });
+    setCalendarState({ ...calendarState, schedules, date });
   };
 
   return (
@@ -71,7 +68,7 @@ export const Row: FC<RowProps> = ({ dates, nth, clickedDate, setClickedDate }) =
             .filter(schedule => schedule.date === date)
             .map(schedule =>
               schedule.items.map(item => (
-                <ScheduleBar key={item.title + item.color} bgColor={item.color}>
+                <ScheduleBar key={item.title + item.color} style={{ backgroundColor: item.color }}>
                   <StyledHiddenText id='text'>{item.title}</StyledHiddenText>
                 </ScheduleBar>
               )),
@@ -96,10 +93,9 @@ const StyledDateWrapper = styled.div`
   }
 `;
 
-const ScheduleBar = styled.div<{ bgColor: string }>`
+const ScheduleBar = styled.div`
   width: 100%;
   height: 10px;
-  background-color: ${props => props.bgColor};
 `;
 const StyledHiddenText = styled.span`
   display: none;
