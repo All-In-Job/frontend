@@ -43,7 +43,7 @@ export const Date: FC<DateProps> = ({ nth, day, clickedDate, setClickedDate, idx
     <button
       style={{
         width: '100%',
-        height: typeof day === 'number' ? '90px' : '30px',
+        height: typeof day === 'number' ? '60px' : '30px',
         border: 'none',
         display: 'flex',
         alignItems: 'flex-start',
