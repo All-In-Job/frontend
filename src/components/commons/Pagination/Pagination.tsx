@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
+import ArrowButton from './ArrowButton/ArrowButton';
 import * as S from './pagination.styles';
+import { ReactComponent as LeftArrow } from './res/img/arrow_left.svg';
+import { ReactComponent as RightArrow } from './res/img/arrow_right.svg';
 
 type PaginationProps = {
   totalItemsCount: number;
@@ -41,9 +44,7 @@ function Pagination(props: PaginationProps) {
 
   return (
     <S.PaginationContainer>
-      <S.PrevPageButton disabled={targetPage === 1} type='button' onClick={() => onClickPrevPage()}>
-        <S.PrevPageIcon data-isdisabled={targetPage === 1} />
-      </S.PrevPageButton>
+      <ArrowButton icon={LeftArrow} isDisabled={targetPage === 1} onClick={onClickPrevPage} />
 
       {props.isChangeNumberLayout ? (
         <S.PaginationLayout02>
@@ -68,13 +69,11 @@ function Pagination(props: PaginationProps) {
         </S.PaginationLayout01>
       )}
 
-      <S.NextPageButton
-        disabled={targetPage === lastPage}
-        type='button'
-        onClick={() => onClickNextPage()}
-      >
-        <S.NextPageIcon data-isdisabled={targetPage === lastPage} />
-      </S.NextPageButton>
+      <ArrowButton
+        icon={RightArrow}
+        isDisabled={targetPage === lastPage}
+        onClick={onClickNextPage}
+      />
     </S.PaginationContainer>
   );
 }
