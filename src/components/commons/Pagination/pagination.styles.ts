@@ -1,8 +1,5 @@
 import styled from '@emotion/styled';
 
-import { ReactComponent as ArrowLeft } from './res/img/arrow_left.svg';
-import { ReactComponent as ArrowRight } from './res/img/arrow_right.svg';
-
 export const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -65,49 +62,5 @@ export const PaginationLayout02 = styled.div`
     :nth-last-of-type(2) {
       margin: 0 8px;
     }
-  }
-`;
-
-export const PrevPageButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 100%;
-  border-radius: 4px;
-  margin-right: 24px;
-  background-color: ${props => props.theme.palette.background.primary};
-  cursor: pointer;
-
-  :disabled {
-    cursor: default;
-  }
-`;
-
-export const NextPageButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 100%;
-  border-radius: 4px;
-  margin-left: 24px;
-  background-color: ${props => props.theme.palette.background.primary};
-  cursor: pointer;
-
-  :disabled {
-    cursor: default;
-  }
-`;
-
-export const PrevPageIcon = styled(ArrowLeft)<{ 'data-isdisabled': boolean }>`
-  path {
-    fill: ${props => (props['data-isdisabled'] ? '#fff' : '#121110')};
-  }
-`;
-
-export const NextPageIcon = styled(ArrowRight)<{ 'data-isdisabled': boolean }>`
-  path {
-    fill: ${props => (props['data-isdisabled'] ? '#fff' : '#121110')};
   }
 `;
