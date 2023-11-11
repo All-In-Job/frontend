@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react';
+import { FC, memo, useContext, useState } from 'react';
 
 import theme from 'styles/theme';
 
@@ -10,13 +10,15 @@ type DateProps = {
   idx: number;
 } & Pick<RowProps, 'nth'>;
 
-export const Date: FC<DateProps> = ({ nth, day, idx }) => {
+export const Date: FC<DateProps> = memo(({ nth, day, idx }) => {
   const [hovered, setHovered] = useState(false);
   const { calendarState } = useContext(CalendarContext)!;
   const { currentDate } = useContext(CurrentDateContext)!;
   const { clickedDate, setClickedDate } = useContext(ClickedDateContext)!;
 
   const isCurrentDateClicked = clickedDate?.date === day;
+
+  console.log(day);
 
   const controlTextColor = () => {
     const lightGrey = { color: 'lightgrey' };
@@ -96,4 +98,4 @@ export const Date: FC<DateProps> = ({ nth, day, idx }) => {
       </span>
     </button>
   );
-};
+});

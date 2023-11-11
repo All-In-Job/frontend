@@ -23,13 +23,11 @@ export const TopBar = () => {
 
     if (calculatedMonth < 0)
       setCurrentDate({
-        ...currentDate,
         year: year - 1,
         month: 11,
       });
     else if (calculatedMonth > 11)
       setCurrentDate({
-        ...currentDate,
         year: year + 1,
         month: 0,
       });

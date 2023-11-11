@@ -21,11 +21,11 @@ type CurrentDateContextType = {
 type CurrentDateType = {
   year: number;
   month: number;
-  date: number;
 };
+type ClickedDateType = CurrentDateType & { date: number };
 type ClickedDateContextType = {
-  clickedDate: CurrentDateType;
-  setClickedDate: (value: CurrentDateType) => void;
+  clickedDate: ClickedDateType;
+  setClickedDate: (value: ClickedDateType) => void;
 };
 
 export const TODAY = {
@@ -50,7 +50,6 @@ export const Calendar = () => {
   const [currentDate, setCurrentDate] = useState<CurrentDateType>({
     year: new Date().getFullYear(),
     month: new Date().getMonth(),
-    date: new Date().getDate(),
   });
   const [calendarState, setCalendarState] = useState<CalendarStateType>({
     schedules: [
@@ -63,7 +62,7 @@ export const Calendar = () => {
     month: new Date().getMonth(),
     date: new Date().getDate(),
   });
-  const [clickedDate, setClickedDate] = useState<CurrentDateType>({ year: 0, month: 0, date: 0 });
+  const [clickedDate, setClickedDate] = useState<ClickedDateType>({ year: 0, month: 0, date: 0 });
 
   return (
     <CalendarContext.Provider value={{ calendarState, setCalendarState }}>

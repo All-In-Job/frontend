@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useContext } from 'react';
+import { FC, memo, MouseEvent, useContext } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -11,7 +11,7 @@ export type RowProps = {
   nth: number;
 };
 
-export const Row: FC<RowProps> = ({ dates, nth }) => {
+export const Row: FC<RowProps> = memo(({ dates, nth }) => {
   const { calendarState, setCalendarState } = useContext(CalendarContext)!;
 
   const tempSchedules = [
@@ -79,7 +79,7 @@ export const Row: FC<RowProps> = ({ dates, nth }) => {
       ))}
     </StyledContainer>
   );
-};
+});
 
 const StyledContainer = styled.div`
   width: 100%;
