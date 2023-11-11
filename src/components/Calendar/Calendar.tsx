@@ -27,7 +27,7 @@ type CurrentDateType = {
   year: number;
   month: number;
 };
-type ClickedDateType = CurrentDateType & { date: number };
+export type ClickedDateType = CurrentDateType & { date: number };
 type ClickedDateContextType = {
   clickedDate: ClickedDateType;
   setClickedDate: (value: ClickedDateType) => void;
@@ -35,7 +35,7 @@ type ClickedDateContextType = {
 
 export const TODAY = {
   year: new Date().getFullYear(),
-  month: new Date().getMonth(),
+  month: new Date().getMonth() + 1,
   date: new Date().getDate(),
 };
 
@@ -59,7 +59,7 @@ export const Calendar = () => {
   const [calendarState, setCalendarState] = useState<CalendarStateType>({
     schedules: [],
     year: new Date().getFullYear(),
-    month: new Date().getMonth(),
+    month: new Date().getMonth() + 1,
     date: new Date().getDate(),
   });
   const [clickedDate, setClickedDate] = useState<ClickedDateType>({ year: 0, month: 0, date: 0 });

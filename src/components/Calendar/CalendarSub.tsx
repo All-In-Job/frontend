@@ -1,17 +1,20 @@
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 
 import styled from '@emotion/styled';
 
 import theme from 'styles/theme';
 
-import { Blue, CalendarContext, Purple, Red } from './Calendar';
+import { Blue, CalendarContext, ClickedDateContext, Purple, Red, TODAY } from './Calendar';
 import { filterScheduleStatus } from './Row';
 
 export const CalendarSub = () => {
+  const { clickedDate } = useContext(ClickedDateContext)!;
   const { calendarState } = useContext(CalendarContext)!;
-  const { year, month, date } = calendarState;
 
-  console.log(calendarState);
+  const { year, month, date } = useMemo(() => {
+    if (clickedDate.date) return clickedDate;
+    return TODAY;
+  }, []);
 
   return (
     <StyledContainer>
