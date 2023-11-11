@@ -53,8 +53,17 @@ export const Row: FC<RowProps> = ({ dates, nth, clickedDate, setClickedDate }) =
     setCalendarState({ ...calendarState, schedules, date });
   };
 
+  const setRowMarginTopByNth = () => {
+    if (nth === 0) return 15;
+    if (nth === 1) return 10;
+  };
+  const setRowHeightByNth = () => {
+    if (nth === 0) return 60;
+    return 100;
+  };
+
   return (
-    <StyledContainer style={{}}>
+    <StyledContainer style={{ marginTop: setRowMarginTopByNth(), height: setRowHeightByNth() }}>
       {dates.map((date, idx) => (
         <StyledDateWrapper key={'date-' + idx} onClick={e => saveSchedules(e, date)}>
           <Date
@@ -82,7 +91,6 @@ export const Row: FC<RowProps> = ({ dates, nth, clickedDate, setClickedDate }) =
 
 const StyledContainer = styled.div`
   width: 100%;
-  margin-top: 32px;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 `;
