@@ -16,11 +16,13 @@ export const Date: FC<DateProps> = ({ nth, day, idx }) => {
   const { currentDate } = useContext(CurrentDateContext)!;
   const { clickedDate, setClickedDate } = useContext(ClickedDateContext)!;
 
+  console.log(clickedDate, holdingDate);
+
   useEffect(() => {
     if (isLastMonth)
       setHoldingDate({
-        year: currentDate.year - 1,
-        month: currentDate.month - 1,
+        year: currentDate.month === 0 ? currentDate.year - 1 : currentDate.year,
+        month: currentDate.month === 0 ? 12 : currentDate.month,
         date: Number(day),
       });
     if (nth > 0 && !isLastMonth)
@@ -52,20 +54,10 @@ export const Date: FC<DateProps> = ({ nth, day, idx }) => {
     // calendarState: 우측에 표시될 달력의 상태 (clickedDate)랑 같음
 
     if (
-      isLastMonth &&
       holdingDate &&
       clickedDate.year === holdingDate.year &&
       clickedDate.month === holdingDate.month &&
       clickedDate.date === holdingDate.date
-    )
-      return bgColor;
-
-    if (
-      !isLastMonth &&
-      clickedDate &&
-      clickedDate.date === day &&
-      clickedDate.month === currentDate.month + 1 &&
-      clickedDate.year === currentDate.year
     )
       return bgColor;
     if (
