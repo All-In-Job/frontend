@@ -1,4 +1,7 @@
-// import { useState } from 'react';
+import 'draft-js/dist/Draft.css';
+import { useState } from 'react';
+
+import { Editor, EditorState } from 'draft-js';
 
 import { DropDownSelect } from 'components/commons/DropDownSelect/DropDownSelect';
 
@@ -14,7 +17,7 @@ const options = [
 ];
 
 export const NewPost = () => {
-  // const [value, setValue] = useState('');
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   return (
     <S.Container>
@@ -29,6 +32,7 @@ export const NewPost = () => {
             <label>제목</label>
             <S.Input type='text' placeholder='제목을 입력해주세요!' />
           </S.InputWrapper>
+          <Editor editorState={editorState} onChange={setEditorState} />
         </S.InputContainer>
       </form>
     </S.Container>
