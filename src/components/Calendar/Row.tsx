@@ -83,11 +83,11 @@ export const Row: FC<RowProps> = ({ dates, nth, clickedDate, setClickedDate }) =
 const StyledContainer = styled.div`
   width: 100%;
   margin-top: 32px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
 `;
 const StyledDateWrapper = styled.div`
-  width: 100px;
+  width: 80px;
   &:hover {
     cursor: pointer;
   }
