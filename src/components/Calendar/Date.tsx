@@ -1,8 +1,8 @@
-import { FC, memo, useContext, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 
 import theme from 'styles/theme';
 
-import { CalendarContext, ClickedDateContext, CurrentDateContext, TODAY } from './Calendar';
+import { ClickedDateContext, CurrentDateContext, TODAY } from './Calendar';
 import { RowProps } from './Row';
 
 type DateProps = {
@@ -10,15 +10,12 @@ type DateProps = {
   idx: number;
 } & Pick<RowProps, 'nth'>;
 
-export const Date: FC<DateProps> = memo(({ nth, day, idx }) => {
+export const Date: FC<DateProps> = ({ nth, day, idx }) => {
   const [hovered, setHovered] = useState(false);
-  const { calendarState } = useContext(CalendarContext)!;
   const { currentDate } = useContext(CurrentDateContext)!;
   const { clickedDate, setClickedDate } = useContext(ClickedDateContext)!;
 
   const isCurrentDateClicked = clickedDate?.date === day;
-
-  console.log(day);
 
   const controlTextColor = () => {
     const lightGrey = { color: 'lightgrey' };
@@ -50,8 +47,8 @@ export const Date: FC<DateProps> = memo(({ nth, day, idx }) => {
     if (
       !clickedDate.year &&
       day === TODAY.date &&
-      TODAY.year === calendarState.year &&
-      TODAY.month === calendarState.month
+      TODAY.year === currentDate.year &&
+      TODAY.month === currentDate.month
     )
       return bgColor;
     return undefined;
@@ -98,4 +95,4 @@ export const Date: FC<DateProps> = memo(({ nth, day, idx }) => {
       </span>
     </button>
   );
-});
+};

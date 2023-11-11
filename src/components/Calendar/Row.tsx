@@ -1,54 +1,44 @@
-import { FC, memo, MouseEvent, useContext } from 'react';
+import { FC, MouseEvent, useContext } from 'react';
 
 import styled from '@emotion/styled';
 
-import { Blue, CalendarContext, Purple, Red } from './Calendar';
+import {
+  Blue,
+  CalendarContext,
+  MonthlySchedulesType,
+  Purple,
+  Red,
+  SchedulesType,
+} from './Calendar';
 import { Dates } from './config';
 import { Date } from './Date';
 
 export type RowProps = {
   dates: Dates;
   nth: number;
+  monthlySchedules?: MonthlySchedulesType;
 };
 
-export const Row: FC<RowProps> = memo(({ dates, nth }) => {
-  const { calendarState, setCalendarState } = useContext(CalendarContext)!;
+export const filterScheduleStatus = (status: 'open' | 'close' | 'exam') => {
+  if (status === 'open') return Red;
+  if (status === 'close') return Blue;
+  return Purple;
+};
 
-  const tempSchedules = [
-    {
-      date: 10,
-      items: [
-        { title: '2023 Meta Spark AR 콘텐츠 공모전1', color: Red },
-        { title: '2023 Meta Spark AR 콘텐츠 공모전2', color: Blue },
-      ],
-    },
-    {
-      date: 15,
-      items: [
-        { title: '2023 Meta Spark AR 콘텐츠 공모전3', color: Red },
-        { title: '2023 Meta Spark AR 콘텐츠 공모전4', color: Purple },
-      ],
-    },
-    {
-      date: 20,
-      items: [
-        { title: '2023 Meta Spark AR 콘텐츠 공모전5', color: Purple },
-        { title: '2023 Meta Spark AR 콘텐츠 공모전6', color: Blue },
-      ],
-    },
-  ];
+export const Row: FC<RowProps> = ({ dates, nth, monthlySchedules }) => {
+  const { calendarState, setCalendarState } = useContext(CalendarContext)!;
 
   const saveSchedules = (e: MouseEvent, date: string | number) => {
     if (typeof date !== 'number') return;
+    if (!monthlySchedules) {
+      setCalendarState({ ...calendarState, schedules: [] });
+      return;
+    }
 
     const children = [...e.currentTarget.children] as HTMLElement[];
     children.shift();
 
-    const schedules = children.map(child => ({
-      title: child.textContent!,
-      color: child.style.backgroundColor,
-    }));
-    setCalendarState({ ...calendarState, schedules, date });
+    setCalendarState({ ...calendarState, schedules: monthlySchedules[date] });
   };
 
   const setRowMarginTopByNth = () => {
@@ -60,26 +50,25 @@ export const Row: FC<RowProps> = memo(({ dates, nth }) => {
     return 100;
   };
 
+  const filterSchedule = (schedules: SchedulesType) => {
+    return Array.from(new Set(schedules.map(schedule => schedule.status)));
+  };
+
   return (
     <StyledContainer style={{ marginTop: setRowMarginTopByNth(), height: setRowHeightByNth() }}>
       {dates.map((date, idx) => (
         <StyledDateWrapper key={'date-' + idx} onClick={e => saveSchedules(e, date)}>
           <Date nth={nth} day={date} idx={idx} />
-          {tempSchedules
-            .filter(schedule => schedule.date === date)
-            .map(schedule =>
-              schedule.items.map(item => (
-                <ScheduleBar key={item.title + item.color} style={{ backgroundColor: item.color }}>
-                  <StyledHiddenText id='text'>{item.title}</StyledHiddenText>
-                </ScheduleBar>
-              )),
-            )
-            .flat(1)}
+          {monthlySchedules &&
+            monthlySchedules[date] &&
+            filterSchedule(monthlySchedules[date]).map(status => (
+              <ScheduleBar key={status} style={{ backgroundColor: filterScheduleStatus(status) }} />
+            ))}
         </StyledDateWrapper>
       ))}
     </StyledContainer>
   );
-});
+};
 
 const StyledContainer = styled.div`
   width: 100%;
@@ -96,7 +85,4 @@ const StyledDateWrapper = styled.div`
 const ScheduleBar = styled.div`
   width: 100%;
   height: 10px;
-`;
-const StyledHiddenText = styled.span`
-  display: none;
 `;

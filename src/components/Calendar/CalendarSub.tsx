@@ -5,10 +5,13 @@ import styled from '@emotion/styled';
 import theme from 'styles/theme';
 
 import { Blue, CalendarContext, Purple, Red } from './Calendar';
+import { filterScheduleStatus } from './Row';
 
 export const CalendarSub = () => {
   const { calendarState } = useContext(CalendarContext)!;
   const { year, month, date } = calendarState;
+
+  console.log(calendarState);
 
   return (
     <StyledContainer>
@@ -24,15 +27,16 @@ export const CalendarSub = () => {
         {year}년 {month}월 {date}일
       </StyledDate>
       <StyledUl>
-        {calendarState.schedules.map(
-          schedule =>
-            schedule.title && (
-              <StyledLi key={schedule.title}>
-                <StyledStatusBar bgColor={schedule.color} />
-                <span>{schedule.title}</span>
-              </StyledLi>
-            ),
-        )}
+        {calendarState.schedules &&
+          calendarState.schedules.map(
+            schedule =>
+              schedule.title && (
+                <StyledLi key={schedule.title}>
+                  <StyledStatusBar bgColor={filterScheduleStatus(schedule.status)} />
+                  <span>{schedule.title}</span>
+                </StyledLi>
+              ),
+          )}
       </StyledUl>
     </StyledContainer>
   );

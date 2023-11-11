@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -11,8 +11,13 @@ type CalendarContextType = {
   calendarState: CalendarStateType;
   setCalendarState: (value: CalendarStateType) => void;
 };
-type CalendarStateType = { schedules: ScheduleType[]; year: number; month: number; date: number };
-type ScheduleType = { title: string; color: string };
+type CalendarStateType = { schedules: SchedulesType; year: number; month: number; date: number };
+export type SchedulesType = {
+  id: string;
+  title: string;
+  status: 'open' | 'close' | 'exam';
+}[];
+export type MonthlySchedulesType = Record<string, SchedulesType>;
 
 type CurrentDateContextType = {
   currentDate: CurrentDateType;
@@ -52,17 +57,54 @@ export const Calendar = () => {
     month: new Date().getMonth(),
   });
   const [calendarState, setCalendarState] = useState<CalendarStateType>({
-    schedules: [
-      {
-        title: '',
-        color: '',
-      },
-    ],
+    schedules: [],
     year: new Date().getFullYear(),
     month: new Date().getMonth(),
     date: new Date().getDate(),
   });
   const [clickedDate, setClickedDate] = useState<ClickedDateType>({ year: 0, month: 0, date: 0 });
+
+  const [monthlySchedules, setMonthlySchedules] = useState<MonthlySchedulesType>();
+  useEffect(() => {
+    setMonthlySchedules({
+      10: [
+        {
+          id: '1',
+          title: '2023 Meta Spark AR 콘텐츠 공모전1',
+          status: 'open',
+        },
+        {
+          id: '2',
+          title: '2023 Meta Spark AR 콘텐츠 공모전2',
+          status: 'close',
+        },
+      ],
+      15: [
+        {
+          id: '1',
+          title: '2023 Meta Spark AR 콘텐츠 공모전3',
+          status: 'open',
+        },
+        {
+          id: '2',
+          title: '2023 Meta Spark AR 콘텐츠 공모전4',
+          status: 'close',
+        },
+        {
+          id: '3',
+          title: '2023 Meta Spark AR 콘텐츠 공모전5',
+          status: 'close',
+        },
+      ],
+      20: [
+        {
+          id: '1',
+          title: '2023 Meta Spark AR 콘텐츠 공모전6',
+          status: 'exam',
+        },
+      ],
+    });
+  }, []);
 
   return (
     <CalendarContext.Provider value={{ calendarState, setCalendarState }}>
@@ -73,7 +115,7 @@ export const Calendar = () => {
               <StyledTitle>나만의 달력</StyledTitle>
             </StyledHeader>
             <StyledBody>
-              <CalendarMain />
+              <CalendarMain monthlySchedules={monthlySchedules} />
               <CalendarSub />
             </StyledBody>
           </StyledContainer>

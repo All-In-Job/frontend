@@ -1,13 +1,17 @@
-import { useContext, useMemo } from 'react';
+import { FC, useContext, useMemo } from 'react';
 
 import styled from '@emotion/styled';
 
-import { CurrentDateContext } from './Calendar';
+import { CurrentDateContext, MonthlySchedulesType } from './Calendar';
 import { monthConfig } from './config';
 import { Row } from './Row';
 import { TopBar } from './TopBar';
 
-export const CalendarMain = () => {
+type Props = {
+  monthlySchedules?: MonthlySchedulesType;
+};
+
+export const CalendarMain: FC<Props> = ({ monthlySchedules }) => {
   const { currentDate } = useContext(CurrentDateContext)!;
 
   const { days, rows } = useMemo(() => monthConfig(currentDate), [currentDate]);
@@ -17,7 +21,7 @@ export const CalendarMain = () => {
       <TopBar />
       <Row nth={0} dates={days} />
       {rows.map((dates, idx) => (
-        <Row key={idx} dates={dates} nth={idx + 1} />
+        <Row key={idx} dates={dates} nth={idx + 1} monthlySchedules={monthlySchedules} />
       ))}
     </StyledContainer>
   );
