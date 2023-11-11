@@ -2,22 +2,21 @@ import { FC, useContext, useState } from 'react';
 
 import theme from 'styles/theme';
 
-import { CalendarContext } from './Calendar';
-import { ClickedDate } from './config';
+import { CalendarContext, ClickedDateContext, CurrentDateContext, TODAY } from './Calendar';
 import { RowProps } from './Row';
 
 type DateProps = {
   day: RowProps['dates'][number];
-  clickedDate: ClickedDate;
-  setClickedDate: (value: ClickedDate) => void;
   idx: number;
 } & Pick<RowProps, 'nth'>;
 
-export const Date: FC<DateProps> = ({ nth, day, clickedDate, setClickedDate, idx }) => {
+export const Date: FC<DateProps> = ({ nth, day, idx }) => {
   const [hovered, setHovered] = useState(false);
   const { calendarState } = useContext(CalendarContext)!;
+  const { currentDate } = useContext(CurrentDateContext)!;
+  const { clickedDate, setClickedDate } = useContext(ClickedDateContext)!;
 
-  const isCurrentDateClicked = nth === clickedDate?.nth && clickedDate.date === day;
+  const isCurrentDateClicked = clickedDate?.date === day;
 
   const controlTextColor = () => {
     const lightGrey = { color: 'lightgrey' };
@@ -34,8 +33,25 @@ export const Date: FC<DateProps> = ({ nth, day, clickedDate, setClickedDate, idx
   const controlSpanBackgroundColor = () => {
     const bgColor = theme.palette.orange100;
     if (typeof day === 'number' && hovered) return bgColor;
-    if (isCurrentDateClicked) return bgColor;
-    if (day === calendarState.date) return bgColor;
+
+    // currentDate: 달력이 지금 보여주고 있는 년, 월, 일.
+    // clickedDate: 유저가 클릭한 날짜의 년, 월, 일.
+    // calendarState: 우측에 표시될 달력의 상태 (clickedDate)랑 같음
+
+    if (
+      clickedDate &&
+      clickedDate.date === day &&
+      clickedDate.month === currentDate.month + 1 &&
+      clickedDate.year === currentDate.year
+    )
+      return bgColor;
+    if (
+      !clickedDate.year &&
+      day === TODAY.date &&
+      TODAY.year === calendarState.year &&
+      TODAY.month === calendarState.month
+    )
+      return bgColor;
     return undefined;
   };
 
@@ -53,8 +69,13 @@ export const Date: FC<DateProps> = ({ nth, day, clickedDate, setClickedDate, idx
         cursor: typeof day === 'number' ? 'pointer' : 'default',
       }}
       onClick={() => {
-        !nth && setClickedDate(undefined);
-        nth && setClickedDate({ nth, date: day });
+        !nth && setClickedDate({ year: 0, month: 0, date: 0 });
+        nth &&
+          setClickedDate({
+            year: currentDate.year,
+            month: currentDate.month + 1,
+            date: Number(day),
+          });
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -68,7 +89,6 @@ export const Date: FC<DateProps> = ({ nth, day, clickedDate, setClickedDate, idx
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: controlSpanBackgroundColor(),
-          transition: '0.5s, backgroundColor ease-in-out 0.5s',
           color: idx === 0 ? theme.palette.orange400 : 'black',
         }}
       >

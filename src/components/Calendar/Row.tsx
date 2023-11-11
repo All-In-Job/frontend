@@ -3,17 +3,15 @@ import { FC, MouseEvent, useContext } from 'react';
 import styled from '@emotion/styled';
 
 import { Blue, CalendarContext, Purple, Red } from './Calendar';
-import { ClickedDate, Dates } from './config';
+import { Dates } from './config';
 import { Date } from './Date';
 
 export type RowProps = {
   dates: Dates;
   nth: number;
-  clickedDate: ClickedDate;
-  setClickedDate: (value: ClickedDate) => void;
 };
 
-export const Row: FC<RowProps> = ({ dates, nth, clickedDate, setClickedDate }) => {
+export const Row: FC<RowProps> = ({ dates, nth }) => {
   const { calendarState, setCalendarState } = useContext(CalendarContext)!;
 
   const tempSchedules = [
@@ -66,13 +64,7 @@ export const Row: FC<RowProps> = ({ dates, nth, clickedDate, setClickedDate }) =
     <StyledContainer style={{ marginTop: setRowMarginTopByNth(), height: setRowHeightByNth() }}>
       {dates.map((date, idx) => (
         <StyledDateWrapper key={'date-' + idx} onClick={e => saveSchedules(e, date)}>
-          <Date
-            nth={nth}
-            day={date}
-            clickedDate={clickedDate}
-            setClickedDate={setClickedDate}
-            idx={idx}
-          />
+          <Date nth={nth} day={date} idx={idx} />
           {tempSchedules
             .filter(schedule => schedule.date === date)
             .map(schedule =>

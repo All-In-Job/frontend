@@ -1,26 +1,13 @@
-import { FC, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 import styled from '@emotion/styled';
 
 import theme from 'styles/theme';
 
-import { CalendarContext } from './Calendar';
+import { CurrentDateContext } from './Calendar';
 
-type CurrentDate = {
-  year: number;
-  month: number;
-};
-type TopBarPropsType = {
-  currentDate: CurrentDate;
-  setCurrentDate: (value: CurrentDate) => void;
-};
-
-export const TopBar: FC<TopBarPropsType> = ({ currentDate, setCurrentDate }) => {
-  const { calendarState, setCalendarState } = useContext(CalendarContext)!;
-
-  useEffect(() => {
-    setCalendarState({ ...calendarState, year: currentDate.year, month: currentDate.month + 1 });
-  }, [currentDate]);
+export const TopBar = () => {
+  const { currentDate, setCurrentDate } = useContext(CurrentDateContext)!;
 
   const buttonStyle = {
     borderRadius: '100%',
@@ -31,17 +18,19 @@ export const TopBar: FC<TopBarPropsType> = ({ currentDate, setCurrentDate }) => 
   };
 
   const changeMonth = (target: 'prev' | 'next') => {
-    const { month } = currentDate;
+    const { year, month } = currentDate;
     const calculatedMonth = target === 'prev' ? month - 1 : month + 1;
 
     if (calculatedMonth < 0)
       setCurrentDate({
-        year: currentDate.year - 1,
+        ...currentDate,
+        year: year - 1,
         month: 11,
       });
     else if (calculatedMonth > 11)
       setCurrentDate({
-        year: currentDate.year + 1,
+        ...currentDate,
+        year: year + 1,
         month: 0,
       });
     else setCurrentDate({ ...currentDate, month: calculatedMonth });

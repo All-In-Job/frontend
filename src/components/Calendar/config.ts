@@ -1,10 +1,11 @@
 export type Dates = (string | number)[];
-export type ClickedDate =
-  | {
-      nth: number;
-      date: string | number | null;
-    }
-  | undefined;
+// export type ClickedDate =
+//   | {
+//       year: number;
+//       month: number;
+//       date: string | number | null;
+//     }
+//   | undefined;
 
 export const monthConfig = (currentDate: { year: number; month: number }) => {
   const { year, month } = currentDate;
