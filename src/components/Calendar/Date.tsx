@@ -16,8 +16,6 @@ export const Date: FC<DateProps> = ({ nth, day, idx }) => {
   const { currentDate } = useContext(CurrentDateContext)!;
   const { clickedDate, setClickedDate } = useContext(ClickedDateContext)!;
 
-  console.log(clickedDate, holdingDate);
-
   useEffect(() => {
     if (isLastMonth)
       setHoldingDate({
