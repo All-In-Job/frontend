@@ -40,6 +40,7 @@ export const Input = styled.input`
   padding: 12px;
   border: 1px solid ${palette.black200};
   border-radius: 4px;
+  /* font-family: Arial, Helvetica, sans-serif; */
   &::placeholder {
     ${textStyle.title02}
     font-family: Medium;

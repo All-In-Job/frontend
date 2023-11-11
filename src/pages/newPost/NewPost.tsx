@@ -1,7 +1,6 @@
 import 'draft-js/dist/Draft.css';
-import { useState } from 'react';
 
-import { Editor, EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
 
 import { DropDownSelect } from 'components/commons/DropDownSelect/DropDownSelect';
 
@@ -17,8 +16,6 @@ const options = [
 ];
 
 export const NewPost = () => {
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
-
   return (
     <S.Container>
       <S.Title>올인잡님의 생각을 나눠보세요!</S.Title>
@@ -32,7 +29,12 @@ export const NewPost = () => {
             <label>제목</label>
             <S.Input type='text' placeholder='제목을 입력해주세요!' />
           </S.InputWrapper>
-          <Editor editorState={editorState} onChange={setEditorState} />
+          <Editor
+            toolbarHidden
+            wrapperClassName='wrapper-class'
+            editorClassName='editor-class'
+            toolbarClassName='toolbar-class'
+          />
         </S.InputContainer>
       </form>
     </S.Container>
