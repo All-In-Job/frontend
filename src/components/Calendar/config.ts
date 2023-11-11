@@ -11,7 +11,7 @@ export const monthConfig = (currentDate: { year: number; month: number }) => {
   const days: Dates = '일월화수목금토'.split('');
 
   const firstDayOfThisMonth: number = new Date(year, month, 1).getDay();
-  const firstDayOfNextMonth: number = new Date(year, month + 1, 1).getDay();
+  // const firstDayOfNextMonth: number = new Date(year, month + 1, 1).getDay();
 
   /**
    * getDate
@@ -47,25 +47,24 @@ export const monthConfig = (currentDate: { year: number; month: number }) => {
    *  length becomes 5 (which means 5 days of a week, Tuesday to Saturday)
    * @return {number[]} - [1, 2, 3, 4, 5]
    */
-  const datesOfNextMonthShownInThisMonth: number[] = Array.from(
-    { length: 7 - firstDayOfNextMonth },
-    (_, i) => i + 1,
-  );
+  // const datesOfNextMonthShownInThisMonth: number[] = Array.from(
+  //   { length: 7 - firstDayOfNextMonth },
+  //   (_, i) => i + 1,
+  // );
 
-  const totalDatesShownInThisMonth: number[] = datesOfLastMonthShownInThisMonth
-    .concat(datesOfThisMonth)
-    .concat(datesOfNextMonthShownInThisMonth);
+  const totalDatesShownInThisMonth: number[] =
+    datesOfLastMonthShownInThisMonth.concat(datesOfThisMonth);
+  // .concat(datesOfNextMonthShownInThisMonth);
 
   const generateRowsForCalendar = (totalDates: number[]): number[][] => {
     const rows: number[][] = [];
     for (let i = 0; i < totalDates.length / 7; ++i) rows.push(totalDates.slice(7 * i, 7 * (i + 1)));
 
-    if (rows[5] === undefined)
-      rows.push(
-        Array.from({ length: 7 }, (_, i) => datesOfNextMonthShownInThisMonth.length + 1 + i),
-      );
+    // if (rows[5] === undefined)
+    //   rows.push(
+    //     Array.from({ length: 7 }, (_, i) => datesOfNextMonthShownInThisMonth.length + 1 + i),
+    //   );
 
-    console.log(datesOfNextMonthShownInThisMonth);
     return rows;
   };
 
