@@ -10,7 +10,7 @@ import { useInterestForm } from 'hooks/useInterestForm';
 import { useSearch } from 'hooks/useSearch';
 
 import interestTags from './data/interestTags.json';
-import * as S from './InterestFieldSetup.styles';
+import * as S from './InterestForm.style';
 import { ReactComponent as DefaultInterestImage } from './res/img/default_interest_image.svg';
 
 const departments = [
