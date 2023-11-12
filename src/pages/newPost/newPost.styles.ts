@@ -40,7 +40,6 @@ export const Input = styled.input`
   padding: 12px;
   border: 1px solid ${palette.black200};
   border-radius: 4px;
-  /* font-family: Arial, Helvetica, sans-serif; */
   &::placeholder {
     ${textStyle.title02}
     font-family: Medium;
@@ -51,6 +50,7 @@ export const Input = styled.input`
 export const MyBlock = styled.div`
   .wrapper-class {
     margin-bottom: 4rem;
+    font-family: none;
   }
   .editor {
     height: 500px !important;
@@ -60,5 +60,14 @@ export const MyBlock = styled.div`
   }
   .disable {
     display: none;
+  }
+  .RichEditor-editor,
+  .RichEditor-editor .public-DraftEditor-content {
+    ${textStyle.label03}
+    font-family: Medium;
+  }
+  .public-DraftEditorPlaceholder-root {
+    font-family: Medium;
+    color: ${palette.black500};
   }
 `;
