@@ -47,3 +47,18 @@ export const Input = styled.input`
     color: ${palette.black200};
   }
 `;
+
+export const MyBlock = styled.div`
+  .wrapper-class {
+    margin-bottom: 4rem;
+  }
+  .editor {
+    height: 500px !important;
+    border: 1px solid #f1f1f1 !important;
+    padding: 5px !important;
+    border-radius: 2px !important;
+  }
+  .disable {
+    display: none;
+  }
+`;
