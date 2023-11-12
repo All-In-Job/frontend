@@ -41,9 +41,7 @@ export const InterestFieldSetup: FC<Props> = ({ formState, setFormState }) => {
   const updateSelectedKeyWord = useCallback(
     (tagName: TagName, selected: Keywords[number]) => {
       const selects = formState.interests[tagName];
-
       const isOnlyOneKeyWord = selects.length === 1 && selects[0] === selected;
-
       const isMax = selects.length === 3;
 
       if (isOnlyOneKeyWord && getHeavyTags().length === 1) return;
