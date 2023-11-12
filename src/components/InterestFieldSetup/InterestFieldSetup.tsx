@@ -6,32 +6,33 @@ import { useLocation } from 'react-router-dom';
 import { createUser } from 'apis/signup';
 import { InputFieldType } from 'components/BasicInformation/BasicInformation';
 import Submit from 'components/commons/Buttons/Submit/Submit';
+import { useSearch } from 'hooks/useSearch';
 
 import interestTags from './data/interestTags.json';
 import * as S from './InterestFieldSetup.styles';
 import { ReactComponent as DefaultInterestImage } from './res/img/default_interest_image.svg';
 
 const departments = [
-  '학과1',
-  '학과2',
-  '학과3',
-  '학과4',
-  '학과5',
-  '학과6',
-  '학과7',
-  '학과8',
-  '학과9',
-  '학과10',
-  '학과11',
-  '학과12',
-  '학과13',
-  '학과14',
-  '학과15',
-  '학과16',
-  '학과17',
-  '학과18',
-  '학과19',
-  '학과20',
+  '컴퓨터공학과',
+  '컴퓨터소프트웨어공학과',
+  '전자공학과',
+  '전자전기공학과',
+  '경영학과',
+  '경제경영학과',
+  '신소재공학과',
+  '국어국문학과',
+  '정치외교학과',
+  '기계공학과',
+  '물리학과',
+  '천문학과',
+  '간호학과',
+  '사회복지학과',
+  '철학과',
+  '시각디자인학과',
+  '산업디자인학과',
+  '건축학과',
+  '행정학과',
+  '법학과',
 ];
 
 type SignupFormInputFieldsType = Record<
@@ -44,8 +45,8 @@ type InterestTag = {
 };
 
 function InterestFieldSetup() {
-  const [departmentInput, setDepartmentInput] = useState('');
-  const [choiceDepartment, setChoiceDepartment] = useState('');
+  const { matchWord, choiceDepartment, setChoiceDepartment, searchedResults, setSearchedResults } =
+    useSearch();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -61,7 +62,8 @@ function InterestFieldSetup() {
   const locationState = useLocation().state as SignupFormInputFieldsType;
 
   const getValueDepartmentInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setDepartmentInput(e.target.value);
+    // setDepartmentInput(e.target.value);
+    setSearchedResults(matchWord(departments, e.target.value));
 
     if (e.target.value !== '') {
       setIsVisible(true);
@@ -78,8 +80,6 @@ function InterestFieldSetup() {
   const handleInputBlur = () => {
     setIsInputFocused(false);
   };
-
-  const searchedDepartment = departments.filter(department => department.includes(departmentInput));
 
   const onClickChoice = (department: string) => {
     setChoiceDepartment(department);
@@ -170,11 +170,12 @@ function InterestFieldSetup() {
         />
         {isVisible && (
           <S.MajorDepartmentList>
-            {searchedDepartment.map(department => (
-              <li key={department} onClick={() => onClickChoice(department)}>
-                {department}
-              </li>
-            ))}
+            {searchedResults &&
+              searchedResults.map(department => (
+                <li key={department} onClick={() => onClickChoice(department)}>
+                  {department}
+                </li>
+              ))}
           </S.MajorDepartmentList>
         )}
       </S.MajorDepartment>
