@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 
-import { TokenResponse, useGoogleLogin } from '@react-oauth/google';
-import { AxiosError } from 'axios';
+import { useGoogleLogin } from '@react-oauth/google';
+import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import { socialLogin } from 'apis/login';
 
 export const useSocialLogin = (provider: 'kakao' | 'google') => {
-  const [user, setUser] = useState<TokenResponse | null>(null);
+  const [kakaoToken, setKakaoToken] = useState<string | null>(null);
+  const [socialAccessToken, setSocialAccessToken] = useState<string | null>(null);
   const [socialLoginResponse, setSocialLoginResponse] = useState({
     email: '',
     accessToken: '',
@@ -16,54 +17,75 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
   const navigate = useNavigate();
 
   const googleLogin = useGoogleLogin({
-    onSuccess: codeResponse => setUser(codeResponse),
+    onSuccess: codeResponse => setSocialAccessToken(codeResponse.access_token),
     onError: error => console.log('Login Failed:', error),
   });
 
-  const kakaoLogin = () => {
-    window.open(
+  const openKakaoPopupWindow = () => {
+    const popup = window.open(
       `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${
         import.meta.env.VITE_API_KAKAO_CLIENT_ID
-      }&redirect_uri=http://${location.host}/`,
+      }&redirect_uri=http://${location.host}/&scope=account_email`,
       'PopupWin',
       'width=500,height=600',
     );
+
+    const storeKakaoToken = (e: MessageEvent) => {
+      const { kakaoToken } = e.data;
+
+      if (!kakaoToken) return;
+      setKakaoToken(kakaoToken);
+    };
+    if (popup) {
+      window.removeEventListener('message', storeKakaoToken);
+      window.addEventListener('message', storeKakaoToken);
+    }
+  };
+
+  const getKakaoAccessToken = async (token: string) => {
+    const { data } = await axios.post(
+      `https://kauth.kakao.com/oauth/token?client_id=${
+        import.meta.env.VITE_API_KAKAO_CLIENT_ID
+      }&redirect_uri=http://${location.host}/&code=${token}&grant_type=authorization_code`,
+    );
+    setSocialAccessToken(data.access_token);
   };
 
   const login = () => {
     if (provider === 'google') googleLogin();
-    if (provider === 'kakao') kakaoLogin();
+    if (provider === 'kakao') openKakaoPopupWindow();
+  };
+
+  const sendSocialAccessTokenToServer = async (token: string) => {
+    try {
+      const res = await socialLogin(provider, token);
+      const emailRegex1 = new RegExp(/[a-z0-9]+@[a-z]+\.([a-z]{2})+\.[a-z]{2}/);
+      const emailRegex2 = new RegExp(/[a-z0-9]+@[a-z]+\.([a-z]{2,3})/);
+      const { data } = res.data;
+
+      if (emailRegex1.test(data) || emailRegex2.test(data))
+        setSocialLoginResponse({ email: data, accessToken: '' });
+      else setSocialLoginResponse({ email: '', accessToken: data });
+      setSocialAccessToken(null);
+    } catch (e) {
+      if (e instanceof AxiosError && e.response) console.log(e.response);
+    }
   };
 
   useEffect(() => {
-    const getUserProfile = async (user: TokenResponse) => {
-      try {
-        const res = await socialLogin(provider, user.access_token);
+    if (kakaoToken) getKakaoAccessToken(kakaoToken);
+  }, [kakaoToken]);
 
-        const emailRegex1 = new RegExp(/[a-z0-9]+@[a-z]+\.([a-z]{2})+\.[a-z]{2}/);
-        const emailRegex2 = new RegExp(/[a-z0-9]+@[a-z]+\.([a-z]{2,3})/);
+  useEffect(() => {
+    socialAccessToken && sendSocialAccessTokenToServer(socialAccessToken);
 
-        const { data } = res.data;
-
-        if (emailRegex1.test(data) || emailRegex2.test(data))
-          setSocialLoginResponse({ email: data, accessToken: '' });
-        else setSocialLoginResponse({ email: '', accessToken: data });
-        setUser(null);
-      } catch (e) {
-        if (e instanceof AxiosError && e.response) console.log(e.response);
-      }
-    };
-
-    user && getUserProfile(user);
-
-    // if (user) navigate('/signup/basic-info', { state: user });
     if (socialLoginResponse.email)
       navigate('/signup/basic-info', { state: { email: socialLoginResponse.email, provider } });
     if (socialLoginResponse.accessToken) {
       localStorage.setItem('accessToken', socialLoginResponse.accessToken);
       navigate('/', { state: socialLoginResponse });
     }
-  }, [user, socialLoginResponse]);
+  }, [socialAccessToken, socialLoginResponse]);
 
   return {
     login,

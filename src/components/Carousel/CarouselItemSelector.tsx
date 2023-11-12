@@ -4,69 +4,66 @@ import styled from '@emotion/styled';
 
 import theme from 'styles/theme';
 
-import { CarouselSlideProps } from './CarouselSlide';
+import { Image } from './Carousel';
 
 type Props = {
-  currentImageId: number;
-  images: CarouselSlideProps['images'];
-  setCurrentImage: Dispatch<SetStateAction<CarouselSlideProps['currentImage']>>;
+  images: Image[];
+  currentIndex: number;
+  setCurrentIndex: Dispatch<SetStateAction<number>>;
   timerId: number;
-  setSlideInterval: () => void;
+  setIsClickedSelector: Dispatch<SetStateAction<number>>;
+  isClickedSelector: number;
 };
 
 export const CarouselItemSelector: FC<Props> = ({
   images,
-  currentImageId,
-  setCurrentImage,
+  currentIndex,
+  setCurrentIndex,
   timerId,
-  setSlideInterval,
+  setIsClickedSelector,
+  isClickedSelector,
 }) => {
-  const actualImageLength = images.length - 2;
+  const isLastImage = currentIndex === images.length - 1;
+  const focusOnFirstSelector = (idx: number) => {
+    const isFirstSelector = idx === 0;
+    return isFirstSelector && isLastImage;
+  };
 
-  const slideToTargetImage = (idx: number) => {
-    setCurrentImage(images[idx + 1]);
-    clearInterval(timerId);
-    setSlideInterval();
+  const moveToTargetImage = (idx: number) => {
+    setCurrentIndex(idx);
+    setIsClickedSelector(idx + 1);
+    clearTimeout(timerId);
   };
 
   return (
     <StyledContainer>
-      <StyledWrapper>
-        {Array.from<number>({ length: actualImageLength }).map((item, idx) => {
-          return (
-            <Selector
-              key={idx}
-              current={currentImageId === idx + 1}
-              onClick={() => slideToTargetImage(idx)}
-            >
-              {item}
-            </Selector>
-          );
-        })}
-      </StyledWrapper>
+      {Array.from({ length: images.length - 1 }).map((_, idx) => {
+        return (
+          <StyledCircle
+            disabled={isClickedSelector === idx + 1}
+            onClick={() => moveToTargetImage(idx)}
+            key={idx}
+            isTarget={currentIndex === idx || focusOnFirstSelector(idx)}
+          />
+        );
+      })}
     </StyledContainer>
   );
 };
 
 const StyledContainer = styled.div`
   position: absolute;
-  right: 0;
-  left: 0;
   bottom: 23px;
+  width: 100%;
   display: flex;
   justify-content: center;
-`;
-const StyledWrapper = styled.div`
-  display: flex;
-  min-width: 41px;
   gap: 4px;
-  justify-content: space-between;
 `;
-const Selector = styled.button<{ current: boolean }>`
-  background-color: ${props => (props.current ? theme.palette.orange500 : '#d9d9d9')};
-  border-radius: ${props => (props.current ? '20px' : '100%')};
-  width: ${props => (props.current ? '30px' : '11px')};
+const StyledCircle = styled.button<{ isTarget: boolean }>`
+  width: ${props => (props.isTarget ? '31px' : '11px')};
   height: 11px;
+  border-radius: 20px;
   cursor: pointer;
-  transition: 0.2s all ease-in-out;
+  background-color: ${props => (props.isTarget ? theme.palette.orange500 : '#d9d9d9')};
+  transition: 0.3s width ease-in-out;
 `;

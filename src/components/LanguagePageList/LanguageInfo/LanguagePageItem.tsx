@@ -7,8 +7,8 @@ import * as S from './LanguagePageItem.styles';
 
 export const LanguagePageItem = ({
   id,
-  test,
-  homPage,
+  title,
+  homePage,
   examDate,
   openDate,
   closeDate,
@@ -54,7 +54,7 @@ export const LanguagePageItem = ({
             <S.BookmarkIcon data-ispick={bookmark} />
           </Link>
         </S.TagWrapper>
-        <S.Title>{test}</S.Title>
+        <S.Title>{title}</S.Title>
         <S.Schedule>
           <S.ExamDate>{`시험일시 : ${timestamp(examDate)}`}</S.ExamDate>
           <S.Deadline>{`접수마감 : ${timestamp(closeDate)}`}</S.Deadline>
@@ -64,7 +64,9 @@ export const LanguagePageItem = ({
         <S.DisabledBtn>{`${timestamp(openDate).slice(0, 10)} 접수예정`}</S.DisabledBtn>
       ) : (
         <S.ActivateBtn>
-          <Link to={`${homPage}`}>접수하기</Link>
+          <Link to={`${homePage}`} target={'_blank'}>
+            접수하기
+          </Link>
         </S.ActivateBtn>
       )}
     </S.LanguageWrapper>

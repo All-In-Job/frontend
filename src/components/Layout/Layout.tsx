@@ -1,4 +1,4 @@
-import { ReactNode, useLayoutEffect, useRef } from 'react';
+import { FC, PropsWithChildren, useLayoutEffect, useRef } from 'react';
 
 import { useLocation, useSearchParams } from 'react-router-dom';
 
@@ -6,11 +6,7 @@ import theme from 'styles/theme';
 
 import * as S from './layout.styles';
 
-type Props = {
-  children: ReactNode;
-};
-
-export const Layout = ({ children }: Props) => {
+export const Layout: FC<PropsWithChildren> = ({ children }) => {
   const location = useLocation();
   const layoutEl = useRef<HTMLDivElement>(null);
   const kakaoToken = useSearchParams()[0].get('code');
@@ -28,8 +24,10 @@ export const Layout = ({ children }: Props) => {
 
   useLayoutEffect(() => {
     const Layout = layoutEl.current;
-    Layout &&
-      setLayoutMarginTop(Layout, getHeaderHeight(Layout.previousSibling as HTMLHeadElement));
+    if (Layout) {
+      const Header = Layout.previousSibling;
+      setLayoutMarginTop(Layout, getHeaderHeight(Header as HTMLHeadElement));
+    }
 
     if (kakaoToken) {
       // 서버에 카카오 액세스 토큰 전송하여 가입된 유저인지 확인

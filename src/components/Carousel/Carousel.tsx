@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import theme from 'styles/theme';
-
-// import { CarouselButton } from './CarouselButton';
 import { CarouselItemSelector } from './CarouselItemSelector';
 import { CarouselSlide } from './CarouselSlide';
 
-const images = [
+export type Image = {
+  id: number;
+  source: string;
+};
+
+const images: Image[] = [
   {
     id: 1,
     source:
@@ -21,53 +23,85 @@ const images = [
   },
   { id: 3, source: 'https://wallpapers.com/images/hd/mountain-top-t6qhv1lk4j0au09t.jpg' },
 ];
-images.unshift(images[images.length - 1]);
-images.push(images[1]);
+images.push({ ...images[0] });
+images[images.length - 1].id = 4;
+
+const IMAGE_SHOW_SECONDS = 2;
+export const TRANSITION_DURATION = 0.3;
 
 export const Carousel = () => {
-  const [currentImage, setCurrentImage] = useState(images[1]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransition, setIsTransition] = useState(true);
   const [timerId, setTimerId] = useState(-1);
+  const [isClickedSelector, setIsClickedSelector] = useState(-1);
 
-  const setSlideInterval = () => {
-    let count = 1;
+  const beforeLastIndex = currentIndex < images.length - 1;
+  const startLastSlide = currentIndex === images.length - 1;
+  const isTransitionOff = !isTransition;
+
+  const moveToNextImageAfter = (seconds: number) => {
+    clearTimeout(timerId);
     setTimerId(
-      setInterval(() => {
-        setCurrentImage(images[count]);
-        console.log(count);
-        if (count === images.length - 1) count = 1;
-        else count++;
-      }, 2000),
+      setTimeout(() => {
+        if (beforeLastIndex) {
+          if (isClickedSelector) setIsClickedSelector(-1);
+          setCurrentIndex(currentIndex + 1);
+        }
+      }, seconds * 1000),
     );
   };
 
-  useEffect(() => {
-    setSlideInterval();
+  const turnOffTransitionAfterSlide = (seconds: number) => {
+    setTimerId(
+      setTimeout(() => {
+        setIsTransition(false);
+      }, seconds * 1000),
+    );
+  };
 
-    return () => {
-      clearInterval(timerId);
-    };
-  }, []);
+  const startSlideAgainAfter = (seconds: number) => {
+    setTimeout(() => {
+      setIsTransition(true);
+    }, seconds * 100);
+  };
+
+  useEffect(() => {
+    clearTimeout(timerId);
+    if (startLastSlide) turnOffTransitionAfterSlide(TRANSITION_DURATION);
+    else moveToNextImageAfter(IMAGE_SHOW_SECONDS);
+  }, [currentIndex, isClickedSelector]);
+
+  useEffect(() => {
+    if (isTransitionOff) {
+      setCurrentIndex(0);
+      startSlideAgainAfter(TRANSITION_DURATION);
+    }
+  }, [isTransition]);
 
   return (
     <StyledContainer>
-      {/*<CarouselButton direction='right' />*/}
-      {/*<CarouselButton direction='left' />*/}
-      <CarouselSlide currentImage={currentImage} images={images} />
+      <CarouselSlide
+        images={images}
+        currentIndex={currentIndex}
+        isTransition={isTransition}
+        setIsTransition={setIsTransition}
+      />
       <CarouselItemSelector
         images={images}
+        currentIndex={currentIndex}
+        setCurrentIndex={setCurrentIndex}
         timerId={timerId}
-        currentImageId={currentImage.id}
-        setCurrentImage={setCurrentImage}
-        setSlideInterval={setSlideInterval}
+        isClickedSelector={isClickedSelector}
+        setIsClickedSelector={setIsClickedSelector}
       />
     </StyledContainer>
   );
 };
 
 const StyledContainer = styled.div`
+  background-color: gray;
   grid-column: span 12;
-  background-color: ${theme.palette.orange100};
-  position: relative;
   height: 439px;
   overflow: hidden;
+  position: relative;
 `;
