@@ -24,8 +24,6 @@ export const useInterestForm = () => {
     },
   });
 
-  console.log(formState);
-
   return {
     formState,
     setFormState,

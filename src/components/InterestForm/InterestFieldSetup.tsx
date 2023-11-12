@@ -23,6 +23,15 @@ export const InterestFieldSetup: FC<Props> = ({ formState, setFormState }) => {
     return interestTags.find(interest => interest.name === selectedTag && interest.keyWords);
   }, [selectedTag]);
 
+  const getHeavyTags = () => {
+    const tagNames = Object.keys(formState.interests) as TagName[];
+    const heavyTags = tagNames.filter(tagName => {
+      const heavyTag = formState.interests[tagName].length > 0 && tagName;
+      return heavyTag;
+    });
+    return heavyTags;
+  };
+
   const updateSelectedKeyWord = useCallback(
     (tagName: TagName, selected: Keywords[number]) => {
       const { interests } = formState;
@@ -31,7 +40,7 @@ export const InterestFieldSetup: FC<Props> = ({ formState, setFormState }) => {
         interests[tagName].length === 1 && interests[tagName][0] === selected;
       const clickableKeywordsAmount = interests[tagName].length === 3;
 
-      if (isOnlyOneKeyWord) return;
+      if (isOnlyOneKeyWord && getHeavyTags().length === 1) return;
       if (clickableKeywordsAmount && !interests[tagName].includes(selected)) return;
 
       if (interests[tagName].includes(selected)) {
