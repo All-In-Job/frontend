@@ -4,7 +4,15 @@ import styled from '@emotion/styled';
 
 import theme from 'styles/theme';
 
-import { Blue, CalendarContext, ClickedDateContext, Purple, Red, TODAY } from './Calendar';
+import {
+  Blue,
+  CalendarContext,
+  ClickedDateContext,
+  CurrentDateContext,
+  Purple,
+  Red,
+  TODAY,
+} from './Calendar';
 import { filterScheduleStatus } from './Row';
 
 const CONTAINER_PADDING_VERTICAL = 40;
@@ -12,6 +20,7 @@ const CONTAINER_PADDING_VERTICAL = 40;
 export const CalendarSub = () => {
   const { clickedDate } = useContext(ClickedDateContext)!;
   const { calendarState } = useContext(CalendarContext)!;
+  const { currentDate } = useContext(CurrentDateContext)!;
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollableRef = useRef<HTMLDivElement>(null);
 
@@ -25,7 +34,7 @@ export const CalendarSub = () => {
     const scrollableFrame = scrollableRef.current;
     if (container && scrollableFrame)
       scrollableFrame.style.height = container.offsetHeight - CONTAINER_PADDING_VERTICAL * 4 + 'px';
-  }, []);
+  }, [currentDate]);
 
   return (
     <StyledContainer ref={containerRef}>
