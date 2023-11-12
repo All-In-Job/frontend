@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { createUser } from 'apis/signup';
 import { InputFieldType } from 'components/BasicInformation/BasicInformation';
 import Submit from 'components/commons/Buttons/Submit/Submit';
+import { useInterestForm } from 'hooks/useInterestForm';
 import { useSearch } from 'hooks/useSearch';
 
 import interestTags from './data/interestTags.json';
@@ -45,8 +46,8 @@ type InterestTag = {
 };
 
 function InterestFieldSetup() {
-  const { matchWord, choiceDepartment, setChoiceDepartment, searchedResults, setSearchedResults } =
-    useSearch();
+  const { formState, setFormState } = useInterestForm();
+  const { matchWord, searchedResults, setSearchedResults } = useSearch();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -62,14 +63,13 @@ function InterestFieldSetup() {
   const locationState = useLocation().state as SignupFormInputFieldsType;
 
   const getValueDepartmentInput = (e: ChangeEvent<HTMLInputElement>) => {
-    // setDepartmentInput(e.target.value);
     setSearchedResults(matchWord(departments, e.target.value));
 
     if (e.target.value !== '') {
       setIsVisible(true);
     } else {
       setIsVisible(false);
-      setChoiceDepartment('');
+      setFormState({ ...formState, subMajor: '' });
     }
   };
 
@@ -81,11 +81,11 @@ function InterestFieldSetup() {
     setIsInputFocused(false);
   };
 
-  const onClickChoice = (department: string) => {
-    setChoiceDepartment(department);
+  const onClickChoice = (major: string) => {
+    setFormState({ ...formState, subMajor: major });
 
     if (inputRef.current) {
-      inputRef.current.value = department;
+      inputRef.current.value = major;
     }
     setIsVisible(false);
   };
@@ -112,8 +112,8 @@ function InterestFieldSetup() {
   };
 
   useEffect(() => {
-    setIsActive(choiceDepartment !== '' && selectedKeyWords.length > 0);
-  }, [choiceDepartment, selectedKeyWords]);
+    setIsActive(formState.subMajor !== '' && selectedKeyWords.length > 0);
+  }, [formState.subMajor, selectedKeyWords]);
 
   const submitButton = async () => {
     try {
@@ -151,7 +151,7 @@ function InterestFieldSetup() {
     <S.InterestFieldSetupWrapper>
       <S.InterestFieldSetupTitle>전공학과를 선택해주세요!</S.InterestFieldSetupTitle>
       <S.MajorDepartment
-        choicedepartment={choiceDepartment}
+        choicedepartment={formState.subMajor}
         isVisible={isVisible}
         isInputFocused={isInputFocused}
       >
@@ -164,7 +164,7 @@ function InterestFieldSetup() {
           onBlur={handleInputBlur}
         />
         <S.ExpandMoreIcon
-          choicedepartment={choiceDepartment}
+          choicedepartment={formState.subMajor}
           data-isvisible={isVisible}
           data-isinputfocused={isInputFocused}
         />

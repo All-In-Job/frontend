@@ -38,7 +38,6 @@ const pattern = (ch: string) => {
 };
 
 export const useSearch = () => {
-  const [choiceDepartment, setChoiceDepartment] = useState('');
   const [searchedResults, setSearchedResults] = useState<string[]>();
 
   const isCharacterMatch = (query: string, target: string) => {
@@ -58,8 +57,6 @@ export const useSearch = () => {
 
   return {
     matchWord,
-    choiceDepartment,
-    setChoiceDepartment,
     searchedResults,
     setSearchedResults,
   };
