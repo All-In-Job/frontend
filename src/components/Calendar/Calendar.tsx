@@ -95,6 +95,21 @@ export const Calendar = () => {
           title: '2023 Meta Spark AR 콘텐츠 공모전5',
           status: 'close',
         },
+        {
+          id: '4',
+          title: '2023 Meta Spark AR 콘텐츠 공모전6',
+          status: 'exam',
+        },
+        {
+          id: '5',
+          title: '2023 Meta Spark AR 콘텐츠 공모전7',
+          status: 'exam',
+        },
+        {
+          id: '6',
+          title: '2023 Meta Spark AR 콘텐츠 공모전8',
+          status: 'exam',
+        },
       ],
       20: [
         {

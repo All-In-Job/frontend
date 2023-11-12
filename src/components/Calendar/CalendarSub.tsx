@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { useContext, useLayoutEffect, useMemo, useRef } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -7,17 +7,28 @@ import theme from 'styles/theme';
 import { Blue, CalendarContext, ClickedDateContext, Purple, Red, TODAY } from './Calendar';
 import { filterScheduleStatus } from './Row';
 
+const CONTAINER_PADDING_VERTICAL = 40;
+
 export const CalendarSub = () => {
   const { clickedDate } = useContext(ClickedDateContext)!;
   const { calendarState } = useContext(CalendarContext)!;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollableRef = useRef<HTMLDivElement>(null);
 
   const { year, month, date } = useMemo(() => {
     if (clickedDate.date) return clickedDate;
     return TODAY;
   }, [clickedDate]);
 
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    const scrollableFrame = scrollableRef.current;
+    if (container && scrollableFrame)
+      scrollableFrame.style.height = container.offsetHeight - CONTAINER_PADDING_VERTICAL * 4 + 'px';
+  }, []);
+
   return (
-    <StyledContainer>
+    <StyledContainer ref={containerRef}>
       <StyledHeader>
         <StyledStatusBar bgColor={Red} />
         <span>모집</span>
@@ -29,18 +40,20 @@ export const CalendarSub = () => {
       <StyledDate>
         {year}년 {month}월 {date}일
       </StyledDate>
-      <StyledUl>
-        {calendarState.schedules &&
-          calendarState.schedules.map(
-            schedule =>
-              schedule.title && (
-                <StyledLi key={schedule.title}>
-                  <StyledStatusBar bgColor={filterScheduleStatus(schedule.status)} />
-                  <span>{schedule.title}</span>
-                </StyledLi>
-              ),
-          )}
-      </StyledUl>
+      <StyledScrollableFrame ref={scrollableRef}>
+        <StyledUl>
+          {calendarState.schedules &&
+            calendarState.schedules.map(
+              schedule =>
+                schedule.title && (
+                  <StyledLi key={schedule.title}>
+                    <StyledStatusBar bgColor={filterScheduleStatus(schedule.status)} />
+                    <span>{schedule.title}</span>
+                  </StyledLi>
+                ),
+            )}
+        </StyledUl>
+      </StyledScrollableFrame>
     </StyledContainer>
   );
 };
@@ -49,7 +62,7 @@ const StyledContainer = styled.div`
   grid-column: span 4;
   background-color: white;
   border-radius: 12px;
-  padding: 40px 32px;
+  padding: ${CONTAINER_PADDING_VERTICAL}px 32px;
 `;
 const StyledHeader = styled.div`
   width: 100%;
@@ -71,6 +84,11 @@ const StyledUl = styled.ul`
   display: grid;
   gap: 16px;
   margin-top: 17px;
+  //height: calc(100% - ${CONTAINER_PADDING_VERTICAL}px);
+`;
+const StyledScrollableFrame = styled.div`
+  overflow: hidden;
+  overflow-y: scroll;
 `;
 const StyledLi = styled.li`
   width: 100%;
