@@ -29,11 +29,15 @@ export const CalendarSub = () => {
     return TODAY;
   }, [clickedDate]);
 
-  useLayoutEffect(() => {
+  const updateScrollableFrameHeightByCurrentDate = () => {
     const container = containerRef.current;
     const scrollableFrame = scrollableRef.current;
     if (container && scrollableFrame)
       scrollableFrame.style.height = container.offsetHeight - CONTAINER_PADDING_VERTICAL * 4 + 'px';
+  };
+
+  useLayoutEffect(() => {
+    updateScrollableFrameHeightByCurrentDate();
   }, [currentDate]);
 
   return (
