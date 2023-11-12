@@ -14,7 +14,7 @@ export const CalendarSub = () => {
   const { year, month, date } = useMemo(() => {
     if (clickedDate.date) return clickedDate;
     return TODAY;
-  }, []);
+  }, [clickedDate]);
 
   return (
     <StyledContainer>
