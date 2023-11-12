@@ -9,7 +9,7 @@ import Submit from 'components/commons/Buttons/Submit/Submit';
 import { useInterestForm } from 'hooks/useInterestForm';
 import { useSearch } from 'hooks/useSearch';
 
-import interestTags from './data/interestTags.json';
+import { InterestFieldSetup } from './InterestFieldSetup';
 import * as S from './InterestForm.style';
 import { ReactComponent as DefaultInterestImage } from './res/img/default_interest_image.svg';
 
@@ -40,10 +40,6 @@ type SignupFormInputFieldsType = Record<
   'email' | 'provider' | InputFieldType | 'currentPhoto',
   string
 >;
-type InterestTag = {
-  name: string;
-  keyWords: string[];
-};
 
 function InterestForm() {
   const { formState, setFormState } = useInterestForm();
@@ -52,11 +48,6 @@ function InterestForm() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isInputFocused, setIsInputFocused] = useState(false);
 
-  const [interestTag, setInterestTag] = useState<InterestTag>({
-    name: interestTags[0].name,
-    keyWords: interestTags[0].keyWords,
-  });
-  const [selectedKeyWords, setSelectedKeyWords] = useState<string[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
@@ -90,30 +81,9 @@ function InterestForm() {
     setIsVisible(false);
   };
 
-  const onClickTag = (tag: InterestTag) => {
-    setInterestTag({
-      name: tag.name,
-      keyWords: tag.keyWords,
-    });
-
-    setSelectedKeyWords([]);
-  };
-
-  const selectedKeyWord = (keyWord: string) => {
-    if (selectedKeyWords.includes(keyWord)) {
-      const updatedSelectedKeywords = selectedKeyWords.filter(
-        selectedKeyWord => selectedKeyWord !== keyWord,
-      );
-      setSelectedKeyWords(updatedSelectedKeywords);
-    } else if (selectedKeyWords.length < 3) {
-      const updatedSelectedKeywords = [...selectedKeyWords, keyWord];
-      setSelectedKeyWords(updatedSelectedKeywords);
-    }
-  };
-
   useEffect(() => {
-    setIsActive(formState.subMajor !== '' && selectedKeyWords.length > 0);
-  }, [formState.subMajor, selectedKeyWords]);
+    setIsActive(formState.subMajor !== '');
+  }, [formState.subMajor]);
 
   const submitButton = async () => {
     try {
@@ -185,49 +155,9 @@ function InterestForm() {
       </S.DefaultImageBox>
 
       <S.InterestFieldSetupTitle>관심분야를 선택해주세요!</S.InterestFieldSetupTitle>
-      <S.InterestSelectTagList>
-        {interestTags.map(tag => (
-          <S.ClickedTag
-            key={tag.name}
-            onClick={() =>
-              onClickTag({
-                name: tag.name,
-                keyWords: [...tag.keyWords],
-              })
-            }
-            isChangeColor={tag.name === interestTag.name ? true : false}
-          >
-            {tag.name}
-          </S.ClickedTag>
-        ))}
-      </S.InterestSelectTagList>
+      <InterestFieldSetup formState={formState} setFormState={setFormState} />
 
-      <S.InterestKeyWord>
-        <S.InterestFieldSetupTitle>
-          #{interestTag.name} 분야의 관심 키워드를 선택해주세요!
-        </S.InterestFieldSetupTitle>
-        <S.KeyWordText>키워드는 1개~3개 선택 가능합니다.</S.KeyWordText>
-
-        <S.KeyWordList>
-          {interestTag.keyWords.map(keyWord => (
-            <S.ClickedKeyWord
-              key={keyWord}
-              onClick={() => selectedKeyWord(keyWord)}
-              isChangeColor={selectedKeyWords.includes(keyWord)}
-            >
-              {/* <S.CheckBox isChangeColor={selectedKeyWords.includes(keyWord)}></S.CheckBox> */}
-              <S.CheckCircleIcon data-isactive={selectedKeyWords.includes(keyWord)} />
-              <p>#{keyWord}</p>
-            </S.ClickedKeyWord>
-          ))}
-        </S.KeyWordList>
-      </S.InterestKeyWord>
-      <Submit
-        title='확인'
-        onClick={submitButton}
-        disabled={isActive ? false : true}
-        isActive={isActive}
-      />
+      <Submit title='확인' onClick={submitButton} disabled={!isActive} isActive={isActive} />
     </S.InterestFieldSetupWrapper>
   );
 }

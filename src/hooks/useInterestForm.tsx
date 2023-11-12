@@ -1,21 +1,27 @@
 import { useState } from 'react';
 
-type InterestTagsType = Array<{
-  name: (typeof tags)[number];
-  keyWords: string[];
-}>;
+import { interestTags } from 'components/InterestForm/data/interestTags';
+import { TagName } from 'components/InterestForm/InterestFieldSetup';
 
-type InterestFormState = {
+export type InterestTagsType = Record<TagName, string[]>;
+
+export type InterestFormState = {
+  mainMajor: string;
   subMajor: string;
-  interestTags: InterestTagsType;
+  interests: InterestTagsType;
 };
-
-const tags = ['공모전', '대외활동', '자격증', '어학', '인턴'] as const;
 
 export const useInterestForm = () => {
   const [formState, setFormState] = useState<InterestFormState>({
+    mainMajor: '컴퓨터공학과',
     subMajor: '',
-    interestTags: [...tags.map(tag => ({ name: tag, keyWords: [] }))],
+    interests: {
+      공모전: [interestTags[0].keyWords[0]],
+      대외활동: [],
+      어학: [],
+      인턴: [],
+      자격증: [],
+    },
   });
 
   console.log(formState);
