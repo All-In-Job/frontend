@@ -52,9 +52,12 @@ export const MyBlock = styled.div`
     margin-bottom: 4rem;
     font-family: none;
   }
+  .toolbar-class {
+    border: 1px solid ${palette.black200} !important;
+  }
   .editor {
     height: 500px !important;
-    border: 1px solid #f1f1f1 !important;
+    border: 1px solid ${palette.black200} !important;
     padding: 5px !important;
     border-radius: 2px !important;
   }
