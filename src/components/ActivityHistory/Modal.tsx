@@ -2,7 +2,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { ModalBackground } from 'components/Modals/ModalBackground';
 import { categoryIdState, currentCategoryState, currentKeywordState } from 'store/activityHistory';
-import { isAcitiviyModalState } from 'store/modal';
+import { isActivityModalState } from 'store/modal';
 
 import Calendar from './Calendar/Calendar';
 import * as S from './Modal.styles';
@@ -12,7 +12,7 @@ import { InterestSelect } from './SelectList/InterestSelect';
 import { TitleSelect } from './SelectList/TitleSelect';
 
 const Modal = () => {
-  const setIsModalVisible = useSetRecoilState(isAcitiviyModalState);
+  const setIsModalVisible = useSetRecoilState(isActivityModalState);
   const categoryId = useRecoilValue(categoryIdState);
   const setCurrentCategory = useSetRecoilState<string>(currentCategoryState);
   const setCurrentKeyword = useSetRecoilState(currentKeywordState);

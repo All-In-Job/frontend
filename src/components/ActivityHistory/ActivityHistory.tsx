@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useRecoilState } from 'recoil';
 
-import { isAcitiviyModalState } from 'store/modal';
+import { isActivityModalState } from 'store/modal';
 
 import * as S from './ActivityHistory.styles';
 import Modal from './Modal';
@@ -35,7 +35,7 @@ const Tabs = [
 
 const ActivityHistory = () => {
   const [clickedTab, setClickedTab] = useState('competition');
-  const [isAcitiviyModalVisible, setIsModalVisible] = useRecoilState(isAcitiviyModalState);
+  const [isAcitiviyModalVisible, setIsModalVisible] = useRecoilState(isActivityModalState);
   const onModalOpen = () => {
     setIsModalVisible(prev => !prev);
   };
