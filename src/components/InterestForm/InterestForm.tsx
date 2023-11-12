@@ -45,7 +45,7 @@ type InterestTag = {
   keyWords: string[];
 };
 
-function InterestFieldSetup() {
+function InterestForm() {
   const { formState, setFormState } = useInterestForm();
   const { matchWord, searchedResults, setSearchedResults } = useSearch();
 
@@ -232,4 +232,4 @@ function InterestFieldSetup() {
   );
 }
 
-export default InterestFieldSetup;
+export default InterestForm;
