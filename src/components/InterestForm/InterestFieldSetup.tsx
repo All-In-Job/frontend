@@ -32,28 +32,28 @@ export const InterestFieldSetup: FC<Props> = ({ formState, setFormState }) => {
     return heavyTags;
   };
 
+  const updateFormState = (tagName: TagName, keywords: string[]) => {
+    setFormState({
+      ...formState,
+      interests: { ...formState.interests, [tagName]: keywords },
+    });
+  };
   const updateSelectedKeyWord = useCallback(
     (tagName: TagName, selected: Keywords[number]) => {
-      const { interests } = formState;
+      const selects = formState.interests[tagName];
 
-      const isOnlyOneKeyWord =
-        interests[tagName].length === 1 && interests[tagName][0] === selected;
-      const clickableKeywordsAmount = interests[tagName].length === 3;
+      const isOnlyOneKeyWord = selects.length === 1 && selects[0] === selected;
+
+      const isMax = selects.length === 3;
 
       if (isOnlyOneKeyWord && getHeavyTags().length === 1) return;
-      if (clickableKeywordsAmount && !interests[tagName].includes(selected)) return;
+      if (isMax && !selects.includes(selected)) return;
 
-      if (interests[tagName].includes(selected)) {
-        const updatedSelectedKeywords = interests[tagName].filter(keyWord => keyWord !== selected);
-        return setFormState({
-          ...formState,
-          interests: { ...interests, [tagName]: updatedSelectedKeywords },
-        });
+      if (selects.includes(selected)) {
+        const updatedSelectedKeywords = selects.filter(keyWord => keyWord !== selected);
+        return updateFormState(tagName, updatedSelectedKeywords);
       }
-      setFormState({
-        ...formState,
-        interests: { ...interests, [tagName]: [...interests[tagName], selected] },
-      });
+      updateFormState(tagName, [...selects, selected]);
     },
     [formState],
   );
@@ -65,6 +65,7 @@ export const InterestFieldSetup: FC<Props> = ({ formState, setFormState }) => {
 
     const hasSelectedKeyword = formState.interests[tagName].length >= 1;
     if (hasSelectedKeyword) return { color: orange500, border: `1px solid ${orange500}` };
+
     return { color: black200, border: `1px solid ${black200}` };
   };
 
