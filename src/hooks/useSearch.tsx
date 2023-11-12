@@ -38,8 +38,8 @@ const pattern = (ch: string) => {
 };
 
 export const useSearch = () => {
-  const [departmentInput, setDepartmentInput] = useState('');
   const [choiceDepartment, setChoiceDepartment] = useState('');
+  const [searchedResults, setSearchedResults] = useState<string[]>();
 
   const isCharacterMatch = (query: string, target: string) => {
     const reg = new RegExp(query.split('').map(pattern).join('.*?'), 'i');
@@ -58,9 +58,9 @@ export const useSearch = () => {
 
   return {
     matchWord,
-    departmentInput,
-    setDepartmentInput,
     choiceDepartment,
     setChoiceDepartment,
+    searchedResults,
+    setSearchedResults,
   };
 };
