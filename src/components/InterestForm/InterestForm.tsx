@@ -13,29 +13,6 @@ import * as S from './InterestForm.style';
 import { ReactComponent as DefaultInterestImage } from './res/img/default_interest_image.svg';
 import { SubMajorInput } from './subMajorInput';
 
-// const departments = [
-//   '컴퓨터공학과',
-//   '컴퓨터소프트웨어공학과',
-//   '전자공학과',
-//   '전자전기공학과',
-//   '경영학과',
-//   '경제경영학과',
-//   '신소재공학과',
-//   '국어국문학과',
-//   '정치외교학과',
-//   '기계공학과',
-//   '물리학과',
-//   '천문학과',
-//   '간호학과',
-//   '사회복지학과',
-//   '철학과',
-//   '시각디자인학과',
-//   '산업디자인학과',
-//   '건축학과',
-//   '행정학과',
-//   '법학과',
-// ];
-
 type SignupFormInputFieldsType = Record<
   'email' | 'provider' | InputFieldType | 'currentPhoto',
   string
@@ -86,7 +63,8 @@ function InterestForm() {
   return (
     <S.InterestFieldSetupWrapper>
       <S.InterestFieldSetupTitle>전공학과를 선택해주세요!</S.InterestFieldSetupTitle>
-      <SubMajorInput formState={formState} setFormState={setFormState} />
+      <SubMajorInput formState={formState} setFormState={setFormState} majorType='mainMajor' />
+      <SubMajorInput formState={formState} setFormState={setFormState} majorType='subMajor' />
 
       <S.DefaultImageBox>
         <DefaultInterestImage />

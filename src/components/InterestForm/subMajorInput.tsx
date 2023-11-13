@@ -1,31 +1,38 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction, useRef, useState } from 'react';
 
 import { InterestFormState } from 'hooks/useInterestForm';
-import { useSearch } from 'hooks/useSearch';
+import { MajorType, useSearch } from 'hooks/useSearch';
 
 import * as S from './InterestForm.style';
 
-type Props = {
+export type Props = {
   formState: InterestFormState;
   setFormState: Dispatch<SetStateAction<InterestFormState>>;
+  majorType: MajorType;
 };
 
-export const SubMajorInput: FC<Props> = ({ formState, setFormState }) => {
+export const SubMajorInput: FC<Props> = ({ formState, setFormState, majorType }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const { matchWord, searchedResults, setSearchedResults, mClasses } = useSearch({ major: 'main' });
+  const { matchWord, searchedResults, setSearchedResults, mainMajors, fixedResponse, isLoading } =
+    useSearch();
 
   const getValueDepartmentInput = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(mClasses);
-    if (mClasses) setSearchedResults(matchWord(mClasses, e.target.value));
+    if (majorType === 'mainMajor' && mainMajors) {
+      console.log(mainMajors);
+      setSearchedResults(matchWord(mainMajors, e.target.value));
+    }
+    if (majorType === 'subMajor' && fixedResponse) {
+      const subMajors = Array.from(new Set(fixedResponse[formState.mainMajor]));
+      setSearchedResults(matchWord(subMajors, e.target.value));
+    }
 
-    if (e.target.value !== '') {
-      setIsVisible(true);
-    } else {
+    if (e.target.value !== '') setIsVisible(true);
+    else {
       setIsVisible(false);
-      setFormState({ ...formState, subMajor: '' });
+      setFormState({ ...formState, [majorType]: '' });
     }
   };
 
@@ -38,13 +45,15 @@ export const SubMajorInput: FC<Props> = ({ formState, setFormState }) => {
   };
 
   const onClickChoice = (major: string) => {
-    setFormState({ ...formState, subMajor: major });
+    setFormState({ ...formState, [majorType]: major });
 
     if (inputRef.current) {
       inputRef.current.value = major;
     }
     setIsVisible(false);
   };
+
+  if (isLoading) return <div>loading...</div>;
 
   return (
     <S.MajorDepartment
@@ -69,7 +78,7 @@ export const SubMajorInput: FC<Props> = ({ formState, setFormState }) => {
         <S.MajorDepartmentList>
           {searchedResults &&
             searchedResults.map(department => (
-              <li key={department} onClick={() => onClickChoice(department)}>
+              <li key={majorType + department} onClick={() => onClickChoice(department)}>
                 {department}
               </li>
             ))}

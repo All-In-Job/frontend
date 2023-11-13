@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 type Results = string[];
-type CareerResponseType = {
+export type CareerResponseType = {
   mClass: string;
   facilName: string;
 };
+export type MajorType = 'mainMajor' | 'subMajor';
 
 const reESC = /[\\^$.*+?()[\]{}|]/g;
 const reChar = /[가-힣]/;
@@ -43,36 +44,42 @@ const pattern = (ch: string) => {
   return `(${r})`;
 };
 
-type Params = {
-  major: 'main' | 'sub';
-};
-
-export const useSearch = ({ major }: Params) => {
+export const useSearch = () => {
   const [searchedResults, setSearchedResults] = useState<string[]>();
-  const [mClasses, setMClasses] = useState<string[]>();
+  const [mainMajors, setMainMajors] = useState<string[]>();
+  const [fixedResponse, setFixedResponse] = useState<Record<string, string[]>>();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // max perPage: 3000
-    let count = 0;
-    const mClasses: string[] = [];
+    const tempMainMajors: string[] = [];
+    setIsLoading(true);
 
-    const intervalId = setInterval(() => {
-      axios
-        .get(
-          `https://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=${
-            import.meta.env.VITE_API_CAREER_KEY
-          }&svcType=api&svcCode=MAJOR&contentType=json&gubun=univ_list&thisPage=${count}&perPage=100`,
-        )
-        .then(res => {
-          const majors = res.data.dataSearch.content as CareerResponseType[];
-          if (mClasses.length > 0 && majors.length === 0) return clearInterval(intervalId);
-          if (major === 'main') mClasses.push(...majors.map(major => major.mClass));
+    axios
+      .get(
+        `https://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=${
+          import.meta.env.VITE_API_CAREER_KEY
+        }&svcType=api&svcCode=MAJOR&contentType=json&gubun=univ_list&thisPage=${1}&perPage=3000`,
+      )
+      .then(res => {
+        const majors = res.data.dataSearch.content as CareerResponseType[];
 
-          setMClasses([...mClasses]);
-          count++;
-        });
-    }, 1000);
+        tempMainMajors.push(...majors.map(major => major.mClass));
+        setMainMajors([...tempMainMajors]);
+
+        setFixedResponse(getSubMajorsByMainMajor(majors));
+
+        setIsLoading(false);
+      });
   }, []);
+
+  const getSubMajorsByMainMajor = (majors: CareerResponseType[]) => {
+    const temp: Record<string, string[]> = {};
+    for (const major of majors) {
+      temp[major.mClass] = major.facilName.split(',');
+    }
+    return temp;
+  };
 
   const isCharacterMatch = (query: string, target: string) => {
     const reg = new RegExp(query.split('').map(pattern).join('.*?'), 'i');
@@ -93,6 +100,8 @@ export const useSearch = ({ major }: Params) => {
     matchWord,
     searchedResults,
     setSearchedResults,
-    mClasses,
+    mainMajors,
+    isLoading,
+    fixedResponse,
   };
 };

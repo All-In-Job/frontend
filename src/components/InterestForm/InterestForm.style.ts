@@ -93,6 +93,7 @@ export const MajorDepartment = styled.div<MajorDepartmentProps>`
 `;
 
 export const MajorDepartmentList = styled.ul`
+  z-index: 999;
   position: absolute;
   top: 49px;
   left: -1px;
