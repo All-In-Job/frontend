@@ -83,7 +83,7 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
       navigate('/signup/basic-info', { state: { email: socialLoginResponse.email, provider } });
     if (socialLoginResponse.accessToken) {
       localStorage.setItem('accessToken', socialLoginResponse.accessToken);
-      navigate('/', { state: socialLoginResponse });
+      window.location.replace('/');
     }
   }, [socialAccessToken, socialLoginResponse]);
 
