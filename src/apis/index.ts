@@ -11,3 +11,14 @@ export const communityApi = createAxiosInstance('community');
 export const crawlingApi = createAxiosInstance('crawling/finde');
 export const detailCrawlingApi = createAxiosInstance('crawling/findeDetail');
 export const detailCommunityApi = createAxiosInstance('community');
+
+axios.interceptors.request.use(
+  function (config) {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) config.headers.Authorization = accessToken;
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  },
+);
