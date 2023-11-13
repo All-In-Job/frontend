@@ -10,6 +10,7 @@ import { Home } from 'pages/Home';
 import Login from 'pages/login/Login';
 import Menu from 'pages/menu/Menu';
 import MenuList from 'pages/menu/MenuList/MenuList';
+import { NewPost } from 'pages/newPost/NewPost';
 import ScrapPage from 'pages/scrap/ScrapPage';
 import Signup from 'pages/signUp/SignUp';
 
@@ -67,6 +68,10 @@ export const router = createBrowserRouter([
       {
         path: ':menuName/:categoryId/:detailId',
         element: <DetailPage />,
+      },
+      {
+        path: ':menuName/newpost',
+        element: <NewPost />,
       },
     ],
   },
