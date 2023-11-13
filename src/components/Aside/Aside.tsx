@@ -1,13 +1,17 @@
-import MyInfoNav from 'components/Navigation/MyInfoNav/MyInfoNav';
+import { useNavigate } from 'react-router-dom';
 
 import * as S from './Aside.styles';
 
 function Aside() {
+  const navigate = useNavigate();
+
   return (
     <S.AsideWrapper>
       <S.UserSideBar>
         <S.UserSideBarText>맞춤 솔루션을 받아보세요!</S.UserSideBarText>
-        <S.LoginButton type='button'>로그인</S.LoginButton>
+        <S.LoginButton type='button' onClick={() => navigate('/login')}>
+          로그인
+        </S.LoginButton>
         <S.AccountOptions>
           <li>
             <S.OptionsButton>아이디 찾기</S.OptionsButton>
@@ -20,7 +24,7 @@ function Aside() {
           </li>
         </S.AccountOptions>
       </S.UserSideBar>
-      <MyInfoNav />
+      {/*<MyInfoNav />*/}
 
       <S.ContentsSideBar>홍보문구</S.ContentsSideBar>
     </S.AsideWrapper>

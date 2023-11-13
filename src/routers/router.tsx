@@ -1,3 +1,4 @@
+import { signupApi } from 'apis';
 import { createBrowserRouter } from 'react-router-dom';
 
 import { BasicInformation } from 'components/BasicInformation/BasicInformation';
@@ -13,10 +14,21 @@ import { NewPost } from 'pages/newPost/NewPost';
 import ScrapPage from 'pages/scrap/ScrapPage';
 import Signup from 'pages/signUp/SignUp';
 
+const getUserProfile = async () => {
+  const res = await signupApi({
+    url: 'getLoginUserInfo',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
+  return res.data.data;
+};
+
 export const router = createBrowserRouter([
   {
     path: '',
     element: <Home />,
+    loader: getUserProfile,
     children: [
       {
         path: 'scrap',

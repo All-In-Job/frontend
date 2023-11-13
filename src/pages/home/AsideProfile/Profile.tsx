@@ -1,25 +1,27 @@
 import styled from '@emotion/styled';
+import { useLoaderData } from 'react-router-dom';
 
 import { Desc } from './asideProfile.style';
-import { user } from './mock/user';
 import Temperature from './Temperature';
 import UserTabs from './UserTabs';
 
 const Profile = () => {
+  const user = useLoaderData() as { nickname: string; thermometer: number; profileImage: string };
+
   return (
     <Container>
       <UserInfoWrapper>
         <UserInfo>
-          <Avatar />
+          <Avatar profileImage={user.profileImage} />
           <UserDescContainer>
-            <MarginBottomDesc size='15px'>{`${user.name}님`}</MarginBottomDesc>
+            <MarginBottomDesc size='15px'>{`${user.nickname}님`}</MarginBottomDesc>
             <FlexDesc size='15px'>
-              열정온도<YellowDesc size='15px'>{`${user.temperature}℃`}</YellowDesc>
+              열정온도<YellowDesc size='15px'>{`${user.thermometer}℃`}</YellowDesc>
             </FlexDesc>
           </UserDescContainer>
           <LogoutButton>로그아웃</LogoutButton>
         </UserInfo>
-        <Temperature temperature={user.temperature} />
+        <Temperature temperature={user.thermometer} />
       </UserInfoWrapper>
       <UserTabs />
     </Container>
@@ -36,12 +38,14 @@ const UserInfo = styled.div`
   display: flex;
   align-items: center;
 `;
-const Avatar = styled.div`
+const Avatar = styled.div<{ profileImage: string }>`
   width: 58px;
   height: 58px;
   border-radius: 50%;
   border: 3px solid ${({ theme }) => theme.palette.orange500};
-  background-color: white;
+  background-image: url(${props => props.profileImage});
+  background-position: center;
+  background-size: cover;
 `;
 const UserDescContainer = styled.div`
   display: flex;

@@ -1,35 +1,20 @@
-import { useEffect } from 'react';
-
 import styled from '@emotion/styled';
-import { signupApi } from 'apis';
 import HomeCardListProvider from 'contexts/homeCardMenuContext/homeCardMenuContext';
+import { useLoaderData } from 'react-router-dom';
 
+import Aside from 'components/Aside/Aside';
 import { CardListMenuBar } from 'components/CardListMenuBar/CardListMenuBar';
 import { Carousel } from 'components/Carousel/Carousel';
 import { MainPageList } from 'components/MainPageList/MainPageList';
+import AsideProfile from 'pages/home/AsideProfile';
 
 export const Main = () => {
-  useEffect(() => {
-    signupApi({
-      url: 'getLoginUserInfo',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+  const loader = useLoaderData();
 
   return (
     <>
       <Carousel />
-      {/*<Sidebar>*/}
-      {/*  <Profile />*/}
-      {/*</Sidebar>*/}
+      <Sidebar>{loader ? <AsideProfile /> : <Aside />}</Sidebar>
       <HomeCardListProvider>
         <CardListMenuBar />
         <MainPageList />
@@ -39,6 +24,7 @@ export const Main = () => {
 };
 
 export const Sidebar = styled.aside`
-  background-color: lightslategrey;
-  grid-column: span 3;
+  position: absolute;
+  right: 1vw;
+  //background-color: lightslategrey;
 `;
