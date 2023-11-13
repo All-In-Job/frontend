@@ -8,7 +8,7 @@ import { InputFieldType } from 'components/BasicInformation/BasicInformation';
 import Submit from 'components/commons/Buttons/Submit/Submit';
 import { useInterestForm } from 'hooks/useInterestForm';
 
-import { InterestFieldSetup } from './InterestFieldSetup';
+import { InterestFieldSetup, TagName } from './InterestFieldSetup';
 import * as S from './InterestForm.style';
 import { ReactComponent as DefaultInterestImage } from './res/img/default_interest_image.svg';
 import { SubMajorInput } from './subMajorInput';
@@ -28,9 +28,23 @@ function InterestForm() {
     setIsActive(formState.major.subMajor !== '');
   }, [formState.major.subMajor]);
 
+  const generateCorrectInterests = () => {
+    const tempInterests: Array<object> = [];
+    let i = 0;
+    for (const key in formState.interests) {
+      tempInterests[i] = { [key]: formState.interests[key as TagName] };
+      i++;
+    }
+    return tempInterests;
+  };
+
   const submitButton = async () => {
     try {
-      const res = await createUser({ ...locationState, ...formState });
+      const res = await createUser({
+        ...locationState,
+        ...formState,
+        interests: generateCorrectInterests(),
+      });
       console.log(res);
     } catch (e) {
       if (e instanceof AxiosError && e.response) {
