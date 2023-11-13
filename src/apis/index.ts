@@ -17,7 +17,7 @@ function createAxiosInstance(url: string) {
   return instance;
 }
 
-export const signupApi = createAxiosInstance('user');
+export const userApi = createAxiosInstance('user');
 export const loginApi = createAxiosInstance('login');
 
 export const communityApi = createAxiosInstance('community');
