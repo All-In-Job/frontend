@@ -2,6 +2,7 @@ import { signupApi } from 'apis';
 import { createBrowserRouter } from 'react-router-dom';
 
 import { BasicInformation } from 'components/BasicInformation/BasicInformation';
+import { Calendar } from 'components/Calendar/Calendar';
 import InterestForm from 'components/InterestForm/InterestForm';
 import { DetailPage } from 'pages/detail';
 import FindID from 'pages/findID/FindID';
@@ -77,6 +78,10 @@ export const router = createBrowserRouter([
       {
         path: ':menuName/newpost',
         element: <NewPost />,
+      },
+      {
+        path: 'calendar',
+        element: <Calendar />,
       },
     ],
   },
