@@ -20,9 +20,6 @@ const getUserProfile = async () => {
   try {
     const res = await signupApi({
       url: 'getLoginUserInfo',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
     });
     return res.data.data;
   } catch (e) {
