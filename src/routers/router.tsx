@@ -1,7 +1,7 @@
-import { signupApi } from 'apis';
 import { AxiosError } from 'axios';
 import { createBrowserRouter } from 'react-router-dom';
 
+import { getLoginUserInfo } from 'apis/signup';
 import { BasicInformation } from 'components/BasicInformation/BasicInformation';
 import { Calendar } from 'components/Calendar/Calendar';
 import InterestForm from 'components/InterestForm/InterestForm';
@@ -18,9 +18,7 @@ import Signup from 'pages/signUp/SignUp';
 
 const getUserProfile = async () => {
   try {
-    const res = await signupApi({
-      url: 'getLoginUserInfo',
-    });
+    const res = await getLoginUserInfo();
     return res.data.data;
   } catch (e) {
     if (e instanceof AxiosError && e.response) {

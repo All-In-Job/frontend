@@ -35,3 +35,9 @@ export const createUser = async (data: object) => {
     data,
   });
 };
+
+export const getLoginUserInfo = async () => {
+  return await userApi({
+    url: 'getLoginUserInfo',
+  });
+};
