@@ -13,7 +13,7 @@ export type InterestFormState = {
 
 export const useInterestForm = () => {
   const [formState, setFormState] = useState<InterestFormState>({
-    mainMajor: '컴퓨터공학과',
+    mainMajor: '',
     subMajor: '',
     interests: {
       공모전: [interestTags[0].keyWords[0]],

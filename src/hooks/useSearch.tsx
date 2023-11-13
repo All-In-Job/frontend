@@ -1,6 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import axios from 'axios';
 
 type Results = string[];
+type CareerResponseType = {
+  mClass: string;
+  facilName: string;
+};
 
 const reESC = /[\\^$.*+?()[\]{}|]/g;
 const reChar = /[가-힣]/;
@@ -37,8 +43,36 @@ const pattern = (ch: string) => {
   return `(${r})`;
 };
 
-export const useSearch = () => {
+type Params = {
+  major: 'main' | 'sub';
+};
+
+export const useSearch = ({ major }: Params) => {
   const [searchedResults, setSearchedResults] = useState<string[]>();
+  const [mClasses, setMClasses] = useState<string[]>();
+
+  useEffect(() => {
+    // max perPage: 3000
+    let count = 0;
+    const mClasses: string[] = [];
+
+    const intervalId = setInterval(() => {
+      axios
+        .get(
+          `https://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=${
+            import.meta.env.VITE_API_CAREER_KEY
+          }&svcType=api&svcCode=MAJOR&contentType=json&gubun=univ_list&thisPage=${count}&perPage=100`,
+        )
+        .then(res => {
+          const majors = res.data.dataSearch.content as CareerResponseType[];
+          if (mClasses.length > 0 && majors.length === 0) return clearInterval(intervalId);
+          if (major === 'main') mClasses.push(...majors.map(major => major.mClass));
+
+          setMClasses([...mClasses]);
+          count++;
+        });
+    }, 1000);
+  }, []);
 
   const isCharacterMatch = (query: string, target: string) => {
     const reg = new RegExp(query.split('').map(pattern).join('.*?'), 'i');
@@ -59,5 +93,6 @@ export const useSearch = () => {
     matchWord,
     searchedResults,
     setSearchedResults,
+    mClasses,
   };
 };
