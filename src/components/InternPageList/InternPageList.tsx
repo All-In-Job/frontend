@@ -21,8 +21,6 @@ export const InternPageList = () => {
   const { getPageParam } = useControlPageParam();
   const currentPage = getPageParam ? Number(getPageParam) : 1;
 
-  console.log(getPageParam);
-
   useEffect(() => {
     const queries = {
       path: menuName,

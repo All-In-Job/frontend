@@ -1,6 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+
+import { useControlPageParam } from 'hooks/useControlPageParam';
 
 import ArrowButton from './buttons/ArrowButton';
 import NumberButton from './buttons/NumberButton';
@@ -15,22 +17,56 @@ type Props = {
 };
 
 const MenuPagination: FC<Props> = ({ currentPage, totalItemsCount, pageItemsCount }) => {
+  const [startPage, setStartPage] = useState(1);
+  const [targetPage, setTargetPage] = useState(1);
   const lastPage = Math.ceil(totalItemsCount / pageItemsCount);
+  useEffect(() => {
+    const initialPage = () => {
+      const initialStartPage = Math.ceil(currentPage / 10) * 10 - 9;
 
-  console.log(lastPage);
+      setStartPage(initialStartPage);
+      setTargetPage(currentPage);
+    };
+
+    initialPage();
+  }, [currentPage]);
+
+  const { increasePage, decreasePage } = useControlPageParam();
+
+  const handleNextPage = () => {
+    increasePage();
+    setTargetPage(page => page + 1);
+
+    if (targetPage % 10 === 0) {
+      setStartPage(startPage + 10);
+    }
+  };
+
+  const handlePrevPage = () => {
+    decreasePage();
+    setTargetPage(page => page - 1);
+
+    if (startPage === targetPage) {
+      setStartPage(startPage - 10);
+    }
+  };
 
   return (
     <PaginationContainer>
-      <ArrowButton icon={LeftArrow} isDisabled={false} onClick={() => {}} />
+      <ArrowButton
+        icon={LeftArrow}
+        isDisabled={currentPage === 1}
+        handlePageNavigation={handlePrevPage}
+      />
 
       <NumberList>
         {new Array(10).fill(1).map(
           (_, index) =>
-            index + currentPage <= lastPage && (
+            index + startPage <= lastPage && (
               <li key={index}>
                 <NumberButton
-                  number={index + currentPage}
-                  isActive={index + currentPage === currentPage}
+                  number={index + startPage}
+                  isActive={index + startPage === targetPage}
                   handleClickPageNumber={() => {}}
                 />
               </li>
@@ -38,7 +74,11 @@ const MenuPagination: FC<Props> = ({ currentPage, totalItemsCount, pageItemsCoun
         )}
       </NumberList>
 
-      <ArrowButton icon={RightArrow} isDisabled={false} onClick={() => {}} />
+      <ArrowButton
+        icon={RightArrow}
+        isDisabled={currentPage === lastPage}
+        handlePageNavigation={handleNextPage}
+      />
     </PaginationContainer>
   );
 };
