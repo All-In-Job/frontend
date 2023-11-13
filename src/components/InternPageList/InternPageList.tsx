@@ -4,6 +4,9 @@ import { useParams } from 'react-router-dom';
 import { Inter } from 'types/intern.type';
 
 import { requestCrawlingData } from 'apis/crawling';
+import { requestCrawlingTotalCount } from 'apis/crawlingCount';
+import MenuPagination from 'components/commons/Pagination/MenuPagination';
+import { useControlPageParam } from 'hooks/useControlPageParam';
 
 import { InternPageItem } from './InternInfo/InternPageItem';
 import * as S from './InternPageList.styles';
@@ -13,21 +16,30 @@ const TableName = ['기업명', '공고명', '지역', '마감일', '조회수',
 export const InternPageList = () => {
   const { menuName } = useParams();
   const [InternPageList, setInternPageList] = useState<Inter[]>([]);
+  const [totalCount, setTotalCount] = useState(1);
+
+  const { getPageParam } = useControlPageParam();
+  const currentPage = getPageParam ? Number(getPageParam) : 1;
+
+  console.log(getPageParam);
 
   useEffect(() => {
     const queries = {
       path: menuName,
+      page: getPageParam,
     };
 
     (async () => {
       try {
         const res = await requestCrawlingData(menuName as string, queries);
+        const totalCount = await requestCrawlingTotalCount(menuName as string);
         setInternPageList(res.data.data as Inter[]);
+        setTotalCount(totalCount.data.data);
       } catch (error) {
         console.error(error);
       }
     })();
-  }, [menuName]);
+  }, [menuName, getPageParam]);
 
   return (
     <S.InternContainer>
@@ -50,6 +62,12 @@ export const InternPageList = () => {
           title={el.title}
         />
       ))}
+
+      <MenuPagination
+        currentPage={currentPage}
+        totalItemsCount={totalCount}
+        pageItemsCount={InternPageList.length}
+      />
     </S.InternContainer>
   );
 };
