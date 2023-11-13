@@ -40,6 +40,7 @@ export const DetailPage = () => {
   if (detailData)
     return (
       <>
+        <CommunityDetail />
         {menuName !== 'community' ? (
           <>
             <DetailPageInfo

@@ -47,6 +47,7 @@ const StyledIconBox = styled.div<{ isSelected: boolean }>`
   place-items: center;
   cursor: pointer;
   background-color: ${props => (props.isSelected ? '#FD6B36' : '#ededed')};
+  border-radius: 8px;
 `;
 const MenuText = styled.span`
   text-align: center;

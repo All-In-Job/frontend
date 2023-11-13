@@ -42,12 +42,14 @@ export const CheckCircleIcon = styled(CheckCircle)<{ 'data-isactive': boolean }>
 `;
 
 export const InterestFieldSetupWrapper = styled.div`
-  width: 492px;
   padding: 40px;
   background-color: #fff;
   border-radius: 24px;
   color: black;
   border: 1px solid #000;
+
+  grid-column-start: 4;
+  grid-column-end: 10;
 `;
 
 export const InterestFieldSetupTitle = styled.h1`
@@ -136,15 +138,10 @@ export const InterestSelectTagList = styled.ul`
   margin-top: 12px;
 `;
 
-export const ClickedTag = styled.li<ChangeColorProps>`
+export const ClickedTag = styled.li`
   display: flex;
   align-items: center;
   padding: 8px 16px;
-  border: 2px solid
-    ${props =>
-      props.isChangeColor ? props.theme.palette.orange500 : props.theme.palette.background.primary};
-  color: ${props =>
-    props.isChangeColor ? props.theme.palette.orange500 : props.theme.palette.black200};
   border-radius: 100px;
   font-size: ${props => props.theme.textStyle.body01.fontSize};
   line-height: ${props => props.theme.textStyle.body01.lineHeight};
