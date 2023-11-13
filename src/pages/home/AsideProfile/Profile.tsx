@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import { useLoaderData } from 'react-router-dom';
 
+import { logout } from 'apis/login';
+
 import { Desc } from './asideProfile.style';
 import Temperature from './Temperature';
 import UserTabs from './UserTabs';
@@ -19,7 +21,7 @@ const Profile = () => {
               열정온도<YellowDesc size='15px'>{`${user.thermometer}℃`}</YellowDesc>
             </FlexDesc>
           </UserDescContainer>
-          <LogoutButton>로그아웃</LogoutButton>
+          <LogoutButton onClick={logout}>로그아웃</LogoutButton>
         </UserInfo>
         <Temperature temperature={user.thermometer} />
       </UserInfoWrapper>
@@ -54,7 +56,7 @@ const UserDescContainer = styled.div`
   margin-left: 11.5px;
   font-weight: 700;
 `;
-const LogoutButton = styled.div`
+const LogoutButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
