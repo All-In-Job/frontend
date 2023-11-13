@@ -1,6 +1,12 @@
 import { useState } from 'react';
 
-import * as S from './pagination.styles';
+import styled from '@emotion/styled';
+
+import ArrowButton from './ArrowButton/ArrowButton';
+import MenuListNumber from './NumberLayout/MenuListNumber';
+import MyPageNumber from './NumberLayout/MyPageNumber';
+import { ReactComponent as LeftArrow } from './res/img/arrow_left.svg';
+import { ReactComponent as RightArrow } from './res/img/arrow_right.svg';
 
 type PaginationProps = {
   totalItemsCount: number;
@@ -40,43 +46,34 @@ function Pagination(props: PaginationProps) {
   };
 
   return (
-    <S.PaginationContainer>
-      <S.PrevPageButton disabled={targetPage === 1} type='button' onClick={() => onClickPrevPage()}>
-        <S.PrevPageIcon data-isdisabled={targetPage === 1} />
-      </S.PrevPageButton>
+    <PaginationContainer>
+      <ArrowButton icon={LeftArrow} isDisabled={targetPage === 1} onClick={onClickPrevPage} />
 
       {props.isChangeNumberLayout ? (
-        <S.PaginationLayout02>
-          <span>{targetPage}</span>
-          <span>/</span>
-          <span>{lastPage}</span>
-        </S.PaginationLayout02>
+        <MyPageNumber lastPage={lastPage} targetPage={targetPage} />
       ) : (
-        <S.PaginationLayout01>
-          {new Array(10).fill(1).map(
-            (_, index) =>
-              index + startPage <= lastPage && (
-                <S.NumberButton
-                  key={index}
-                  isActive={index + startPage === targetPage}
-                  onClick={() => onClickPageNumber(index + startPage)}
-                >
-                  {index + startPage}
-                </S.NumberButton>
-              ),
-          )}
-        </S.PaginationLayout01>
+        <MenuListNumber
+          currentPage={targetPage}
+          handlePageClick={onClickPageNumber}
+          lastPage={lastPage}
+          startPage={startPage}
+        />
       )}
 
-      <S.NextPageButton
-        disabled={targetPage === lastPage}
-        type='button'
-        onClick={() => onClickNextPage()}
-      >
-        <S.NextPageIcon data-isdisabled={targetPage === lastPage} />
-      </S.NextPageButton>
-    </S.PaginationContainer>
+      <ArrowButton
+        icon={RightArrow}
+        isDisabled={targetPage === lastPage}
+        onClick={onClickNextPage}
+      />
+    </PaginationContainer>
   );
 }
 
 export default Pagination;
+
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+`;
