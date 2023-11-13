@@ -25,34 +25,13 @@ function InterestForm() {
   const locationState = useLocation().state as SignupFormInputFieldsType;
 
   useEffect(() => {
-    setIsActive(formState.subMajor !== '');
-  }, [formState.subMajor]);
+    setIsActive(formState.major.subMajor !== '');
+  }, [formState.major.subMajor]);
 
   const submitButton = async () => {
     try {
-      const payload = {
-        major: { mainMajor: '가정교육과', subMajor: '소비자생활문화산업학과' },
-        interests: [
-          {
-            competition: ['기획/아이디어', '과학/공학'],
-          },
-          {
-            outside: ['서포터즈', '멘토링'],
-          },
-          {
-            intern: ['대기업', '중견기업'],
-          },
-          {
-            language: ['toeic', 'toeicWT', 'ch'],
-          },
-          {
-            qnet: ['환경.에너지', '정보통신'],
-          },
-        ],
-      };
-
-      const res = await createUser({ ...locationState, ...payload });
-      console.log('회원가입 성공:', res);
+      const res = await createUser({ ...locationState, ...formState });
+      console.log(res);
     } catch (e) {
       if (e instanceof AxiosError && e.response) {
         console.log(e.response);

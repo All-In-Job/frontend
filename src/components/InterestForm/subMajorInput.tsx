@@ -25,14 +25,14 @@ export const SubMajorInput: FC<Props> = ({ formState, setFormState, majorType })
       setSearchedResults(matchWord(mainMajors, e.target.value));
     }
     if (majorType === 'subMajor' && fixedResponse) {
-      const subMajors = Array.from(new Set(fixedResponse[formState.mainMajor]));
+      const subMajors = Array.from(new Set(fixedResponse[formState.major.mainMajor]));
       setSearchedResults(matchWord(subMajors, e.target.value));
     }
 
     if (e.target.value !== '') setIsVisible(true);
     else {
       setIsVisible(false);
-      setFormState({ ...formState, [majorType]: '' });
+      setFormState({ ...formState, major: { ...formState.major, [majorType]: '' } });
     }
   };
 
@@ -45,7 +45,7 @@ export const SubMajorInput: FC<Props> = ({ formState, setFormState, majorType })
   };
 
   const onClickChoice = (major: string) => {
-    setFormState({ ...formState, [majorType]: major });
+    setFormState({ ...formState, major: { ...formState.major, [majorType]: major } });
 
     if (inputRef.current) {
       inputRef.current.value = major;
@@ -57,7 +57,7 @@ export const SubMajorInput: FC<Props> = ({ formState, setFormState, majorType })
 
   return (
     <S.MajorDepartment
-      choicedepartment={formState.subMajor}
+      choicedepartment={formState.major.subMajor}
       isVisible={isVisible}
       isInputFocused={isInputFocused}
     >
@@ -70,7 +70,7 @@ export const SubMajorInput: FC<Props> = ({ formState, setFormState, majorType })
         onBlur={handleInputBlur}
       />
       <S.ExpandMoreIcon
-        choicedepartment={formState.subMajor}
+        choicedepartment={formState.major.subMajor}
         data-isvisible={isVisible}
         data-isinputfocused={isInputFocused}
       />
