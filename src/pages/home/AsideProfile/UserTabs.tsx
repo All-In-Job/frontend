@@ -23,7 +23,7 @@ const UserTabs = () => {
     <Container>
       {tabDataList.map((tab, idx) => (
         <Fragment key={tab.title}>
-          <Tab onClick={() => navigate('')}>
+          <Tab onClick={() => navigate(tab.path)}>
             {tab.icon}
             <TabDesc size='12px'>{tab.title}</TabDesc>
           </Tab>
