@@ -21,7 +21,6 @@ export const SubMajorInput: FC<Props> = ({ formState, setFormState, majorType })
 
   const getValueDepartmentInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (majorType === 'mainMajor' && mainMajors) {
-      console.log(mainMajors);
       setSearchedResults(matchWord(mainMajors, e.target.value));
     }
     if (majorType === 'subMajor' && fixedResponse) {
