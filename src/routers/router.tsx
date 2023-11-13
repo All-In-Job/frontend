@@ -1,4 +1,5 @@
 import { signupApi } from 'apis';
+import { AxiosError } from 'axios';
 import { createBrowserRouter } from 'react-router-dom';
 
 import { BasicInformation } from 'components/BasicInformation/BasicInformation';
@@ -16,13 +17,20 @@ import ScrapPage from 'pages/scrap/ScrapPage';
 import Signup from 'pages/signUp/SignUp';
 
 const getUserProfile = async () => {
-  const res = await signupApi({
-    url: 'getLoginUserInfo',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-    },
-  });
-  return res.data.data;
+  try {
+    const res = await signupApi({
+      url: 'getLoginUserInfo',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    });
+    return res.data.data;
+  } catch (e) {
+    if (e instanceof AxiosError && e.response) {
+      console.log(e.response);
+      return null;
+    }
+  }
 };
 
 export const router = createBrowserRouter([
