@@ -175,15 +175,16 @@ export const Textarea = styled.textarea`
   }
 `;
 
-export const Submit = styled.button`
+export const Submit = styled.button<{ isActive: boolean }>`
   display: flex;
   width: 100%;
   padding: 12px;
   justify-content: center;
   align-items: center;
   border-radius: 9999px;
-  color: var(--black-200, #a0a09f);
-  background: var(--background-primary, #ededed);
+  color: ${props => (props.isActive ? '#F6F6F6' : props.theme.palette.black200)};
+  background-color: ${props =>
+    props.isActive ? props.theme.palette.orange500 : props.theme.palette.background.primary};
   font-size: 17px;
   font-weight: 500;
   line-height: 24px;

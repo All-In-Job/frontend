@@ -14,3 +14,18 @@ export const currentKeywordState = atom({
   key: 'currentKeyword',
   default: '',
 });
+
+export const titleValueState = atom({
+  key: 'titleValue',
+  default: '',
+});
+
+export const startDateState = atom({
+  key: 'startDate',
+  default: '',
+});
+
+export const endDateState = atom({
+  key: 'endDate',
+  default: '',
+});

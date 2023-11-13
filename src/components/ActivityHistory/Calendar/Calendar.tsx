@@ -10,7 +10,6 @@ import * as S from './Calendar.styes';
 const Calendar = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-
   return (
     <S.CalendarContainer>
       <DatePicker

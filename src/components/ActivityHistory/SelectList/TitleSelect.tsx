@@ -1,10 +1,10 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { requestActivityCrawlingData } from 'apis/activityHistoryCrawling';
 import * as S from 'components/ActivityHistory/Modal.styles';
-import { categoryIdState, currentKeywordState } from 'store/activityHistory';
+import { categoryIdState, currentKeywordState, titleValueState } from 'store/activityHistory';
 
 type QueryConfig = {
   [category: string]: { [key: string]: string };
@@ -14,16 +14,16 @@ export const TitleSelect = () => {
   const categoryId = useRecoilValue(categoryIdState);
   const currentKeyword = useRecoilValue(currentKeywordState);
   const [activityData, setActivityData] = useState<string[]>([]);
-  const [inputTitleValue, setInputTitleValue] = useState<string>('');
+  const [titleValue, setTitleValue] = useRecoilState<string>(titleValueState);
   const [isVisibleTitle, setIsVisibleTitle] = useState(false);
 
-  const searchTitle = activityData.filter(title => title.includes(inputTitleValue));
+  const searchTitle = activityData.filter(title => title.includes(titleValue));
   const removeDuplicates = (titles: string[]): string[] => [...new Set(titles)];
 
   const onChangeInputTitleValue = (e: ChangeEvent<HTMLInputElement>) =>
-    setInputTitleValue(e.target.value);
+    setTitleValue(e.target.value);
 
-  const onSelectTitle = (title: string) => setInputTitleValue(title);
+  const onSelectTitle = (title: string) => setTitleValue(title);
 
   const onFocusInput = () => setIsVisibleTitle(true);
   const onBlurInput = () => setIsVisibleTitle(false);
@@ -62,7 +62,7 @@ export const TitleSelect = () => {
       <S.SelectInput
         type='text'
         placeholder='활동명을 입력해주세요.'
-        value={inputTitleValue}
+        value={titleValue}
         onChange={onChangeInputTitleValue}
         onFocus={onFocusInput}
         onBlur={onBlurInput}
