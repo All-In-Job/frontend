@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import { AxiosError } from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+import { login } from 'apis/login';
 import { createUser } from 'apis/signup';
 import { InputFieldType } from 'components/BasicInformation/BasicInformation';
 import Submit from 'components/commons/Buttons/Submit/Submit';
@@ -21,6 +22,7 @@ type SignupFormInputFieldsType = Record<
 function InterestForm() {
   const { formState, setFormState } = useInterestForm();
   const [isActive, setIsActive] = useState(false);
+  const navigate = useNavigate();
 
   const locationState = useLocation().state as SignupFormInputFieldsType;
 
@@ -45,7 +47,11 @@ function InterestForm() {
         ...formState,
         interests: generateCorrectInterests(),
       });
-      console.log(res);
+      if (res.status === 200) {
+        const { data } = await login(res.data.data);
+        localStorage.setItem('accessToken', data.data);
+        navigate('/');
+      }
     } catch (e) {
       if (e instanceof AxiosError && e.response) {
         console.log(e.response);
