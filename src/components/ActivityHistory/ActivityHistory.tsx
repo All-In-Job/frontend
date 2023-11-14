@@ -6,52 +6,31 @@ import { ActivityHistoryModal } from 'components/Modals/ActivityHistoryModal/Act
 import { isActivityModalState } from 'store/modal';
 
 import * as S from './ActivityHistory.styles';
+import categoryList from './data/category.json';
+import ActivityList from './data/mock.json';
 import { ReactComponent as AddIcon } from './res/img/add_circle.svg';
 import { ReactComponent as DeleteBtn } from './res/img/delete.svg';
 import { ReactComponent as EditBtn } from './res/img/edit.svg';
 
-const Tabs = [
-  {
-    id: 'competition',
-    name: '공모전',
-  },
-  {
-    id: 'outside',
-    name: '대외활동',
-  },
-  {
-    id: 'qnet',
-    name: '자격증',
-  },
-  {
-    id: 'toeic',
-    name: '어학',
-  },
-  {
-    id: 'intern',
-    name: '인턴',
-  },
-];
-
 export const ActivityHistory = () => {
-  const [clickedTab, setClickedTab] = useState('competition');
+  const [clickedTab, setClickedTab] = useState<string>('competition');
   const [isAcitiviyModalVisible, setIsModalVisible] = useRecoilState(isActivityModalState);
   const onModalOpen = () => {
     setIsModalVisible(prev => !prev);
   };
-
+  console.log(clickedTab);
   return (
     <S.ActivityHistory>
       <S.Heading>활동내역</S.Heading>
       <S.TabsWrapper>
         <S.Tabs>
-          {Tabs.map(tab => (
+          {categoryList.map(tab => (
             <S.Tab
               key={tab.id}
               onClick={() => setClickedTab(tab.id)}
               isActive={tab.id === clickedTab}
             >
-              <S.Name>{tab.name}</S.Name>
+              <S.Name>{tab.title}</S.Name>
             </S.Tab>
           ))}
         </S.Tabs>
@@ -66,19 +45,23 @@ export const ActivityHistory = () => {
           <AddIcon width='36' height='36' />
         </S.AddBtn>
       </S.RegistrationBox>
-      <S.ActivityList>
-        <S.ActivityBox>
-          <S.TextBox>
-            <S.Title>2023 Meta Spark AR 콘텐츠 공모전</S.Title>
-            <S.Duration>2023.01.01 ~ 2023.01.01</S.Duration>
-          </S.TextBox>
-          <S.ButtonBox>
-            <EditBtn />
-            <DeleteBtn />
-          </S.ButtonBox>
-        </S.ActivityBox>
-        <S.Description>활동내용 (메타버스 콘텐츠 아이디어 기획)</S.Description>
-      </S.ActivityList>
+      {ActivityList.map(list => {
+        return (
+          clickedTab === list.path && (
+            <S.ActivityList key={list.path}>
+              <S.ActivityBox>
+                <S.TextBox>{list.activeTitle}</S.TextBox>
+                <S.Duration>{list.period}</S.Duration>
+                <S.ButtonBox>
+                  <EditBtn />
+                  <DeleteBtn />
+                </S.ButtonBox>
+              </S.ActivityBox>
+              <S.Description>{list.activeContent}</S.Description>
+            </S.ActivityList>
+          )
+        );
+      })}
       {isAcitiviyModalVisible ? <ActivityHistoryModal /> : null}
     </S.ActivityHistory>
   );
