@@ -1,14 +1,14 @@
-import { signupApi } from './index';
+import { userApi } from './index';
 
 export const checkNickNameDuplicate = async (nickname: string) => {
-  return await signupApi({
+  return await userApi({
     method: 'GET',
     url: `isNickname?nickname=${nickname}`,
   });
 };
 
 export const sendTokenSMS = async (phone: string) => {
-  return await signupApi({
+  return await userApi({
     method: 'POST',
     url: 'sendTokenSMS',
     data: {
@@ -18,7 +18,7 @@ export const sendTokenSMS = async (phone: string) => {
 };
 
 export const validateTokenSNS = async (token: number, phone: string) => {
-  return await signupApi({
+  return await userApi({
     method: 'POST',
     url: 'validateToken',
     data: {
@@ -29,9 +29,15 @@ export const validateTokenSNS = async (token: number, phone: string) => {
 };
 
 export const createUser = async (data: object) => {
-  return await signupApi({
+  return await userApi({
     method: 'POST',
     url: 'createUser',
     data,
+  });
+};
+
+export const getLoginUserInfo = async () => {
+  return await userApi({
+    url: 'getLoginUserInfo',
   });
 };

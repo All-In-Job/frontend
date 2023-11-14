@@ -1,6 +1,9 @@
+import { AxiosError } from 'axios';
 import { createBrowserRouter } from 'react-router-dom';
 
+import { getLoginUserInfo } from 'apis/signup';
 import { BasicInformation } from 'components/BasicInformation/BasicInformation';
+import { Calendar } from 'components/Calendar/Calendar';
 import InterestForm from 'components/InterestForm/InterestForm';
 import { DetailPage } from 'pages/detail';
 import FindID from 'pages/findID/FindID';
@@ -13,10 +16,23 @@ import { NewPost } from 'pages/newPost/NewPost';
 import ScrapPage from 'pages/scrap/ScrapPage';
 import Signup from 'pages/signUp/SignUp';
 
+const getUserProfile = async () => {
+  try {
+    const res = await getLoginUserInfo();
+    return res.data.data;
+  } catch (e) {
+    if (e instanceof AxiosError && e.response) {
+      console.log(e.response);
+      return null;
+    }
+  }
+};
+
 export const router = createBrowserRouter([
   {
     path: '',
     element: <Home />,
+    loader: getUserProfile,
     children: [
       {
         path: 'scrap',
@@ -65,6 +81,10 @@ export const router = createBrowserRouter([
       {
         path: ':menuName/newpost',
         element: <NewPost />,
+      },
+      {
+        path: 'calendar',
+        element: <Calendar />,
       },
     ],
   },
