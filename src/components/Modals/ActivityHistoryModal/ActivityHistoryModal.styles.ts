@@ -188,4 +188,5 @@ export const Submit = styled.button<{ isActive: boolean }>`
   font-size: 17px;
   font-weight: 500;
   line-height: 24px;
+  cursor: pointer;
 `;

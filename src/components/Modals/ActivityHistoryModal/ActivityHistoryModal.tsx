@@ -3,6 +3,8 @@ import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { createActivityHistory } from 'apis/thermometer';
+import Calendar from 'components/ActivityHistory/Calendar/Calendar';
+import { ReactComponent as Close } from 'components/ActivityHistory/res/img/close.svg';
 import { ModalBackground } from 'components/Modals/ModalBackground';
 import {
   categoryIdState,
@@ -13,14 +15,12 @@ import {
 } from 'store/activityHistory';
 import { isActivityModalState } from 'store/modal';
 
-import Calendar from './Calendar/Calendar';
-import * as S from './Modal.styles';
-import { ReactComponent as Close } from './res/img/close.svg';
+import * as S from './ActivityHistoryModal.styles';
 import { CategorySelect } from './SelectList/CategorySelect';
 import { InterestSelect } from './SelectList/InterestSelect';
 import { TitleSelect } from './SelectList/TitleSelect';
 
-const Modal = () => {
+export const ActivityHistoryModal = () => {
   const setIsModalVisible = useSetRecoilState(isActivityModalState);
   const categoryId = useRecoilValue(categoryIdState);
   const setCurrentCategory = useSetRecoilState(currentCategoryState);
@@ -87,6 +87,7 @@ const Modal = () => {
     } catch (error) {
       console.error('Error creating data:', error);
     }
+    setIsModalVisible(prev => !prev);
   };
   return (
     <ModalBackground>
@@ -143,5 +144,3 @@ const Modal = () => {
     </ModalBackground>
   );
 };
-
-export default Modal;

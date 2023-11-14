@@ -3,7 +3,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { requestActivityCrawlingData } from 'apis/activityHistoryCrawling';
-import * as S from 'components/ActivityHistory/Modal.styles';
+import * as S from 'components/Modals/ActivityHistoryModal/ActivityHistoryModal.styles';
 import { categoryIdState, currentKeywordState, titleValueState } from 'store/activityHistory';
 
 type QueryConfig = {

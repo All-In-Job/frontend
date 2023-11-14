@@ -2,10 +2,10 @@ import { useState } from 'react';
 
 import { useRecoilState } from 'recoil';
 
+import { ActivityHistoryModal } from 'components/Modals/ActivityHistoryModal/ActivityHistoryModal';
 import { isActivityModalState } from 'store/modal';
 
 import * as S from './ActivityHistory.styles';
-import Modal from './Modal';
 import { ReactComponent as AddIcon } from './res/img/add_circle.svg';
 import { ReactComponent as DeleteBtn } from './res/img/delete.svg';
 import { ReactComponent as EditBtn } from './res/img/edit.svg';
@@ -33,7 +33,7 @@ const Tabs = [
   },
 ];
 
-const ActivityHistory = () => {
+export const ActivityHistory = () => {
   const [clickedTab, setClickedTab] = useState('competition');
   const [isAcitiviyModalVisible, setIsModalVisible] = useRecoilState(isActivityModalState);
   const onModalOpen = () => {
@@ -79,9 +79,7 @@ const ActivityHistory = () => {
         </S.ActivityBox>
         <S.Description>활동내용 (메타버스 콘텐츠 아이디어 기획)</S.Description>
       </S.ActivityList>
-      {isAcitiviyModalVisible ? <Modal /> : null}
+      {isAcitiviyModalVisible ? <ActivityHistoryModal /> : null}
     </S.ActivityHistory>
   );
 };
-
-export default ActivityHistory;

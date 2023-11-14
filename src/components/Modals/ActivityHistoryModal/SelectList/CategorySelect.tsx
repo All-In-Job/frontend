@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import categoryList from 'components/ActivityHistory/data/category.json';
-import * as S from 'components/ActivityHistory/Modal.styles';
 import { ReactComponent as ExpandMore } from 'components/ActivityHistory/res/img/expand_more.svg';
+import * as S from 'components/Modals/ActivityHistoryModal/ActivityHistoryModal.styles';
 import { categoryIdState, currentCategoryState } from 'store/activityHistory';
 
 export type InterestList = {

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 // import HomeCardListProvider from 'contexts/homeCardMenuContext/homeCardMenuContext';
 
-import ActivityHistory from 'components/ActivityHistory/ActivityHistory';
+import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
 // import { CardListMenuBar } from 'components/CardListMenuBar/CardListMenuBar';
 import { Carousel } from 'components/Carousel/Carousel';
 // import { MainPageList } from 'components/MainPageList/MainPageList';
