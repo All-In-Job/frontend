@@ -20,6 +20,7 @@ export const login = async (id: string) => {
   });
 };
 
+
 export const logout = async () => {
   return await loginApi({
     method: 'POST',
