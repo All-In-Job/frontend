@@ -27,17 +27,19 @@ export const ActivityHistoryModal = () => {
   const [currentKeyword, setCurrentKeyword] = useRecoilState(currentKeywordState);
   const [titleValue, setTitleValue] = useRecoilState(titleValueState);
   const [periodValue, setPeriodValue] = useRecoilState(periodState);
+
   const [contentValue, setContentValue] = useState('');
   const [scoreValue, setScoreValue] = useState('');
   const [isActive, setIsActive] = useState(false);
 
-  const onModalClose = () => {
+  const resetForm = () => {
     const formElement = document.getElementById('form') as HTMLFormElement | null;
     formElement && formElement.reset();
     setCurrentCategory('');
     setCurrentKeyword('');
     setTitleValue('');
     setPeriodValue('');
+    setScoreValue('');
     setIsModalVisible(prev => !prev);
   };
 
@@ -87,14 +89,14 @@ export const ActivityHistoryModal = () => {
     } catch (error) {
       console.error('Error creating data:', error);
     }
-    setIsModalVisible(prev => !prev);
+    resetForm();
   };
   return (
     <ModalBackground>
       <S.Form onSubmit={onSubmitFormData}>
         <S.TitleWrap>
           <S.H1>{'활동내역 추가'}</S.H1>
-          <Close onClick={onModalClose} />
+          <Close onClick={resetForm} />
         </S.TitleWrap>
 
         <S.ContentWrap>
