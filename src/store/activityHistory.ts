@@ -20,12 +20,7 @@ export const titleValueState = atom({
   default: '',
 });
 
-export const startDateState = atom({
-  key: 'startDate',
-  default: '',
-});
-
-export const endDateState = atom({
-  key: 'endDate',
+export const periodState = atom({
+  key: 'periodValue',
   default: '',
 });

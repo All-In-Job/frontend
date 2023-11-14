@@ -1,19 +1,24 @@
-import { formData } from 'components/ActivityHistory/Modal';
-
 import { signupApi } from './index';
+
+type pathInfo = {
+  category: string;
+  activeTitle: string;
+  activeContent: string;
+};
+
+type formData = {
+  path: string;
+  createThermometer: pathInfo;
+};
 
 export const createActivityHistory = async (
   postData: formData,
-  headers?: Record<string, string>,
+  headers: { 'content-type': string; Authorization?: string | null },
 ) => {
-  return await signupApi({
+  return signupApi({
     method: 'POST',
     url: 'updateThermometer',
     data: postData,
-    withCredentials: true,
-    headers: {
-      'content-type': 'application/json',
-      ...headers, // 추가된 부분
-    },
+    headers,
   });
 };

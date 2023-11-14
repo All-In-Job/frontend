@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEventHandler, useState } from 'react';
+import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
@@ -8,6 +8,7 @@ import {
   categoryIdState,
   currentCategoryState,
   currentKeywordState,
+  periodState,
   titleValueState,
 } from 'store/activityHistory';
 import { isActivityModalState } from 'store/modal';
@@ -19,73 +20,74 @@ import { CategorySelect } from './SelectList/CategorySelect';
 import { InterestSelect } from './SelectList/InterestSelect';
 import { TitleSelect } from './SelectList/TitleSelect';
 
-export type pathInfo = {
-  category: string;
-  activeTitle: string;
-  activeContent: string;
-  score: string;
-};
-export type formData = {
-  path: string;
-  createThermometer: pathInfo[];
-};
-
 const Modal = () => {
   const setIsModalVisible = useSetRecoilState(isActivityModalState);
   const categoryId = useRecoilValue(categoryIdState);
-  const setCurrentCategory = useSetRecoilState<string>(currentCategoryState);
+  const setCurrentCategory = useSetRecoilState(currentCategoryState);
   const [currentKeyword, setCurrentKeyword] = useRecoilState(currentKeywordState);
-  const titleValue = useRecoilValue(titleValueState);
-
-  // const [isActive, setIsActive] = useState(false);
+  const [titleValue, setTitleValue] = useRecoilState(titleValueState);
+  const [periodValue, setPeriodValue] = useRecoilState(periodState);
   const [contentValue, setContentValue] = useState('');
-  // const [periodValue, setPeriodValue] = useState('');
   const [scoreValue, setScoreValue] = useState('');
+  const [isActive, setIsActive] = useState(false);
 
   const onModalClose = () => {
+    const formElement = document.getElementById('form') as HTMLFormElement | null;
+    formElement && formElement.reset();
     setCurrentCategory('');
     setCurrentKeyword('');
+    setTitleValue('');
+    setPeriodValue('');
     setIsModalVisible(prev => !prev);
   };
 
-  const onChangeInputScoreValue = (e: ChangeEvent<HTMLInputElement>) =>
-    setScoreValue(e.target.value);
   const onChangeInputContentValue = (e: ChangeEvent<HTMLTextAreaElement>) =>
     setContentValue(e.target.value);
+  const onChangeInputScoreValue = (e: ChangeEvent<HTMLInputElement>) =>
+    setScoreValue(e.target.value);
 
-  // useEffect(() => {
-  //   const requiredValues =
-  //     categoryId === 'language'
-  //       ? [currentKeyword, titleValue, contentValue, scoreValue]
-  //       : categoryId === 'intern'
-  //       ? [currentKeyword, titleValue, contentValue, periodValue]
-  //       : [currentKeyword, titleValue, contentValue];
+  useEffect(() => {
+    const requiredValues =
+      categoryId === 'language'
+        ? [currentKeyword, titleValue, contentValue, scoreValue]
+        : categoryId === 'intern'
+        ? [currentKeyword, titleValue, contentValue, periodValue]
+        : [currentKeyword, titleValue, contentValue];
 
-  //   setIsActive(requiredValues.every(value => value !== ''));
-  // }, [currentKeyword, titleValue, contentValue, scoreValue, periodValue]);
+    setIsActive(requiredValues.every(value => value !== ''));
+  }, [currentKeyword, titleValue, contentValue, scoreValue, periodValue]);
 
   const onSubmitFormData: FormEventHandler = async e => {
     e.preventDefault();
-    const postData: formData = {
-      path: categoryId,
-      createThermometer: [
-        {
-          category: currentKeyword,
-          activeTitle: titleValue,
-          activeContent: contentValue,
-          score: scoreValue,
-        },
-      ],
+
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      throw new Error('Access token not found.');
+    }
+
+    const headers = {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
     };
+
+    const postData = {
+      path: categoryId,
+      createThermometer: {
+        category: currentKeyword,
+        activeTitle: titleValue,
+        activeContent: contentValue,
+      },
+    };
+
     try {
-      const res = await createActivityHistory(postData, { Authorization: 'Bearer YourTokenHere' });
+      const res = await createActivityHistory(postData, headers);
       console.log('서버 응답:', res);
       console.log('활동내역 등록 성공:', res.data);
     } catch (error) {
       console.error('Error creating data:', error);
     }
   };
-
   return (
     <ModalBackground>
       <S.Form onSubmit={onSubmitFormData}>
@@ -134,9 +136,9 @@ const Modal = () => {
             onChange={onChangeInputContentValue}
           />
         </S.ContentWrap>
-        {/* <S.Submit type='submit' disabled={isActive ? false : true} isActive={isActive}>
+        <S.Submit type='submit' disabled={isActive ? false : true} isActive={isActive}>
           저장
-        </S.Submit> */}
+        </S.Submit>
       </S.Form>
     </ModalBackground>
   );
