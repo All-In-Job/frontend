@@ -1,0 +1,59 @@
+{
+  "data": [
+    {
+      "path": "competition",
+      "id": "dqwdwqfwqf4",
+      "category": "공모전",
+      "keyword": "기획/아이디어",
+      "activeTitle": "2023 meta Spark AR콘텐츠 공모전",
+      "activeContent": "competition 활동 내용 작성",
+      "period": "2022.01.01 ~ 2022.02.01"
+    },
+    {
+      "path": "competition",
+      "id": "dqwdwqfwqf5",
+      "category": "공모전",
+      "keyword": "광고/마케팅",
+      "activeTitle": "2023 meta Spark AR콘텐츠 광고 공모전",
+      "activeContent": "competition 광고 활동 내용 작성",
+      "period": "2022.01.01 ~ 2022.02.01"
+    },
+    {
+      "path": "outside",
+      "id": "dqwdwqfwqf6",
+      "category": "대외활동",
+      "keyword": "여행/호텔/항공",
+      "activeTitle": "2023 수원-가오슝 화상언어교류 참가자 모집",
+      "activeContent": "outside 활동 내용 작성",
+      "period": "2022.01.01 ~ 2022.02.01"
+    },
+    {
+      "path": "qnet",
+      "id": "dqwdwqfwqf7",
+      "category": "자격증",
+      "keyword": "경영/회계/사무",
+      "activeTitle": "소음진동기술사",
+      "activeContent": "qnet 활동 내용 작성",
+      "period": "2022.01.01 ~ 2022.02.01",
+      "score": "980"
+    },
+    {
+      "path": "intern",
+      "id": "dqwdwqfwqf8",
+      "category": "인턴",
+      "keyword": "영업/고객상담",
+      "activeTitle": "[오비맥주] 2023년 겨울학기 인턴 모집(영업 부문)",
+      "activeContent": "intern 활동 내용 작성",
+      "period": "2022.01.01 ~ 2022.02.01"
+    },
+    {
+      "path": "language",
+      "id": "dqwdwqfwqf9",
+      "category": "어학",
+      "keyword": "영어",
+      "activeTitle": "TOEIC (Speaking)",
+      "activeContent": "language 활동 내용 작성",
+      "period": "2022.01.01 ~ 2022.02.01"
+    }
+  ]
+}

@@ -99,6 +99,7 @@ export const ActivityList = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
+  margin-bottom: 40px;
   color: var(--black-300, #717070);
   font-family: SUIT;
   font-size: 20px;
@@ -109,6 +110,7 @@ export const ActivityList = styled.div`
 
 export const ActivityBox = styled.div`
   display: flex;
+  color: #121110;
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
