@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import HomeCardListProvider from 'contexts/homeCardMenuContext/homeCardMenuContext';
+// import HomeCardListProvider from 'contexts/homeCardMenuContext/homeCardMenuContext';
 
-import { CardListMenuBar } from 'components/CardListMenuBar/CardListMenuBar';
+import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
+// import { CardListMenuBar } from 'components/CardListMenuBar/CardListMenuBar';
 import { Carousel } from 'components/Carousel/Carousel';
-import { MainPageList } from 'components/MainPageList/MainPageList';
+// import { MainPageList } from 'components/MainPageList/MainPageList';
 // import Profile from 'pages/home/AsideProfile/Profile';
 
 export const Main = () => {
@@ -13,10 +14,11 @@ export const Main = () => {
       {/*<Sidebar>*/}
       {/*  <Profile />*/}
       {/*</Sidebar>*/}
-      <HomeCardListProvider>
+      {/* <HomeCardListProvider>
         <CardListMenuBar />
         <MainPageList />
-      </HomeCardListProvider>
+      </HomeCardListProvider> */}
+      <ActivityHistory />
     </>
   );
 };
