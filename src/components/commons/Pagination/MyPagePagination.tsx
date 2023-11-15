@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -8,48 +8,45 @@ import { ReactComponent as LeftArrow } from './res/img/arrow_left.svg';
 import { ReactComponent as RightArrow } from './res/img/arrow_right.svg';
 
 type Props = {
+  currentPage: number;
+  setCurrnetPage: React.Dispatch<React.SetStateAction<number>>;
   totalItemsCount: number;
   pageItemsCount: number;
 };
 
-const MyPagePagination: FC<Props> = ({ totalItemsCount, pageItemsCount }) => {
-  const [startPage, setStartPage] = useState(1);
-  const [targetPage, setTargetPage] = useState(1);
+const MyPagePagination: FC<Props> = ({
+  currentPage,
+  setCurrnetPage,
+  totalItemsCount,
+  pageItemsCount,
+}) => {
   const lastPage = Math.ceil(totalItemsCount / pageItemsCount);
 
   const handleNextPage = () => {
-    setTargetPage(page => page + 1);
-
-    if (targetPage % 10 === 0) {
-      setStartPage(startPage + 10);
-    }
+    setCurrnetPage(page => page + 1);
   };
 
   const handlePrevPage = () => {
-    setTargetPage(page => page - 1);
-
-    if (startPage === targetPage) {
-      setStartPage(startPage - 10);
-    }
+    setCurrnetPage(page => page - 1);
   };
 
   return (
     <PaginationContainer>
       <ArrowButton
         icon={LeftArrow}
-        isDisabled={targetPage === 1}
+        isDisabled={currentPage === 1}
         handlePageNavigation={handlePrevPage}
       />
 
       <PageNumber>
-        <CurrentNumber>{targetPage}</CurrentNumber>
+        <CurrentNumber>{currentPage}</CurrentNumber>
         <span>/</span>
         <p>{lastPage}</p>
       </PageNumber>
 
       <ArrowButton
         icon={RightArrow}
-        isDisabled={targetPage === lastPage}
+        isDisabled={currentPage === lastPage}
         handlePageNavigation={handleNextPage}
       />
     </PaginationContainer>

@@ -20,6 +20,7 @@ const MenuPagination: FC<Props> = ({ currentPage, totalItemsCount, pageItemsCoun
   const [startPage, setStartPage] = useState(1);
   const [targetPage, setTargetPage] = useState(1);
   const lastPage = Math.ceil(totalItemsCount / pageItemsCount);
+  const { increasePage, decreasePage } = useControlPageParam();
 
   useEffect(() => {
     const initialPage = () => {
@@ -31,8 +32,6 @@ const MenuPagination: FC<Props> = ({ currentPage, totalItemsCount, pageItemsCoun
 
     initialPage();
   }, [currentPage]);
-
-  const { increasePage, decreasePage } = useControlPageParam();
 
   const handleNextPage = () => {
     increasePage();

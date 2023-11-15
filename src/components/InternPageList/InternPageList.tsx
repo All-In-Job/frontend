@@ -6,7 +6,6 @@ import { Inter } from 'types/intern.type';
 import { requestCrawlingData } from 'apis/crawling';
 import { requestCrawlingTotalCount } from 'apis/crawlingCount';
 import MenuPagination from 'components/commons/Pagination/MenuPagination';
-import MyPagePagination from 'components/commons/Pagination/MyPagePagination';
 import { useControlPageParam } from 'hooks/useControlPageParam';
 
 import { InternPageItem } from './InternInfo/InternPageItem';
@@ -67,7 +66,6 @@ export const InternPageList = () => {
         totalItemsCount={totalCount}
         pageItemsCount={InternPageList.length}
       />
-      <MyPagePagination totalItemsCount={totalCount} pageItemsCount={4} />
     </S.InternContainer>
   );
 };
