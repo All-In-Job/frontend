@@ -10,7 +10,6 @@ function PostCard({
   enterprise,
   title,
   Dday,
-  applicationPeriod,
   scrap,
   view,
   location,
@@ -30,7 +29,11 @@ function PostCard({
       <S.PostCardImgBox imgHeight={imgHeight ?? '282px'}>
         <img src={mainImage} />
 
-        {index < 4 ? <S.PostCardTag>SPECIAL</S.PostCardTag> : null}
+        <S.TagContainer>
+          {index < 4 ? <S.PostCardTag>SPECIAL</S.PostCardTag> : null}
+
+          <S.DateDday>{Dday}</S.DateDday>
+        </S.TagContainer>
 
         {isPickButton && (
           <Link to={'/login'}>
@@ -54,10 +57,6 @@ function PostCard({
             <S.InfoTitle>{title}</S.InfoTitle>
           </>
         )}
-        <S.InfoDate>
-          <S.DateDday>{Dday}</S.DateDday>
-          <S.DateCreation>{applicationPeriod}</S.DateCreation>
-        </S.InfoDate>
       </S.PostCardInfo>
 
       <S.PostCardFooter>

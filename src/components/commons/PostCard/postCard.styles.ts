@@ -82,24 +82,6 @@ export const PostCardInfo = styled.div<{ isChangeInfoLayout: boolean }>`
   }
 `;
 
-export const InfoDate = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 12px;
-`;
-
-export const DateDday = styled.p`
-  margin-right: 7px;
-  padding: 4px 8px;
-  border-radius: 4px;
-  color: ${props => props.theme.palette.orange500};
-  background-color: ${props => props.theme.palette.orange100};
-`;
-
-export const DateCreation = styled.p`
-  color: ${props => props.theme.palette.black200};
-`;
-
 export const PostCardFooter = styled.ul`
   display: flex;
   justify-content: flex-end;
@@ -139,15 +121,31 @@ export const FooterCount = styled.p`
   font-family: Bold;
 `;
 
-export const PostCardTag = styled.div`
+export const TagContainer = styled.div`
   position: absolute;
   top: 16px;
   left: 16px;
-  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  line-height: 32px;
+`;
+
+export const PostCardTag = styled.div`
+  padding: 0 8px;
+  margin-right: 8px;
   border-radius: 4px;
   color: ${props => props.theme.palette.orange100};
   background-color: ${props => props.theme.palette.orange500};
   font-size: 14px;
   font-family: SemiBold;
-  line-height: 21px;
+`;
+
+export const DateDday = styled.p`
+  padding: 0 8px;
+  border-radius: 4px;
+  border: 1px solid ${props => props.theme.palette.orange500};
+  color: ${props => props.theme.palette.orange500};
+  background-color: ${props => props.theme.palette.orange100};
+  font-size: 15px;
+  font-family: Bold;
 `;

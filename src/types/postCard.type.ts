@@ -3,7 +3,6 @@ export type PostCardProps = {
   enterprise: string;
   title: string;
   Dday: string;
-  applicationPeriod: string;
   scrap: string;
   view: string;
   location?: string;
