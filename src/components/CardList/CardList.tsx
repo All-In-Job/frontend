@@ -24,6 +24,7 @@ export const CardList = ({ data }: Props) => {
             location={el.location}
             isPostCardTag
             index={idx}
+            isChangeInfoLayout
           />
         );
       })}

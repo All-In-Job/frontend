@@ -26,11 +26,15 @@ const PostCardImage: FC<Props> = ({
     <ImageContainer imgHeight={isChangeInfoLayout ? '118px' : '282px'}>
       <img src={mainImage} />
 
-      <TagContainer>
-        {index < 4 ? <PostCardTag>SPECIAL</PostCardTag> : null}
+      {isChangeInfoLayout ? (
+        <TagContainer>
+          {index < 4 ? <PostCardTag>SPECIAL</PostCardTag> : null}
 
-        <DateDday>{Dday}</DateDday>
-      </TagContainer>
+          <DateDday>{Dday}</DateDday>
+        </TagContainer>
+      ) : (
+        <></>
+      )}
 
       <Link to={'/login'}>
         <ScrapButton onClick={handleScrap}>
@@ -69,6 +73,7 @@ const TagContainer = styled.div`
 `;
 
 const DateDday = styled.p`
+  height: 32px;
   padding: 0 8px;
   border-radius: 4px;
   border: 1px solid ${props => props.theme.palette.orange500};
