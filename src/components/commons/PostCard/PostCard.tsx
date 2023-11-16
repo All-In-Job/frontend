@@ -11,7 +11,7 @@ function PostCard({
   title,
   Dday,
   applicationPeriod,
-  scrapCount,
+  scrap,
   view,
   location,
   imgHeight,
@@ -63,7 +63,7 @@ function PostCard({
       <S.PostCardFooter>
         <li>
           <S.SmallBookmarkIcon />
-          <S.FooterCount>{scrapCount}</S.FooterCount>
+          <S.FooterCount>{scrap}</S.FooterCount>
         </li>
         <li>
           <S.DevideLine />
