@@ -53,6 +53,7 @@ function PostCard({
 export default PostCard;
 
 const PostCardContainer = styled.article`
+  width: 100%;
   position: relative;
   margin: 0 auto;
   cursor: pointer;
