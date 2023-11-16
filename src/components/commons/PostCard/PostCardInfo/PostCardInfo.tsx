@@ -15,13 +15,13 @@ const PostCardInfo: FC<Props> = ({ isChangeInfoLayout, title, enterprise, locati
       {isChangeInfoLayout ? (
         <>
           <InfoTitle>{title}</InfoTitle>
-          <InfoHost>{enterprise}</InfoHost>
+          <InfoEnterprise>{enterprise}</InfoEnterprise>
           {location && <Location>{location}</Location>}
         </>
       ) : (
         <>
           <InfoTitle>{title}</InfoTitle>
-          <InfoHost>{enterprise}</InfoHost>
+          <InfoEnterprise>{enterprise}</InfoEnterprise>
         </>
       )}
     </InfoContainer>
@@ -30,7 +30,7 @@ const PostCardInfo: FC<Props> = ({ isChangeInfoLayout, title, enterprise, locati
 
 export default PostCardInfo;
 
-const InfoHost = styled.h4`
+const InfoEnterprise = styled.h4`
   color: ${props => props.theme.palette.black200};
   font-size: ${props => props.theme.textStyle.body01.fontSize};
   line-height: ${props => props.theme.textStyle.body01.lineHeight};
@@ -68,7 +68,7 @@ const InfoContainer = styled.div<{ isChangeInfoLayout: boolean }>`
     font-family: Bold;
   }
 
-  ${props => (props.isChangeInfoLayout ? InfoHost : InfoTitle)} {
+  ${props => (props.isChangeInfoLayout ? InfoEnterprise : InfoTitle)} {
     margin-bottom: 8px;
   }
 

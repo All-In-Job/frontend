@@ -18,10 +18,10 @@ function PostCard({
   isChangeInfoLayout,
   index,
 }: PostCardProps) {
-  const [isPick, setIsPick] = useState(false);
+  const [isScrap, setIsScrap] = useState(false);
 
-  const onClickPick = () => {
-    setIsPick(pick => !pick);
+  const handleScrap = () => {
+    setIsScrap(isScrap => !isScrap);
   };
 
   return (
@@ -31,8 +31,8 @@ function PostCard({
         Dday={Dday}
         index={index}
         isChangeInfoLayout={isChangeInfoLayout}
-        isScrap={isPick}
-        handleScrap={onClickPick}
+        isScrap={isScrap}
+        handleScrap={handleScrap}
       />
 
       <PostCardInfo

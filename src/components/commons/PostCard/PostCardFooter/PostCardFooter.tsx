@@ -14,14 +14,14 @@ const PostCardFooter: FC<Props> = ({ scrap, view }) => {
   return (
     <FooterContainer>
       <li>
-        <SmallBookmarkIcon />
+        <SmallScrapIcon />
         <FooterCount>{scrap}</FooterCount>
       </li>
       <li>
         <DvideLine />
       </li>
       <li>
-        <VisibilityIcon />
+        <ViewIcon />
         <FooterCount>{view}</FooterCount>
       </li>
     </FooterContainer>
@@ -47,11 +47,11 @@ const FooterContainer = styled.ul`
   }
 `;
 
-const SmallBookmarkIcon = styled(SmallBookmark)`
+const SmallScrapIcon = styled(SmallBookmark)`
   margin-right: 2px;
 `;
 
-const VisibilityIcon = styled(Visibility)`
+const ViewIcon = styled(Visibility)`
   margin-right: 2px;
 `;
 

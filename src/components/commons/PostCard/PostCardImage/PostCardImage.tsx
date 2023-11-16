@@ -33,9 +33,9 @@ const PostCardImage: FC<Props> = ({
       </TagContainer>
 
       <Link to={'/login'}>
-        <PickButton onClick={handleScrap}>
-          <PickIcon data-isscrap={isScrap} />
-        </PickButton>
+        <ScrapButton onClick={handleScrap}>
+          <ScrapIcon data-isscrap={isScrap} />
+        </ScrapButton>
       </Link>
     </ImageContainer>
   );
@@ -88,7 +88,7 @@ const PostCardTag = styled.div`
   font-family: SemiBold;
 `;
 
-const PickButton = styled.button`
+const ScrapButton = styled.button`
   position: absolute;
   width: 16px;
   height: 22px;
@@ -98,7 +98,7 @@ const PickButton = styled.button`
   cursor: pointer;
 `;
 
-const PickIcon = styled(Bookmark)<{ 'data-isscrap': boolean }>`
+const ScrapIcon = styled(Bookmark)<{ 'data-isscrap': boolean }>`
   path {
     fill: ${props =>
       props['data-isscrap'] ? props.theme.palette.orange500 : props.theme.palette.black200};
