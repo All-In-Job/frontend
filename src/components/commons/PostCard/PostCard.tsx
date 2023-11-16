@@ -12,6 +12,7 @@ function PostCard({
   enterprise,
   title,
   Dday,
+  applicationPeriod,
   scrap,
   view,
   location,
@@ -38,6 +39,8 @@ function PostCard({
       <PostCardInfo
         title={title}
         enterprise={enterprise}
+        dDay={Dday}
+        applicationPeriod={applicationPeriod}
         location={location}
         isChangeInfoLayout={isChangeInfoLayout}
       />
