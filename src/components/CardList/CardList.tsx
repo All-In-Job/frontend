@@ -20,7 +20,7 @@ export const CardList = ({ data }: Props) => {
             title={el.title}
             Dday={el.Dday}
             applicationPeriod={el.applicationPeriod}
-            scrapCount='4234'
+            scrap={el.scrap}
             view={el.view}
             location='111'
             isPickButton
