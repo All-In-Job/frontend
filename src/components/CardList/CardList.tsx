@@ -8,10 +8,10 @@ import * as S from './cardList.styles';
 
 type Props = {
   data: PostCardProps[];
-  getParams: string | undefined;
+  isChangeInfoLayout: boolean;
 };
 
-export const CardList: FC<Props> = ({ data, getParams }) => {
+export const CardList: FC<Props> = ({ data, isChangeInfoLayout }) => {
   return (
     <S.Section>
       {data.map((el, idx) => {
@@ -28,7 +28,7 @@ export const CardList: FC<Props> = ({ data, getParams }) => {
             location={el.location}
             isPostCardTag
             index={idx}
-            isChangeInfoLayout={getParams === 'intern'}
+            isChangeInfoLayout={isChangeInfoLayout}
           />
         );
       })}
