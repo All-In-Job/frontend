@@ -53,8 +53,8 @@ function PostCard({
           </>
         ) : (
           <>
-            <S.InfoHost>{enterprise}</S.InfoHost>
             <S.InfoTitle>{title}</S.InfoTitle>
+            <S.InfoHost>{enterprise}</S.InfoHost>
           </>
         )}
       </S.PostCardInfo>

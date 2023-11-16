@@ -42,11 +42,15 @@ export const PickIcon = styled(Bookmark)<{ 'data-ispick': boolean }>`
   }
 `;
 
-export const InfoHost = styled.h2`
+export const InfoHost = styled.h4`
   color: ${props => props.theme.palette.black200};
   font-size: ${props => props.theme.textStyle.body01.fontSize};
   line-height: ${props => props.theme.textStyle.body01.lineHeight};
   font-family: SemiBold;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
 `;
 
 export const InfoTitle = styled.h3`
@@ -54,6 +58,10 @@ export const InfoTitle = styled.h3`
   color: ${props => props.theme.palette.black500};
   line-height: ${props => props.theme.textStyle.title01.lineHeight};
   font-family: Bold;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
 `;
 
 export const Location = styled.h3`
@@ -64,7 +72,7 @@ export const Location = styled.h3`
 `;
 
 export const PostCardInfo = styled.div<{ isChangeInfoLayout: boolean }>`
-  padding: 16px 0 4px;
+  padding: 16px 0 12px;
 
   p {
     font-size: ${props => props.theme.textStyle.label02.fontSize};
@@ -73,7 +81,7 @@ export const PostCardInfo = styled.div<{ isChangeInfoLayout: boolean }>`
   }
 
   ${props => (props.isChangeInfoLayout ? InfoHost : InfoTitle)} {
-    margin-top: 8px;
+    margin-bottom: 8px;
   }
 
   ${props => props.isChangeInfoLayout && InfoTitle} {
