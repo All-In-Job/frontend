@@ -6,9 +6,7 @@ export type PostCardProps = {
   scrap: string;
   view: string;
   location?: string;
-  imgHeight?: string;
   isPostCardTag?: boolean;
-  isPickButton?: boolean;
   isChangeInfoLayout?: boolean;
   index: number;
 };

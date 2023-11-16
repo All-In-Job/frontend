@@ -22,7 +22,6 @@ export const CardList = ({ data }: Props) => {
             scrap={el.scrap}
             view={el.view}
             location={el.location}
-            isPickButton
             isPostCardTag
             index={idx}
           />
