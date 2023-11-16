@@ -1,3 +1,5 @@
+import { FC } from 'react';
+
 import { PostCardProps } from 'types/postCard.type';
 
 import PostCard from 'components/commons/PostCard/PostCard';
@@ -6,10 +8,10 @@ import * as S from './cardList.styles';
 
 type Props = {
   data: PostCardProps[];
+  getParams: string | undefined;
 };
 
-export const CardList = ({ data }: Props) => {
-  console.log(data);
+export const CardList: FC<Props> = ({ data, getParams }) => {
   return (
     <S.Section>
       {data.map((el, idx) => {
@@ -26,6 +28,7 @@ export const CardList = ({ data }: Props) => {
             location={el.location}
             isPostCardTag
             index={idx}
+            isChangeInfoLayout={getParams === 'intern'}
           />
         );
       })}

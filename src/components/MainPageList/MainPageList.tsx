@@ -43,7 +43,7 @@ export const MainPageList = () => {
         selectCertificate || selectCommunity ? (
           <PostList data={data} selectCertificate={selectCertificate} />
         ) : (
-          <CardList data={data} />
+          <CardList data={data} getParams={homeCardList?.getParams} />
         )
       ) : (
         <p>Loading...</p>
