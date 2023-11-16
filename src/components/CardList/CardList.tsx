@@ -9,6 +9,7 @@ type Props = {
 };
 
 export const CardList = ({ data }: Props) => {
+  console.log(data);
   return (
     <S.Section>
       {data.map((el, idx) => {
@@ -22,7 +23,7 @@ export const CardList = ({ data }: Props) => {
             applicationPeriod={el.applicationPeriod}
             scrap={el.scrap}
             view={el.view}
-            location='111'
+            location={el.location}
             isPickButton
             isPostCardTag
             index={idx}
