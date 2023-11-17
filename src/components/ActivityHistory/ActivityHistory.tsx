@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { FormEventHandler, useEffect, useState } from 'react';
 
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { ActivityList } from 'types/activityHistory';
 
+import { deleteActivityHistory } from 'apis/thermometer';
 import { ActivityHistoryModal } from 'components/Modals/ActivityHistoryModal/ActivityHistoryModal';
 import { activityListIdState } from 'store/activityHistory';
 import { isActivityModalState } from 'store/modal';
@@ -40,6 +41,34 @@ export const ActivityHistory = () => {
     })();
   }, []);
 
+  const onDeleteFormData: FormEventHandler = async e => {
+    e.preventDefault();
+
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (!accessToken) {
+      throw new Error('Access token not found.');
+    }
+
+    const headers = {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    };
+
+    const postData = {
+      path: clickedTab,
+      thermometerId: activityListId,
+    };
+
+    try {
+      const res = await deleteActivityHistory(postData, headers);
+      console.log('서버 응답:', res);
+      console.log('활동내역 삭제 성공:', res.data);
+    } catch (error) {
+      console.error('Error deleting data:', error);
+    }
+  };
+
   return (
     <S.ActivityHistory>
       <S.Heading>활동내역</S.Heading>
@@ -75,7 +104,7 @@ export const ActivityHistory = () => {
                 <S.Duration>{list.period}</S.Duration>
                 <S.ButtonBox>
                   <EditBtn onClick={() => onEdit(list.id)} />
-                  <DeleteBtn />
+                  <DeleteBtn onClick={onDeleteFormData} />
                 </S.ButtonBox>
               </S.ActivityBox>
               <S.Description>{list.activeContent}</S.Description>
