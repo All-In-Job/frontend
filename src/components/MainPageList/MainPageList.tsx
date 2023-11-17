@@ -43,7 +43,10 @@ export const MainPageList = () => {
         selectCertificate || selectCommunity ? (
           <PostList data={data} selectCertificate={selectCertificate} />
         ) : (
-          <CardList data={data} />
+          <CardList
+            data={data}
+            isChangeInfoLayout={homeCardList?.getParams === 'intern' ? true : false}
+          />
         )
       ) : (
         <p>Loading...</p>
