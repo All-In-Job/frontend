@@ -2,16 +2,18 @@ import { FC } from 'react';
 
 import styled from '@emotion/styled';
 
+import { useControlPageParam } from 'hooks/useControlPageParam';
+
 type Props = {
   number: number;
   isActive: boolean;
-
-  handleClickPageNumber: () => void;
 };
 
-const NumberButton: FC<Props> = ({ number, isActive, handleClickPageNumber }) => {
+const NumberButton: FC<Props> = ({ number, isActive }) => {
+  const { selectedNumberPage } = useControlPageParam();
+
   return (
-    <Number isActive={isActive} onClick={() => handleClickPageNumber()}>
+    <Number isActive={isActive} onClick={() => selectedNumberPage(number)}>
       {number}
     </Number>
   );

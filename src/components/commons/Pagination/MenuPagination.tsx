@@ -67,7 +67,6 @@ const MenuPagination: FC<Props> = ({ currentPage, totalItemsCount, pageItemsCoun
                 <NumberButton
                   number={index + startPage}
                   isActive={index + startPage === targetPage}
-                  handleClickPageNumber={() => {}}
                 />
               </li>
             ),
