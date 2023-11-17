@@ -33,9 +33,9 @@ export const router = createBrowserRouter([
   {
     path: '',
     element: <Home />,
+    errorElement: <Error />,
     loader: getUserProfile,
     children: [
-      { path: 'error', element: <Error /> },
       {
         path: 'scrap',
         element: <ScrapPage />,
