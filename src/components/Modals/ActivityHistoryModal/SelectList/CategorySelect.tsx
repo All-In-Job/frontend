@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
@@ -13,10 +13,20 @@ export type InterestList = {
   keyWords: string[];
 };
 
-export const CategorySelect = () => {
+type CategorySelectProps = {
+  pathData: string | null;
+};
+
+export const CategorySelect = ({ pathData }: CategorySelectProps) => {
   const setCategoryId = useSetRecoilState(categoryIdState);
   const [currentCategory, setCurrentCategory] = useRecoilState(currentCategoryState);
   const [categoryOptions, setCategoryOptions] = useState(false);
+
+  useEffect(() => {
+    if (pathData) {
+      setCategoryId(pathData);
+    }
+  }, [pathData]);
 
   const onSelectCategory = (category: InterestList) => {
     setCategoryId(category.id);

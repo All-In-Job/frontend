@@ -9,7 +9,7 @@ export const Form = styled.form`
   align-items: start;
   gap: 24px;
   flex: 1 0 0;
-  color: var(--title-black, #121110);
+  color: ${props => props.theme.palette.black500};
   font-family: SUIT;
   font-style: normal;
   font-weight: 700;
@@ -83,20 +83,20 @@ export const SelectInput = styled.input`
   width: 100%;
   height: 48px;
   padding: 12px;
-  color: var(--black-500, #121110);
+  color: ${props => props.theme.palette.black500};
   background: var(--black-white-wh, #fff);
   border-radius: 4px;
-  border: 1px solid var(--black-200, #a0a09f);
-  /* text-align: left; */
+  border: 1px solid ${props => props.theme.palette.black200};
   font-family: SUIT;
   font-size: 17px;
   font-weight: 500;
   line-height: 24px;
   ::placeholder {
-    color: var(--black-200, #a0a09f);
+    color: ${props => props.theme.palette.black200};
   }
   :focus {
-    border: 1px solid var(--orange-500, #fd6b36);
+    color: ${props => props.theme.palette.orange500};
+    border: 1px solid ${props => props.theme.palette.orange500};
     /* border-radius: 4px 4px 0px 0px; */
   }
 `;
@@ -127,10 +127,10 @@ export const SelectOptions = styled.ul`
   }
   ::-webkit-scrollbar-thumb {
     height: 48px;
-    background-color: var(--orange-500, #fd6b36);
+    background-color: ${props => props.theme.palette.orange500};
   }
   ::-webkit-scrollbar-track {
-    background-color: var(--orange-100, #ffe8df);
+    background-color: ${props => props.theme.palette.orange100};
   }
 `;
 
@@ -139,7 +139,7 @@ export const Option = styled.li`
   height: 48px;
   min-height: 48px;
   padding: 12px;
-  color: var(--black-200, #121110) !important;
+  color: ${props => props.theme.palette.black500} !important;
   font-size: 17px;
   font-weight: 500;
   line-height: 24px;
@@ -147,8 +147,8 @@ export const Option = styled.li`
   text-overflow: ellipsis;
   white-space: nowrap;
   &:hover {
-    border: 1px solid var(--line-normal, #e1e2e4);
-    background: var(--background-primary, #ededed);
+    border: 1px solid ${props => props.theme.palette.line.normal};
+    background: ${props => props.theme.palette.background.primary};
   }
 `;
 
@@ -156,22 +156,22 @@ export const Textarea = styled.textarea`
   width: 100%;
   height: 141px;
   padding: 12px;
-  color: var(--black-500, #121110);
+  color: ${props => props.theme.palette.black500};
   background: var(--black-white-wh, #fff);
   border-radius: 4px;
   border-width: 1px !important;
-  border: 1px solid var(--black-200, #a0a09f);
+  border: 1px solid ${props => props.theme.palette.black200};
   font-family: SUIT;
   font-size: 17px;
   font-weight: 500;
   line-height: 24px;
   resize: none;
   ::placeholder {
-    color: var(--black-200, #a0a09f);
+    color: ${props => props.theme.palette.black200};
   }
   :focus {
     border: none;
-    outline: 1px solid #fd6b36;
+    outline: 1px solid ${props => props.theme.palette.orange500};
   }
 `;
 

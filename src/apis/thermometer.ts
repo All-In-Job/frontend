@@ -11,8 +11,25 @@ type formData = {
   createThermometer: pathInfo;
 };
 
+type deleteData = {
+  path: string;
+  thermometerId: string;
+};
+
 export const createActivityHistory = async (
   postData: formData,
+  headers: { 'content-type': string; Authorization?: string | null },
+) => {
+  return signupApi({
+    method: 'POST',
+    url: 'updateThermometer',
+    data: postData,
+    headers,
+  });
+};
+
+export const deleteActivityHistory = async (
+  postData: deleteData,
   headers: { 'content-type': string; Authorization?: string | null },
 ) => {
   return signupApi({

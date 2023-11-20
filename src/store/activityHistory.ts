@@ -1,5 +1,10 @@
 import { atom } from 'recoil';
 
+export const activityListIdState = atom({
+  key: 'activityListId',
+  default: '',
+});
+
 export const categoryIdState = atom({
   key: 'categoryId',
   default: '',
