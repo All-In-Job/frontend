@@ -10,3 +10,19 @@ export const socialLogin = async (provider: 'google' | 'kakao', token: string) =
     },
   });
 };
+
+export const login = async (id: string) => {
+  return await loginApi({
+    method: 'POST',
+    data: {
+      id,
+    },
+  });
+};
+
+export const logout = async () => {
+  return await loginApi({
+    method: 'POST',
+    url: 'logout',
+  });
+};

@@ -12,9 +12,9 @@ export const LoginWrapper = styled.div`
   margin: auto;
   background-color: white;
   width: 588px;
-  height: 669px;
+  //height: 669px;
   border-radius: 24px;
-  padding: 40px;
+  padding: 30px;
 `;
 
 export const LoginBox = styled.div`
@@ -27,7 +27,6 @@ export const LoginBox = styled.div`
 
 export const LogoBox = styled.img`
   width: 292px;
-  margin: 16px 0;
 `;
 
 export const Logo = styled.div`

@@ -4,12 +4,10 @@ export type PostCardProps = {
   title: string;
   Dday: string;
   applicationPeriod: string;
-  scrapCount: string;
+  scrap: string;
   view: string;
   location?: string;
-  imgHeight?: string;
   isPostCardTag?: boolean;
-  isPickButton?: boolean;
   isChangeInfoLayout?: boolean;
   index: number;
 };

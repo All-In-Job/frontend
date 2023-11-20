@@ -1,29 +1,30 @@
 import styled from '@emotion/styled';
-// import HomeCardListProvider from 'contexts/homeCardMenuContext/homeCardMenuContext';
+import HomeCardListProvider from 'contexts/homeCardMenuContext/homeCardMenuContext';
+import { useLoaderData } from 'react-router-dom';
 
-import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
-// import { CardListMenuBar } from 'components/CardListMenuBar/CardListMenuBar';
+import Aside from 'components/Aside/Aside';
+import { CardListMenuBar } from 'components/CardListMenuBar/CardListMenuBar';
 import { Carousel } from 'components/Carousel/Carousel';
-// import { MainPageList } from 'components/MainPageList/MainPageList';
-// import Profile from 'pages/home/AsideProfile/Profile';
+import { MainPageList } from 'components/MainPageList/MainPageList';
+import AsideProfile from 'pages/home/AsideProfile';
 
 export const Main = () => {
+  const loader = useLoaderData();
+
   return (
     <>
       <Carousel />
-      {/*<Sidebar>*/}
-      {/*  <Profile />*/}
-      {/*</Sidebar>*/}
-      {/* <HomeCardListProvider>
+      <Sidebar>{loader ? <AsideProfile /> : <Aside />}</Sidebar>
+      <HomeCardListProvider>
         <CardListMenuBar />
         <MainPageList />
-      </HomeCardListProvider> */}
-      <ActivityHistory />
+      </HomeCardListProvider>
     </>
   );
 };
 
 export const Sidebar = styled.aside`
-  background-color: lightslategrey;
-  grid-column: span 3;
+  position: absolute;
+  right: 1vw;
+  //background-color: lightslategrey;
 `;
