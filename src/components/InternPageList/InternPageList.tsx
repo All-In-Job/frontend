@@ -17,7 +17,6 @@ export const InternPageList = () => {
   const { menuName } = useParams();
   const [InternPageList, setInternPageList] = useState<Inter[]>([]);
   const [totalCount, setTotalCount] = useState(1);
-
   const { getPageParam } = useControlPageParam();
   const currentPage = getPageParam ? Number(getPageParam) : 1;
 
