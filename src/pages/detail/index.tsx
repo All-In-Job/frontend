@@ -23,10 +23,17 @@ export const DetailPage = () => {
     return data && data[0];
   };
 
+  const decodeBase64 = (base64String: string | undefined) => {
+    if (base64String) {
+      const decoded = atob(base64String);
+      return decoded;
+    }
+  };
+
   useEffect(() => {
     (async () => {
       try {
-        const res = await requestDetailCrawlingData(menuName, detailId);
+        const res = await requestDetailCrawlingData(menuName, decodeBase64(detailId));
         if (res) {
           setDetailData(res.data.data);
           console.log(res);
@@ -40,7 +47,6 @@ export const DetailPage = () => {
   if (detailData)
     return (
       <>
-        <CommunityDetail />
         {menuName !== 'community' ? (
           <>
             <DetailPageInfo

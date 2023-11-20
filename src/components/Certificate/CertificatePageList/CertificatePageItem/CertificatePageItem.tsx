@@ -23,7 +23,7 @@ export const CertificatePageItem = ({
   };
 
   return (
-    <S.CertificateInfo to={id}>
+    <S.CertificateInfo to={btoa(id)}>
       <S.Container>
         <S.Title>자격증 정보</S.Title>
         <S.CertificateItemWrapper>

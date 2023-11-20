@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Inter } from 'types/intern.type';
 
 import { ReactComponent as Bookmark } from 'components/InternPageList/res/img/bookmark.svg';
@@ -15,11 +15,9 @@ export const InternPageItem = ({
   title,
   enterprise,
 }: Inter) => {
-  const { menuName, categoryId } = useParams();
-
   return (
     <S.InternWrapper>
-      <Link to={`/${menuName}/${categoryId}/${id}`} target={'_blank'}>
+      <Link to={btoa(id)} target={'_blank'}>
         <S.CompanyBox>
           <S.Img src={mainImage}></S.Img>
           <span>{enterprise}</span>
