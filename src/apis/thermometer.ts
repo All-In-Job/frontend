@@ -1,4 +1,4 @@
-import { signupApi } from './index';
+import { userApi } from './index';
 
 type pathInfo = {
   category: string;
@@ -20,7 +20,7 @@ export const createActivityHistory = async (
   postData: formData,
   headers: { 'content-type': string; Authorization?: string | null },
 ) => {
-  return signupApi({
+  return userApi({
     method: 'POST',
     url: 'updateThermometer',
     data: postData,
@@ -32,7 +32,7 @@ export const deleteActivityHistory = async (
   postData: deleteData,
   headers: { 'content-type': string; Authorization?: string | null },
 ) => {
-  return signupApi({
+  return userApi({
     method: 'POST',
     url: 'updateThermometer',
     data: postData,
