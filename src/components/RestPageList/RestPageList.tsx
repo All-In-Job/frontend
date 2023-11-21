@@ -1,22 +1,20 @@
 import { useEffect, useState } from 'react';
 
+import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
-import { Inter } from 'types/intern.type';
+import { PostCardProps } from 'types/postCard.type';
 
 import { requestCrawlingData } from 'apis/crawling';
 import { requestCrawlingTotalCount } from 'apis/crawlingCount';
 import MenuPagination from 'components/commons/Pagination/MenuPagination';
+import PostCard from 'components/commons/PostCard/PostCard';
 import { useControlPageParam } from 'hooks/useControlPageParam';
 
-import { InternPageItem } from './InternInfo/InternPageItem';
-import * as S from './InternPageList.styles';
-
-const TableName = ['기업명', '공고명', '지역', '마감일', '조회수', '스크랩'];
-
-export const InternPageList = () => {
+export const RestPageList = () => {
   const { menuName } = useParams();
-  const [InternPageList, setInternPageList] = useState<Inter[]>([]);
+  const [postPageList, setPostPageList] = useState<PostCardProps[]>([]);
   const [totalCount, setTotalCount] = useState(1);
+
   const { getPageParam } = useControlPageParam();
   const currentPage = getPageParam ? Number(getPageParam) : 1;
 
@@ -30,7 +28,7 @@ export const InternPageList = () => {
       try {
         const res = await requestCrawlingData(menuName as string, queries);
         const totalCount = await requestCrawlingTotalCount(menuName as string);
-        setInternPageList(res.data.data as Inter[]);
+        setPostPageList(res.data.data as PostCardProps[]);
         setTotalCount(totalCount.data.data);
       } catch (error) {
         console.error(error);
@@ -40,33 +38,35 @@ export const InternPageList = () => {
 
   return (
     <>
-      <S.InternContainer>
-        <S.TableTitle>
-          {TableName.map(el => {
-            return <S.Heading key={el}>{el}</S.Heading>;
-          })}
-        </S.TableTitle>
-        {InternPageList.map(el => (
-          <InternPageItem
-            key={el.id}
-            id={el.id}
-            preferentialTreatment={el.preferentialTreatment}
-            view={el.view}
-            mainImage={el.mainImage}
-            enterprise={el.enterprise}
-            scrap={el.scrap}
-            closeDate={el.closeDate}
-            location={el.location}
-            title={el.title}
-          />
-        ))}
-      </S.InternContainer>
-
+      <PostCardWrapper>
+        {postPageList.map((el, idx) => {
+          return (
+            <PostCard
+              key={idx}
+              mainImage={el.mainImage}
+              enterprise={el.enterprise}
+              title={el.title}
+              Dday={el.Dday}
+              applicationPeriod={el.applicationPeriod}
+              scrap={el.scrap}
+              view={el.view}
+              location={el.location}
+              index={null}
+            />
+          );
+        })}
+      </PostCardWrapper>
       <MenuPagination
         currentPage={currentPage}
         totalItemsCount={totalCount}
-        pageItemsCount={InternPageList.length}
+        pageItemsCount={postPageList.length}
       />
     </>
   );
 };
+
+const PostCardWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 53px 24px;
+`;

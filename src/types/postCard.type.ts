@@ -9,5 +9,5 @@ export type PostCardProps = {
   location?: string;
   isPostCardTag?: boolean;
   isChangeInfoLayout?: boolean;
-  index: number;
+  index: number | null;
 };

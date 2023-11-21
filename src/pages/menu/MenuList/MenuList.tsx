@@ -5,6 +5,7 @@ import { CommunityPageList } from 'components/Community/CommunityItem/CommunityP
 import { HashTagData } from 'components/HashTagFilter/type';
 import { InternPageList } from 'components/InternPageList/InternPageList';
 import { LanguagePageList } from 'components/LanguagePageList/LanguagePageList';
+import { RestPageList } from 'components/RestPageList/RestPageList';
 
 type UseOutletType = {
   selectedKeyword: HashTagData[];
@@ -16,6 +17,8 @@ const MenuList = () => {
   console.log(selectedKeyword);
 
   const menuToComponent: Record<string, JSX.Element> = {
+    outside: <RestPageList />,
+    competition: <RestPageList />,
     qnet: <CertificatePageList />,
     language: <LanguagePageList />,
     intern: <InternPageList />,
@@ -24,12 +27,7 @@ const MenuList = () => {
 
   const selectedComponent = menuToComponent[menuName as string];
 
-  return (
-    <div>
-      <div>{menuName} 리스트 컴포넌트</div>
-      {selectedComponent || null}
-    </div>
-  );
+  return <div>{selectedComponent || null}</div>;
 };
 
 export default MenuList;
