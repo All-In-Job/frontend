@@ -27,12 +27,7 @@ const MenuList = () => {
 
   const selectedComponent = menuToComponent[menuName as string];
 
-  return (
-    <div>
-      <div>{menuName} 리스트 컴포넌트</div>
-      {selectedComponent || null}
-    </div>
-  );
+  return <div>{selectedComponent || null}</div>;
 };
 
 export default MenuList;
