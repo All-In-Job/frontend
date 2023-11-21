@@ -8,7 +8,7 @@ import { ReactComponent as Bookmark } from 'components/commons/PostCard/res/img/
 type Props = {
   mainImage: string;
   Dday: string;
-  index: number;
+  index: number | null;
   isChangeInfoLayout?: boolean;
   isScrap: boolean;
   handleScrap: () => void;
@@ -28,8 +28,7 @@ const PostCardImage: FC<Props> = ({
 
       {!isChangeInfoLayout && (
         <TagContainer>
-          {index < 4 ? <PostCardTag>SPECIAL</PostCardTag> : null}
-
+          {index == null ? null : index < 4 ? <PostCardTag>SPECIAL</PostCardTag> : null}
           <DateDday>{Dday}</DateDday>
         </TagContainer>
       )}
