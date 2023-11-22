@@ -10,6 +10,10 @@ import UserTabs from './UserTabs';
 const Profile = () => {
   const user = useLoaderData() as { nickname: string; thermometer: number; profileImage: string };
 
+  const refreshWindow = () => {
+    window.location.replace('/');
+  };
+
   return (
     <Container>
       <UserInfoWrapper>
@@ -21,7 +25,13 @@ const Profile = () => {
               열정온도<YellowDesc size='15px'>{`${user.thermometer}℃`}</YellowDesc>
             </FlexDesc>
           </UserDescContainer>
-          <LogoutButton onClick={logout}>로그아웃</LogoutButton>
+          <LogoutButton
+            onClick={() => {
+              logout().then(res => res.status && refreshWindow());
+            }}
+          >
+            로그아웃
+          </LogoutButton>
         </UserInfo>
         <Temperature temperature={user.thermometer} />
       </UserInfoWrapper>
