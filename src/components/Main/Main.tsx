@@ -25,6 +25,5 @@ export const Main = () => {
 
 export const Sidebar = styled.aside`
   position: absolute;
-  right: 1vw;
-  //background-color: lightslategrey;
+  right: 52px;
 `;

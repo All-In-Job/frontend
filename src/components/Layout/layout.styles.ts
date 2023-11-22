@@ -1,15 +1,14 @@
 import styled from '@emotion/styled';
 
-export const COLUMN_WIDTH = 4;
+export const COLUMN_WIDTH = 78;
 
 export const Layout = styled.div`
-  //background-color: azure;
-  //min-height: 100vh;
+  position: relative;
+  min-width: 1920px;
   display: grid;
-  grid-template-columns: repeat(12, ${COLUMN_WIDTH}vw);
+  grid-template-columns: repeat(12, ${COLUMN_WIDTH}px);
   column-gap: 24px;
   justify-content: center;
-  //margin-bottom: 12px;
   height: 100%;
 `;
 

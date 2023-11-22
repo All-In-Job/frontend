@@ -4,6 +4,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { getLoginUserInfo } from 'apis/signup';
 import { BasicInformation } from 'components/BasicInformation/BasicInformation';
 import { Calendar } from 'components/Calendar/Calendar';
+import Error from 'components/Error/Error';
 import InterestForm from 'components/InterestForm/InterestForm';
 import { DetailPage } from 'pages/detail';
 import FindID from 'pages/findID/FindID';
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
   {
     path: '',
     element: <Home />,
+    errorElement: <Error />,
     loader: getUserProfile,
     children: [
       {

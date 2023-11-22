@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import styled from '@emotion/styled';
 import { PostCardProps } from 'types/postCard.type';
 
-import * as S from './postCard.styles';
+import PostCardFooter from './PostCardFooter/PostCardFooter';
+import PostCardImage from './PostCardImage/PostCardImage';
+import PostCardInfo from './PostCardInfo/PostCardInfo';
 
 function PostCard({
   mainImage,
@@ -11,70 +13,48 @@ function PostCard({
   title,
   Dday,
   applicationPeriod,
-  scrapCount,
+  scrap,
   view,
   location,
-  imgHeight,
-  isPickButton,
   isChangeInfoLayout,
   index,
 }: PostCardProps) {
-  const [isPick, setIsPick] = useState(false);
+  const [isScrap, setIsScrap] = useState(false);
 
-  const onClickPick = () => {
-    setIsPick(pick => !pick);
+  const handleScrap = () => {
+    setIsScrap(isScrap => !isScrap);
   };
 
   return (
-    <S.PostCardContainer>
-      <S.PostCardImgBox imgHeight={imgHeight ?? '282px'}>
-        <img src={mainImage} />
+    <PostCardContainer>
+      <PostCardImage
+        mainImage={mainImage}
+        Dday={Dday}
+        index={index}
+        isChangeInfoLayout={isChangeInfoLayout}
+        isScrap={isScrap}
+        handleScrap={handleScrap}
+      />
 
-        {index < 4 ? <S.PostCardTag>SPECIAL</S.PostCardTag> : null}
+      <PostCardInfo
+        title={title}
+        enterprise={enterprise}
+        dDay={Dday}
+        applicationPeriod={applicationPeriod}
+        location={location}
+        isChangeInfoLayout={isChangeInfoLayout}
+      />
 
-        {isPickButton && (
-          <Link to={'/login'}>
-            <S.PickButton onClick={onClickPick}>
-              <S.PickIcon data-ispick={isPick} />
-            </S.PickButton>
-          </Link>
-        )}
-      </S.PostCardImgBox>
-
-      <S.PostCardInfo isChangeInfoLayout={isChangeInfoLayout ? true : false}>
-        {isChangeInfoLayout ? (
-          <>
-            <S.InfoTitle>{title}</S.InfoTitle>
-            <S.InfoHost>{enterprise}</S.InfoHost>
-            {location && <S.Location>{location}</S.Location>}
-          </>
-        ) : (
-          <>
-            <S.InfoHost>{enterprise}</S.InfoHost>
-            <S.InfoTitle>{title}</S.InfoTitle>
-          </>
-        )}
-        <S.InfoDate>
-          <S.DateDday>{Dday}</S.DateDday>
-          <S.DateCreation>{applicationPeriod}</S.DateCreation>
-        </S.InfoDate>
-      </S.PostCardInfo>
-
-      <S.PostCardFooter>
-        <li>
-          <S.SmallBookmarkIcon />
-          <S.FooterCount>{scrapCount}</S.FooterCount>
-        </li>
-        <li>
-          <S.DevideLine />
-        </li>
-        <li>
-          <S.VisibilityIcon />
-          <S.FooterCount>{view}</S.FooterCount>
-        </li>
-      </S.PostCardFooter>
-    </S.PostCardContainer>
+      <PostCardFooter scrap={scrap} view={view} />
+    </PostCardContainer>
   );
 }
 
 export default PostCard;
+
+const PostCardContainer = styled.article`
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+  cursor: pointer;
+`;

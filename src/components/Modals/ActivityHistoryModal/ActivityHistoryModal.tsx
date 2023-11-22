@@ -20,7 +20,22 @@ import { CategorySelect } from './SelectList/CategorySelect';
 import { InterestSelect } from './SelectList/InterestSelect';
 import { TitleSelect } from './SelectList/TitleSelect';
 
-export const ActivityHistoryModal = () => {
+export type ActivityList = {
+  path: string;
+  id: string;
+  category: string;
+  keyword: string;
+  activeTitle: string;
+  activeContent: string;
+  period: string;
+  score?: string | undefined;
+};
+
+type listProps = {
+  list: ActivityList | null;
+};
+
+export const ActivityHistoryModal = ({ list }: listProps) => {
   const setIsModalVisible = useSetRecoilState(isActivityModalState);
   const categoryId = useRecoilValue(categoryIdState);
   const setCurrentCategory = useSetRecoilState(currentCategoryState);
@@ -32,9 +47,12 @@ export const ActivityHistoryModal = () => {
   const [scoreValue, setScoreValue] = useState('');
   const [isActive, setIsActive] = useState(false);
 
+  const handleContentInputChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    setContentValue(e.target.value);
+  const handleScoreInputChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setScoreValue(e.target.value);
+
   const resetForm = () => {
-    const formElement = document.getElementById('form') as HTMLFormElement | null;
-    formElement && formElement.reset();
     setCurrentCategory('');
     setCurrentKeyword('');
     setTitleValue('');
@@ -43,10 +61,16 @@ export const ActivityHistoryModal = () => {
     setIsModalVisible(prev => !prev);
   };
 
-  const onChangeInputContentValue = (e: ChangeEvent<HTMLTextAreaElement>) =>
-    setContentValue(e.target.value);
-  const onChangeInputScoreValue = (e: ChangeEvent<HTMLInputElement>) =>
-    setScoreValue(e.target.value);
+  useEffect(() => {
+    if (list) {
+      setCurrentCategory(list.category);
+      setCurrentKeyword(list.keyword);
+      setTitleValue(list.activeTitle);
+      setPeriodValue(list.period);
+      setContentValue(list.activeContent);
+      list.score && setScoreValue(list.score);
+    }
+  }, [list]);
 
   useEffect(() => {
     const requiredValues =
@@ -91,17 +115,18 @@ export const ActivityHistoryModal = () => {
     }
     resetForm();
   };
+
   return (
     <ModalBackground>
       <S.Form onSubmit={onSubmitFormData}>
         <S.TitleWrap>
-          <S.H1>{'활동내역 추가'}</S.H1>
+          <S.H1>{`활동내역 ${list ? '수정' : '추가'}`}</S.H1>
           <Close onClick={resetForm} />
         </S.TitleWrap>
 
         <S.ContentWrap>
           <S.H2>{'활동내역 분야'}</S.H2>
-          <CategorySelect />
+          <CategorySelect pathData={list ? list.path : null} />
         </S.ContentWrap>
 
         <S.ContentWrap>
@@ -114,33 +139,35 @@ export const ActivityHistoryModal = () => {
           <TitleSelect />
         </S.ContentWrap>
 
-        {categoryId === 'language' ? (
+        {categoryId === 'language' && (
           <S.ContentWrap>
             <S.H2>{'점수'}</S.H2>
             <S.SelectInput
               type='text'
               placeholder='점수를 입력해주세요'
               value={scoreValue}
-              onChange={onChangeInputScoreValue}
+              onChange={handleScoreInputChange}
             />
           </S.ContentWrap>
-        ) : categoryId === 'intern' ? (
+        )}
+        {categoryId === 'intern' && (
           <S.ContentWrap>
             <S.H2>{'활동 기간'}</S.H2>
             <Calendar />
           </S.ContentWrap>
-        ) : null}
+        )}
 
         <S.ContentWrap>
           <S.H2>{'활동 내용'}</S.H2>
           <S.Textarea
             placeholder='활동 내용을 입력해주세요.&#10;활동했던 내용을 요약해서 적어보세요!'
             value={contentValue}
-            onChange={onChangeInputContentValue}
+            onChange={handleContentInputChange}
           />
         </S.ContentWrap>
+
         <S.Submit type='submit' disabled={isActive ? false : true} isActive={isActive}>
-          저장
+          {list ? '수정' : '저장'}
         </S.Submit>
       </S.Form>
     </ModalBackground>

@@ -9,10 +9,10 @@ type Props = {
     }
   >;
   isDisabled: boolean;
-  onClick: () => void;
+  handlePageNavigation: () => void;
 };
 
-const ArrowButton: FC<Props> = ({ icon, isDisabled, onClick }) => {
+const ArrowButton: FC<Props> = ({ icon, isDisabled, handlePageNavigation }) => {
   const Icon = styled(icon)<{ 'data-isdisabled': boolean }>`
     path {
       fill: ${props => (props['data-isdisabled'] ? '#fff' : '#121110')};
@@ -20,7 +20,7 @@ const ArrowButton: FC<Props> = ({ icon, isDisabled, onClick }) => {
   `;
 
   return (
-    <Button type='button' disabled={isDisabled} onClick={() => onClick()}>
+    <Button type='button' disabled={isDisabled} onClick={() => handlePageNavigation()}>
       <Icon data-isdisabled={isDisabled} />
     </Button>
   );

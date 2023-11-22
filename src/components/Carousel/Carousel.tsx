@@ -101,6 +101,7 @@ export const Carousel = () => {
 const StyledContainer = styled.div`
   background-color: gray;
   grid-column: span 12;
+  width: 1200px;
   height: 439px;
   overflow: hidden;
   position: relative;
