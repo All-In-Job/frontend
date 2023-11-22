@@ -49,11 +49,7 @@ export const CommunityPageList = () => {
           ))}
         </List>
 
-        <MenuPagination
-          currentPage={currentPage}
-          totalItemsCount={totalCount}
-          pageItemsCount={communityList.length}
-        />
+        <MenuPagination currentPage={currentPage} totalItemsCount={totalCount} itemsPerPage={10} />
       </>
     );
 };
