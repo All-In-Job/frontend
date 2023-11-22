@@ -1,12 +1,10 @@
-import { createContext, Dispatch, FormEventHandler, SetStateAction, useState } from 'react';
+import { createContext, Dispatch, FC, FormEventHandler, SetStateAction, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { ReactComponent as CloseIcon } from 'assets/icons/close.svg';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { photos } from 'components/BasicInformation/PhotoList';
 import { ModalBackground } from 'components/Modals/ModalBackground';
-import { isMyInfoUpdateModalVisible } from 'store/modal';
 
 import { InterestFieldSection } from './InterestFieldSection';
 import { NicknameSection } from './NicknameSection';
@@ -32,13 +30,16 @@ export const MyInfoUpdateContext = createContext<MyInfoUpdateModalContext>({
   setFormState: () => {},
 });
 
-export const MyInfoUpdateModal = () => {
+type Props = {
+  isVisible: boolean;
+  setIsVisible: Dispatch<SetStateAction<boolean>>;
+};
+
+export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
   const [formState, setFormState] = useState<MyInfoFormState>({
     photo: photos[0],
     nickname: '',
   });
-  const isMyInfoUpdateModalVisibleValue = useRecoilValue(isMyInfoUpdateModalVisible);
-  const setIsMyInfoUpdateModalVisible = useSetRecoilState(isMyInfoUpdateModalVisible);
 
   const requestMyInfoUpdate: FormEventHandler = e => {
     e.preventDefault();
@@ -53,10 +54,10 @@ export const MyInfoUpdateModal = () => {
   };
 
   const closeModal = () => {
-    setIsMyInfoUpdateModalVisible(false);
+    setIsVisible(false);
   };
 
-  if (isMyInfoUpdateModalVisibleValue)
+  if (isVisible)
     return (
       <ModalBackground>
         <MyInfoUpdateContext.Provider value={{ formState, setFormState }}>
@@ -65,6 +66,7 @@ export const MyInfoUpdateModal = () => {
               <StyledTitle>프로필 수정</StyledTitle>
               <CloseIcon onClick={closeModal} />
             </StyledHeader>
+
             <ProfileImageSection />
             <NicknameSection />
             <InterestFieldSection />
