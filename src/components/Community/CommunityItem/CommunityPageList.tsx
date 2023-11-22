@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
 import { requestCommunityData } from 'apis/community';
+import { requestCommunityCount } from 'apis/communityCount';
 
 import CommunityItem from './CommunityItem';
 
@@ -16,7 +17,9 @@ export const CommunityPageList = () => {
     (async () => {
       try {
         const res = await requestCommunityData();
+        const totalCount = await requestCommunityCount();
         setCommunityList(res.data.data);
+        console.log(totalCount);
       } catch (error) {
         console.error(error);
       }
