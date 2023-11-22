@@ -31,7 +31,7 @@ export const CommunityPageList = () => {
         {communityList.map(el => (
           <CommunityItem
             id={el.id}
-            key={el.date}
+            key={el.id}
             category={el.category}
             title={el.title}
             date={el.date}
