@@ -39,10 +39,11 @@ export const RestPageList = () => {
   return (
     <>
       <PostCardWrapper>
-        {postPageList.map((el, idx) => {
+        {postPageList.map(el => {
           return (
             <PostCard
-              key={idx}
+              key={el.id}
+              id={el.id}
               mainImage={el.mainImage}
               enterprise={el.enterprise}
               title={el.title}

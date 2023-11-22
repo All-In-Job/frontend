@@ -17,7 +17,8 @@ export const CardList: FC<Props> = ({ data, isChangeInfoLayout }) => {
       {data.map((el, idx) => {
         return (
           <PostCard
-            key={idx}
+            key={el.id}
+            id={el.id}
             mainImage={el.mainImage}
             enterprise={el.enterprise}
             title={el.title}
