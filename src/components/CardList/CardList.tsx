@@ -9,29 +9,50 @@ import * as S from './cardList.styles';
 type Props = {
   data: PostCardProps[];
   isChangeInfoLayout: boolean;
+  isLoad: boolean;
 };
 
-export const CardList: FC<Props> = ({ data, isChangeInfoLayout }) => {
+export const CardList: FC<Props> = ({ data, isChangeInfoLayout, isLoad }) => {
   return (
     <S.Section>
       {data.map((el, idx) => {
-        return (
-          <PostCard
-            key={el.id}
-            id={el.id}
-            mainImage={el.mainImage}
-            enterprise={el.enterprise}
-            title={el.title}
-            Dday={el.Dday}
-            applicationPeriod={el.applicationPeriod}
-            scrap={el.scrap}
-            view={el.view}
-            location={el.location}
-            isPostCardTag
-            index={idx}
-            isChangeInfoLayout={isChangeInfoLayout}
-          />
-        );
+        if (isLoad) {
+          return (
+            <PostCard
+              key={el.id}
+              id={el.id}
+              mainImage={el.mainImage}
+              enterprise={el.enterprise}
+              title={el.title}
+              Dday={el.Dday}
+              applicationPeriod={el.applicationPeriod}
+              scrap={el.scrap}
+              view={el.view}
+              location={el.location}
+              isPostCardTag
+              index={idx}
+              isChangeInfoLayout={isChangeInfoLayout}
+            />
+          );
+        } else {
+          return (
+            <PostCard
+              key={el.id}
+              id={el.id}
+              mainImage=''
+              enterprise=''
+              title=''
+              Dday=''
+              applicationPeriod=''
+              scrap=''
+              view=''
+              location=''
+              isPostCardTag
+              index={idx}
+              isChangeInfoLayout={isChangeInfoLayout}
+            />
+          );
+        }
       })}
     </S.Section>
   );

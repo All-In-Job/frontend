@@ -24,9 +24,9 @@ const PostCardImage: FC<Props> = ({
 }) => {
   return (
     <ImageContainer imgHeight={isChangeInfoLayout ? '118px' : '282px'}>
-      <img src={mainImage} />
+      {Boolean(mainImage) && <img src={mainImage} />}
 
-      {!isChangeInfoLayout && (
+      {!isChangeInfoLayout && Boolean(Dday) && (
         <TagContainer>
           {index == null ? null : index < 4 ? <PostCardTag>SPECIAL</PostCardTag> : null}
           <DateDday>{Dday}</DateDday>

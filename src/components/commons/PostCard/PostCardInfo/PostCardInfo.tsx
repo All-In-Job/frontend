@@ -26,7 +26,7 @@ const PostCardInfo: FC<Props> = ({
         <Enterprise>{enterprise}</Enterprise>
         {location && <Location>{location}</Location>}
       </InfoContainer>
-      {isChangeInfoLayout && (
+      {isChangeInfoLayout && Boolean(dDay) && (
         <Date>
           <Dday>{dDay}</Dday>
           <ApplicationPeriod>2023.08.24</ApplicationPeriod>
@@ -52,6 +52,7 @@ const Title = styled.h3`
 `;
 
 const Enterprise = styled.h4`
+  height: 26px;
   color: ${props => props.theme.palette.black200};
   font-size: ${props => props.theme.textStyle.body01.fontSize};
   line-height: ${props => props.theme.textStyle.body01.lineHeight};
