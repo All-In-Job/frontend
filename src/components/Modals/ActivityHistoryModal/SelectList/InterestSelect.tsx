@@ -17,6 +17,7 @@ export const InterestSelect = () => {
   const categoryId = useRecoilValue(categoryIdState);
   const currentCategory = useRecoilValue(currentCategoryState);
   const [currentKeyword, setCurrentKeyword] = useRecoilState(currentKeywordState);
+
   const [keywordOptions, setKeywordOptions] = useState(false);
 
   const interestList = categoryList.find(el => el.id === categoryId);

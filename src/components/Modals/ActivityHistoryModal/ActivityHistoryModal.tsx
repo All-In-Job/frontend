@@ -2,7 +2,7 @@ import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { createActivityHistory } from 'apis/thermometer';
+import { createThermometerData, pathInfo, postData } from 'apis/thermometer';
 import Calendar from 'components/ActivityHistory/Calendar/Calendar';
 import { ReactComponent as Close } from 'components/ActivityHistory/res/img/close.svg';
 import { ModalBackground } from 'components/Modals/ModalBackground';
@@ -27,8 +27,8 @@ export type ActivityList = {
   keyword: string;
   activeTitle: string;
   activeContent: string;
-  period: string;
-  score?: string | undefined;
+  period?: string;
+  score?: string;
 };
 
 type listProps = {
@@ -66,8 +66,8 @@ export const ActivityHistoryModal = ({ list }: listProps) => {
       setCurrentCategory(list.category);
       setCurrentKeyword(list.keyword);
       setTitleValue(list.activeTitle);
-      setPeriodValue(list.period);
       setContentValue(list.activeContent);
+      list.period && setPeriodValue(list.period);
       list.score && setScoreValue(list.score);
     }
   }, [list]);
@@ -86,28 +86,21 @@ export const ActivityHistoryModal = ({ list }: listProps) => {
   const onSubmitFormData: FormEventHandler = async e => {
     e.preventDefault();
 
-    const accessToken = localStorage.getItem('accessToken');
-
-    if (!accessToken) {
-      throw new Error('Access token not found.');
-    }
-
-    const headers = {
-      'content-type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
+    const activityHistoryData: pathInfo = {
+      category: currentKeyword,
+      activeTitle: titleValue,
+      activeContent: contentValue,
+      ...(categoryId === 'language' && { score: scoreValue }),
+      ...(categoryId === 'intern' && { period: periodValue }),
     };
 
-    const postData = {
+    const formData: postData = {
       path: categoryId,
-      createThermometer: {
-        category: currentKeyword,
-        activeTitle: titleValue,
-        activeContent: contentValue,
-      },
+      createThermometer: activityHistoryData,
     };
 
     try {
-      const res = await createActivityHistory(postData, headers);
+      const res = await createThermometerData(formData);
       console.log('서버 응답:', res);
       console.log('활동내역 등록 성공:', res.data);
     } catch (error) {
