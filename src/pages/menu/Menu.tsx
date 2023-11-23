@@ -1,8 +1,9 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
+import { requestUserKeywordsCrawlingData } from 'apis/userKeywordsCrawling';
 import CategoryFilter from 'components/CategoryFilter';
 import { CategoryData } from 'components/CategoryFilter/type';
 import HashTagFilter from 'components/HashTagFilter';
@@ -53,6 +54,13 @@ const Menu = () => {
     },
     [selectedKeyword],
   );
+
+  useEffect(() => {
+    (async () => {
+      const res = await requestUserKeywordsCrawlingData(menuName as string, '1');
+      console.log('나의 관심사', res);
+    })();
+  }, []);
 
   return (
     <MenuWrapper>
