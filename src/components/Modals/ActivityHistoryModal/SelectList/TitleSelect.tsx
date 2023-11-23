@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { requestActivityCrawlingData } from 'apis/activityHistoryCrawling';
 import * as S from 'components/Modals/ActivityHistoryModal/ActivityHistoryModal.styles';
-import { categoryIdState, currentKeywordState, titleValueState } from 'store/activityHistory';
+import { categoryIdState, inputValuesState } from 'store/activityHistory';
 
 type QueryConfig = {
   [category: string]: { [key: string]: string };
@@ -12,9 +12,9 @@ type QueryConfig = {
 
 export const TitleSelect = () => {
   const categoryId = useRecoilValue(categoryIdState);
-  const currentKeyword = useRecoilValue(currentKeywordState);
+  const keywordValue = useRecoilValue(inputValuesState('keyword'));
   const [activityData, setActivityData] = useState<string[]>([]);
-  const [titleValue, setTitleValue] = useRecoilState<string>(titleValueState);
+  const [titleValue, setTitleValue] = useRecoilState(inputValuesState('title'));
   const [isVisibleTitle, setIsVisibleTitle] = useState(false);
 
   const searchTitle = activityData.filter(title => title.includes(titleValue));
@@ -31,11 +31,11 @@ export const TitleSelect = () => {
   const fetchData = async () => {
     const createQueries = (categoryId: string) => {
       const queryConfig: QueryConfig = {
-        qnet: { mainCategory: currentKeyword },
-        language: { classify: currentKeyword },
-        intern: { preferentialTreatment: currentKeyword },
+        qnet: { mainCategory: keywordValue },
+        language: { classify: keywordValue },
+        intern: { preferentialTreatment: keywordValue },
       };
-      return queryConfig[categoryId] || { interests: currentKeyword };
+      return queryConfig[categoryId] || { interests: keywordValue };
     };
 
     try {
@@ -52,10 +52,10 @@ export const TitleSelect = () => {
 
   useEffect(() => {
     const debounce = setTimeout(() => {
-      if (currentKeyword) fetchData();
+      if (keywordValue) fetchData();
     }, 500);
     return () => clearTimeout(debounce);
-  }, [currentKeyword]);
+  }, [keywordValue]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, atomFamily } from 'recoil';
 
 export const activityListIdState = atom({
   key: 'activityListId',
@@ -10,22 +10,37 @@ export const categoryIdState = atom({
   default: '',
 });
 
-export const currentCategoryState = atom({
-  key: 'currentCategory',
+export const inputValuesState = atomFamily({
+  key: 'currentValue',
   default: '',
 });
 
-export const currentKeywordState = atom({
-  key: 'currentKeyword',
-  default: '',
-});
+// export const inputValuesSelector = selectorFamily({
+//   key : '',
+//   get : () => ({get}) => {
+//     const modal = get(isActivityModalState)
+//   },
+//   set : () => ({set}, defaultValue) => {
+//     if(modal == false)
+//   }
+// })
 
-export const titleValueState = atom({
-  key: 'titleValue',
-  default: '',
-});
+// export const currentCategoryState = atom({
+//   key: 'currentCategory',
+//   default: '',
+// });
 
-export const periodState = atom({
-  key: 'periodValue',
-  default: '',
-});
+// export const currentKeywordState = atom({
+//   key: 'currentKeyword',
+//   default: '',
+// });
+
+// export const titleValueState = atom({
+//   key: 'titleValue',
+//   default: '',
+// });
+
+// export const periodState = atom({
+//   key: 'periodValue',
+//   default: '',
+// });

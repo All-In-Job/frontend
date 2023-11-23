@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { ActivityList } from 'types/activityHistory';
 
@@ -107,9 +106,15 @@ export const ActivityHistory = () => {
           {activityListId ? (
             activityList
               .filter(list => activityListId === list.id)
-              .map(list => <ActivityHistoryModal key={list.id} list={list} />)
+              .map(list => (
+                <ActivityHistoryModal
+                  key={list.id}
+                  list={list}
+                  updateActivityList={updateActivityList}
+                />
+              ))
           ) : (
-            <ActivityHistoryModal list={null} />
+            <ActivityHistoryModal list={null} updateActivityList={updateActivityList} />
           )}
         </>
       )}
