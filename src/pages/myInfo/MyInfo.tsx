@@ -1,7 +1,15 @@
+import { useRecoilState } from 'recoil';
+
+import { MyInfoUpdateModal } from 'components/Modals/MyInfoUpdateModal/MyInfoUpdateModal';
+import { isMyInfoUpdateModalVisible } from 'store/modal';
+
 import * as S from './myInfo.style';
 
 function MyInfo() {
   const interestTags = ['#공모전', '#인턴활동', '#대외활동', '#디자인', '#IT프로그래밍', '#예시'];
+  const [isUpdateModalVisible, setIsUpdateModalVisible] = useRecoilState(
+    isMyInfoUpdateModalVisible,
+  );
 
   return (
     <>
@@ -10,8 +18,11 @@ function MyInfo() {
         <S.LoginInfoWrapper>
           <S.ProfileBox>
             <S.ProfileImgWrapper></S.ProfileImgWrapper>
+
             <S.ProfileNickname>올인잡님</S.ProfileNickname>
-            <S.ProfileEditBtn>프로필 수정</S.ProfileEditBtn>
+            <S.ProfileEditBtn onClick={() => setIsUpdateModalVisible(true)}>
+              프로필 수정
+            </S.ProfileEditBtn>
           </S.ProfileBox>
 
           <S.InfoBox>
@@ -36,6 +47,7 @@ function MyInfo() {
           </S.InterestFieldBox>
         </S.LoginInfoWrapper>
       </S.MyInfoContainer>
+      <MyInfoUpdateModal isVisible={isUpdateModalVisible} setIsVisible={setIsUpdateModalVisible} />
     </>
   );
 }

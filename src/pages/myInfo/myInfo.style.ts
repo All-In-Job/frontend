@@ -49,6 +49,7 @@ export const ProfileEditBtn = styled.button`
   color: #a0a09f;
   border-radius: 4px;
   padding: 5px 8px;
+  cursor: pointer;
 `;
 
 export const InfoBox = styled.div`

@@ -23,7 +23,6 @@ const getUserProfile = async () => {
     return res.data.data;
   } catch (e) {
     if (e instanceof AxiosError && e.response) {
-      console.log(e.response);
       return null;
     }
   }

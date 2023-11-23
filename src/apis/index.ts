@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 function createAxiosInstance(url: string) {
-  const instance = axios.create({ baseURL: `${import.meta.env.VITE_API_BASE_URL}/${url}` });
+  const instance = axios.create({
+    baseURL: `${import.meta.env.VITE_API_BASE_URL}/${url}`,
+    withCredentials: true,
+  });
 
   instance.interceptors.request.use(
     function (config) {
