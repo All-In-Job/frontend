@@ -26,7 +26,13 @@ export default Error;
 
 const ErrorWrapper = styled.div`
   grid-column: span 12;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  background-color: antiquewhite;
 `;
 
 const Logo = styled.h1`
@@ -55,6 +61,7 @@ const Emphasis = styled.strong`
 `;
 
 const HomeButton = styled.button`
+  width: fit-content;
   padding: 11px 24px;
   border-radius: 999px;
   border: 1px solid ${props => props.theme.palette.orange500};
