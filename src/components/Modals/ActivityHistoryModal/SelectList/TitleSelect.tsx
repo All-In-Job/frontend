@@ -4,14 +4,14 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { requestActivityCrawlingData } from 'apis/activityHistoryCrawling';
 import * as S from 'components/Modals/ActivityHistoryModal/ActivityHistoryModal.styles';
-import { categoryIdState, inputValuesState } from 'store/activityHistory';
+import { idsState, inputValuesState } from 'store/activityHistory';
 
 type QueryConfig = {
   [category: string]: { [key: string]: string };
 };
 
 export const TitleSelect = () => {
-  const categoryId = useRecoilValue(categoryIdState);
+  const categoryId = useRecoilValue(idsState('categoryId'));
   const keywordValue = useRecoilValue(inputValuesState('keyword'));
   const [activityData, setActivityData] = useState<string[]>([]);
   const [titleValue, setTitleValue] = useRecoilState(inputValuesState('title'));

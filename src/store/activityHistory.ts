@@ -1,12 +1,7 @@
-import { atom, atomFamily } from 'recoil';
+import { atomFamily } from 'recoil';
 
-export const activityListIdState = atom({
-  key: 'activityListId',
-  default: '',
-});
-
-export const categoryIdState = atom({
-  key: 'categoryId',
+export const idsState = atomFamily({
+  key: 'idsState',
   default: '',
 });
 

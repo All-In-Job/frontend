@@ -6,7 +6,7 @@ import { createThermometerData, pathInfo, postData } from 'apis/thermometer';
 import Calendar from 'components/ActivityHistory/Calendar/Calendar';
 import { ReactComponent as Close } from 'components/ActivityHistory/res/img/close.svg';
 import { ModalBackground } from 'components/Modals/ModalBackground';
-import { categoryIdState, inputValuesState } from 'store/activityHistory';
+import { idsState, inputValuesState } from 'store/activityHistory';
 import { isActivityModalState } from 'store/modal';
 
 import * as S from './ActivityHistoryModal.styles';
@@ -27,12 +27,12 @@ export type ActivityList = {
 
 type listProps = {
   list: ActivityList | null;
-  updateActivityList: (tabId: string) => Promise<void>;
+  updateActivityList: Promise<void>;
 };
 
 export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) => {
   const setIsModalVisible = useSetRecoilState(isActivityModalState);
-  const categoryId = useRecoilValue(categoryIdState);
+  const categoryId = useRecoilValue(idsState('categoryId'));
 
   const setCategoryValue = useSetRecoilState(inputValuesState('category'));
   const [keywordValue, setKeywordValue] = useRecoilState(inputValuesState('keyword'));
@@ -101,7 +101,7 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
       const res = await createThermometerData(formData);
       console.log('서버 응답:', res);
       console.log('활동내역 등록 성공:', res.data);
-      updateActivityList(categoryId);
+      updateActivityList;
       resetForm();
     } catch (error) {
       console.error('Error creating data:', error);

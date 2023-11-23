@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import categoryList from 'components/ActivityHistory/data/category.json';
 import { ReactComponent as ExpandMore } from 'components/ActivityHistory/res/img/expand_more.svg';
 import * as S from 'components/Modals/ActivityHistoryModal/ActivityHistoryModal.styles';
-import { categoryIdState, inputValuesState } from 'store/activityHistory';
+import { idsState, inputValuesState } from 'store/activityHistory';
 
 export type InterestList = {
   id: string;
@@ -14,7 +14,7 @@ export type InterestList = {
 };
 
 export const InterestSelect = () => {
-  const categoryId = useRecoilValue(categoryIdState);
+  const categoryId = useRecoilValue(idsState('categoryId'));
 
   const categoryValue = useRecoilValue(inputValuesState('category'));
   const [keywordValue, setKeywordValue] = useRecoilState(inputValuesState('keyword'));

@@ -5,7 +5,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import categoryList from 'components/ActivityHistory/data/category.json';
 import { ReactComponent as ExpandMore } from 'components/ActivityHistory/res/img/expand_more.svg';
 import * as S from 'components/Modals/ActivityHistoryModal/ActivityHistoryModal.styles';
-import { categoryIdState, inputValuesState } from 'store/activityHistory';
+import { idsState, inputValuesState } from 'store/activityHistory';
 
 export type InterestList = {
   id: string;
@@ -18,7 +18,7 @@ type CategorySelectProps = {
 };
 
 export const CategorySelect = ({ pathData }: CategorySelectProps) => {
-  const setCategoryId = useSetRecoilState(categoryIdState);
+  const setCategoryId = useSetRecoilState(idsState('categoryId'));
   const [categoryValue, setCategoryValue] = useRecoilState(inputValuesState('category'));
   const [categoryOptions, setCategoryOptions] = useState(false);
 

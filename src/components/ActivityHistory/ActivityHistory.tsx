@@ -5,7 +5,7 @@ import { ActivityList } from 'types/activityHistory';
 
 import { deleteThermometerData, findPathThermometer } from 'apis/thermometer';
 import { ActivityHistoryModal } from 'components/Modals/ActivityHistoryModal/ActivityHistoryModal';
-import { activityListIdState } from 'store/activityHistory';
+import { idsState } from 'store/activityHistory';
 import { isActivityModalState } from 'store/modal';
 
 import * as S from './ActivityHistory.styles';
@@ -18,7 +18,7 @@ export const ActivityHistory = () => {
   const [activityList, setActivityList] = useState<ActivityList[]>([]);
   const [tabId, setTabId] = useState<string>('competition');
   const [isAcitiviyModalVisible, setIsModalVisible] = useRecoilState(isActivityModalState);
-  const [activityListId, setActivityListId] = useRecoilState(activityListIdState);
+  const [activityListId, setActivityListId] = useRecoilState(idsState('activityListId'));
 
   const onModalOpen = () => {
     setActivityListId('');
@@ -110,11 +110,11 @@ export const ActivityHistory = () => {
                 <ActivityHistoryModal
                   key={list.id}
                   list={list}
-                  updateActivityList={updateActivityList}
+                  updateActivityList={updateActivityList(tabId)}
                 />
               ))
           ) : (
-            <ActivityHistoryModal list={null} updateActivityList={updateActivityList} />
+            <ActivityHistoryModal list={null} updateActivityList={updateActivityList(tabId)} />
           )}
         </>
       )}
