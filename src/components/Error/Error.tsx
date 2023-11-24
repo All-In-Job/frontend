@@ -32,7 +32,6 @@ const ErrorWrapper = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: antiquewhite;
 `;
 
 const Logo = styled.h1`
