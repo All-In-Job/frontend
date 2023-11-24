@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { PostCardProps } from 'types/postCard.type';
 
 import PostCard from 'components/commons/PostCard/PostCard';
+import SkeletonPostCard from 'components/commons/Skeleton/SkeletonPostCard';
 
 import * as S from './cardList.styles';
 
@@ -35,23 +36,7 @@ export const CardList: FC<Props> = ({ data, isChangeInfoLayout, isLoad }) => {
             />
           );
         } else {
-          return (
-            <PostCard
-              key={el.id}
-              id={el.id}
-              mainImage=''
-              enterprise=''
-              title=''
-              Dday=''
-              applicationPeriod=''
-              scrap=''
-              view=''
-              location=''
-              isPostCardTag
-              index={idx}
-              isChangeInfoLayout={isChangeInfoLayout}
-            />
-          );
+          return <SkeletonPostCard key={el.id} isChangeInfoLayout={isChangeInfoLayout} />;
         }
       })}
     </S.Section>
