@@ -14,31 +14,29 @@ type Props = {
 };
 
 export const CardList: FC<Props> = ({ data, isChangeInfoLayout, isLoad }) => {
-  return (
-    <S.Section>
-      {data.map((el, idx) => {
-        if (isLoad) {
-          return (
-            <PostCard
-              key={el.id}
-              id={el.id}
-              mainImage={el.mainImage}
-              enterprise={el.enterprise}
-              title={el.title}
-              Dday={el.Dday}
-              applicationPeriod={el.applicationPeriod}
-              scrap={el.scrap}
-              view={el.view}
-              location={el.location}
-              isPostCardTag
-              index={idx}
-              isChangeInfoLayout={isChangeInfoLayout}
-            />
-          );
-        } else {
-          return <SkeletonPostCard key={el.id} isChangeInfoLayout={isChangeInfoLayout} />;
-        }
-      })}
-    </S.Section>
-  );
+  const rederPost = (el: PostCardProps, index: number) => {
+    if (isLoad) {
+      return (
+        <PostCard
+          key={el.id}
+          id={el.id}
+          mainImage={el.mainImage}
+          enterprise={el.enterprise}
+          title={el.title}
+          Dday={el.Dday}
+          applicationPeriod={el.applicationPeriod}
+          scrap={el.scrap}
+          view={el.view}
+          location={el.location}
+          isPostCardTag
+          index={index}
+          isChangeInfoLayout={isChangeInfoLayout}
+        />
+      );
+    } else {
+      return <SkeletonPostCard key={el.id} isChangeInfoLayout={isChangeInfoLayout} />;
+    }
+  };
+
+  return <S.Section>{data.map(rederPost)}</S.Section>;
 };
