@@ -5,7 +5,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import categoryList from 'components/ActivityHistory/data/category.json';
 import { ReactComponent as ExpandMore } from 'components/ActivityHistory/res/img/expand_more.svg';
 import * as S from 'components/Modals/ActivityHistoryModal/ActivityHistoryModal.styles';
-import { categoryIdState, currentCategoryState } from 'store/activityHistory';
+import { idsState, inputValuesState } from 'store/activityHistory';
 
 export type InterestList = {
   id: string;
@@ -18,8 +18,8 @@ type CategorySelectProps = {
 };
 
 export const CategorySelect = ({ pathData }: CategorySelectProps) => {
-  const setCategoryId = useSetRecoilState(categoryIdState);
-  const [currentCategory, setCurrentCategory] = useRecoilState(currentCategoryState);
+  const setCategoryId = useSetRecoilState(idsState('categoryId'));
+  const [categoryValue, setCategoryValue] = useRecoilState(inputValuesState('category'));
   const [categoryOptions, setCategoryOptions] = useState(false);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export const CategorySelect = ({ pathData }: CategorySelectProps) => {
 
   const onSelectCategory = (category: InterestList) => {
     setCategoryId(category.id);
-    setCurrentCategory(category.title);
+    setCategoryValue(category.title);
     setCategoryOptions(prev => !prev);
   };
 
@@ -46,7 +46,7 @@ export const CategorySelect = ({ pathData }: CategorySelectProps) => {
         <S.SelectInput
           type='text'
           placeholder='활동내역 분야를 선택해주세요.'
-          value={currentCategory}
+          value={categoryValue}
           onClick={handleCategoryToggle}
           onBlur={onBlurInput}
           readOnly
