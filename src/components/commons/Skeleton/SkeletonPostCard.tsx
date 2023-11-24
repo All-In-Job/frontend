@@ -17,7 +17,7 @@ const SkeletonPostCard: FC<Props> = ({ isChangeInfoLayout }) => {
           <div />
         </Title>
         <Enterprise />
-        <Location />
+        {isChangeInfoLayout && <Location />}
       </LoadingInfo>
 
       <LoadingFooter>
