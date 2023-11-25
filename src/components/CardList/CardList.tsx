@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const CardList: FC<Props> = ({ data, isChangeInfoLayout, isLoad }) => {
-  const rederPost = (el: PostCardProps, index: number) => {
+  const renderPost = (el: PostCardProps, index: number) => {
     if (isLoad) {
       return (
         <PostCard
@@ -38,5 +38,5 @@ export const CardList: FC<Props> = ({ data, isChangeInfoLayout, isLoad }) => {
     }
   };
 
-  return <S.Section>{data.map(rederPost)}</S.Section>;
+  if (data) return <S.Section>{data.map(renderPost)}</S.Section>;
 };
