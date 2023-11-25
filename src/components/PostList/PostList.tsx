@@ -15,28 +15,29 @@ type Props = {
 };
 
 export const PostList: FC<Props> = ({ data, isLoad }) => {
-  const renderPost = (el: Certificate | Community) => {
-    if ('institution' in el) {
-      if (isLoad) {
-        return (
-          <CertificateItem
-            examSchedules={[]}
-            location={'main'}
-            id={el.id}
-            key={el.id}
-            title={el.title}
-            institution={el.institution}
-            relateDepartment={el.relateDepartment}
-            scrap={el.scrap}
-            view={el.view}
-            mainImage={el.mainImage}
-            type={el.type}
-          />
-        );
-      } else {
-        return <SkeletonCertificate />;
-      }
+  const renderCertificate = (el: Certificate) => {
+    if (isLoad) {
+      return (
+        <CertificateItem
+          examSchedules={[]}
+          location={'main'}
+          id={el.id}
+          key={el.id}
+          title={el.title}
+          institution={el.institution}
+          relateDepartment={el.relateDepartment}
+          scrap={el.scrap}
+          view={el.view}
+          mainImage={el.mainImage}
+          type={el.type}
+        />
+      );
+    } else {
+      return <SkeletonCertificate key={el.id} />;
     }
+  };
+
+  const renderCommunity = (el: Community) => {
     if (isLoad) {
       return (
         <CommunityItem
@@ -52,7 +53,15 @@ export const PostList: FC<Props> = ({ data, isLoad }) => {
         />
       );
     } else {
-      return <SkeletonCommunity />;
+      return <SkeletonCommunity key={el.id} />;
+    }
+  };
+
+  const renderPost = (el: Certificate | Community) => {
+    if ('institution' in el) {
+      return renderCertificate(el as Certificate);
+    } else {
+      return renderCommunity(el as Community);
     }
   };
 
