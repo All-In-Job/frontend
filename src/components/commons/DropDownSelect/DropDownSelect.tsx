@@ -1,6 +1,6 @@
 import { ReactComponent as ExpendMoreIcon } from 'assets/icons/icon_expend_more.svg';
 import { ReactComponent as ReversExpendMoreIcon } from 'assets/icons/icon_revers_expend_more.svg';
-import Select, { StylesConfig, components, DropdownIndicatorProps } from 'react-select';
+import Select, { StylesConfig, components, DropdownIndicatorProps, ActionMeta } from 'react-select';
 
 import theme from 'styles/theme';
 
@@ -66,12 +66,14 @@ const DropdownIndicator = (props: DropdownIndicatorProps) => {
 type Props = {
   options: { value: string; label: string }[];
   placeholder: string;
+  onChageDropDownSelect: (newValue: unknown, actionMeta: ActionMeta<unknown>) => void;
 };
 
-export const DropDownSelect = ({ options, placeholder }: Props) => {
+export const DropDownSelect = ({ options, placeholder, onChageDropDownSelect }: Props) => {
   return (
     <Select
       placeholder={placeholder}
+      onChange={onChageDropDownSelect}
       openMenuOnFocus={false}
       options={options}
       components={{ DropdownIndicator }}

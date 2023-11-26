@@ -29,6 +29,10 @@ export const NewPost = () => {
 
   console.log(editorToHtml);
 
+  const onChageDropDownSelect = (newValue: unknown) => {
+    console.log(newValue);
+  };
+
   return (
     <S.Container>
       <S.Title>올인잡님의 생각을 나눠보세요!</S.Title>
@@ -36,7 +40,11 @@ export const NewPost = () => {
         <S.InputContainer>
           <S.SelectWrapper>
             <label>주제</label>
-            <DropDownSelect options={options} placeholder='주제를 선택해주세요!' />
+            <DropDownSelect
+              options={options}
+              placeholder='주제를 선택해주세요!'
+              onChageDropDownSelect={onChageDropDownSelect}
+            />
           </S.SelectWrapper>
           <S.InputWrapper>
             <label>제목</label>
