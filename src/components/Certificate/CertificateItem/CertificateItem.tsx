@@ -1,5 +1,7 @@
 import { CertificateItemProps } from 'types/certificate.type';
 
+import { ScrapButton } from 'components/commons/Buttons/Scrap/ScrapButton';
+
 import * as S from './CertificateItem.styles';
 
 type Props = Omit<CertificateItemProps, 'enTitle'>;
@@ -12,6 +14,8 @@ const CertificateItem = ({
   scrap,
   view = 0,
   mainImage,
+  id,
+  isScrap,
 }: Props) => {
   return (
     <S.CertificateListContainer location={location}>
@@ -45,9 +49,9 @@ const CertificateItem = ({
             </S.Count>
           </>
         ) : null}
-        <S.BookmarkBtn>
-          <S.SolidBookmarkIcon />
-        </S.BookmarkBtn>
+        <S.Scrap>
+          <ScrapButton id={id} isScrap={isScrap} fill={'secondary'} />
+        </S.Scrap>
       </S.CountWrapper>
     </S.CertificateListContainer>
   );

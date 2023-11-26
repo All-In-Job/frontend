@@ -17,10 +17,7 @@ export const ScrapButton = ({ id, isScrap, fill }: ScrapButtonProps) => {
   const [isActive, setIsActive] = useState(isScrap);
   const homeCardList = useContext(HomeCardListContext);
   const navigate = useNavigate();
-
   const ScrapIcon = fill === 'primary' ? S.ScrapPrimary : S.ScrapSecondary;
-
-  console.log(fill);
 
   const handleScrap = async () => {
     if (isScrap == undefined) {

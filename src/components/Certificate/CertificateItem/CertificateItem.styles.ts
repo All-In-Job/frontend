@@ -4,7 +4,6 @@ import theme from 'styles/theme';
 
 import { ReactComponent as Bookmark } from './res/img/bookmark.svg';
 import { ReactComponent as Horizontal } from './res/img/horizontal_rule.svg';
-import { ReactComponent as SolidBookmark } from './res/img/solid_bookmark.svg';
 import { ReactComponent as View } from './res/img/view.svg';
 
 const { palette } = theme;
@@ -73,7 +72,7 @@ export const Count = styled.span`
   ${palette.orange200}
 `;
 
-export const BookmarkBtn = styled.button`
+export const Scrap = styled.div`
   display: flex;
   background-color: ${palette.background.secondary};
   border-radius: 4px;
@@ -84,7 +83,5 @@ export const BookmarkBtn = styled.button`
 export const BookmarkIcon = styled(Bookmark)``;
 
 export const ViewIcon = styled(View)``;
-
-export const SolidBookmarkIcon = styled(SolidBookmark)``;
 
 export const HorizontalIcon = styled(Horizontal)``;
