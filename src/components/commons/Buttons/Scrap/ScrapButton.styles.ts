@@ -1,19 +1,25 @@
 import styled from '@emotion/styled';
 
-import theme from 'styles/theme';
-
-const { palette } = theme;
-const { textStyle } = theme;
+import { ReactComponent as ScrapPrimaryIcon } from './res/bookmark_black100.svg';
+import { ReactComponent as ScrapSecondaryIcon } from './res/bookmark_secondary.svg';
 
 export const ScrapButton = styled.button`
-  ${textStyle.title11}
-  font-family: Medium;
-  background-color: ${palette.background.secondary};
-  border: 2px solid ${palette.orange200};
-  border-radius: 4px;
-  color: ${palette.black200};
-  padding: 16px 16.5px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
+  display: inherit;
+  background-color: transparent;
+`;
+
+export const ScrapPrimary = styled(ScrapPrimaryIcon)<{ 'data-isscrap': boolean | undefined }>`
+  cursor: pointer;
+  path {
+    fill: ${props =>
+      props['data-isscrap'] ? props.theme.palette.orange500 : props.theme.palette.black200};
+  }
+`;
+
+export const ScrapSecondary = styled(ScrapSecondaryIcon)<{ 'data-isscrap': boolean | undefined }>`
+  cursor: pointer;
+  path {
+    fill: ${props =>
+      props['data-isscrap'] ? props.theme.palette.orange500 : props.theme.palette.black200};
+  }
 `;
