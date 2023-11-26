@@ -76,6 +76,11 @@ export const NewPost = () => {
             />
           </S.MyBlock>
         </S.InputContainer>
+
+        <S.BtnContainer>
+          <S.CancelBtn type='button'>취소</S.CancelBtn>
+          <S.SubmitBtn type='submit'>등록</S.SubmitBtn>
+        </S.BtnContainer>
       </form>
     </S.Container>
   );
