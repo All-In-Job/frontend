@@ -1,11 +1,13 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { Scrap } from 'types/scrap';
 
+import { getUserScrap } from 'apis/scrap';
 import Badge from 'pages/home/AsideProfile/components/Badge';
 import ItemWithImage from 'pages/scrap/components/ItemWithImage';
 import PageController from 'pages/scrap/components/PageController';
-import { competitions } from 'pages/scrap/mock/competitions';
+// import { competitions } from 'pages/scrap/mock/competitions';
 
 const titleList = ['공모전', '대외활동', '어학', '자격증', '인턴'];
 
@@ -15,7 +17,7 @@ interface Props {
 }
 
 const ScrapSection: FC<Props> = ({ title, index }) => {
-  console.log(title);
+  const [scrapList, setScrapList] = useState<Scrap[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const totalPage = 10;
 
@@ -32,12 +34,27 @@ const ScrapSection: FC<Props> = ({ title, index }) => {
     setCurrentPage(pre => pre - 1);
   }
 
+  console.log(title);
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await getUserScrap(title);
+        setScrapList(res.data.data);
+        console.log('호출 성공', res.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [title]);
+
+  console.log(scrapList);
+
   return (
     <>
       <FilledBadge title={titleList[index]} />
       <VerticalAlign>
         <HorizontalItemList>
-          {competitions.map(item => (
+          {scrapList.map(item => (
             <ItemWithImage key={item.id} {...item} />
           ))}
         </HorizontalItemList>

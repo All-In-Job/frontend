@@ -1,57 +1,45 @@
-import { FC, useState } from 'react';
-
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
+import { Scrap } from 'types/scrap';
 
+import { ScrapButton } from 'components/commons/Buttons/Scrap/ScrapButton';
 import Badge from 'pages/home/AsideProfile/components/Badge';
-import { SectionData } from 'pages/scrap/mock/competitions';
-import { ReactComponent as BookMarkIcon } from 'pages/scrap/res/images/bookmark.svg';
 import { ReactComponent as MiniBookMarkIcon } from 'pages/scrap/res/images/miniBookmark.svg';
 import { ReactComponent as ViewIcon } from 'pages/scrap/res/images/view.svg';
 
-const ItemWithImage: FC<SectionData> = ({
+const ItemWithImage = ({
   Dday,
   date,
-  institution,
+  enterprise,
   mainImage,
   scrap,
   title,
   view,
-  examSchedules,
-  receptionSchedules,
+  period,
+  examDate,
   location,
-}) => {
-  const nav = useNavigate();
-  function moveToBookMark() {
-    nav('#');
-  }
-
-  const isQnet = examSchedules && receptionSchedules;
+  id,
+  isScrap,
+}: Scrap) => {
+  const isQnet = period && examDate;
   const isIntern = !(location == null);
-
-  const [imgSrc, setImgSrc] = useState(mainImage);
 
   return (
     <Item>
       <ImageContainer>
-        <Img
-          src={imgSrc}
-          onError={() => setImgSrc('https://cdn2.thecatapi.com/images/37o.jpg')}
-          alt='mainImage'
-        />
-        <BookMarkWrapper onClick={moveToBookMark}>
-          <BookMarkIcon />
+        <Img src={mainImage} />
+        <BookMarkWrapper>
+          <ScrapButton id={id} isScrap={isScrap} fill={'primary'} />
         </BookMarkWrapper>
       </ImageContainer>
       <ItemTitle>{title}</ItemTitle>
-      <ItemHost>{institution}</ItemHost>
+      <ItemHost>{enterprise}</ItemHost>
       {isIntern && <ItemHost>{location!}</ItemHost>}
       <Date>
         <DateBadge title={Dday} />
         {isQnet ? (
           <Vertical>
-            <FullDate>{examSchedules}</FullDate>
-            <FullDate>{receptionSchedules}</FullDate>
+            <FullDate>{period}</FullDate>
+            <FullDate>{examDate}</FullDate>
           </Vertical>
         ) : (
           <FullDate>{date}</FullDate>
