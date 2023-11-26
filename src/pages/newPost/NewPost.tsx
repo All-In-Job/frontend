@@ -21,6 +21,10 @@ const options = [
 export const NewPost = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
+  const onChangeDropDownSelect = (newValue: unknown) => {
+    console.log(newValue);
+  };
+
   const onEditorStateChange = (editorState: EditorState) => {
     setEditorState(editorState);
   };
@@ -28,10 +32,6 @@ export const NewPost = () => {
   const editorToHtml = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 
   console.log(editorToHtml);
-
-  const onChageDropDownSelect = (newValue: unknown) => {
-    console.log(newValue);
-  };
 
   return (
     <S.Container>
@@ -43,7 +43,7 @@ export const NewPost = () => {
             <DropDownSelect
               options={options}
               placeholder='주제를 선택해주세요!'
-              onChageDropDownSelect={onChageDropDownSelect}
+              onChangeDropDownSelect={onChangeDropDownSelect}
             />
           </S.SelectWrapper>
           <S.InputWrapper>

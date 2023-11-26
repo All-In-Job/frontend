@@ -66,14 +66,14 @@ const DropdownIndicator = (props: DropdownIndicatorProps) => {
 type Props = {
   options: { value: string; label: string }[];
   placeholder: string;
-  onChageDropDownSelect: (newValue: unknown, actionMeta: ActionMeta<unknown>) => void;
+  onChangeDropDownSelect: (newValue: unknown, actionMeta: ActionMeta<unknown>) => void;
 };
 
-export const DropDownSelect = ({ options, placeholder, onChageDropDownSelect }: Props) => {
+export const DropDownSelect = ({ options, placeholder, onChangeDropDownSelect }: Props) => {
   return (
     <Select
       placeholder={placeholder}
-      onChange={onChageDropDownSelect}
+      onChange={onChangeDropDownSelect}
       openMenuOnFocus={false}
       options={options}
       components={{ DropdownIndicator }}
