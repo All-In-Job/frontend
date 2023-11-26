@@ -1,10 +1,6 @@
 import styled from '@emotion/styled';
 
-import AsideProfile from 'pages/home/AsideProfile';
-
 import ScrapSection from './components/ScrapSection';
-
-// https://allinjob.co.kr/user/getUserScrap?path=%22outside%22&count=4&page1
 
 const ScrapPage = () => {
   return (
@@ -16,9 +12,6 @@ const ScrapPage = () => {
           <ScrapSection key={item} title={item} index={i} />
         ))}
       </LeftBody>
-      <RightAside>
-        <AsideProfile />
-      </RightAside>
     </>
   );
 };
@@ -29,12 +22,6 @@ const LeftBody = styled.main`
   grid-column: 1 / 11;
   flex-direction: column;
   width: 100%;
-`;
-
-const RightAside = styled.aside`
-  grid-column: 11 / 12;
-  width: 288px;
-  height: 100%;
 `;
 
 const Title = styled.h2`

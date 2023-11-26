@@ -67,6 +67,10 @@ export const router = createBrowserRouter([
         element: <ActivityHistory />,
       },
       {
+        path: 'scrap',
+        element: <ScrapPage />,
+      },
+      {
         path: 'find-id',
         element: <FindID />,
       },
