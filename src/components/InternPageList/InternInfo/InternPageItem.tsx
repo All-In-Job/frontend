@@ -19,7 +19,7 @@ export const InternPageItem = ({
 }: Inter) => {
   return (
     <S.InternWrapper>
-      <Link to={btoa(id)} target={'_blank'}>
+      <Link to={id} target={'_blank'}>
         <S.CompanyBox>
           <S.Img src={mainImage}></S.Img>
           <span>{enterprise}</span>
@@ -33,7 +33,7 @@ export const InternPageItem = ({
       <S.date>{closeDate}</S.date>
       <S.View>{view}</S.View>
       <S.Scrap>
-        <ScrapButton id={id} isScrap={isScrap} fill={'scondary'} />
+        <ScrapButton id={id} isScrap={isScrap} fill={'secondary'} />
         {/* <S.BookmarkBtn>
           <Bookmark />
         </S.BookmarkBtn> */}

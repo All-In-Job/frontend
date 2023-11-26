@@ -84,6 +84,7 @@ export const router = createBrowserRouter([
       {
         path: ':menuName/:categoryId/:detailId',
         element: <DetailPage />,
+        loader: getUserProfile,
       },
       {
         path: ':menuName/newpost',

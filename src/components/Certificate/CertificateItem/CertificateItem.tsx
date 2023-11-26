@@ -19,7 +19,7 @@ const CertificateItem = ({
 }: Props) => {
   return (
     <S.CertificateListContainer location={location}>
-      <S.CertificateInfo to={btoa(id)}>
+      <S.CertificateInfo to={id}>
         <S.Image src={mainImage}></S.Image>
         <S.CertificateInfoText>
           <S.Title>{title}</S.Title>

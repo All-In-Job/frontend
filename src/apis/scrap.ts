@@ -2,10 +2,10 @@ import { userApi } from 'apis';
 
 type formData = {
   path: string | undefined;
-  scrapId: string;
+  scrapId: string | undefined;
 };
 
-export const scrap = async (postData: formData) => {
+export const scrapping = async (postData: formData) => {
   return userApi({
     method: 'POST',
     url: 'scrapping',

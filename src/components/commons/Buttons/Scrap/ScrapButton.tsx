@@ -3,12 +3,12 @@ import { useContext, useState } from 'react';
 import { HomeCardListContext } from 'contexts/homeCardMenuContext/homeCardMenuContext';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { scrap } from 'apis/scrap';
+import { scrapping } from 'apis/scrap';
 
 import * as S from './ScrapButton.styles';
 
 type ScrapButtonProps = {
-  id: string;
+  id: string | undefined;
   isScrap: boolean | undefined;
   fill: string;
 };
@@ -31,7 +31,7 @@ export const ScrapButton = ({ id, isScrap, fill }: ScrapButtonProps) => {
     };
 
     try {
-      const res = await scrap(postData);
+      const res = await scrapping(postData);
       console.log(res);
       setIsActive(isScrap => !isScrap);
     } catch (error) {

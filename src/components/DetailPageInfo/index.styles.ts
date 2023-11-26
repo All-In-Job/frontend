@@ -42,3 +42,16 @@ export const CountContainer = styled.div`
   padding-bottom: 12px;
   border-bottom: 1px solid ${palette.black100};
 `;
+
+export const Scrap = styled.div`
+  ${textStyle.title11}
+  font-family: Medium;
+  background-color: ${palette.background.secondary};
+  border: 2px solid ${palette.orange200};
+  border-radius: 4px;
+  color: ${palette.black200};
+  padding: 16px 16.5px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+`;
