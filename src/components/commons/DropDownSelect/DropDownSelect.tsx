@@ -26,7 +26,7 @@ const customStyles: StylesConfig = {
   }),
   menu: provided => ({
     ...provided,
-    backgroundColor: 'red',
+    backgroundColor: 'white',
     marginTop: '1px',
     borderRadius: '0px',
     zIndex: '2',

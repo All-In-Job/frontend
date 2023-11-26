@@ -5,6 +5,7 @@ import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
 
+import { SubmitCommunity } from 'apis/communityPost';
 import { DropDownSelect } from 'components/commons/DropDownSelect/DropDownSelect';
 
 import 'react-quill/dist/quill.snow.css';
@@ -41,13 +42,15 @@ export const NewPost = () => {
 
   const editorToHtml = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 
-  console.log(optionValue);
-  console.log(title);
-  console.log(editorToHtml);
+  const SubmitValue = async () => {
+    const communityValue = { category: optionValue, title, detail: editorToHtml };
+    await SubmitCommunity(communityValue);
+  };
+
   return (
     <S.Container>
       <S.Title>올인잡님의 생각을 나눠보세요!</S.Title>
-      <form>
+      <form onSubmit={SubmitValue}>
         <S.InputContainer>
           <S.SelectWrapper>
             <label>주제</label>
