@@ -1,9 +1,10 @@
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
+import { useNavigate } from 'react-router-dom';
 
 import { SubmitCommunity } from 'apis/communityPost';
 import { DropDownSelect } from 'components/commons/DropDownSelect/DropDownSelect';
@@ -24,6 +25,7 @@ export const NewPost = () => {
   const [optionValue, setOptionValue] = useState('');
   const [title, setTitle] = useState('');
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const navigate = useNavigate();
 
   const onChangeDropDownSelect = (newValue: unknown) => {
     if (typeof newValue === 'object' && newValue !== null) {
@@ -42,9 +44,14 @@ export const NewPost = () => {
 
   const editorToHtml = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 
-  const SubmitValue = async () => {
+  const SubmitValue = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const communityValue = { category: optionValue, title, detail: editorToHtml };
-    await SubmitCommunity(communityValue);
+    const res = await SubmitCommunity(communityValue);
+
+    if (res.data.data) {
+      navigate(`/community/detail/${res.data.data.id}`);
+    }
   };
 
   return (
