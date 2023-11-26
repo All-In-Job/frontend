@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { Language } from 'types/language.type';
 
 import { requestCrawlingData } from 'apis/crawling';
@@ -17,15 +17,17 @@ export const LanguagePageList = () => {
   const [totalCount, setTotalCount] = useState(1);
   const { getPageParam } = useControlPageParam();
   const currentPage = getPageParam ? Number(getPageParam) : 1;
+  const userId = useLoaderData() as { id: string };
 
   useEffect(() => {
-    const queries = {
-      path: menuName,
-      page: getPageParam,
-    };
-
-    (async () => {
+    const fetchData = async () => {
       try {
+        const queries = {
+          path: menuName,
+          page: getPageParam,
+          id: userId?.id,
+        };
+
         const res = await requestCrawlingData(menuName as string, queries);
         const totalCount = await requestCrawlingTotalCount(menuName as string);
         setLanguageList(res.data.data as Language[]);
@@ -33,8 +35,10 @@ export const LanguagePageList = () => {
       } catch (error) {
         console.error(error);
       }
-    })();
-  }, [menuName, getPageParam]);
+    };
+
+    fetchData();
+  }, [menuName, getPageParam, userId]);
 
   return (
     <>
@@ -48,6 +52,7 @@ export const LanguagePageList = () => {
             examDate={el.examDate}
             openDate={el.openDate}
             closeDate={el.closeDate}
+            isScrap={el.isScrap}
           />
         ))}
       </LanguageContainer>

@@ -77,6 +77,7 @@ export const router = createBrowserRouter([
           {
             path: ':categoryId',
             element: <MenuList />,
+            loader: getUserProfile,
           },
         ],
       },

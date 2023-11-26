@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import axios from 'axios';
 import { HomeCardListContext } from 'contexts/homeCardMenuContext/homeCardMenuContext';
-import { useLocation } from 'react-router-dom';
+import { useLoaderData, useLocation } from 'react-router-dom';
 
 import { mainCrawlingData } from 'apis/mainCrawling';
 import { CardList } from 'components/CardList/CardList';
@@ -14,9 +14,7 @@ export const MainPageList = () => {
   const [data, setData] = useState([]);
   const [isLoad, setIsLoad] = useState(false);
   const homeCardList = useContext(HomeCardListContext);
-
-  // const userId = useLoaderData() as { id: string };
-  const userId = '7cdafa6d-8629-468d-b92e-40905417cdcc';
+  const userId = useLoaderData() as { id: string | null };
 
   useEffect(() => {
     setIsLoad(false);
@@ -24,7 +22,7 @@ export const MainPageList = () => {
     (async () => {
       if (userId) {
         try {
-          const res = await mainCrawlingData(homeCardList?.getParams, userId);
+          const res = await mainCrawlingData(homeCardList?.getParams, userId.id);
           setData(res.data.data);
           setIsLoad(true);
         } catch (error) {

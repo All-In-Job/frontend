@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 
 import { HomeCardListContext } from 'contexts/homeCardMenuContext/homeCardMenuContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { scrap } from 'apis/scrap';
 
@@ -16,16 +16,17 @@ type ScrapButtonProps = {
 export const ScrapButton = ({ id, isScrap, fill }: ScrapButtonProps) => {
   const [isActive, setIsActive] = useState(isScrap);
   const homeCardList = useContext(HomeCardListContext);
+  const { menuName } = useParams();
   const navigate = useNavigate();
   const ScrapIcon = fill === 'primary' ? S.ScrapPrimary : S.ScrapSecondary;
 
   const handleScrap = async () => {
     if (isScrap == undefined) {
-      navigate('/login');
+      return navigate('/login');
     }
 
     const postData = {
-      path: homeCardList?.getParams,
+      path: homeCardList?.getParams || menuName,
       scrapId: id,
     };
 

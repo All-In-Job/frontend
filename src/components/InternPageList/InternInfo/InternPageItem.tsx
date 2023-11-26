@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Inter } from 'types/intern.type';
 
-import { ReactComponent as Bookmark } from 'components/InternPageList/res/img/bookmark.svg';
+import { ScrapButton } from 'components/commons/Buttons/Scrap/ScrapButton';
+// import { ReactComponent as Bookmark } from 'components/InternPageList/res/img/bookmark.svg';
 
 import * as S from './InternPageItem.styles';
 
@@ -14,6 +15,7 @@ export const InternPageItem = ({
   location,
   title,
   enterprise,
+  isScrap,
 }: Inter) => {
   return (
     <S.InternWrapper>
@@ -31,9 +33,10 @@ export const InternPageItem = ({
       <S.date>{closeDate}</S.date>
       <S.View>{view}</S.View>
       <S.Scrap>
-        <S.BookmarkBtn>
+        <ScrapButton id={id} isScrap={isScrap} fill={'scondary'} />
+        {/* <S.BookmarkBtn>
           <Bookmark />
-        </S.BookmarkBtn>
+        </S.BookmarkBtn> */}
       </S.Scrap>
     </S.InternWrapper>
   );

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { PostCardProps } from 'types/postCard.type';
 
 import { requestCrawlingData } from 'apis/crawling';
@@ -17,15 +17,17 @@ export const RestPageList = () => {
 
   const { getPageParam } = useControlPageParam();
   const currentPage = getPageParam ? Number(getPageParam) : 1;
+  const userId = useLoaderData() as { id: string };
 
   useEffect(() => {
-    const queries = {
-      path: menuName,
-      page: getPageParam,
-    };
-
-    (async () => {
+    const fetchData = async () => {
       try {
+        const queries = {
+          path: menuName,
+          page: getPageParam,
+          id: userId?.id,
+        };
+
         const res = await requestCrawlingData(menuName as string, queries);
         const totalCount = await requestCrawlingTotalCount(menuName as string);
         setPostPageList(res.data.data as PostCardProps[]);
@@ -33,8 +35,10 @@ export const RestPageList = () => {
       } catch (error) {
         console.error(error);
       }
-    })();
-  }, [menuName, getPageParam]);
+    };
+
+    fetchData();
+  }, [menuName, getPageParam, userId]);
 
   return (
     <>
@@ -53,6 +57,7 @@ export const RestPageList = () => {
               view={el.view}
               location={el.location}
               index={null}
+              isScrap={el.isScrap}
             />
           );
         })}

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 import theme from 'styles/theme';
 
@@ -18,7 +19,7 @@ export const CertificateListContainer = styled.article<{ location: 'main' | 'pag
   ${props => (props.location === 'main' ? `border-top: 1px solid ${palette.line.normal}` : '')}
 `;
 
-export const CertificateInfo = styled.div`
+export const CertificateInfo = styled(Link)`
   display: flex;
   align-items: center;
 `;
