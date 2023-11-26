@@ -19,14 +19,19 @@ const options = [
 ];
 
 export const NewPost = () => {
+  const [optionValue, setOptionValue] = useState('');
+  const [title, setTitle] = useState('');
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const onChangeDropDownSelect = (newValue: unknown) => {
-    console.log(newValue);
+    if (typeof newValue === 'object' && newValue !== null) {
+      const typedNewValue = newValue as { value: string; label: string };
+      setOptionValue(typedNewValue.value);
+    }
   };
 
   const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    setTitle(e.target.value);
   };
 
   const onEditorStateChange = (editorState: EditorState) => {
@@ -35,6 +40,8 @@ export const NewPost = () => {
 
   const editorToHtml = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 
+  console.log(optionValue);
+  console.log(title);
   console.log(editorToHtml);
   return (
     <S.Container>
