@@ -1,17 +1,9 @@
-import { AxiosResponse } from 'axios';
-import { Certificate } from 'types/certificate.type';
-import { Inter } from 'types/intern.type';
-import { Language } from 'types/language.type';
+import { mainCrawlingApi } from './index';
 
-import { crawlingApi } from './index';
-
-type FuncType = (
-  path: string,
-) => Promise<AxiosResponse<{ data: Certificate[] | Language[] | Inter[] }>>;
-
-export const requestCrawlingData: FuncType = async path => {
-  return await crawlingApi({
+export const mainCrawlingData = async (menu: string | undefined, id: string) => {
+  return await mainCrawlingApi({
     method: 'get',
-    url: `${path}`,
+    url: menu,
+    params: { id: id },
   });
 };

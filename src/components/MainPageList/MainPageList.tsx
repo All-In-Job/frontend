@@ -4,6 +4,7 @@ import axios from 'axios';
 import { HomeCardListContext } from 'contexts/homeCardMenuContext/homeCardMenuContext';
 import { useLocation } from 'react-router-dom';
 
+import { mainCrawlingData } from 'apis/mainCrawling';
 import { CardList } from 'components/CardList/CardList';
 import { PostList } from 'components/PostList/PostList';
 
@@ -14,23 +15,36 @@ export const MainPageList = () => {
   const [isLoad, setIsLoad] = useState(false);
   const homeCardList = useContext(HomeCardListContext);
 
+  // const userId = useLoaderData() as { id: string };
+  const userId = '7cdafa6d-8629-468d-b92e-40905417cdcc';
+
   useEffect(() => {
     setIsLoad(false);
 
-    const crawlingData = async () => {
-      try {
-        const result = await axios.get(
-          `${import.meta.env.VITE_API_MAIN_CRAWLING}${homeCardList?.getParams}`,
-        );
+    (async () => {
+      if (userId) {
+        try {
+          const res = await mainCrawlingData(homeCardList?.getParams, userId);
+          setData(res.data.data);
+          setIsLoad(true);
+        } catch (error) {
+          console.error(error);
+          setIsLoad(true);
+        }
+      } else {
+        try {
+          const result = await axios.get(
+            `${import.meta.env.VITE_API_MAIN_CRAWLING}${homeCardList?.getParams}`,
+          );
 
-        setData(result.data.data);
-        setIsLoad(true);
-      } catch (error) {
-        console.error(error);
-        setIsLoad(true);
+          setData(result.data.data);
+          setIsLoad(true);
+        } catch (error) {
+          console.error(error);
+          setIsLoad(true);
+        }
       }
-    };
-    crawlingData();
+    })();
   }, [homeCardList?.getParams]);
 
   const { search } = useLocation();
