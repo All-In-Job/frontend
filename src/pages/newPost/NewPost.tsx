@@ -1,7 +1,8 @@
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { useState } from 'react';
 
-import { EditorState } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
 
 import { DropDownSelect } from 'components/commons/DropDownSelect/DropDownSelect';
@@ -23,6 +24,10 @@ export const NewPost = () => {
   const onEditorStateChange = (editorState: EditorState) => {
     setEditorState(editorState);
   };
+
+  const editorToHtml = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+
+  console.log(editorToHtml);
 
   return (
     <S.Container>
