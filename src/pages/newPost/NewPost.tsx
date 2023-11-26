@@ -1,5 +1,5 @@
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
@@ -26,6 +26,12 @@ export const NewPost = () => {
   const [title, setTitle] = useState('');
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem('accessToken')) {
+      navigate('/community/all');
+    }
+  }, []);
 
   const onChangeDropDownSelect = (newValue: unknown) => {
     if (typeof newValue === 'object' && newValue !== null) {
