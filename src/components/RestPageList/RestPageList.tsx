@@ -57,11 +57,7 @@ export const RestPageList = () => {
           );
         })}
       </PostCardWrapper>
-      <MenuPagination
-        currentPage={currentPage}
-        totalItemsCount={totalCount}
-        pageItemsCount={postPageList.length}
-      />
+      <MenuPagination currentPage={currentPage} totalItemsCount={totalCount} itemsPerPage={12} />
     </>
   );
 };
