@@ -1,5 +1,5 @@
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
@@ -25,6 +25,10 @@ export const NewPost = () => {
     console.log(newValue);
   };
 
+  const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+  };
+
   const onEditorStateChange = (editorState: EditorState) => {
     setEditorState(editorState);
   };
@@ -32,7 +36,6 @@ export const NewPost = () => {
   const editorToHtml = draftToHtml(convertToRaw(editorState.getCurrentContent()));
 
   console.log(editorToHtml);
-
   return (
     <S.Container>
       <S.Title>올인잡님의 생각을 나눠보세요!</S.Title>
@@ -48,7 +51,7 @@ export const NewPost = () => {
           </S.SelectWrapper>
           <S.InputWrapper>
             <label>제목</label>
-            <S.Input type='text' placeholder='제목을 입력해주세요!' />
+            <S.Input type='text' placeholder='제목을 입력해주세요!' onChange={onChangeTitle} />
           </S.InputWrapper>
           <S.MyBlock>
             <Editor
