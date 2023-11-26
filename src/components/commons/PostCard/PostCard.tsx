@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import styled from '@emotion/styled';
 import { PostCardProps } from 'types/postCard.type';
 
@@ -18,13 +16,9 @@ function PostCard({
   location,
   isChangeInfoLayout,
   index,
+  id,
+  isScrap,
 }: PostCardProps) {
-  const [isScrap, setIsScrap] = useState(false);
-
-  const handleScrap = () => {
-    setIsScrap(isScrap => !isScrap);
-  };
-
   return (
     <PostCardContainer>
       <PostCardImage
@@ -32,8 +26,8 @@ function PostCard({
         Dday={Dday}
         index={index}
         isChangeInfoLayout={isChangeInfoLayout}
+        id={id}
         isScrap={isScrap}
-        handleScrap={handleScrap}
       />
 
       <PostCardInfo

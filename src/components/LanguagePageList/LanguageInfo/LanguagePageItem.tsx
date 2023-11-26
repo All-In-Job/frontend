@@ -1,7 +1,7 @@
-import { useState } from 'react';
-
 import { Link } from 'react-router-dom';
 import { Language } from 'types/language.type';
+
+import { ScrapButton } from 'components/commons/Buttons/Scrap/ScrapButton';
 
 import * as S from './LanguagePageItem.styles';
 
@@ -12,13 +12,13 @@ export const LanguagePageItem = ({
   examDate,
   openDate,
   closeDate,
+  isScrap,
 }: Language) => {
   const now = new Date();
   const close = new Date(closeDate);
   const timeDiff = close.getTime() - now.getTime();
   const oneDay = 24 * 60 * 60 * 1000;
   const Dday = Math.floor(timeDiff / oneDay);
-  const [bookmark, setBookmark] = useState(false);
 
   const timestamp = (date: string) => {
     const weekday = ['일', '월', '화', '수', '목', '금', '토'];
@@ -34,10 +34,6 @@ export const LanguagePageItem = ({
     return `${year}.${month}.${day} (${week}) ${hour}:${minute}`;
   };
 
-  const onBookmark = () => {
-    setBookmark(prev => !prev);
-  };
-
   return (
     <S.LanguageWrapper key={id}>
       <S.TextBox>
@@ -50,16 +46,17 @@ export const LanguagePageItem = ({
             )}
             {Dday === 3 ? <S.Imminent>마감임박</S.Imminent> : null}
           </S.Tag>
-          <Link to={'/login'} onClick={onBookmark}>
-            <S.BookmarkIcon data-ispick={bookmark} />
-          </Link>
+          <ScrapButton id={id} isScrap={isScrap} fill={'primary'} />
         </S.TagWrapper>
+
         <S.Title>{title}</S.Title>
+
         <S.Schedule>
           <S.ExamDate>{`시험일시 : ${timestamp(examDate)}`}</S.ExamDate>
           <S.Deadline>{`접수마감 : ${timestamp(closeDate)}`}</S.Deadline>
         </S.Schedule>
       </S.TextBox>
+
       {new Date(openDate) > now ? (
         <S.DisabledBtn>{`${timestamp(openDate).slice(0, 10)} 접수예정`}</S.DisabledBtn>
       ) : (

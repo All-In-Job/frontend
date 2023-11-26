@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { Inter } from 'types/intern.type';
 
 import { requestCrawlingData } from 'apis/crawling';
@@ -19,15 +19,17 @@ export const InternPageList = () => {
   const [totalCount, setTotalCount] = useState(1);
   const { getPageParam } = useControlPageParam();
   const currentPage = getPageParam ? Number(getPageParam) : 1;
+  const userId = useLoaderData() as { id: string };
 
   useEffect(() => {
-    const queries = {
-      path: menuName,
-      page: getPageParam,
-    };
-
-    (async () => {
+    const fetchData = async () => {
       try {
+        const queries = {
+          path: menuName,
+          page: getPageParam,
+          id: userId?.id,
+        };
+
         const res = await requestCrawlingData(menuName as string, queries);
         const totalCount = await requestCrawlingTotalCount(menuName as string);
         setInternPageList(res.data.data as Inter[]);
@@ -35,8 +37,10 @@ export const InternPageList = () => {
       } catch (error) {
         console.error(error);
       }
-    })();
-  }, [menuName, getPageParam]);
+    };
+
+    fetchData();
+  }, [menuName, getPageParam, userId]);
 
   return (
     <>
@@ -58,6 +62,7 @@ export const InternPageList = () => {
             closeDate={el.closeDate}
             location={el.location}
             title={el.title}
+            isScrap={el.isScrap}
           />
         ))}
       </S.InternContainer>

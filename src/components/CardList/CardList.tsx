@@ -32,6 +32,7 @@ export const CardList: FC<Props> = ({ data, isChangeInfoLayout, isLoad }) => {
               isPostCardTag
               index={idx}
               isChangeInfoLayout={isChangeInfoLayout}
+              isScrap={el.isScrap}
             />
           );
         } else {
@@ -50,6 +51,7 @@ export const CardList: FC<Props> = ({ data, isChangeInfoLayout, isLoad }) => {
               isPostCardTag
               index={idx}
               isChangeInfoLayout={isChangeInfoLayout}
+              isScrap={el.isScrap}
             />
           );
         }

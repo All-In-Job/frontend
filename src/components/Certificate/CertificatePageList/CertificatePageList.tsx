@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { Certificate } from 'types/certificate.type';
 
 import { requestCrawlingData } from 'apis/crawling';
@@ -12,21 +12,25 @@ export const CertificatePageList = () => {
   const { menuName } = useParams();
 
   const [certificateList, setCertificateList] = useState<Certificate[]>([]);
+  const userId = useLoaderData() as { id: string };
 
   useEffect(() => {
-    (async () => {
-      if (menuName) {
-        try {
-          const res = await requestCrawlingData(menuName, {
-            path: menuName,
-          });
-          setCertificateList(res.data.data as Certificate[]);
-        } catch (error) {
-          console.error(error);
-        }
+    const fetchData = async () => {
+      try {
+        const queries = {
+          path: menuName,
+          id: userId?.id,
+        };
+
+        const res = await requestCrawlingData(menuName as string, queries);
+        setCertificateList(res.data.data as Certificate[]);
+      } catch (error) {
+        console.error(error);
       }
-    })();
-  }, [menuName]);
+    };
+
+    fetchData();
+  }, [menuName, userId]);
 
   return (
     <S.List>
@@ -43,6 +47,7 @@ export const CertificatePageList = () => {
           view={el.view}
           examSchedules={el.examSchedules}
           type={el.type}
+          isScrap={el.isScrap}
         />
       ))}
     </S.List>
