@@ -26,9 +26,10 @@ const customStyles: StylesConfig = {
   }),
   menu: provided => ({
     ...provided,
-    backgroundColor: 'white',
+    backgroundColor: 'red',
     marginTop: '1px',
     borderRadius: '0px',
+    zIndex: '2',
   }),
   menuList: provided => ({
     ...provided,

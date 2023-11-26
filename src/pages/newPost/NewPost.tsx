@@ -11,7 +11,8 @@ import 'react-quill/dist/quill.snow.css';
 import * as S from './newPost.styles';
 
 const options = [
-  { value: '자격증/어학', label: '공모전/대외활동' },
+  { value: '공모전/대외활동', label: '공모전/대외활동' },
+  { value: '자격증/어학', label: '자격증/어학' },
   { value: '인턴', label: '인턴' },
   { value: '스터디', label: '스터디' },
   { value: '취업선배 Q&A', label: '취업선배 Q&A' },
