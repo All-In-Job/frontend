@@ -17,13 +17,14 @@ export const CertificatePageItem = ({
   examSchedules,
   mainImage,
   type,
+  isScrap,
 }: Props) => {
   const pathProps = (data: ExamSchedule[]) => {
     return data && examSchedules[0];
   };
 
   return (
-    <S.CertificateInfo to={btoa(id)}>
+    <S.CertificateInfo>
       <S.Container>
         <S.Title>자격증 정보</S.Title>
         <S.CertificateItemWrapper>
@@ -38,6 +39,7 @@ export const CertificatePageItem = ({
             mainImage={mainImage}
             examSchedules={examSchedules}
             type={type}
+            isScrap={isScrap}
           />
         </S.CertificateItemWrapper>
       </S.Container>

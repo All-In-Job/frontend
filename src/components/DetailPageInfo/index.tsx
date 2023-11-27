@@ -12,9 +12,19 @@ type Props = {
   bookmarkCount: number;
   viewCount: number;
   children: React.ReactNode;
+  id: string | undefined;
+  isScrap: boolean | undefined;
 };
 
-export const DetailPageInfo = ({ title, dDay, bookmarkCount, viewCount, children }: Props) => {
+export const DetailPageInfo = ({
+  title,
+  dDay,
+  bookmarkCount,
+  viewCount,
+  children,
+  id,
+  isScrap,
+}: Props) => {
   return (
     <S.Wrapper>
       <S.Head>
@@ -22,7 +32,10 @@ export const DetailPageInfo = ({ title, dDay, bookmarkCount, viewCount, children
           <S.DDay>{`D-${dDay}`}</S.DDay>
           <S.Title>{title}</S.Title>
         </S.TitleWrapper>
-        <ScrapButton />
+        <S.Scrap>
+          <ScrapButton id={id} isScrap={isScrap} fill={'secondary'} />
+          <h4>스크랩</h4>
+        </S.Scrap>
       </S.Head>
       {children}
       <S.CountContainer>

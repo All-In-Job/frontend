@@ -78,12 +78,14 @@ export const router = createBrowserRouter([
           {
             path: ':categoryId',
             element: <MenuList />,
+            loader: getUserProfile,
           },
         ],
       },
       {
         path: ':menuName/:categoryId/:detailId',
         element: <DetailPage />,
+        loader: getUserProfile,
       },
       {
         path: ':menuName/newpost',

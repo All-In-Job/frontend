@@ -32,6 +32,7 @@ export const PostList: FC<Props> = ({ data, isLoad }) => {
                   view={el.view}
                   mainImage={el.mainImage}
                   type={el.type}
+                  isScrap={el.isScrap}
                 />
               );
             } else {
@@ -48,6 +49,7 @@ export const PostList: FC<Props> = ({ data, isLoad }) => {
                   view={0}
                   mainImage={''}
                   type={el.type}
+                  isScrap={el.isScrap}
                 />
               );
             }
