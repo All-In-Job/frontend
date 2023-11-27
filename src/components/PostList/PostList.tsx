@@ -51,7 +51,6 @@ export const PostList: FC<Props> = ({ data, isLoad }) => {
           comment={el.comment}
           date={el.date}
           user={el.user}
-          isScrap={el.isScrap}
         />
       );
     } else {

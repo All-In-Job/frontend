@@ -40,5 +40,4 @@ export const CardList: FC<Props> = ({ data, isChangeInfoLayout, isLoad }) => {
   };
 
   if (data) return <S.Section>{data.map(renderPost)}</S.Section>;
-
 };
