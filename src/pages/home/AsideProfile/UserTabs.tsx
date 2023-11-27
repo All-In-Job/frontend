@@ -14,7 +14,7 @@ const UserTabs = () => {
 
   const tabDataList = [
     { title: '내정보', icon: <MyInfo />, path: 'my-info' },
-    { title: '열정온도', icon: <Temperature />, path: '' },
+    { title: '열정온도', icon: <Temperature />, path: 'passion-temperature' },
     { title: '스크랩', icon: <Script />, path: 'scrap' },
     { title: '달력', icon: <Calendar />, path: 'calendar' },
   ];

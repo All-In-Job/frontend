@@ -52,11 +52,7 @@ export const LanguagePageList = () => {
         ))}
       </LanguageContainer>
 
-      <MenuPagination
-        currentPage={currentPage}
-        totalItemsCount={totalCount}
-        pageItemsCount={languageList.length}
-      />
+      <MenuPagination currentPage={currentPage} totalItemsCount={totalCount} itemsPerPage={12} />
     </>
   );
 };

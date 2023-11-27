@@ -13,13 +13,13 @@ import { ReactComponent as RightArrow } from './res/img/arrow_right.svg';
 type Props = {
   currentPage: number;
   totalItemsCount: number;
-  pageItemsCount: number;
+  itemsPerPage: 12 | 10;
 };
 
-const MenuPagination: FC<Props> = ({ currentPage, totalItemsCount, pageItemsCount }) => {
+const MenuPagination: FC<Props> = ({ currentPage, totalItemsCount, itemsPerPage }) => {
   const [startPage, setStartPage] = useState(1);
   const [targetPage, setTargetPage] = useState(1);
-  const lastPage = Math.ceil(totalItemsCount / pageItemsCount);
+  const lastPage = Math.ceil(totalItemsCount / itemsPerPage);
   const { increasePage, decreasePage } = useControlPageParam();
 
   useEffect(() => {

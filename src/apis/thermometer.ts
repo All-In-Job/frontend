@@ -1,12 +1,17 @@
+import { AxiosResponse } from 'axios';
+import { ActivityList } from 'types/activityHistory';
+
 import { userApi } from './index';
 
-type pathInfo = {
+export type pathInfo = {
   category: string;
   activeTitle: string;
   activeContent: string;
+  period?: string;
+  score?: string;
 };
 
-type formData = {
+export type postData = {
   path: string;
   createThermometer: pathInfo;
 };
@@ -16,26 +21,28 @@ type deleteData = {
   thermometerId: string;
 };
 
-export const createActivityHistory = async (
-  postData: formData,
-  headers: { 'content-type': string; Authorization?: string | null },
-) => {
+type FuncType<T> = (path: T) => Promise<AxiosResponse<{ data: ActivityList[] }>>;
+
+export const createThermometerData = async (formData: postData) => {
   return userApi({
     method: 'POST',
     url: 'updateThermometer',
-    data: postData,
-    headers,
+    data: formData,
   });
 };
 
-export const deleteActivityHistory = async (
-  postData: deleteData,
-  headers: { 'content-type': string; Authorization?: string | null },
-) => {
+export const deleteThermometerData = async (formData: deleteData) => {
   return userApi({
     method: 'POST',
     url: 'updateThermometer',
-    data: postData,
-    headers,
+    data: formData,
+  });
+};
+
+export const findPathThermometer: FuncType<string> = async path => {
+  return userApi({
+    method: 'GET',
+    url: 'findPathThermometer',
+    params: { path: path },
   });
 };

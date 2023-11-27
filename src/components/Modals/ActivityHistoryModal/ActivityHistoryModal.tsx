@@ -2,17 +2,11 @@ import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { createActivityHistory } from 'apis/thermometer';
+import { createThermometerData, pathInfo, postData } from 'apis/thermometer';
 import Calendar from 'components/ActivityHistory/Calendar/Calendar';
 import { ReactComponent as Close } from 'components/ActivityHistory/res/img/close.svg';
 import { ModalBackground } from 'components/Modals/ModalBackground';
-import {
-  categoryIdState,
-  currentCategoryState,
-  currentKeywordState,
-  periodState,
-  titleValueState,
-} from 'store/activityHistory';
+import { idsState, inputValuesState } from 'store/activityHistory';
 import { isActivityModalState } from 'store/modal';
 
 import * as S from './ActivityHistoryModal.styles';
@@ -27,24 +21,26 @@ export type ActivityList = {
   keyword: string;
   activeTitle: string;
   activeContent: string;
-  period: string;
-  score?: string | undefined;
+  period?: string;
+  score?: string;
 };
 
 type listProps = {
   list: ActivityList | null;
+  updateActivityList: Promise<void>;
 };
 
-export const ActivityHistoryModal = ({ list }: listProps) => {
+export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) => {
   const setIsModalVisible = useSetRecoilState(isActivityModalState);
-  const categoryId = useRecoilValue(categoryIdState);
-  const setCurrentCategory = useSetRecoilState(currentCategoryState);
-  const [currentKeyword, setCurrentKeyword] = useRecoilState(currentKeywordState);
-  const [titleValue, setTitleValue] = useRecoilState(titleValueState);
-  const [periodValue, setPeriodValue] = useRecoilState(periodState);
+  const categoryId = useRecoilValue(idsState('categoryId'));
 
-  const [contentValue, setContentValue] = useState('');
-  const [scoreValue, setScoreValue] = useState('');
+  const setCategoryValue = useSetRecoilState(inputValuesState('category'));
+  const [keywordValue, setKeywordValue] = useRecoilState(inputValuesState('keyword'));
+  const [titleValue, setTitleValue] = useRecoilState(inputValuesState('title'));
+  const [contentValue, setContentValue] = useRecoilState(inputValuesState('content'));
+  const [periodValue, setPeriodValue] = useRecoilState(inputValuesState('period'));
+  const [scoreValue, setScoreValue] = useRecoilState(inputValuesState('score'));
+
   const [isActive, setIsActive] = useState(false);
 
   const handleContentInputChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
@@ -53,21 +49,23 @@ export const ActivityHistoryModal = ({ list }: listProps) => {
     setScoreValue(e.target.value);
 
   const resetForm = () => {
-    setCurrentCategory('');
-    setCurrentKeyword('');
+    setIsModalVisible(prev => !prev);
+    setCategoryValue('');
+    setKeywordValue('');
     setTitleValue('');
+    setContentValue('');
     setPeriodValue('');
     setScoreValue('');
-    setIsModalVisible(prev => !prev);
   };
+  console.log(keywordValue, titleValue, contentValue);
 
   useEffect(() => {
     if (list) {
-      setCurrentCategory(list.category);
-      setCurrentKeyword(list.keyword);
+      setCategoryValue(list.category);
+      setKeywordValue(list.keyword);
       setTitleValue(list.activeTitle);
-      setPeriodValue(list.period);
       setContentValue(list.activeContent);
+      list.period && setPeriodValue(list.period);
       list.score && setScoreValue(list.score);
     }
   }, [list]);
@@ -75,45 +73,39 @@ export const ActivityHistoryModal = ({ list }: listProps) => {
   useEffect(() => {
     const requiredValues =
       categoryId === 'language'
-        ? [currentKeyword, titleValue, contentValue, scoreValue]
+        ? [keywordValue, titleValue, contentValue, scoreValue]
         : categoryId === 'intern'
-        ? [currentKeyword, titleValue, contentValue, periodValue]
-        : [currentKeyword, titleValue, contentValue];
+        ? [keywordValue, titleValue, contentValue, periodValue]
+        : [keywordValue, titleValue, contentValue];
 
     setIsActive(requiredValues.every(value => value !== ''));
-  }, [currentKeyword, titleValue, contentValue, scoreValue, periodValue]);
+  }, [keywordValue, titleValue, contentValue, scoreValue, periodValue]);
 
   const onSubmitFormData: FormEventHandler = async e => {
     e.preventDefault();
 
-    const accessToken = localStorage.getItem('accessToken');
-
-    if (!accessToken) {
-      throw new Error('Access token not found.');
-    }
-
-    const headers = {
-      'content-type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
+    const activityHistoryData: pathInfo = {
+      category: keywordValue,
+      activeTitle: titleValue,
+      activeContent: contentValue,
+      ...(categoryId === 'language' && { score: scoreValue }),
+      ...(categoryId === 'intern' && { period: periodValue }),
     };
 
-    const postData = {
+    const formData: postData = {
       path: categoryId,
-      createThermometer: {
-        category: currentKeyword,
-        activeTitle: titleValue,
-        activeContent: contentValue,
-      },
+      createThermometer: activityHistoryData,
     };
 
     try {
-      const res = await createActivityHistory(postData, headers);
+      const res = await createThermometerData(formData);
       console.log('서버 응답:', res);
       console.log('활동내역 등록 성공:', res.data);
+      updateActivityList;
+      resetForm();
     } catch (error) {
       console.error('Error creating data:', error);
     }
-    resetForm();
   };
 
   return (

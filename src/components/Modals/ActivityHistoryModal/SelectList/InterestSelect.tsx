@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import categoryList from 'components/ActivityHistory/data/category.json';
 import { ReactComponent as ExpandMore } from 'components/ActivityHistory/res/img/expand_more.svg';
 import * as S from 'components/Modals/ActivityHistoryModal/ActivityHistoryModal.styles';
-import { categoryIdState, currentCategoryState, currentKeywordState } from 'store/activityHistory';
+import { idsState, inputValuesState } from 'store/activityHistory';
 
 export type InterestList = {
   id: string;
@@ -14,21 +14,23 @@ export type InterestList = {
 };
 
 export const InterestSelect = () => {
-  const categoryId = useRecoilValue(categoryIdState);
-  const currentCategory = useRecoilValue(currentCategoryState);
-  const [currentKeyword, setCurrentKeyword] = useRecoilState(currentKeywordState);
+  const categoryId = useRecoilValue(idsState('categoryId'));
+
+  const categoryValue = useRecoilValue(inputValuesState('category'));
+  const [keywordValue, setKeywordValue] = useRecoilState(inputValuesState('keyword'));
+
   const [keywordOptions, setKeywordOptions] = useState(false);
 
   const interestList = categoryList.find(el => el.id === categoryId);
 
   const onSelectKeyword = (e: { currentTarget: { innerText: string } }) => {
     const { innerText } = e.currentTarget;
-    setCurrentKeyword(innerText);
+    setKeywordValue(innerText);
     setKeywordOptions(prev => !prev);
   };
 
   const handleKeywordToggle = () => {
-    if (currentCategory === '') return;
+    if (categoryValue === '') return;
     setKeywordOptions(prev => !prev);
   };
 
@@ -40,7 +42,7 @@ export const InterestSelect = () => {
         <S.SelectInput
           type='text'
           placeholder='활동 분야를 선택해주세요.'
-          value={currentKeyword}
+          value={keywordValue}
           onClick={handleKeywordToggle}
           onBlur={onBlurInput}
           readOnly
