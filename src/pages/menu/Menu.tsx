@@ -10,6 +10,8 @@ import { HashTagData } from 'components/HashTagFilter/type';
 
 import { MenuId, getMenuById } from './menuCategoies';
 
+const menuPaths = ['competition', 'outside', 'qnet', 'language', 'intern', 'community'];
+
 const Menu = () => {
   const [keywords, setKeywords] = useState<HashTagData[]>([]);
   const [selectedKeyword, setSelectedKeyword] = useState<HashTagData[]>([]);
@@ -18,13 +20,16 @@ const Menu = () => {
   const navigate = useNavigate();
   const foundMenuCategories = getMenuById(menuName! as MenuId);
 
+  if (!categoryId) navigate('/');
+  if (!menuPaths.find(path => path === menuName)) {
+    throw new Error('Not Found Address');
+  }
+
   const categoryList: CategoryData[] =
     foundMenuCategories?.items.map(item => ({
       id: item.id,
       title: item.category,
     })) || [];
-
-  if (!categoryId) navigate('/');
 
   const searchKeywordsByCategory = useCallback(
     (selectedCategory: CategoryData[]) => {
