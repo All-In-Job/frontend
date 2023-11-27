@@ -6,7 +6,7 @@ type CommunityValue = {
   detail: string;
 };
 
-export const SubmitCommunity = async (value: CommunityValue) => {
+export const submitCommunity = async (value: CommunityValue) => {
   return await postCommunityApi({
     method: 'post',
     data: value,
