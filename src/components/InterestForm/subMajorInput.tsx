@@ -9,15 +9,22 @@ export type Props = {
   formState: InterestFormState;
   setFormState: Dispatch<SetStateAction<InterestFormState>>;
   majorType: MajorType;
+  fixedResponse: Record<string, string[]>;
+  mainMajors: string[];
 };
 
-export const SubMajorInput: FC<Props> = ({ formState, setFormState, majorType }) => {
+export const SubMajorInput: FC<Props> = ({
+  formState,
+  setFormState,
+  majorType,
+  mainMajors,
+  fixedResponse,
+}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const { matchWord, searchedResults, setSearchedResults, mainMajors, fixedResponse, isLoading } =
-    useSearch();
+  const { matchWord, searchedResults, setSearchedResults } = useSearch();
 
   const getValueDepartmentInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (majorType === 'mainMajor' && mainMajors) {
@@ -52,7 +59,7 @@ export const SubMajorInput: FC<Props> = ({ formState, setFormState, majorType })
     setIsVisible(false);
   };
 
-  if (isLoading) return <div>loading...</div>;
+  // if (isLoading) return <div>loading...</div>;
 
   return (
     <S.MajorDepartment

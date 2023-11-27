@@ -20,6 +20,7 @@ export type Certificate = {
   examSchedules: ExamSchedule[];
   mainImage: string;
   enTitle: string;
+  isScrap: boolean | undefined;
 };
 
 export interface CertificateItemProps extends Certificate {

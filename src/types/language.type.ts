@@ -5,4 +5,5 @@ export type Language = {
   examDate: string;
   openDate: string;
   closeDate: string;
+  isScrap: boolean | undefined;
 };

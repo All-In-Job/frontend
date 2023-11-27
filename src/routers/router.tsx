@@ -1,7 +1,8 @@
 import { AxiosError } from 'axios';
 import { createBrowserRouter } from 'react-router-dom';
 
-import { getLoginUserInfo } from 'apis/signup';
+
+import { getLoginUserInfo } from 'apis/user';
 import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
 import { BasicInformation } from 'components/BasicInformation/BasicInformation';
 import { Calendar } from 'components/Calendar/Calendar';
@@ -77,12 +78,14 @@ export const router = createBrowserRouter([
           {
             path: ':categoryId',
             element: <MenuList />,
+            loader: getUserProfile,
           },
         ],
       },
       {
         path: ':menuName/:categoryId/:detailId',
         element: <DetailPage />,
+        loader: getUserProfile,
       },
       {
         path: ':menuName/newpost',

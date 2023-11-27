@@ -1,27 +1,19 @@
 import { FC } from 'react';
 
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
 
-import { ReactComponent as Bookmark } from 'components/commons/PostCard/res/img/bookmark.svg';
+import { ScrapButton } from 'components/commons/Buttons/Scrap/ScrapButton';
 
 type Props = {
+  id: string;
   mainImage: string;
   Dday: string;
   index: number | null;
   isChangeInfoLayout?: boolean;
-  isScrap: boolean;
-  handleScrap: () => void;
+  isScrap: boolean | undefined;
 };
 
-const PostCardImage: FC<Props> = ({
-  mainImage,
-  Dday,
-  index,
-  isChangeInfoLayout,
-  isScrap,
-  handleScrap,
-}) => {
+const PostCardImage: FC<Props> = ({ id, mainImage, Dday, index, isChangeInfoLayout, isScrap }) => {
   return (
     <ImageContainer imgHeight={isChangeInfoLayout ? '118px' : '282px'}>
       {Boolean(mainImage) && <img src={mainImage} />}
@@ -33,11 +25,9 @@ const PostCardImage: FC<Props> = ({
         </TagContainer>
       )}
 
-      <Link to={'/login'}>
-        <ScrapButton onClick={handleScrap}>
-          <ScrapIcon data-isscrap={isScrap} />
-        </ScrapButton>
-      </Link>
+      <ScrapContainer>
+        <ScrapButton id={id} isScrap={isScrap} fill={'primary'} />
+      </ScrapContainer>
     </ImageContainer>
   );
 };
@@ -88,19 +78,12 @@ const PostCardTag = styled.div`
   font-family: SemiBold;
 `;
 
-const ScrapButton = styled.button`
+const ScrapContainer = styled.div`
   position: absolute;
   width: 16px;
-  height: 22px;
+  height: 23px;
   right: 16px;
   bottom: 16px;
   background-color: transparent;
   cursor: pointer;
-`;
-
-const ScrapIcon = styled(Bookmark)<{ 'data-isscrap': boolean }>`
-  path {
-    fill: ${props =>
-      props['data-isscrap'] ? props.theme.palette.orange500 : props.theme.palette.black200};
-  }
 `;

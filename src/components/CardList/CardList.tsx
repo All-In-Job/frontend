@@ -30,6 +30,7 @@ export const CardList: FC<Props> = ({ data, isChangeInfoLayout, isLoad }) => {
           location={el.location}
           isPostCardTag
           index={index}
+          isScrap={el.isScrap}
           isChangeInfoLayout={isChangeInfoLayout}
         />
       );
@@ -39,4 +40,5 @@ export const CardList: FC<Props> = ({ data, isChangeInfoLayout, isLoad }) => {
   };
 
   if (data) return <S.Section>{data.map(renderPost)}</S.Section>;
+
 };
