@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { useLoaderData } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { ActivityList } from 'types/activityHistory';
 
@@ -19,6 +20,7 @@ export const ActivityHistory = () => {
   const [tabId, setTabId] = useState<string>('competition');
   const [isAcitiviyModalVisible, setIsModalVisible] = useRecoilState(isActivityModalState);
   const [activityListId, setActivityListId] = useRecoilState(idsState('activityListId'));
+  const user = useLoaderData() as { nickname: string };
 
   const onModalOpen = () => {
     setActivityListId('');
@@ -79,7 +81,7 @@ export const ActivityHistory = () => {
       </S.TabsWrapper>
 
       <S.RegistrationBox>
-        <S.Text>올인잡님, 활동내역을 추가해서 열정온도를 올려보세요!</S.Text>
+        <S.Text>{`${user.nickname}님, 활동내역을 추가해서 열정온도를 올려보세요!`}</S.Text>
         <S.AddBtn onClick={onModalOpen}>
           <AddIcon width='36' height='36' />
         </S.AddBtn>
@@ -110,11 +112,14 @@ export const ActivityHistory = () => {
                 <ActivityHistoryModal
                   key={list.id}
                   list={list}
-                  updateActivityList={updateActivityList(tabId)}
+                  updateActivityList={() => updateActivityList(tabId)}
                 />
               ))
           ) : (
-            <ActivityHistoryModal list={null} updateActivityList={updateActivityList(tabId)} />
+            <ActivityHistoryModal
+              list={null}
+              updateActivityList={() => updateActivityList(tabId)}
+            />
           )}
         </>
       )}

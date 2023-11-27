@@ -2,7 +2,14 @@ import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { createThermometerData, pathInfo, postData } from 'apis/thermometer';
+import {
+  createThermometerData,
+  patchData,
+  patchInfo,
+  patchThermometer,
+  pathInfo,
+  postData,
+} from 'apis/thermometer';
 import Calendar from 'components/ActivityHistory/Calendar/Calendar';
 import { ReactComponent as Close } from 'components/ActivityHistory/res/img/close.svg';
 import { ModalBackground } from 'components/Modals/ModalBackground';
@@ -27,12 +34,14 @@ export type ActivityList = {
 
 type listProps = {
   list: ActivityList | null;
-  updateActivityList: Promise<void>;
+  updateActivityList: () => Promise<void>;
 };
 
 export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) => {
   const setIsModalVisible = useSetRecoilState(isActivityModalState);
   const categoryId = useRecoilValue(idsState('categoryId'));
+  const activityListId = useRecoilValue(idsState('activityListId'));
+  console.log(list);
 
   const setCategoryValue = useSetRecoilState(inputValuesState('category'));
   const [keywordValue, setKeywordValue] = useRecoilState(inputValuesState('keyword'));
@@ -61,8 +70,8 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
 
   useEffect(() => {
     if (list) {
-      setCategoryValue(list.category);
-      setKeywordValue(list.keyword);
+      setCategoryValue(list.path);
+      setKeywordValue(list.category);
       setTitleValue(list.activeTitle);
       setContentValue(list.activeContent);
       list.period && setPeriodValue(list.period);
@@ -97,14 +106,38 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
       createThermometer: activityHistoryData,
     };
 
-    try {
-      const res = await createThermometerData(formData);
-      console.log('서버 응답:', res);
-      console.log('활동내역 등록 성공:', res.data);
-      updateActivityList;
-      resetForm();
-    } catch (error) {
-      console.error('Error creating data:', error);
+    const activityHistoryPatchData: patchInfo = {
+      activeContent: contentValue,
+      ...(categoryId === 'language' && { score: scoreValue }),
+      ...(categoryId === 'intern' && { period: periodValue }),
+    };
+
+    const formPatchData: patchData = {
+      path: categoryId,
+      thermometerId: activityListId,
+      patchThermometer: activityHistoryPatchData,
+    };
+
+    if (list) {
+      try {
+        const res = await patchThermometer(formPatchData);
+        console.log('서버 응답:', res);
+        console.log('활동내역 수정 성공:', res.data);
+        updateActivityList();
+        resetForm();
+      } catch (error) {
+        console.error('Error creating data:', error);
+      }
+    } else {
+      try {
+        const res = await createThermometerData(formData);
+        console.log('서버 응답:', res);
+        console.log('활동내역 등록 성공:', res.data);
+        updateActivityList();
+        resetForm();
+      } catch (error) {
+        console.error('Error creating data:', error);
+      }
     }
   };
 
@@ -118,17 +151,17 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
 
         <S.ContentWrap>
           <S.H2>{'활동내역 분야'}</S.H2>
-          <CategorySelect pathData={list ? list.path : null} />
+          <CategorySelect pathData={list && list.path} />
         </S.ContentWrap>
 
         <S.ContentWrap>
           <S.H2>{'분야 선택'}</S.H2>
-          <InterestSelect />
+          <InterestSelect keywordData={list && list.category} />
         </S.ContentWrap>
 
         <S.ContentWrap>
           <S.H2>{'활동명'}</S.H2>
-          <TitleSelect />
+          <TitleSelect titleData={list && list.activeTitle} />
         </S.ContentWrap>
 
         {categoryId === 'language' && (

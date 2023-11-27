@@ -16,9 +16,21 @@ export type postData = {
   createThermometer: pathInfo;
 };
 
-type deleteData = {
+export type deleteData = {
   path: string;
   thermometerId: string;
+};
+
+export type patchInfo = {
+  activeContent: string;
+  period?: string;
+  score?: string;
+};
+
+export type patchData = {
+  path: string;
+  thermometerId: string;
+  patchThermometer: patchInfo;
 };
 
 type FuncType<T> = (path: T) => Promise<AxiosResponse<{ data: ActivityList[] }>>;
@@ -44,5 +56,13 @@ export const findPathThermometer: FuncType<string> = async path => {
     method: 'GET',
     url: 'findPathThermometer',
     params: { path: path },
+  });
+};
+
+export const patchThermometer = async (formData: patchData) => {
+  return userApi({
+    method: 'PATCH',
+    url: 'patchThermometer',
+    data: formData,
   });
 };

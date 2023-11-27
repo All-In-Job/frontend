@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -13,12 +13,15 @@ export type InterestList = {
   keyWords: string[];
 };
 
-export const InterestSelect = () => {
-  const categoryId = useRecoilValue(idsState('categoryId'));
+type InterestSelectProps = {
+  keywordData: string | null;
+};
 
+export const InterestSelect = ({ keywordData }: InterestSelectProps) => {
+  const categoryId = useRecoilValue(idsState('categoryId')); //path 값
   const categoryValue = useRecoilValue(inputValuesState('category'));
-  const [keywordValue, setKeywordValue] = useRecoilState(inputValuesState('keyword'));
 
+  const [keywordValue, setKeywordValue] = useRecoilState(inputValuesState('keyword'));
   const [keywordOptions, setKeywordOptions] = useState(false);
 
   const interestList = categoryList.find(el => el.id === categoryId);
@@ -36,6 +39,14 @@ export const InterestSelect = () => {
 
   const onBlurInput = () => setKeywordOptions(false);
 
+  useEffect(() => {
+    if (keywordData) {
+      setKeywordValue(keywordData);
+    }
+  }, [keywordData]);
+
+  console.log(keywordData);
+
   return (
     <S.SelectBox show={keywordOptions}>
       <label>
@@ -46,6 +57,7 @@ export const InterestSelect = () => {
           onClick={handleKeywordToggle}
           onBlur={onBlurInput}
           readOnly
+          disabled={keywordData ? true : false}
         />
         <ExpandMore />
       </label>
