@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { createBrowserRouter } from 'react-router-dom';
 
-import { getLoginUserInfo } from 'apis/signup';
+import { getLoginUserInfo } from 'apis/user';
 import { BasicInformation } from 'components/BasicInformation/BasicInformation';
 import { Calendar } from 'components/Calendar/Calendar';
 import Error from 'components/Error/Error';
