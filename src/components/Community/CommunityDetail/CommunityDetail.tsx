@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { ReactComponent as HorizontalIcon } from 'assets/icons/icon-horizontal_rule.svg';
 import { ReactComponent as ViewIcon } from 'assets/icons/icon-view.svg';
 import axios from 'axios';
+import DOMPurify from 'dompurify';
 import { useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
@@ -40,7 +41,7 @@ export const CommunityDetail = () => {
     })();
   }, []);
 
-  console.log(detailData?.detail);
+  const clean = detailData ? DOMPurify.sanitize(detailData.detail) : '';
 
   return (
     <S.Container>
@@ -55,9 +56,7 @@ export const CommunityDetail = () => {
           nickname={detailData?.user.nickname}
         />
         <S.ArticleTitle>{detailData?.title}</S.ArticleTitle>
-        {detailData?.detail && (
-          <S.Article dangerouslySetInnerHTML={{ __html: detailData.detail }} />
-        )}
+        <S.Article dangerouslySetInnerHTML={{ __html: clean }} />
         <S.ArticleFooter>
           <S.ButtonContainer>
             <S.IconBtn>
