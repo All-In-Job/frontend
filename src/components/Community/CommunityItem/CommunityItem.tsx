@@ -12,7 +12,7 @@ type Props = Omit<Community, 'detail' | 'userId' | 'comments' | 'communityLikes'
 
 function CommunityItem({ id, user, category, title, view, like, comment, date }: Props) {
   return (
-    <S.CommunityItem to={id}>
+    <S.CommunityItem to={`/community/detail/${id}`}>
       <S.UserInfo>
         <S.Nickname>
           <NicknameIcon />
