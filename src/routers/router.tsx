@@ -1,7 +1,9 @@
 import { AxiosError } from 'axios';
 import { createBrowserRouter } from 'react-router-dom';
 
+
 import { getLoginUserInfo } from 'apis/user';
+import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
 import { BasicInformation } from 'components/BasicInformation/BasicInformation';
 import { Calendar } from 'components/Calendar/Calendar';
 import Error from 'components/Error/Error';
@@ -60,6 +62,10 @@ export const router = createBrowserRouter([
       {
         path: 'my-info',
         element: <MyInfo />,
+      },
+      {
+        path: 'passion-temperature',
+        element: <ActivityHistory />,
       },
       {
         path: 'find-id',

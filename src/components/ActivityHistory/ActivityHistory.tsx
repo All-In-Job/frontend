@@ -1,12 +1,11 @@
-import { FormEventHandler, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { ActivityList } from 'types/activityHistory';
 
-import { deleteActivityHistory } from 'apis/thermometer';
+import { deleteThermometerData, findPathThermometer } from 'apis/thermometer';
 import { ActivityHistoryModal } from 'components/Modals/ActivityHistoryModal/ActivityHistoryModal';
-import { activityListIdState } from 'store/activityHistory';
+import { idsState } from 'store/activityHistory';
 import { isActivityModalState } from 'store/modal';
 
 import * as S from './ActivityHistory.styles';
@@ -17,53 +16,46 @@ import { ReactComponent as EditBtn } from './res/img/edit.svg';
 
 export const ActivityHistory = () => {
   const [activityList, setActivityList] = useState<ActivityList[]>([]);
-  const [clickedTab, setClickedTab] = useState<string>('competition');
+  const [tabId, setTabId] = useState<string>('competition');
   const [isAcitiviyModalVisible, setIsModalVisible] = useRecoilState(isActivityModalState);
-  const [activityListId, setActivityListId] = useRecoilState(activityListIdState);
+  const [activityListId, setActivityListId] = useRecoilState(idsState('activityListId'));
 
   const onModalOpen = () => {
     setActivityListId('');
     setIsModalVisible(prev => !prev);
   };
+
   const onEdit = (id: string) => {
     setActivityListId(id);
     setIsModalVisible(prev => !prev);
   };
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await axios.get('/mocks/activityList.json');
-        setActivityList(res.data.data);
-      } catch (error) {
-        console.log('Error geting data:', error);
-      }
-    })();
-  }, []);
+    updateActivityList(tabId);
+  }, [tabId]);
 
-  const onDeleteFormData: FormEventHandler = async e => {
-    e.preventDefault();
-
-    const accessToken = localStorage.getItem('accessToken');
-
-    if (!accessToken) {
-      throw new Error('Access token not found.');
+  const updateActivityList = async (tabId: string) => {
+    try {
+      const res = await findPathThermometer(tabId);
+      setActivityList(res.data.data);
+    } catch (error) {
+      console.log('Error getting data:', error);
+      throw error;
     }
+  };
 
-    const headers = {
-      'content-type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    };
-
-    const postData = {
-      path: clickedTab,
-      thermometerId: activityListId,
+  const onDeleteFormData = async (id: string) => {
+    const deleteData = {
+      path: tabId,
+      thermometerId: id,
     };
 
     try {
-      const res = await deleteActivityHistory(postData, headers);
+      const res = await deleteThermometerData(deleteData);
       console.log('서버 응답:', res);
       console.log('활동내역 삭제 성공:', res.data);
+
+      updateActivityList(tabId); //activityList 업데이트
     } catch (error) {
       console.error('Error deleting data:', error);
     }
@@ -75,11 +67,7 @@ export const ActivityHistory = () => {
       <S.TabsWrapper>
         <S.Tabs>
           {categoryList.map(tab => (
-            <S.Tab
-              key={tab.id}
-              onClick={() => setClickedTab(tab.id)}
-              isActive={tab.id === clickedTab}
-            >
+            <S.Tab key={tab.id} onClick={() => setTabId(tab.id)} isActive={tab.id === tabId}>
               <S.Name>{tab.title}</S.Name>
             </S.Tab>
           ))}
@@ -89,37 +77,44 @@ export const ActivityHistory = () => {
           추가
         </S.AddBtn>
       </S.TabsWrapper>
+
       <S.RegistrationBox>
         <S.Text>올인잡님, 활동내역을 추가해서 열정온도를 올려보세요!</S.Text>
         <S.AddBtn onClick={onModalOpen}>
           <AddIcon width='36' height='36' />
         </S.AddBtn>
       </S.RegistrationBox>
+
       {activityList.map(list => {
         return (
-          clickedTab === list.path && (
-            <S.ActivityList key={list.id}>
-              <S.ActivityBox>
-                <S.TextBox>{list.activeTitle}</S.TextBox>
-                <S.Duration>{list.period}</S.Duration>
-                <S.ButtonBox>
-                  <EditBtn onClick={() => onEdit(list.id)} />
-                  <DeleteBtn onClick={onDeleteFormData} />
-                </S.ButtonBox>
-              </S.ActivityBox>
-              <S.Description>{list.activeContent}</S.Description>
-            </S.ActivityList>
-          )
+          <S.ActivityList key={list.id}>
+            <S.ActivityBox>
+              <S.TextBox>{list.activeTitle}</S.TextBox>
+              <S.Duration>{list.period}</S.Duration>
+              <S.ButtonBox>
+                <EditBtn onClick={() => onEdit(list.id)} />
+                <DeleteBtn onClick={() => onDeleteFormData(list.id)} />
+              </S.ButtonBox>
+            </S.ActivityBox>
+            <S.Description>{list.activeContent}</S.Description>
+          </S.ActivityList>
         );
       })}
+
       {isAcitiviyModalVisible && (
         <>
           {activityListId ? (
             activityList
               .filter(list => activityListId === list.id)
-              .map(list => <ActivityHistoryModal key={list.id} list={list} />)
+              .map(list => (
+                <ActivityHistoryModal
+                  key={list.id}
+                  list={list}
+                  updateActivityList={updateActivityList(tabId)}
+                />
+              ))
           ) : (
-            <ActivityHistoryModal list={null} />
+            <ActivityHistoryModal list={null} updateActivityList={updateActivityList(tabId)} />
           )}
         </>
       )}

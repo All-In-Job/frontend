@@ -39,17 +39,14 @@ export const MainPageList = () => {
 
   return (
     <S.CardListWrapper>
-      {isLoad ? (
-        selectCertificate || selectCommunity ? (
-          <PostList data={data} selectCertificate={selectCertificate} />
-        ) : (
-          <CardList
-            data={data}
-            isChangeInfoLayout={homeCardList?.getParams === 'intern' ? true : false}
-          />
-        )
+      {selectCertificate || selectCommunity ? (
+        <PostList data={data} selectCertificate={selectCertificate} isLoad={isLoad} />
       ) : (
-        <p>Loading...</p>
+        <CardList
+          data={data}
+          isChangeInfoLayout={homeCardList?.getParams === 'intern' ? true : false}
+          isLoad={isLoad}
+        />
       )}
     </S.CardListWrapper>
   );

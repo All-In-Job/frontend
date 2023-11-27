@@ -1,4 +1,5 @@
 export type PostCardProps = {
+  id: string;
   mainImage: string;
   enterprise: string;
   title: string;

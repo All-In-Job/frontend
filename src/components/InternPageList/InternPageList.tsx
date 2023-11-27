@@ -62,11 +62,7 @@ export const InternPageList = () => {
         ))}
       </S.InternContainer>
 
-      <MenuPagination
-        currentPage={currentPage}
-        totalItemsCount={totalCount}
-        pageItemsCount={InternPageList.length}
-      />
+      <MenuPagination currentPage={currentPage} totalItemsCount={totalCount} itemsPerPage={12} />
     </>
   );
 };

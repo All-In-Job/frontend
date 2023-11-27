@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useSetRecoilState } from 'recoil';
 
-import { periodState } from 'store/activityHistory';
+import { inputValuesState } from 'store/activityHistory';
 
 import * as S from './Calendar.styes';
 // import { ReactComponent as CalendarIcon } from './res/img/calendar.svg';
@@ -14,7 +14,7 @@ import * as S from './Calendar.styes';
 const Calendar = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  const setPeriodValue = useSetRecoilState<string>(periodState);
+  const setPeriodValue = useSetRecoilState(inputValuesState('period'));
 
   const handleStartDateChange = (date: Date | null) => {
     setStartDate(date);
