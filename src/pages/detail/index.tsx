@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useOutlet, useParams } from 'react-router-dom';
+import { useLoaderData, useOutlet, useParams } from 'react-router-dom';
 import { ExamSchedule } from 'types/certificate.type';
 
 import { ResponseData, requestDetailCrawlingData } from 'apis/detailCrawling';
@@ -16,6 +16,7 @@ import * as S from './index.styles';
 export const DetailPage = () => {
   const { menuName, detailId } = useParams();
   const [detailData, setDetailData] = useState<ResponseData>();
+  const userId = useLoaderData() as { id: string };
   const out = useOutlet();
   console.log(out);
 
@@ -23,17 +24,10 @@ export const DetailPage = () => {
     return data && data[0];
   };
 
-  const decodeBase64 = (base64String: string | undefined) => {
-    if (base64String) {
-      const decoded = atob(base64String);
-      return decoded;
-    }
-  };
-
   useEffect(() => {
-    (async () => {
+    const fetchData = async () => {
       try {
-        const res = await requestDetailCrawlingData(menuName, decodeBase64(detailId));
+        const res = await requestDetailCrawlingData(userId?.id, menuName, detailId);
         if (res) {
           setDetailData(res.data.data);
           console.log(res);
@@ -41,8 +35,12 @@ export const DetailPage = () => {
       } catch (error) {
         console.error(error);
       }
-    })();
+    };
+
+    fetchData();
   }, [menuName, detailId]);
+
+  console.log(detailData);
 
   if (detailData)
     return (
@@ -54,6 +52,8 @@ export const DetailPage = () => {
               dDay={12}
               bookmarkCount={detailData.scrap}
               viewCount={detailData.view}
+              id={detailId}
+              isScrap={detailData.isScrap}
             >
               {/* 상황에 맞는 컴포넌트 추가 */}
               {'enterprise' in detailData && (

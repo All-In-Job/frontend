@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import { AxiosError } from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { login } from 'apis/login';
-import { createUser } from 'apis/signup';
+import { createUser } from 'apis/user';
 import { InputFieldType } from 'components/BasicInformation/BasicInformation';
 import Submit from 'components/commons/Buttons/Submit/Submit';
 import { useInterestForm } from 'hooks/useInterestForm';
@@ -15,20 +15,26 @@ import { ReactComponent as DefaultInterestImage } from './res/img/default_intere
 import { SubMajorInput } from './subMajorInput';
 
 type SignupFormInputFieldsType = Record<
-  'email' | 'provider' | InputFieldType | 'currentPhoto',
+  'email' | 'provider' | 'fixedResponse' | 'mainMajors' | InputFieldType | 'currentPhoto',
   string
 >;
+type FixedResponseType = Record<'fixedResponse', Record<string, string[]>>;
+type MainMajorsType = Record<'mainMajors', string[]>;
 
 function InterestForm() {
   const { formState, setFormState } = useInterestForm();
   const [isActive, setIsActive] = useState(false);
-  const navigate = useNavigate();
 
-  const locationState = useLocation().state as SignupFormInputFieldsType;
+  const locationState = useLocation().state as SignupFormInputFieldsType &
+    FixedResponseType &
+    MainMajorsType;
+  const { email, provider, phone, currentPhoto, name, nickname } = locationState;
+
+  const locationStateToServer = { email, provider, phone, currentPhoto, name, nickname };
 
   useEffect(() => {
-    setIsActive(formState.major.subMajor !== '');
-  }, [formState.major.subMajor]);
+    setIsActive(formState.major?.subMajor !== '');
+  }, [formState.major?.subMajor]);
 
   const generateCorrectInterests = () => {
     const tempInterests: Array<object> = [];
@@ -43,14 +49,14 @@ function InterestForm() {
   const submitButton = async () => {
     try {
       const res = await createUser({
-        ...locationState,
+        ...locationStateToServer,
         ...formState,
         interests: generateCorrectInterests(),
       });
       if (res.status === 200) {
         const { data } = await login(res.data.data);
         localStorage.setItem('accessToken', data.data);
-        navigate('/');
+        location.replace('/');
       }
     } catch (e) {
       if (e instanceof AxiosError && e.response) {
@@ -62,8 +68,20 @@ function InterestForm() {
   return (
     <S.InterestFieldSetupWrapper>
       <S.InterestFieldSetupTitle>전공학과를 선택해주세요!</S.InterestFieldSetupTitle>
-      <SubMajorInput formState={formState} setFormState={setFormState} majorType='mainMajor' />
-      <SubMajorInput formState={formState} setFormState={setFormState} majorType='subMajor' />
+      <SubMajorInput
+        formState={formState}
+        setFormState={setFormState}
+        majorType='mainMajor'
+        fixedResponse={locationState.fixedResponse}
+        mainMajors={locationState.mainMajors}
+      />
+      <SubMajorInput
+        formState={formState}
+        setFormState={setFormState}
+        majorType='subMajor'
+        fixedResponse={locationState.fixedResponse}
+        mainMajors={locationState.mainMajors}
+      />
 
       <S.DefaultImageBox>
         <DefaultInterestImage />
