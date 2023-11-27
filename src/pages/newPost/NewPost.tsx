@@ -53,10 +53,14 @@ export const NewPost = () => {
   const SubmitValue = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const communityValue = { category: optionValue, title, detail: editorToHtml };
-    const res = await SubmitCommunity(communityValue);
+    try {
+      const res = await SubmitCommunity(communityValue);
 
-    if (res.data.data) {
-      navigate(`/community/detail/${res.data.data.id}`);
+      if (res.data.data) {
+        navigate(`/community/detail/${res.data.data.id}`);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
