@@ -30,13 +30,17 @@ export const CommunityDetail = () => {
   useEffect(() => {
     (async () => {
       try {
-        const ret = await requestDetailCrawlingApiData(detailId as string);
-        setDetailData(ret.data.data);
+        const res = await requestDetailCrawlingApiData(detailId as string);
+        if (res) {
+          setDetailData(res.data.data);
+        }
       } catch (error) {
         requestMockupData();
       }
     })();
   }, []);
+
+  console.log(detailData?.detail);
 
   return (
     <S.Container>
@@ -51,7 +55,9 @@ export const CommunityDetail = () => {
           nickname={detailData?.user.nickname}
         />
         <S.ArticleTitle>{detailData?.title}</S.ArticleTitle>
-        <S.Article>{detailData?.detail}</S.Article>
+        {detailData?.detail && (
+          <S.Article dangerouslySetInnerHTML={{ __html: detailData.detail }} />
+        )}
         <S.ArticleFooter>
           <S.ButtonContainer>
             <S.IconBtn>
