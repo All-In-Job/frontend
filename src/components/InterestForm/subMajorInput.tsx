@@ -24,7 +24,7 @@ export const SubMajorInput: FC<Props> = ({
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const { matchWord, searchedResults, setSearchedResults, isLoading } = useSearch();
+  const { matchWord, searchedResults, setSearchedResults } = useSearch();
 
   const getValueDepartmentInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (majorType === 'mainMajor' && mainMajors) {
@@ -59,7 +59,7 @@ export const SubMajorInput: FC<Props> = ({
     setIsVisible(false);
   };
 
-  if (isLoading) return <div>loading...</div>;
+  // if (isLoading) return <div>loading...</div>;
 
   return (
     <S.MajorDepartment
