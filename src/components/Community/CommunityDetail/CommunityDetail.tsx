@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
 import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
+import { patchToggleLike } from 'apis/toggleLike';
 import { Count } from 'components/commons/Count/Count';
 import { ProfileImage } from 'components/Community/ProfileImage/ProfileImage';
 
@@ -41,6 +42,19 @@ export const CommunityDetail = () => {
     })();
   }, []);
 
+  const handleToggleLike = async () => {
+    try {
+      const res = await patchToggleLike(detailData?.id as string);
+
+      setDetailData(prevData => ({
+        ...(prevData as Community),
+        like: res.data.data.count,
+      }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const clean = detailData ? DOMPurify.sanitize(detailData.detail) : '';
 
   return (
@@ -59,7 +73,7 @@ export const CommunityDetail = () => {
         <S.Article dangerouslySetInnerHTML={{ __html: clean }} />
         <S.ArticleFooter>
           <S.ButtonContainer>
-            <S.IconBtn>
+            <S.IconBtn onClick={() => handleToggleLike()}>
               <LikeSolidIcon /> <p>좋아요</p>
             </S.IconBtn>
             <S.IconBtn>
