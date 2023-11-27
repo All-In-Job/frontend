@@ -15,15 +15,22 @@ import { ReactComponent as DefaultInterestImage } from './res/img/default_intere
 import { SubMajorInput } from './subMajorInput';
 
 type SignupFormInputFieldsType = Record<
-  'email' | 'provider' | InputFieldType | 'currentPhoto',
+  'email' | 'provider' | 'fixedResponse' | 'mainMajors' | InputFieldType | 'currentPhoto',
   string
 >;
+type FixedResponseType = Record<'fixedResponse', Record<string, string[]>>;
+type MainMajorsType = Record<'mainMajors', string[]>;
 
 function InterestForm() {
   const { formState, setFormState } = useInterestForm();
   const [isActive, setIsActive] = useState(false);
 
-  const locationState = useLocation().state as SignupFormInputFieldsType;
+  const locationState = useLocation().state as SignupFormInputFieldsType &
+    FixedResponseType &
+    MainMajorsType;
+  const { email, provider, phone, currentPhoto, name, nickname } = locationState;
+
+  const locationStateToServer = { email, provider, phone, currentPhoto, name, nickname };
 
   useEffect(() => {
     setIsActive(formState.major?.subMajor !== '');
@@ -42,7 +49,7 @@ function InterestForm() {
   const submitButton = async () => {
     try {
       const res = await createUser({
-        ...locationState,
+        ...locationStateToServer,
         ...formState,
         interests: generateCorrectInterests(),
       });
@@ -61,8 +68,20 @@ function InterestForm() {
   return (
     <S.InterestFieldSetupWrapper>
       <S.InterestFieldSetupTitle>전공학과를 선택해주세요!</S.InterestFieldSetupTitle>
-      <SubMajorInput formState={formState} setFormState={setFormState} majorType='mainMajor' />
-      <SubMajorInput formState={formState} setFormState={setFormState} majorType='subMajor' />
+      <SubMajorInput
+        formState={formState}
+        setFormState={setFormState}
+        majorType='mainMajor'
+        fixedResponse={locationState.fixedResponse}
+        mainMajors={locationState.mainMajors}
+      />
+      <SubMajorInput
+        formState={formState}
+        setFormState={setFormState}
+        majorType='subMajor'
+        fixedResponse={locationState.fixedResponse}
+        mainMajors={locationState.mainMajors}
+      />
 
       <S.DefaultImageBox>
         <DefaultInterestImage />
