@@ -72,6 +72,7 @@ export const IconBtn = styled.button`
   gap: 4px;
   ${textStyle.title01}
   color: ${palette.black200};
+  cursor: pointer;
 `;
 
 export const CountContainer = styled.div`

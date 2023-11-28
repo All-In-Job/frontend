@@ -3,10 +3,12 @@ import { useEffect, useState } from 'react';
 import { ReactComponent as HorizontalIcon } from 'assets/icons/icon-horizontal_rule.svg';
 import { ReactComponent as ViewIcon } from 'assets/icons/icon-view.svg';
 import axios from 'axios';
+import DOMPurify from 'dompurify';
 import { useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
 import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
+import { patchToggleLike } from 'apis/toggleLike';
 import { Count } from 'components/commons/Count/Count';
 import { ProfileImage } from 'components/Community/ProfileImage/ProfileImage';
 
@@ -30,13 +32,30 @@ export const CommunityDetail = () => {
   useEffect(() => {
     (async () => {
       try {
-        const ret = await requestDetailCrawlingApiData(detailId as string);
-        setDetailData(ret.data.data);
+        const res = await requestDetailCrawlingApiData(detailId as string);
+        if (res) {
+          setDetailData(res.data.data);
+        }
       } catch (error) {
         requestMockupData();
       }
     })();
   }, []);
+
+  const handleToggleLike = async () => {
+    try {
+      const res = await patchToggleLike(detailData?.id as string);
+
+      setDetailData(prevData => ({
+        ...(prevData as Community),
+        like: res.data.data.count,
+      }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const clean = detailData ? DOMPurify.sanitize(detailData.detail) : '';
 
   return (
     <S.Container>
@@ -51,10 +70,10 @@ export const CommunityDetail = () => {
           nickname={detailData?.user.nickname}
         />
         <S.ArticleTitle>{detailData?.title}</S.ArticleTitle>
-        <S.Article>{detailData?.detail}</S.Article>
+        <S.Article dangerouslySetInnerHTML={{ __html: clean }} />
         <S.ArticleFooter>
           <S.ButtonContainer>
-            <S.IconBtn>
+            <S.IconBtn onClick={() => handleToggleLike()}>
               <LikeSolidIcon /> <p>좋아요</p>
             </S.IconBtn>
             <S.IconBtn>

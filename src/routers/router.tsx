@@ -82,7 +82,7 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: ':menuName/:categoryId/:detailId',
+        path: ':menuName/detail/:detailId',
         element: <DetailPage />,
         loader: getUserProfile,
       },
