@@ -10,10 +10,12 @@ import {
 
 import styled from '@emotion/styled';
 import { ReactComponent as CloseIcon } from 'assets/icons/close.svg';
+// import { AxiosError } from 'axios';
 
-import { findUserProfile } from 'apis/user';
+// import { updateProfile } from 'apis/myInfo';
 import { profileImages } from 'components/BasicInformation/PhotoList';
 import { ModalBackground } from 'components/Modals/ModalBackground';
+import { InterestFormState, InterestTagsType } from 'hooks/useInterestForm';
 
 import { InterestFieldSection } from './InterestFieldSection';
 import { NicknameSection } from './NicknameSection';
@@ -28,6 +30,13 @@ export type MyInfoFormState = {
   nickname: string;
   interestKeyword: { interest: string; keyword: string[] }[];
 };
+type InterestMapKey = keyof typeof interestMap;
+
+type Props = {
+  isVisible: boolean;
+  setIsVisible: Dispatch<SetStateAction<boolean>>;
+};
+
 export const MyInfoUpdateContext = createContext<MyInfoUpdateModalContext>({
   state: {
     profileImage: profileImages[0],
@@ -37,12 +46,24 @@ export const MyInfoUpdateContext = createContext<MyInfoUpdateModalContext>({
   setState: () => {},
 });
 
-type Props = {
-  isVisible: boolean;
-  setIsVisible: Dispatch<SetStateAction<boolean>>;
-};
+const interestMap = {
+  competition: '공모전',
+  intern: '인턴',
+  language: '어학',
+  outside: '대외활동',
+  qnet: '자격증',
+} as const;
 
 export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
+  const [tempInterests, setTempInterests] = useState<{ interests: InterestTagsType }>({
+    interests: {
+      공모전: [],
+      자격증: [],
+      인턴: [],
+      어학: [],
+      대외활동: [],
+    },
+  });
   const [state, setState] = useState<MyInfoFormState>({
     profileImage: profileImages[0],
     nickname: '',
@@ -51,14 +72,13 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
 
   const requestMyInfoUpdate: FormEventHandler = e => {
     e.preventDefault();
-    console.log('formState:', state);
-    // const res = await updateProfile(formState)
+    // updateProfile(state)
     //   .then(res => console.log(res))
     //   .catch(e => {
-    //      if (e instanceof AxiosError && e.response) {
-    //          console.log(e.response)
-    //      }
-    //    })
+    //     if (e instanceof AxiosError && e.response) {
+    //       console.log(e.response);
+    //     }
+    //   });
   };
 
   useEffect(() => {
@@ -71,24 +91,30 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
       ],
     });
 
-    findUserProfile().then(res => {
-      const data = res.data.data;
-      setState({
-        nickname: data.nickname,
-        profileImage: data.profileImage,
-        interestKeyword: data.interestKeyword,
-      });
-    });
+    // findUserProfile().then(res => {
+    //   const data = res.data.data;
+    //   setState({
+    //     nickname: data.nickname,
+    //     profileImage: data.profileImage,
+    //     interestKeyword: data.interestKeyword,
+    //   });
+    // });
   }, []);
 
   useEffect(() => {
-    const tempObj = {};
-    // state.interestKeyword.forEach(interest => {
-    //
-    // });
+    const tempObj: InterestFormState['interests'] = {
+      공모전: [],
+      인턴: [],
+      자격증: [],
+      어학: [],
+      대외활동: [],
+    };
+    state.interestKeyword.forEach(interest => {
+      tempObj[interestMap[interest.interest as InterestMapKey]] = interest.keyword;
+    });
 
-    console.log('interestKeyword', state.interestKeyword);
-    console.log('tempObj', tempObj);
+    console.log(tempObj);
+    setTempInterests({ interests: tempObj });
   }, [state.interestKeyword]);
 
   const closeModal = () => {
@@ -107,7 +133,12 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
 
             <ProfileImageSection />
             <NicknameSection />
-            <InterestFieldSection state={state} setState={setState} />
+            <InterestFieldSection
+              state={state}
+              setState={setState}
+              tempInterests={tempInterests}
+              setTempInterests={setTempInterests}
+            />
           </StyledForm>
         </MyInfoUpdateContext.Provider>
       </ModalBackground>
@@ -131,43 +162,3 @@ const StyledHeader = styled.div`
 const StyledTitle = styled.h1`
   font-size: 24px;
 `;
-// const StyledSubTitle = styled.p`
-//   font-size: 20px;
-//   font-weight: 700;
-// `;
-
-// "{
-// "email":"artemismars2@gmail.com",
-// "provider":"google",
-// "phone":"01066783426",
-// "profileImage":"https://storage.googleapis.com/allinjob-user-img/allinjob-profile-img/profileImg-1.jpg",
-// "name":"아트",
-// "nickname":"arts",
-// "major":{"mainMajor":"컴퓨터공학과","subMajor":"AI・컴퓨터공학과"},
-// "interests":{
-//  "공모전":["기획/아이디어","광고/마케팅"],
-//  "대외활동":["여행/호텔/항공","언론/미디어"],
-//  "어학":["스페인어","중국어"],
-//  "인턴":["경영/사무","마케팅/광고/홍보"],
-//  "자격증":["보건/의료","경영/회계/사무"]},
-//  "interestKeywords":[
-//    {
-//      "interest":"competition",
-//      "keyword":["기획/아이디어","광고/마케팅"]
-//    },
-//    {
-//      "interest":"outside",
-//      "keyword":["여행/호텔/항공","언론/미디어"]
-//    },
-//    {
-//      "interest":"language",
-//      "keyword":["스페인어","중국어"]
-//    },
-//    {
-//      "interest":"intern",
-//      "keyword":["경영/사무","마케팅/광고/홍보"]
-//    },
-//    {
-//      "interest":"qnet",
-//      "keyword":["보건/의료","경영/회계/사무"]}]
-//    }"

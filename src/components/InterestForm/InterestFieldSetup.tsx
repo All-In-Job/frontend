@@ -10,13 +10,13 @@ type InterestTagsType = typeof interestTags;
 type Keywords = InterestTagsType[number]['keyWords'];
 
 type Props = {
-  formState: InterestFormState;
-  setFormState: Dispatch<SetStateAction<InterestFormState>>;
+  interestsState: { interests: InterestFormState['interests'] };
+  setInterestsState: Dispatch<SetStateAction<{ interests: InterestFormState['interests'] }>>;
 };
 
 export type TagName = (typeof interestTags)[number]['name'];
 
-export const InterestFieldSetup: FC<Props> = ({ formState, setFormState }) => {
+export const InterestFieldSetup: FC<Props> = ({ interestsState, setInterestsState }) => {
   const [selectedTag, setSelectedTag] = useState<TagName>('공모전');
 
   const foundInterest = useMemo(() => {
@@ -24,24 +24,23 @@ export const InterestFieldSetup: FC<Props> = ({ formState, setFormState }) => {
   }, [selectedTag]);
 
   const getHeavyTags = () => {
-    const tagNames = Object.keys(formState.interests) as TagName[];
+    const tagNames = Object.keys(interestsState.interests) as TagName[];
     const heavyTags = tagNames.filter(tagName => {
-      const heavyTag = formState.interests[tagName].length > 0 && tagName;
+      const heavyTag = interestsState.interests[tagName].length > 0 && tagName;
       return heavyTag;
     });
     return heavyTags;
   };
 
   const updateFormState = (tagName: TagName, keywords: string[]) => {
-    setFormState({
-      ...formState,
-      interests: { ...formState.interests, [tagName]: keywords },
+    setInterestsState({
+      interests: { ...interestsState.interests, [tagName]: keywords },
     });
   };
 
   const updateSelectedKeyWord = useCallback(
     (tagName: TagName, selected: Keywords[number]) => {
-      const selects = formState.interests[tagName];
+      const selects = interestsState.interests[tagName];
       const isOnlyOneKeyWord = selects.length === 1 && selects[0] === selected;
       const isMax = selects.length === 3;
 
@@ -54,7 +53,7 @@ export const InterestFieldSetup: FC<Props> = ({ formState, setFormState }) => {
       }
       updateFormState(tagName, [...selects, selected]);
     },
-    [formState],
+    [interestsState],
   );
 
   const getButtonStyle = (tagName: TagName) => {
@@ -62,7 +61,7 @@ export const InterestFieldSetup: FC<Props> = ({ formState, setFormState }) => {
 
     if (tagName === selectedTag) return { color: 'white', backgroundColor: orange500 };
 
-    const hasSelectedKeyword = formState.interests[tagName].length >= 1;
+    const hasSelectedKeyword = interestsState.interests[tagName].length >= 1;
     if (hasSelectedKeyword) return { color: orange500, border: `1px solid ${orange500}` };
 
     return { color: black200, border: `1px solid ${black200}` };
@@ -95,11 +94,11 @@ export const InterestFieldSetup: FC<Props> = ({ formState, setFormState }) => {
               <S.ClickedKeyWord
                 key={keyWord}
                 onClick={() => updateSelectedKeyWord(selectedTag, keyWord)}
-                isChangeColor={formState.interests[selectedTag].includes(keyWord)}
+                isChangeColor={interestsState.interests[selectedTag].includes(keyWord)}
               >
                 {/* <S.CheckBox isChangeColor={selectedKeyWords.includes(keyWord)}></S.CheckBox> */}
                 <S.CheckCircleIcon
-                  data-isactive={formState.interests[selectedTag].includes(keyWord)}
+                  data-isactive={interestsState.interests[selectedTag].includes(keyWord)}
                 />
                 <p>#{keyWord}</p>
               </S.ClickedKeyWord>
