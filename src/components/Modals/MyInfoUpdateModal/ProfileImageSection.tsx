@@ -3,27 +3,27 @@ import { useContext } from 'react';
 import styled from '@emotion/styled';
 import { ReactComponent as CheckIcon } from 'assets/icons/icon_check_circle.svg';
 
-import { photos } from 'components/BasicInformation/PhotoList';
+import { profileImages } from 'components/BasicInformation/PhotoList';
 import theme from 'styles/theme';
 
 import { MyInfoUpdateContext } from './MyInfoUpdateModal';
 
 export const ProfileImageSection = () => {
-  const { formState, setFormState } = useContext(MyInfoUpdateContext);
+  const { state, setState } = useContext(MyInfoUpdateContext);
 
   return (
     <StyledContainer>
       <StyledPreview>
-        <StyledPreviewImage image={formState.photo} />
+        <StyledPreviewImage image={state.profileImage} />
       </StyledPreview>
       <StyledImageGrid>
-        {photos.map((photo, idx) => {
-          const isSamePhoto = photo === formState.photo;
+        {profileImages.map((profileImage, idx) => {
+          const isSamePhoto = profileImage === state.profileImage;
           return (
             <StyledImage
               key={idx}
-              image={photo}
-              onClick={() => setFormState({ ...formState, photo })}
+              image={profileImage}
+              onClick={() => setState({ ...state, profileImage })}
             >
               <div style={{ position: 'absolute', top: 5, right: 5 }}>
                 <CheckIcon
@@ -42,7 +42,8 @@ export const ProfileImageSection = () => {
 const StyledContainer = styled.div`
   display: flex;
   gap: 40px;
-  padding: 20px;
+  padding: 24px;
+  justify-content: center;
 `;
 
 const StyledPreview = styled.section`
@@ -60,6 +61,7 @@ const StyledPreviewImage = styled.div<{ image: string }>`
   background-position: center;
   border: 5px ${theme.palette.orange500} solid;
 `;
+
 const StyledImageGrid = styled.section`
   display: grid;
   gap: 10px;
