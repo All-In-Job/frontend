@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import theme from 'styles/theme';
 
 import { BasicInformationContext } from './BasicInformation';
-import { photos } from './PhotoList';
+import { profileImages } from './PhotoList';
 
 export const PhotoListHeader = () => {
   const { currentFormState } = useContext(BasicInformationContext)!;
@@ -39,7 +39,7 @@ const StyledPhotoWrapper = styled.div`
 const StyledRoundPhoto = styled.div`
   width: 126px;
   height: 126px;
-  background-image: url(${photos[0]});
+  background-image: url(${profileImages[0]});
   background-size: cover;
   border-radius: 100%;
 `;

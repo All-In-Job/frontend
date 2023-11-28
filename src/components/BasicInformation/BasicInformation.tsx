@@ -15,7 +15,7 @@ import { CareerResponseType } from 'hooks/useSearch';
 
 import { InputGroup } from './InputGroup';
 import { InputGroupHeader } from './InputGroupHeader';
-import { PhotoList, photos } from './PhotoList';
+import { PhotoList, profileImages } from './PhotoList';
 import { PhotoListHeader } from './PhotoListHeader';
 
 export type InputRuleType = {
@@ -45,7 +45,7 @@ const defaultState = {
     isAllChecked: false,
   },
   isPhoneValid: false,
-  currentPhoto: photos[0],
+  currentPhoto: profileImages[0],
 };
 
 export const BasicInformationContext = createContext<{
