@@ -15,11 +15,19 @@ import { ReactComponent as DefaultInterestImage } from './res/img/default_intere
 import { SubMajorInput } from './subMajorInput';
 
 type SignupFormInputFieldsType = Record<
-  'email' | 'provider' | 'fixedResponse' | 'mainMajors' | InputFieldType | 'currentPhoto',
+  'email' | 'provider' | 'fixedResponse' | 'mainMajors' | InputFieldType | 'profileImage',
   string
 >;
 type FixedResponseType = Record<'fixedResponse', Record<string, string[]>>;
 type MainMajorsType = Record<'mainMajors', string[]>;
+
+// const interestsMap = {
+//   공모전: 'competition',
+//   대외활동: 'outside',
+//   인턴: 'intern',
+//   자격증: 'qnet',
+//   어학: 'language',
+// } as const;
 
 function InterestForm() {
   const { formState, setFormState } = useInterestForm();
@@ -28,9 +36,9 @@ function InterestForm() {
   const locationState = useLocation().state as SignupFormInputFieldsType &
     FixedResponseType &
     MainMajorsType;
-  const { email, provider, phone, currentPhoto, name, nickname } = locationState;
+  const { email, provider, phone, profileImage, name, nickname } = locationState;
 
-  const locationStateToServer = { email, provider, phone, currentPhoto, name, nickname };
+  const locationStateToServer = { email, provider, phone, profileImage, name, nickname };
 
   useEffect(() => {
     setIsActive(formState.major?.subMajor !== '');
@@ -39,6 +47,13 @@ function InterestForm() {
   const generateCorrectInterests = () => {
     const tempInterests: Array<object> = [];
     let i = 0;
+    // for (const key in formState.interests) {
+    //   tempInterests[i] = {
+    //     interest: interestsMap[key as TagName],
+    //     keyword: formState.interests[key as TagName],
+    //   };
+    //   i++;
+    // }
     for (const key in formState.interests) {
       tempInterests[i] = { [key]: formState.interests[key as TagName] };
       i++;
@@ -48,11 +63,18 @@ function InterestForm() {
 
   const submitButton = async () => {
     try {
+      // console.log({
+      //   ...locationStateToServer,
+      //   ...formState,
+      //   interestKeywords: generateCorrectInterests(),
+      // });
       const res = await createUser({
         ...locationStateToServer,
         ...formState,
         interests: generateCorrectInterests(),
+        // interestKeywords: generateCorrectInterests(),
       });
+
       if (res.status === 200) {
         const { data } = await login(res.data.data);
         localStorage.setItem('accessToken', data.data);

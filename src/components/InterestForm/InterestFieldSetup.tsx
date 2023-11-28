@@ -38,6 +38,7 @@ export const InterestFieldSetup: FC<Props> = ({ formState, setFormState }) => {
       interests: { ...formState.interests, [tagName]: keywords },
     });
   };
+
   const updateSelectedKeyWord = useCallback(
     (tagName: TagName, selected: Keywords[number]) => {
       const selects = formState.interests[tagName];
