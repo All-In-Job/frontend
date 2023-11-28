@@ -41,7 +41,6 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
   const setIsModalVisible = useSetRecoilState(isActivityModalState);
   const categoryId = useRecoilValue(idsState('categoryId'));
   const activityListId = useRecoilValue(idsState('activityListId'));
-  console.log(list);
 
   const setCategoryValue = useSetRecoilState(inputValuesState('category'));
   const [keywordValue, setKeywordValue] = useRecoilState(inputValuesState('keyword'));
@@ -49,7 +48,6 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
   const [contentValue, setContentValue] = useRecoilState(inputValuesState('content'));
   const [periodValue, setPeriodValue] = useRecoilState(inputValuesState('period'));
   const [scoreValue, setScoreValue] = useRecoilState(inputValuesState('score'));
-
   const [isActive, setIsActive] = useState(false);
 
   const handleContentInputChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
@@ -66,7 +64,6 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
     setPeriodValue('');
     setScoreValue('');
   };
-  console.log(keywordValue, titleValue, contentValue);
 
   useEffect(() => {
     if (list) {
