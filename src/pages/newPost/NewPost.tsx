@@ -6,7 +6,7 @@ import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
 import { useNavigate } from 'react-router-dom';
 
-import { SubmitCommunity } from 'apis/communityPost';
+import { submitCommunity } from 'apis/communityPost';
 import { DropDownSelect } from 'components/commons/DropDownSelect/DropDownSelect';
 
 import 'react-quill/dist/quill.snow.css';
@@ -53,10 +53,14 @@ export const NewPost = () => {
   const SubmitValue = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const communityValue = { category: optionValue, title, detail: editorToHtml };
-    const res = await SubmitCommunity(communityValue);
+    try {
+      const res = await submitCommunity(communityValue);
 
-    if (res.data.data) {
-      navigate(`/community/detail/${res.data.data.id}`);
+      if (res.data.data) {
+        navigate(`/community/detail/${res.data.data.id}`);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
