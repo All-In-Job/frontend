@@ -113,7 +113,7 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
     };
 
     const formPatchData: patchData = {
-      path: categoryId,
+      path: 'competition',
       thermometerId: activityListId,
       patchThermometer: activityHistoryPatchData,
     };

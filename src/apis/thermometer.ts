@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { ActivityList } from 'types/activityHistory';
+import { ActivityListData } from 'types/activityHistory';
 
 import { userApi } from './index';
 
@@ -33,7 +33,7 @@ export type patchData = {
   patchThermometer: patchInfo;
 };
 
-type FuncType<T> = (path: T) => Promise<AxiosResponse<{ data: ActivityList[] }>>;
+type FuncType<T> = (path: T) => Promise<AxiosResponse<{ data: ActivityListData[] }>>;
 
 export const createThermometerData = async (formData: postData) => {
   return userApi({
