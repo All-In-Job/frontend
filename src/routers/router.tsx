@@ -65,6 +65,7 @@ export const router = createBrowserRouter([
       {
         path: 'passion-temperature',
         element: <ActivityHistory />,
+        loader: getUserProfile,
       },
       {
         path: 'find-id',

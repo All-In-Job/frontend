@@ -4,7 +4,7 @@ export type ActivityHistory = {
   period: string;
 };
 
-export type ActivityList = {
+export type ActivityListData = {
   path: string;
   id: string;
   category: string;
