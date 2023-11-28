@@ -45,8 +45,6 @@ export const InterestSelect = ({ keywordData }: InterestSelectProps) => {
     }
   }, [keywordData]);
 
-  console.log(keywordData);
-
   return (
     <S.SelectBox show={keywordOptions}>
       <label>

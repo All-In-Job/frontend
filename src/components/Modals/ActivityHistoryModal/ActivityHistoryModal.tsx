@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import {
   createThermometerData,
@@ -13,7 +13,7 @@ import {
 import Calendar from 'components/ActivityHistory/Calendar/Calendar';
 import { ReactComponent as Close } from 'components/ActivityHistory/res/img/close.svg';
 import { ModalBackground } from 'components/Modals/ModalBackground';
-import { idsState, inputValuesState } from 'store/activityHistory';
+import { idsState, inputValuesState, tabIdState } from 'store/activityHistory';
 import { isActivityModalState } from 'store/modal';
 
 import * as S from './ActivityHistoryModal.styles';
@@ -39,8 +39,9 @@ type listProps = {
 
 export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) => {
   const setIsModalVisible = useSetRecoilState(isActivityModalState);
-  const categoryId = useRecoilValue(idsState('categoryId'));
+  const tabId = useRecoilValue(tabIdState);
   const activityListId = useRecoilValue(idsState('activityListId'));
+  const [categoryId, setCategoryId] = useRecoilState(idsState('categoryId'));
 
   const setCategoryValue = useSetRecoilState(inputValuesState('category'));
   const [keywordValue, setKeywordValue] = useRecoilState(inputValuesState('keyword'));
@@ -55,24 +56,30 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
   const handleScoreInputChange = (e: ChangeEvent<HTMLInputElement>) =>
     setScoreValue(e.target.value);
 
+  const resetAllInputValues = useRecoilCallback(({ snapshot, set }) => async () => {
+    const keys = ['category', 'keyword', 'title', 'content', 'period', 'score'];
+
+    keys.forEach(async key => {
+      const atom = inputValuesState(key);
+      await snapshot.getPromise(atom);
+      set(atom, '');
+    });
+  });
+
   const resetForm = () => {
     setIsModalVisible(prev => !prev);
-    setCategoryValue('');
-    setKeywordValue('');
-    setTitleValue('');
-    setContentValue('');
-    setPeriodValue('');
-    setScoreValue('');
+    resetAllInputValues();
   };
 
   useEffect(() => {
     if (list) {
-      setCategoryValue(list.path);
-      setKeywordValue(list.category);
-      setTitleValue(list.activeTitle);
-      setContentValue(list.activeContent);
-      list.period && setPeriodValue(list.period);
-      list.score && setScoreValue(list.score);
+      setCategoryId(tabId);
+      setCategoryValue(list.path || '');
+      setKeywordValue(list.category || '');
+      setTitleValue(list.activeTitle || '');
+      setContentValue(list.activeContent || '');
+      setPeriodValue(list.period || '');
+      setScoreValue(list.score || '');
     }
   }, [list]);
 
@@ -90,6 +97,7 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
   const onSubmitFormData: FormEventHandler = async e => {
     e.preventDefault();
 
+    //등록하기
     const activityHistoryData: pathInfo = {
       category: keywordValue,
       activeTitle: titleValue,
@@ -103,6 +111,7 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
       createThermometer: activityHistoryData,
     };
 
+    //수정하기
     const activityHistoryPatchData: patchInfo = {
       activeContent: contentValue,
       ...(categoryId === 'language' && { score: scoreValue }),
@@ -110,31 +119,23 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
     };
 
     const formPatchData: patchData = {
-      path: 'competition',
+      path: categoryId,
       thermometerId: activityListId,
       patchThermometer: activityHistoryPatchData,
     };
 
-    if (list) {
-      try {
-        const res = await patchThermometer(formPatchData);
-        console.log('서버 응답:', res);
-        console.log('활동내역 수정 성공:', res.data);
-        updateActivityList();
-        resetForm();
-      } catch (error) {
-        console.error('Error creating data:', error);
-      }
-    } else {
-      try {
-        const res = await createThermometerData(formData);
-        console.log('서버 응답:', res);
+    try {
+      if (!list) {
+        const res = await createThermometerData(formData); //활동내역 등록
         console.log('활동내역 등록 성공:', res.data);
-        updateActivityList();
-        resetForm();
-      } catch (error) {
-        console.error('Error creating data:', error);
+      } else {
+        const res = await patchThermometer(formPatchData); //활동내역 수정
+        console.log('활동내역 수정 성공:', res.data);
       }
+      updateActivityList();
+      resetForm();
+    } catch (error) {
+      console.error('Error creating data:', error);
     }
   };
 
