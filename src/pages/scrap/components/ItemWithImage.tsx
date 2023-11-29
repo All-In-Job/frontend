@@ -104,6 +104,7 @@ const BookMarkWrapper = styled.div`
 `;
 
 const ItemTitle = styled.h4`
+  display: block;
   height: 52px;
   margin-bottom: 8px;
   color: var(--black-500, #121110);
@@ -124,8 +125,10 @@ const ItemTitle = styled.h4`
 `;
 
 const ItemHost = styled.span`
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: var(--black-200, #a0a09f);
-  text-align: center;
   font-family: SUIT;
   font-size: 16px;
   font-style: normal;

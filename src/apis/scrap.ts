@@ -13,10 +13,18 @@ export const scrapping = async (postData: formData) => {
   });
 };
 
-export const getUserScrap = async (path: string) => {
+export const getUserScrap = async (path: string, page: number) => {
   return userApi({
     method: 'GET',
     url: 'getUserScrap',
-    params: { path: path },
+    params: { path: path, page: page },
+  });
+};
+
+export const getUserScrapTotalCount = async (path: string, count: boolean) => {
+  return userApi({
+    method: 'GET',
+    url: 'getUserScrap',
+    params: { path: path, count: count },
   });
 };
