@@ -34,7 +34,6 @@ const ScrapSection: FC<Props> = ({ title, index }) => {
     setCurrentPage(pre => pre - 1);
   }
 
-  console.log(title);
   useEffect(() => {
     (async () => {
       try {
@@ -54,9 +53,7 @@ const ScrapSection: FC<Props> = ({ title, index }) => {
       <FilledBadge title={titleList[index]} />
       <VerticalAlign>
         <HorizontalItemList>
-          {scrapList.map(item => (
-            <ItemWithImage key={item.id} {...item} />
-          ))}
+          {scrapList && scrapList.map(item => <ItemWithImage key={item.id} {...item} />)}
         </HorizontalItemList>
         <PageController
           canBack={canBack}
@@ -97,4 +94,5 @@ const VerticalAlign = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* grid-column: span 12; */
 `;

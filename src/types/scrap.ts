@@ -4,10 +4,11 @@ export type Scrap = {
   mainImage: string;
   scrap: number;
   enterprise: string;
+  institution: string;
   title: string;
   Dday: string;
-  date: string;
   period: string;
+  closeDate: string;
   examDate: string;
   location: string;
   isScrap: boolean | undefined;

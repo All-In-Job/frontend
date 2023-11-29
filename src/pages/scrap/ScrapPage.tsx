@@ -19,7 +19,7 @@ const ScrapPage = () => {
 export default ScrapPage;
 
 const LeftBody = styled.main`
-  grid-column: 1 / 11;
+  grid-column: span 12;
   flex-direction: column;
   width: 100%;
 `;
