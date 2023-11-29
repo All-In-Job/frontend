@@ -22,7 +22,7 @@ import { InterestSelect } from './SelectList/InterestSelect';
 import { TitleSelect } from './SelectList/TitleSelect';
 
 export type ActivityList = {
-  path: string;
+  field: string;
   id: string;
   category: string;
   keyword: string;
@@ -43,7 +43,7 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
   const activityListId = useRecoilValue(idsState('activityListId'));
   const [categoryId, setCategoryId] = useRecoilState(idsState('categoryId'));
 
-  const setCategoryValue = useSetRecoilState(inputValuesState('category'));
+  const [categoryValue, setCategoryValue] = useRecoilState(inputValuesState('category'));
   const [keywordValue, setKeywordValue] = useRecoilState(inputValuesState('keyword'));
   const [titleValue, setTitleValue] = useRecoilState(inputValuesState('title'));
   const [contentValue, setContentValue] = useRecoilState(inputValuesState('content'));
@@ -74,7 +74,7 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
   useEffect(() => {
     if (list) {
       setCategoryId(tabId);
-      setCategoryValue(list.path || '');
+      setCategoryValue(list.field || '');
       setKeywordValue(list.category || '');
       setTitleValue(list.activeTitle || '');
       setContentValue(list.activeContent || '');
@@ -99,6 +99,7 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
 
     //등록하기
     const activityHistoryData: pathInfo = {
+      field: categoryValue,
       category: keywordValue,
       activeTitle: titleValue,
       activeContent: contentValue,
@@ -139,6 +140,8 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
     }
   };
 
+  console.log(list);
+
   return (
     <ModalBackground>
       <S.Form onSubmit={onSubmitFormData}>
@@ -149,7 +152,7 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
 
         <S.ContentWrap>
           <S.H2>{'활동내역 분야'}</S.H2>
-          <CategorySelect pathData={list && list.path} />
+          <CategorySelect pathData={list && list.field} />
         </S.ContentWrap>
 
         <S.ContentWrap>

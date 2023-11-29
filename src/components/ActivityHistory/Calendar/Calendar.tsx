@@ -11,6 +11,11 @@ import { inputValuesState } from 'store/activityHistory';
 import * as S from './Calendar.styes';
 // import { ReactComponent as CalendarIcon } from './res/img/calendar.svg';
 
+// type CalendarProps = {
+//   periodData: string | null | undefined;
+// };
+// { periodData }: CalendarProps
+// periodData={list && list.period}
 const Calendar = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
