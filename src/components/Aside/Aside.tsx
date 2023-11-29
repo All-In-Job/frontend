@@ -12,17 +12,7 @@ function Aside() {
         <S.LoginButton type='button' onClick={() => navigate('/login')}>
           로그인
         </S.LoginButton>
-        <S.AccountOptions>
-          <li>
-            <S.OptionsButton>아이디 찾기</S.OptionsButton>
-          </li>
-          <li>
-            <S.Solid />
-          </li>
-          <li>
-            <S.OptionsButton>회원가입</S.OptionsButton>
-          </li>
-        </S.AccountOptions>
+        <S.OptionsButton onClick={() => navigate('/login')}>회원가입</S.OptionsButton>
       </S.UserSideBar>
       {/*<MyInfoNav />*/}
 
