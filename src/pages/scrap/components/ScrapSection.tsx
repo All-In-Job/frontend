@@ -19,7 +19,9 @@ interface Props {
 const ScrapSection: FC<Props> = ({ title, index }) => {
   const [scrapList, setScrapList] = useState<Scrap[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPage = 10;
+  const totalPage = Math.ceil(scrapList.length / 4);
+
+  console.log(scrapList.length, totalPage);
 
   const canBack = currentPage !== 1;
   const canForward = currentPage < totalPage;
@@ -45,8 +47,6 @@ const ScrapSection: FC<Props> = ({ title, index }) => {
       }
     })();
   }, [title]);
-
-  console.log(scrapList);
 
   return (
     <>
