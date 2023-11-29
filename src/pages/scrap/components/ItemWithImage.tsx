@@ -20,6 +20,7 @@ const ItemWithImage = ({
   location,
   id,
   isScrap,
+  path,
 }: Scrap) => {
   const isQnet = period && examDate;
   const isLanguage = closeDate && examDate;
@@ -33,7 +34,7 @@ const ItemWithImage = ({
           <DateBadge title={Dday} />
         </Date>
         <BookMarkWrapper>
-          <ScrapButton id={id} isScrap={isScrap} fill={'primary'} />
+          <ScrapButton path={path} id={id} isScrap={isScrap} fill={'primary'} />
         </BookMarkWrapper>
       </ImageContainer>
       {!isQnet && !isLanguage ? (
@@ -120,7 +121,11 @@ const ItemTitle = styled.h4`
   font-weight: 700;
   line-height: 26px;
   &.rest {
+    display: block;
     height: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
 

@@ -12,4 +12,5 @@ export type Scrap = {
   examDate: string;
   location: string;
   isScrap: boolean | undefined;
+  path: string;
 };

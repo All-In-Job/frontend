@@ -8,12 +8,13 @@ import { scrapping } from 'apis/scrap';
 import * as S from './ScrapButton.styles';
 
 type ScrapButtonProps = {
+  path?: string;
   id: string | undefined;
   isScrap: boolean | undefined;
   fill: string;
 };
 
-export const ScrapButton = ({ id, isScrap, fill }: ScrapButtonProps) => {
+export const ScrapButton = ({ path, id, isScrap, fill }: ScrapButtonProps) => {
   const [isActive, setIsActive] = useState(isScrap);
   const homeCardList = useContext(HomeCardListContext);
   const { menuName } = useParams();
@@ -26,7 +27,7 @@ export const ScrapButton = ({ id, isScrap, fill }: ScrapButtonProps) => {
     }
 
     const postData = {
-      path: homeCardList?.getParams || menuName,
+      path: homeCardList?.getParams || menuName || path,
       scrapId: id,
     };
 
