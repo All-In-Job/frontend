@@ -21,13 +21,13 @@ type SignupFormInputFieldsType = Record<
 type FixedResponseType = Record<'fixedResponse', Record<string, string[]>>;
 type MainMajorsType = Record<'mainMajors', string[]>;
 
-// const interestsMap = {
-//   공모전: 'competition',
-//   대외활동: 'outside',
-//   인턴: 'intern',
-//   자격증: 'qnet',
-//   어학: 'language',
-// } as const;
+const interestsMap = {
+  공모전: 'competition',
+  대외활동: 'outside',
+  인턴: 'intern',
+  자격증: 'qnet',
+  어학: 'language',
+} as const;
 
 function InterestForm() {
   const { interestsState, setInterestsState, setMajorState, majorState } = useInterestForm();
@@ -47,27 +47,33 @@ function InterestForm() {
   const generateCorrectInterests = () => {
     const tempInterests: Array<object> = [];
     let i = 0;
-    // for (const key in interestsState.interests) {
-    //   tempInterests[i] = {
-    //     interest: interestsMap[key as TagName],
-    //     keyword: interestsState.interests[key as TagName],
-    //   };
-    //   i++;
-    // }
     for (const key in interestsState.interests) {
-      tempInterests[i] = { [key]: interestsState.interests[key as TagName] };
+      tempInterests[i] = {
+        interest: interestsMap[key as TagName],
+        keyword: interestsState.interests[key as TagName],
+      };
       i++;
     }
+    // for (const key in interestsState.interests) {
+    //   tempInterests[i] = { [key]: interestsState.interests[key as TagName] };
+    //   i++;
+    // }
     return tempInterests;
   };
 
   const submitButton = async () => {
     try {
+      console.log({
+        ...locationStateToServer,
+        major: majorState,
+        interestKeywords: generateCorrectInterests(),
+        // interests: generateCorrectInterests(),
+      });
       const res = await createUser({
         ...locationStateToServer,
         major: majorState,
-        // interestKeywords: generateCorrectInterests(),
-        interests: generateCorrectInterests(),
+        interestKeyword: generateCorrectInterests(),
+        // interests: generateCorrectInterests(),
       });
 
       if (res.status === 200) {
