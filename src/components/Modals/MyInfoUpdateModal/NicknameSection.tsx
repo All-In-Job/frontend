@@ -7,7 +7,7 @@ import theme from 'styles/theme';
 import { MyInfoUpdateContext } from './MyInfoUpdateModal';
 
 export const NicknameSection = () => {
-  const { formState, setFormState } = useContext(MyInfoUpdateContext);
+  const { state, setState } = useContext(MyInfoUpdateContext);
 
   useEffect(() => {
     // 닉네임 정보 요청
@@ -19,8 +19,8 @@ export const NicknameSection = () => {
       <StyledTitle>닉네임</StyledTitle>
       <StyledInput
         type='text'
-        value={formState.nickname}
-        onChange={e => setFormState({ ...formState, nickname: e.target.value })}
+        value={state.nickname}
+        onChange={e => setState({ ...state, nickname: e.target.value })}
       />
     </StyledContainer>
   );

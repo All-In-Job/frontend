@@ -6,32 +6,39 @@ import { MajorType, useSearch } from 'hooks/useSearch';
 import * as S from './InterestForm.style';
 
 export type Props = {
-  formState: InterestFormState;
-  setFormState: Dispatch<SetStateAction<InterestFormState>>;
+  majorState: InterestFormState['major'];
+  setMajorState: Dispatch<SetStateAction<InterestFormState['major']>>;
   majorType: MajorType;
+  fixedResponse: Record<string, string[]>;
+  mainMajors: string[];
 };
 
-export const SubMajorInput: FC<Props> = ({ formState, setFormState, majorType }) => {
+export const SubMajorInput: FC<Props> = ({
+  majorState,
+  setMajorState,
+  majorType,
+  mainMajors,
+  fixedResponse,
+}) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const { matchWord, searchedResults, setSearchedResults, mainMajors, fixedResponse, isLoading } =
-    useSearch();
+  const { matchWord, searchedResults, setSearchedResults } = useSearch();
 
   const getValueDepartmentInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (majorType === 'mainMajor' && mainMajors) {
       setSearchedResults(matchWord(mainMajors, e.target.value));
     }
     if (majorType === 'subMajor' && fixedResponse) {
-      const subMajors = Array.from(new Set(fixedResponse[formState.major.mainMajor]));
+      const subMajors = Array.from(new Set(fixedResponse[majorState.mainMajor]));
       setSearchedResults(matchWord(subMajors, e.target.value));
     }
 
     if (e.target.value !== '') setIsVisible(true);
     else {
       setIsVisible(false);
-      setFormState({ ...formState, major: { ...formState.major, [majorType]: '' } });
+      setMajorState({ ...majorState, [majorType]: '' });
     }
   };
 
@@ -44,7 +51,7 @@ export const SubMajorInput: FC<Props> = ({ formState, setFormState, majorType })
   };
 
   const onClickChoice = (major: string) => {
-    setFormState({ ...formState, major: { ...formState.major, [majorType]: major } });
+    setMajorState({ ...majorState, [majorType]: major });
 
     if (inputRef.current) {
       inputRef.current.value = major;
@@ -52,11 +59,11 @@ export const SubMajorInput: FC<Props> = ({ formState, setFormState, majorType })
     setIsVisible(false);
   };
 
-  if (isLoading) return <div>loading...</div>;
+  // if (isLoading) return <div>loading...</div>;
 
   return (
     <S.MajorDepartment
-      choicedepartment={formState.major.subMajor}
+      choicedepartment={majorState.subMajor}
       isVisible={isVisible}
       isInputFocused={isInputFocused}
     >
@@ -69,7 +76,7 @@ export const SubMajorInput: FC<Props> = ({ formState, setFormState, majorType })
         onBlur={handleInputBlur}
       />
       <S.ExpandMoreIcon
-        choicedepartment={formState.major.subMajor}
+        choicedepartment={majorState.subMajor}
         data-isvisible={isVisible}
         data-isinputfocused={isInputFocused}
       />

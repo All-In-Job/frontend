@@ -74,3 +74,31 @@ export const MyBlock = styled.div`
     color: ${palette.black500};
   }
 `;
+
+export const BtnContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+`;
+
+export const SubmitBtn = styled.button`
+  width: 180px;
+  padding: 12px 0;
+  border-radius: 8px;
+  color: #f6f6f6;
+  background-color: ${theme.palette.orange500};
+  font-size: ${textStyle.title02.fontSize};
+  line-height: ${textStyle.title02.lineHeight};
+  cursor: pointer;
+`;
+
+export const CancelBtn = styled.button`
+  width: 180px;
+  padding: 12px 0;
+  border-radius: 8px;
+  color: ${theme.palette.black300};
+  background-color: ${props => props.theme.palette.background.primary};
+  font-size: ${textStyle.title02.fontSize};
+  line-height: ${textStyle.title02.lineHeight};
+  cursor: pointer;
+`;

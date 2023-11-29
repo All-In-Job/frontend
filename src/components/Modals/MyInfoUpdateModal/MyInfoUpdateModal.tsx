@@ -1,57 +1,114 @@
-import { createContext, Dispatch, FC, FormEventHandler, SetStateAction, useState } from 'react';
+import {
+  FC,
+  Dispatch,
+  useState,
+  useEffect,
+  createContext,
+  SetStateAction,
+  FormEventHandler,
+} from 'react';
 
 import styled from '@emotion/styled';
 import { ReactComponent as CloseIcon } from 'assets/icons/close.svg';
+import { AxiosError } from 'axios';
 
-import { photos } from 'components/BasicInformation/PhotoList';
+import { updateProfile } from 'apis/myInfo';
+import { findUserProfile } from 'apis/user';
+import { profileImages } from 'components/BasicInformation/PhotoList';
 import { ModalBackground } from 'components/Modals/ModalBackground';
+import { InterestFormState, InterestTagsType } from 'hooks/useInterestForm';
+import theme from 'styles/theme';
 
 import { InterestFieldSection } from './InterestFieldSection';
 import { NicknameSection } from './NicknameSection';
 import { ProfileImageSection } from './ProfileImageSection';
 
 export type MyInfoUpdateModalContext = {
-  formState: MyInfoFormState;
-  setFormState: Dispatch<SetStateAction<MyInfoFormState>>;
+  state: MyInfoFormState;
+  setState: Dispatch<SetStateAction<MyInfoFormState>>;
 };
 export type MyInfoFormState = {
-  photo: string;
+  profileImage: string;
   nickname: string;
+  interestKeyword: { interest: string; keyword: string[] }[];
 };
-
-const MODAL_WIDTH_RATIO = 2.67;
-const MODAL_HEIGHT_RATIO = 1.15;
-
-export const MyInfoUpdateContext = createContext<MyInfoUpdateModalContext>({
-  formState: {
-    photo: photos[0],
-    nickname: '',
-  },
-  setFormState: () => {},
-});
+type InterestMapKey = keyof typeof interestMap;
 
 type Props = {
   isVisible: boolean;
   setIsVisible: Dispatch<SetStateAction<boolean>>;
 };
 
-export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
-  const [formState, setFormState] = useState<MyInfoFormState>({
-    photo: photos[0],
+export const MyInfoUpdateContext = createContext<MyInfoUpdateModalContext>({
+  state: {
+    profileImage: profileImages[0],
     nickname: '',
+    interestKeyword: [],
+  },
+  setState: () => {},
+});
+
+const interestMap = {
+  competition: '공모전',
+  intern: '인턴',
+  language: '어학',
+  outside: '대외활동',
+  qnet: '자격증',
+} as const;
+
+export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
+  const [tempInterests, setTempInterests] = useState<{ interests: InterestTagsType }>({
+    interests: {
+      공모전: [],
+      자격증: [],
+      인턴: [],
+      어학: [],
+      대외활동: [],
+    },
+  });
+  const [state, setState] = useState<MyInfoFormState>({
+    profileImage: profileImages[0],
+    nickname: '',
+    interestKeyword: [],
   });
 
   const requestMyInfoUpdate: FormEventHandler = e => {
     e.preventDefault();
-    console.log('formState:', formState);
-    // const res = await updateProfile(formState)
-    //   .then(res => console.log(res))
-    //   .catch(e => {
-    //      if (e instanceof AxiosError && e.response) {
-    //          console.log(e.response)
-    //      }
-    //    })
+    updateProfile(state)
+      .then(res => console.log(res))
+      .catch(e => {
+        if (e instanceof AxiosError && e.response) {
+          console.log(e.response);
+        }
+      });
   };
+
+  useEffect(() => {
+    findUserProfile().then(res => {
+      const data = res.data.data;
+      setState({
+        nickname: data.nickname,
+        profileImage: data.profileImage,
+        interestKeyword: data.interestKeyword,
+      });
+    });
+  }, [isVisible]);
+
+  useEffect(() => {
+    const tempObj: InterestFormState['interests'] = {
+      공모전: [],
+      인턴: [],
+      자격증: [],
+      어학: [],
+      대외활동: [],
+    };
+    state.interestKeyword.forEach(interest => {
+      tempObj[interestMap[interest.interest as InterestMapKey]] = interest.keyword;
+    });
+
+    console.log(tempObj);
+    setTempInterests({ interests: tempObj });
+  }, [state.interestKeyword]);
 
   const closeModal = () => {
     setIsVisible(false);
@@ -60,7 +117,7 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
   if (isVisible)
     return (
       <ModalBackground>
-        <MyInfoUpdateContext.Provider value={{ formState, setFormState }}>
+        <MyInfoUpdateContext.Provider value={{ state, setState }}>
           <StyledForm onSubmit={requestMyInfoUpdate}>
             <StyledHeader>
               <StyledTitle>프로필 수정</StyledTitle>
@@ -69,7 +126,15 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
 
             <ProfileImageSection />
             <NicknameSection />
-            <InterestFieldSection />
+            <div style={{ minHeight: 400 }}>
+              <InterestFieldSection
+                state={state}
+                setState={setState}
+                tempInterests={tempInterests}
+                setTempInterests={setTempInterests}
+              />
+            </div>
+            <StyledSubmit type='submit'>수정 완료</StyledSubmit>
           </StyledForm>
         </MyInfoUpdateContext.Provider>
       </ModalBackground>
@@ -79,17 +144,26 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
 
 const StyledForm = styled.form`
   background-color: white;
-  width: ${window.innerWidth / MODAL_WIDTH_RATIO}px;
-  height: ${window.innerHeight / MODAL_HEIGHT_RATIO}px;
+  width: 718px;
+  height: 950px;
   border-radius: 24px;
   padding: 40px;
+  overflow-y: auto;
 `;
 const StyledHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 36px;
 `;
 const StyledTitle = styled.h1`
   font-size: 24px;
+`;
+const StyledSubmit = styled.button`
+  background-color: ${theme.palette.orange500};
+  color: white;
+  width: 100%;
+  height: 48px;
+  border-radius: 99999px;
+  cursor: pointer;
 `;

@@ -17,7 +17,7 @@ type MajorDepartmentProps = {
 };
 
 type ChangeColorProps = {
-  isChangeColor: boolean;
+  isChangeColor: boolean | undefined;
 };
 
 export const ExpandMoreIcon = styled(ExpandMore)<ExpandMoreIconProps>`

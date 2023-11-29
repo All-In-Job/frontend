@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
-
-import axios from 'axios';
+import { useState } from 'react';
 
 type Results = string[];
 export type CareerResponseType = {
@@ -46,40 +44,6 @@ const pattern = (ch: string) => {
 
 export const useSearch = () => {
   const [searchedResults, setSearchedResults] = useState<string[]>();
-  const [mainMajors, setMainMajors] = useState<string[]>();
-  const [fixedResponse, setFixedResponse] = useState<Record<string, string[]>>();
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    // max perPage: 3000
-    const tempMainMajors: string[] = [];
-    setIsLoading(true);
-
-    axios
-      .get(
-        `https://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=${
-          import.meta.env.VITE_API_CAREER_KEY
-        }&svcType=api&svcCode=MAJOR&contentType=json&gubun=univ_list&thisPage=${1}&perPage=3000`,
-      )
-      .then(res => {
-        const majors = res.data.dataSearch.content as CareerResponseType[];
-
-        tempMainMajors.push(...majors.map(major => major.mClass));
-        setMainMajors([...tempMainMajors]);
-
-        setFixedResponse(getSubMajorsByMainMajor(majors));
-
-        setIsLoading(false);
-      });
-  }, []);
-
-  const getSubMajorsByMainMajor = (majors: CareerResponseType[]) => {
-    const temp: Record<string, string[]> = {};
-    for (const major of majors) {
-      temp[major.mClass] = major.facilName.split(',');
-    }
-    return temp;
-  };
 
   const isCharacterMatch = (query: string, target: string) => {
     const reg = new RegExp(query.split('').map(pattern).join('.*?'), 'i');
@@ -100,8 +64,5 @@ export const useSearch = () => {
     matchWord,
     searchedResults,
     setSearchedResults,
-    mainMajors,
-    isLoading,
-    fixedResponse,
   };
 };

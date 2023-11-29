@@ -7,7 +7,7 @@ import theme from 'styles/theme';
 
 import { BasicInformationContext } from './BasicInformation';
 
-export const photos = Array.from({ length: 12 }).map((_, idx) => {
+export const profileImages = Array.from({ length: 12 }).map((_, idx) => {
   return `https://storage.googleapis.com/allinjob-user-img/allinjob-profile-img/profileImg-${
     idx + 1
   }.jpg`;
@@ -18,7 +18,7 @@ export const PhotoList = () => {
 
   return (
     <StyledContainer>
-      {photos.map(photo => {
+      {profileImages.map(photo => {
         const isSamePhoto = photo === currentFormState.currentPhoto;
         return (
           <StyledPhoto

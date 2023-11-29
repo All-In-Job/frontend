@@ -14,7 +14,7 @@ import { ReactComponent as ArrowForwardIcon } from 'assets/icons/icon_arrow_forw
 import { ReactComponent as CheckCircleIcon } from 'assets/icons/icon_check_circle.svg';
 import { AxiosError } from 'axios';
 
-import { checkNickNameDuplicate, sendTokenSMS, validateTokenSNS } from 'apis/signup';
+import { checkNickNameDuplicate, sendTokenSMS, validateTokenSNS } from 'apis/user';
 import theme from 'styles/theme';
 
 import {

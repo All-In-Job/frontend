@@ -1,11 +1,21 @@
-import { createContext, Dispatch, FormEventHandler, SetStateAction, useState } from 'react';
+import {
+  createContext,
+  Dispatch,
+  FormEventHandler,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 
 import styled from '@emotion/styled';
+import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import { CareerResponseType } from 'hooks/useSearch';
 
 import { InputGroup } from './InputGroup';
 import { InputGroupHeader } from './InputGroupHeader';
-import { PhotoList, photos } from './PhotoList';
+import { PhotoList, profileImages } from './PhotoList';
 import { PhotoListHeader } from './PhotoListHeader';
 
 export type InputRuleType = {
@@ -35,7 +45,7 @@ const defaultState = {
     isAllChecked: false,
   },
   isPhoneValid: false,
-  currentPhoto: photos[0],
+  currentPhoto: profileImages[0],
 };
 
 export const BasicInformationContext = createContext<{
@@ -61,10 +71,40 @@ export const INPUT_RULES: Record<InputFieldType, InputRuleType> = {
 export const BasicInformation = () => {
   const navigate = useNavigate();
   const [currentFormState, setCurrentFormState] = useState(defaultState);
+  const [mainMajors, setMainMajors] = useState<string[]>();
+  const [fixedResponse, setFixedResponse] = useState<Record<string, string[]>>();
+
   const { email, provider } = useLocation().state as {
     email: string;
     provider: 'google' | 'kakao';
   };
+
+  const getSubMajorsByMainMajor = (majors: CareerResponseType[]) => {
+    const temp: Record<string, string[]> = {};
+    for (const major of majors) {
+      temp[major.mClass] = major.facilName.split(',');
+    }
+    return temp;
+  };
+
+  useEffect(() => {
+    // max perPage: 3000
+    const tempMainMajors: string[] = [];
+
+    axios
+      .get(
+        `https://www.career.go.kr/cnet/openapi/getOpenApi?apiKey=${
+          import.meta.env.VITE_API_CAREER_KEY
+        }&svcType=api&svcCode=MAJOR&contentType=json&gubun=univ_list&thisPage=${1}&perPage=3000`,
+      )
+      .then(res => {
+        const majors = res.data.dataSearch.content as CareerResponseType[];
+
+        tempMainMajors.push(...majors.map(major => major.mClass));
+        setMainMajors([...tempMainMajors]);
+        setFixedResponse(getSubMajorsByMainMajor(majors));
+      });
+  }, []);
 
   const updateRequestBody: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
@@ -78,7 +118,7 @@ export const BasicInformation = () => {
     };
 
     navigate('/signup/interest', {
-      state: { email, provider, ...payload },
+      state: { email, provider, fixedResponse, mainMajors, ...payload },
     });
   };
 
