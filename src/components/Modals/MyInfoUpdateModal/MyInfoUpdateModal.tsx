@@ -15,6 +15,7 @@ import { AxiosError } from 'axios';
 import { updateProfile } from 'apis/myInfo';
 import { findUserProfile } from 'apis/user';
 import { profileImages } from 'components/BasicInformation/PhotoList';
+import { TagName } from 'components/InterestForm/InterestFieldSetup';
 import { ModalBackground } from 'components/Modals/ModalBackground';
 import { InterestFormState, InterestTagsType } from 'hooks/useInterestForm';
 import theme from 'styles/theme';
@@ -38,6 +39,14 @@ type Props = {
   isVisible: boolean;
   setIsVisible: Dispatch<SetStateAction<boolean>>;
 };
+
+const interestMapKorean = {
+  공모전: 'competition',
+  인턴: 'intern',
+  어학: 'language',
+  자격증: 'qnet',
+  대외활동: 'outside',
+} as const;
 
 export const MyInfoUpdateContext = createContext<MyInfoUpdateModalContext>({
   state: {
@@ -66,6 +75,7 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
       대외활동: [],
     },
   });
+
   const [state, setState] = useState<MyInfoFormState>({
     profileImage: profileImages[0],
     nickname: '',
@@ -106,9 +116,22 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
       tempObj[interestMap[interest.interest as InterestMapKey]] = interest.keyword;
     });
 
-    console.log(tempObj);
     setTempInterests({ interests: tempObj });
-  }, [state.interestKeyword]);
+  }, [isVisible]);
+
+  useEffect(() => {
+    let i = 0;
+    const tempInterestKeywords: { interest: string; keyword: string[] }[] = [];
+    for (const key in tempInterests.interests) {
+      tempInterestKeywords[i] = {
+        interest: interestMapKorean[key as TagName],
+        keyword: tempInterests.interests[key as TagName],
+      };
+      i++;
+    }
+
+    setState({ ...state, interestKeyword: tempInterestKeywords });
+  }, [tempInterests]);
 
   const closeModal = () => {
     setIsVisible(false);
@@ -128,8 +151,6 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
             <NicknameSection />
             <div style={{ minHeight: 400 }}>
               <InterestFieldSection
-                state={state}
-                setState={setState}
                 tempInterests={tempInterests}
                 setTempInterests={setTempInterests}
               />
