@@ -6,16 +6,16 @@ import { MajorType, useSearch } from 'hooks/useSearch';
 import * as S from './InterestForm.style';
 
 export type Props = {
-  formState: InterestFormState;
-  setFormState: Dispatch<SetStateAction<InterestFormState>>;
+  majorState: InterestFormState['major'];
+  setMajorState: Dispatch<SetStateAction<InterestFormState['major']>>;
   majorType: MajorType;
   fixedResponse: Record<string, string[]>;
   mainMajors: string[];
 };
 
 export const SubMajorInput: FC<Props> = ({
-  formState,
-  setFormState,
+  majorState,
+  setMajorState,
   majorType,
   mainMajors,
   fixedResponse,
@@ -31,14 +31,14 @@ export const SubMajorInput: FC<Props> = ({
       setSearchedResults(matchWord(mainMajors, e.target.value));
     }
     if (majorType === 'subMajor' && fixedResponse) {
-      const subMajors = Array.from(new Set(fixedResponse[formState.major.mainMajor]));
+      const subMajors = Array.from(new Set(fixedResponse[majorState.mainMajor]));
       setSearchedResults(matchWord(subMajors, e.target.value));
     }
 
     if (e.target.value !== '') setIsVisible(true);
     else {
       setIsVisible(false);
-      setFormState({ ...formState, major: { ...formState.major, [majorType]: '' } });
+      setMajorState({ ...majorState, [majorType]: '' });
     }
   };
 
@@ -51,7 +51,7 @@ export const SubMajorInput: FC<Props> = ({
   };
 
   const onClickChoice = (major: string) => {
-    setFormState({ ...formState, major: { ...formState.major, [majorType]: major } });
+    setMajorState({ ...majorState, [majorType]: major });
 
     if (inputRef.current) {
       inputRef.current.value = major;
@@ -63,7 +63,7 @@ export const SubMajorInput: FC<Props> = ({
 
   return (
     <S.MajorDepartment
-      choicedepartment={formState.major.subMajor}
+      choicedepartment={majorState.subMajor}
       isVisible={isVisible}
       isInputFocused={isInputFocused}
     >
@@ -76,7 +76,7 @@ export const SubMajorInput: FC<Props> = ({
         onBlur={handleInputBlur}
       />
       <S.ExpandMoreIcon
-        choicedepartment={formState.major.subMajor}
+        choicedepartment={majorState.subMajor}
         data-isvisible={isVisible}
         data-isinputfocused={isInputFocused}
       />
