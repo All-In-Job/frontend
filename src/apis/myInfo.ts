@@ -4,7 +4,7 @@ import { userApi } from './index';
 
 export const updateProfile = async (payload: MyInfoFormState) => {
   return await userApi({
-    method: 'POST',
+    method: 'PATCH',
     url: 'updateProfile',
     data: payload,
   });
