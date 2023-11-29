@@ -10,12 +10,14 @@ import {
 
 import styled from '@emotion/styled';
 import { ReactComponent as CloseIcon } from 'assets/icons/close.svg';
-// import { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 
-// import { updateProfile } from 'apis/myInfo';
+import { updateProfile } from 'apis/myInfo';
+import { findUserProfile } from 'apis/user';
 import { profileImages } from 'components/BasicInformation/PhotoList';
 import { ModalBackground } from 'components/Modals/ModalBackground';
 import { InterestFormState, InterestTagsType } from 'hooks/useInterestForm';
+import theme from 'styles/theme';
 
 import { InterestFieldSection } from './InterestFieldSection';
 import { NicknameSection } from './NicknameSection';
@@ -72,34 +74,25 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
 
   const requestMyInfoUpdate: FormEventHandler = e => {
     e.preventDefault();
-    // updateProfile(state)
-    //   .then(res => console.log(res))
-    //   .catch(e => {
-    //     if (e instanceof AxiosError && e.response) {
-    //       console.log(e.response);
-    //     }
-    //   });
+    updateProfile(state)
+      .then(res => console.log(res))
+      .catch(e => {
+        if (e instanceof AxiosError && e.response) {
+          console.log(e.response);
+        }
+      });
   };
 
   useEffect(() => {
-    setState({
-      nickname: '',
-      profileImage: '',
-      interestKeyword: [
-        { interest: 'competition', keyword: ['기획/아이디어', '광고/마케팅'] },
-        { interest: 'intern', keyword: ['경영/사무', '마케팅/광고/홍보'] },
-      ],
+    findUserProfile().then(res => {
+      const data = res.data.data;
+      setState({
+        nickname: data.nickname,
+        profileImage: data.profileImage,
+        interestKeyword: data.interestKeyword,
+      });
     });
-
-    // findUserProfile().then(res => {
-    //   const data = res.data.data;
-    //   setState({
-    //     nickname: data.nickname,
-    //     profileImage: data.profileImage,
-    //     interestKeyword: data.interestKeyword,
-    //   });
-    // });
-  }, []);
+  }, [isVisible]);
 
   useEffect(() => {
     const tempObj: InterestFormState['interests'] = {
@@ -133,12 +126,15 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
 
             <ProfileImageSection />
             <NicknameSection />
-            <InterestFieldSection
-              state={state}
-              setState={setState}
-              tempInterests={tempInterests}
-              setTempInterests={setTempInterests}
-            />
+            <div style={{ minHeight: 400 }}>
+              <InterestFieldSection
+                state={state}
+                setState={setState}
+                tempInterests={tempInterests}
+                setTempInterests={setTempInterests}
+              />
+            </div>
+            <StyledSubmit type='submit'>수정 완료</StyledSubmit>
           </StyledForm>
         </MyInfoUpdateContext.Provider>
       </ModalBackground>
@@ -149,9 +145,10 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
 const StyledForm = styled.form`
   background-color: white;
   width: 718px;
-  height: 1123px;
+  height: 950px;
   border-radius: 24px;
   padding: 40px;
+  overflow-y: auto;
 `;
 const StyledHeader = styled.div`
   display: flex;
@@ -161,4 +158,12 @@ const StyledHeader = styled.div`
 `;
 const StyledTitle = styled.h1`
   font-size: 24px;
+`;
+const StyledSubmit = styled.button`
+  background-color: ${theme.palette.orange500};
+  color: white;
+  width: 100%;
+  height: 48px;
+  border-radius: 99999px;
+  cursor: pointer;
 `;
