@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import categoryList from 'components/ActivityHistory/data/category.json';
+import { categoryList } from 'components/ActivityHistory/data/category';
 import { ReactComponent as ExpandMore } from 'components/ActivityHistory/res/img/expand_more.svg';
 import * as S from 'components/Modals/ActivityHistoryModal/ActivityHistoryModal.styles';
 import { idsState, inputValuesState } from 'store/activityHistory';

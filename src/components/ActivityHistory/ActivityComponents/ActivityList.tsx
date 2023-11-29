@@ -11,7 +11,6 @@ type ActivityListProps = {
 };
 
 export const ActivityList = ({ activityList, onEdit, onDeleteFormData }: ActivityListProps) => {
-  console.log(activityList);
   return (
     <>
       {activityList.map(list => {

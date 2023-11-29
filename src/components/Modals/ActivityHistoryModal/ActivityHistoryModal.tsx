@@ -28,8 +28,8 @@ export type ActivityList = {
   keyword: string;
   activeTitle: string;
   activeContent: string;
-  period?: string;
-  score?: string;
+  period: string;
+  score: string;
 };
 
 type listProps = {
@@ -140,8 +140,6 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
     }
   };
 
-  console.log(list);
-
   return (
     <ModalBackground>
       <S.Form onSubmit={onSubmitFormData}>
@@ -179,7 +177,7 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
         {categoryId === 'intern' && (
           <S.ContentWrap>
             <S.H2>{'활동 기간'}</S.H2>
-            <Calendar />
+            <Calendar periodData={list && list.period} />
           </S.ContentWrap>
         )}
 
