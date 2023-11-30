@@ -85,7 +85,10 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
   const requestMyInfoUpdate: FormEventHandler = e => {
     e.preventDefault();
     updateProfile(state)
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res);
+        setIsVisible(false);
+      })
       .catch(e => {
         if (e instanceof AxiosError && e.response) {
           console.log(e.response);
