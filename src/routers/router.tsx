@@ -68,6 +68,10 @@ export const router = createBrowserRouter([
         loader: getUserProfile,
       },
       {
+        path: 'scrap',
+        element: <ScrapPage />,
+      },
+      {
         path: 'find-id',
         element: <FindID />,
       },
