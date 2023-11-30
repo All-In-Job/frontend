@@ -5,7 +5,7 @@ export type ActivityHistory = {
 };
 
 export type ActivityListData = {
-  path: string;
+  field: string;
   id: string;
   category: string;
   keyword: string;

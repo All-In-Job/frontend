@@ -4,6 +4,7 @@ import { ActivityListData } from 'types/activityHistory';
 import { userApi } from './index';
 
 export type pathInfo = {
+  field: string;
   category: string;
   activeTitle: string;
   activeContent: string;
