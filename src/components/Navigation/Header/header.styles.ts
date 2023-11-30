@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 
 export const HeaderContainer = styled.header`
-  min-width: 1920px;
+  width: 100%;
+  min-width: 1200px;
   display: flex;
   justify-content: center;
   align-items: center;

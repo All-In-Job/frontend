@@ -4,7 +4,8 @@ export const COLUMN_WIDTH = 78;
 
 export const Layout = styled.div`
   position: relative;
-  min-width: 1920px;
+  width: 100%;
+  min-width: 1200px;
   display: grid;
   grid-template-columns: repeat(12, ${COLUMN_WIDTH}px);
   column-gap: 24px;
