@@ -73,7 +73,6 @@ export default ScrapSection;
 const HorizontalItemList = styled.ul`
   display: flex;
   width: 100%;
-  overflow-x: scroll;
   white-space: nowrap;
 `;
 
