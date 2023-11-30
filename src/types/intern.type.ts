@@ -8,4 +8,5 @@ export type Inter = {
   closeDate: string;
   location: string;
   title: string;
+  isScrap: boolean | undefined;
 };

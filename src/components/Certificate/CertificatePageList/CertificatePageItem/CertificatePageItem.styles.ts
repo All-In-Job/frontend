@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
 
 import theme from 'styles/theme';
 
@@ -16,7 +15,7 @@ export const Title = styled.h3`
   ${textStyle.title11}
 `;
 
-export const CertificateInfo = styled(Link)`
+export const CertificateInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 36px;

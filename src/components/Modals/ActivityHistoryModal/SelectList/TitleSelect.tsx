@@ -10,7 +10,11 @@ type QueryConfig = {
   [category: string]: { [key: string]: string };
 };
 
-export const TitleSelect = () => {
+type TitleSelectProps = {
+  titleData: string | null;
+};
+
+export const TitleSelect = ({ titleData }: TitleSelectProps) => {
   const categoryId = useRecoilValue(idsState('categoryId'));
   const keywordValue = useRecoilValue(inputValuesState('keyword'));
   const [activityData, setActivityData] = useState<string[]>([]);
@@ -66,6 +70,7 @@ export const TitleSelect = () => {
         onChange={onChangeInputTitleValue}
         onFocus={onFocusInput}
         onBlur={onBlurInput}
+        disabled={titleData ? true : false}
       />
       {isVisibleTitle && (
         <S.DropdownContainer>

@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios';
 import { createBrowserRouter } from 'react-router-dom';
 
-
 import { getLoginUserInfo } from 'apis/user';
 import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
 import { BasicInformation } from 'components/BasicInformation/BasicInformation';
@@ -66,6 +65,11 @@ export const router = createBrowserRouter([
       {
         path: 'passion-temperature',
         element: <ActivityHistory />,
+        loader: getUserProfile,
+      },
+      {
+        path: 'scrap',
+        element: <ScrapPage />,
       },
       {
         path: 'find-id',
@@ -78,12 +82,14 @@ export const router = createBrowserRouter([
           {
             path: ':categoryId',
             element: <MenuList />,
+            loader: getUserProfile,
           },
         ],
       },
       {
-        path: ':menuName/:categoryId/:detailId',
+        path: ':menuName/detail/:detailId',
         element: <DetailPage />,
+        loader: getUserProfile,
       },
       {
         path: ':menuName/newpost',

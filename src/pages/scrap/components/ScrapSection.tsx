@@ -1,11 +1,12 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { Scrap } from 'types/scrap';
 
+import { getUserScrap, getUserScrapTotalCount } from 'apis/scrap';
 import Badge from 'pages/home/AsideProfile/components/Badge';
 import ItemWithImage from 'pages/scrap/components/ItemWithImage';
 import PageController from 'pages/scrap/components/PageController';
-import { competitions } from 'pages/scrap/mock/competitions';
 
 const titleList = ['공모전', '대외활동', '어학', '자격증', '인턴'];
 
@@ -15,9 +16,10 @@ interface Props {
 }
 
 const ScrapSection: FC<Props> = ({ title, index }) => {
-  console.log(title);
+  const [scrapList, setScrapList] = useState<Scrap[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPage = 10;
+  const [totalCount, setTotalCount] = useState<number>(1);
+  const totalPage = Math.ceil(totalCount / 4);
 
   const canBack = currentPage !== 1;
   const canForward = currentPage < totalPage;
@@ -32,14 +34,26 @@ const ScrapSection: FC<Props> = ({ title, index }) => {
     setCurrentPage(pre => pre - 1);
   }
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await getUserScrap(title, currentPage);
+        const count = await getUserScrapTotalCount(title, true);
+        setScrapList(res.data.data);
+        setTotalCount(count.data.data);
+        console.log('호출 성공', res.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [title, currentPage]);
+
   return (
     <>
       <FilledBadge title={titleList[index]} />
       <VerticalAlign>
         <HorizontalItemList>
-          {competitions.map(item => (
-            <ItemWithImage key={item.id} {...item} />
-          ))}
+          {scrapList && scrapList.map(item => <ItemWithImage key={item.id} {...item} />)}
         </HorizontalItemList>
         <PageController
           canBack={canBack}
@@ -59,7 +73,6 @@ export default ScrapSection;
 const HorizontalItemList = styled.ul`
   display: flex;
   width: 100%;
-  overflow-x: scroll;
   white-space: nowrap;
 `;
 
@@ -80,4 +93,5 @@ const VerticalAlign = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* grid-column: span 12; */
 `;

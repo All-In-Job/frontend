@@ -29,6 +29,7 @@ export type MyInfoUpdateModalContext = {
   setState: Dispatch<SetStateAction<MyInfoFormState>>;
 };
 export type MyInfoFormState = {
+  email?: string;
   profileImage: string;
   nickname: string;
   interestKeyword: { interest: string; keyword: string[] }[];

@@ -18,15 +18,9 @@ type CategorySelectProps = {
 };
 
 export const CategorySelect = ({ pathData }: CategorySelectProps) => {
-  const setCategoryId = useSetRecoilState(idsState('categoryId'));
+  const setCategoryId = useSetRecoilState(idsState('categoryId')); //path 값
   const [categoryValue, setCategoryValue] = useRecoilState(inputValuesState('category'));
   const [categoryOptions, setCategoryOptions] = useState(false);
-
-  useEffect(() => {
-    if (pathData) {
-      setCategoryId(pathData);
-    }
-  }, [pathData]);
 
   const onSelectCategory = (category: InterestList) => {
     setCategoryId(category.id);
@@ -40,6 +34,14 @@ export const CategorySelect = ({ pathData }: CategorySelectProps) => {
 
   const onBlurInput = () => setCategoryOptions(false);
 
+  useEffect(() => {
+    if (pathData) {
+      setCategoryValue(pathData);
+    }
+  }, [pathData]);
+
+  console.log(pathData);
+
   return (
     <S.SelectBox show={categoryOptions}>
       <label>
@@ -50,6 +52,7 @@ export const CategorySelect = ({ pathData }: CategorySelectProps) => {
           onClick={handleCategoryToggle}
           onBlur={onBlurInput}
           readOnly
+          disabled={pathData ? true : false}
         />
         <ExpandMore />
       </label>

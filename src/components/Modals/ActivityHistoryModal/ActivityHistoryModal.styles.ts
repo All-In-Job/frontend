@@ -97,7 +97,9 @@ export const SelectInput = styled.input`
   :focus {
     color: ${props => props.theme.palette.orange500};
     border: 1px solid ${props => props.theme.palette.orange500};
-    /* border-radius: 4px 4px 0px 0px; */
+  }
+  :disabled {
+    color: ${props => props.theme.palette.black300};
   }
 `;
 
