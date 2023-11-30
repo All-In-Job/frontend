@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { Scrap } from 'types/scrap';
 
 import { getUserScrap, getUserScrapTotalCount } from 'apis/scrap';
+import { NoResult } from 'components/Error/NoResult';
 import Badge from 'pages/home/AsideProfile/components/Badge';
 import ItemWithImage from 'pages/scrap/components/ItemWithImage';
 import PageController from 'pages/scrap/components/PageController';
@@ -53,7 +54,11 @@ const ScrapSection: FC<Props> = ({ title, index }) => {
       <FilledBadge title={titleList[index]} />
       <VerticalAlign>
         <HorizontalItemList>
-          {scrapList && scrapList.map(item => <ItemWithImage key={item.id} {...item} />)}
+          {scrapList ? (
+            scrapList.map(item => <ItemWithImage key={item.id} {...item} />)
+          ) : (
+            <NoResult />
+          )}
         </HorizontalItemList>
         <PageController
           canBack={canBack}
@@ -73,7 +78,6 @@ export default ScrapSection;
 const HorizontalItemList = styled.ul`
   display: flex;
   width: 100%;
-  white-space: nowrap;
 `;
 
 const FilledBadge = styled(Badge)`
