@@ -49,6 +49,7 @@ export const NewPost = () => {
   };
 
   const editorToHtml = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+  console.log(editorToHtml);
 
   const SubmitValue = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
