@@ -70,6 +70,7 @@ const Calendar = ({ periodData }: CalendarProps) => {
         selected={endDate}
         onChange={handleEndDateChange}
         dateFormat='yyyy.MM'
+        minDate={startDate}
         showMonthYearPicker
         placeholderText='시작년월 선택'
         locale={ko}
