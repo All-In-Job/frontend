@@ -16,16 +16,25 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
 
   const navigate = useNavigate();
 
+  // const googleLogin = useGoogleLogin({
+  //   onSuccess: codeResponse => setSocialAccessToken(codeResponse.access_token),
+  //   onError: error => console.log('Login Failed:', error),
+  // });
+
   const googleLogin = useGoogleLogin({
-    onSuccess: codeResponse => setSocialAccessToken(codeResponse.access_token),
+    flow: 'auth-code',
+    redirect_uri: `${import.meta.env.VITE_API_SCHEME}`,
+    onSuccess: codeResponse => setSocialAccessToken(codeResponse.code),
     onError: error => console.log('Login Failed:', error),
   });
+
+  console.log(socialAccessToken);
 
   const openKakaoPopupWindow = () => {
     const popup = window.open(
       `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${
         import.meta.env.VITE_API_KAKAO_CLIENT_ID
-      }&redirect_uri=http://${location.host}/&scope=account_email`,
+      }&redirect_uri=${import.meta.env.VITE_API_SCHEME}://${location.host}/&scope=account_email`,
       'PopupWin',
       'width=500,height=600',
     );
@@ -46,7 +55,9 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
     const { data } = await axios.post(
       `https://kauth.kakao.com/oauth/token?client_id=${
         import.meta.env.VITE_API_KAKAO_CLIENT_ID
-      }&redirect_uri=http://${location.host}/&code=${token}&grant_type=authorization_code`,
+      }&redirect_uri=${import.meta.env.VITE_API_SCHEME}://${
+        location.host
+      }/&code=${token}&grant_type=authorization_code`,
     );
     setSocialAccessToken(data.access_token);
   };
