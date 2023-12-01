@@ -27,12 +27,15 @@ export const ProfileBox = styled.div`
   padding: 8px 0;
 `;
 
-export const ProfileImgWrapper = styled.div`
+export const ProfileImgWrapper = styled.div<{ image: string }>`
   width: 64px;
   height: 64px;
   border-radius: 100%;
   border: 3px solid #fd6b36;
   margin-bottom: 8px;
+  background-image: url(${props => props.image});
+  background-position: center;
+  background-size: cover;
 `;
 
 export const ProfileNickname = styled.p`
