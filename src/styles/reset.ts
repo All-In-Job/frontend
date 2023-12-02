@@ -72,5 +72,14 @@ export const resetCSS = css`
   }
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px inset white;
-  }   
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 `;

@@ -59,8 +59,8 @@ export const INPUT_RULES: Record<InputFieldType, InputRuleType> = {
     errorMsg: '2자리 이상의 한글만 입력해주세요.',
   },
   nickname: {
-    regex: /^[ㄱ-ㅎ가-힣a-zA-Z]{2,}$/,
-    errorMsg: '2자리 이상의 영문, 한글만 입력해주세요.',
+    regex: /^[ㄱ-ㅎ가-힣a-zA-Z0-9]{2,}$/,
+    errorMsg: '2자리 이상의 영문, 한글, 숫자를 입력해주세요.',
   },
   phone: {
     regex: /^(01[016789])[0-9]{4}[0-9]{4}$/,
