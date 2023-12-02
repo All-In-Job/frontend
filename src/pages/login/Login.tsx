@@ -1,9 +1,13 @@
+import { useNavigate } from 'react-router-dom';
+
 import { deleteUser } from 'apis/deleteUser';
 import SocialLoginButton from 'components/Buttons/SocialLoginBtn';
 
 import * as S from './login.styles';
 
 function Login() {
+  const navigate = useNavigate();
+
   const handleDeleteUser = async () => {
     const inputValue = prompt('탈퇴할 계정의 이메일을 입력해주세요.');
     if (inputValue) {
@@ -18,8 +22,8 @@ function Login() {
     <S.LoginContainer>
       <S.LoginWrapper>
         <S.LoginBox>
-          <S.LogoBox src='/src/assets/images/mainLogo.png' />
-          <S.Logo>ALL IN JOB</S.Logo>
+          <S.LogoBox src='/src/assets/images/mainLogo.png' onClick={() => navigate('/')} />
+          <S.Logo onClick={() => navigate('/')}>ALL IN JOB</S.Logo>
 
           <S.divisionLine>
             <div style={{ flexGrow: '1', height: '1px', backgroundColor: '#E1E2E4' }}></div>

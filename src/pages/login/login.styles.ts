@@ -27,6 +27,7 @@ export const LoginBox = styled.div`
 
 export const LogoBox = styled.img`
   width: 292px;
+  cursor: pointer;
 `;
 
 export const Logo = styled.div`
