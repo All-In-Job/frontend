@@ -23,7 +23,6 @@ function Login() {
 
           <S.divisionLine>
             <div style={{ flexGrow: '1', height: '1px', backgroundColor: '#E1E2E4' }}></div>
-            <span style={{ margin: '0 4px', padding: '0' }}>OR</span>
             <div style={{ flexGrow: '1', height: '1px', backgroundColor: '#E1E2E4' }}></div>
           </S.divisionLine>
           <button type='button' onClick={handleDeleteUser} style={{ backgroundColor: 'red' }}>
