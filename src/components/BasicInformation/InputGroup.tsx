@@ -210,7 +210,7 @@ const PhoneInput: FC<
       </S.FlexRow>
       <S.FlexRow style={{ marginTop: '12px', gap: '8px' }}>
         <S.Input
-          type='text'
+          type='number'
           placeholder={isCodeRequested ? '인증 번호를 입력하세요' : ''}
           name='code'
           disabled={!isCodeRequested}
@@ -259,6 +259,7 @@ const NicknameInput: FC<InputProps> = ({ rule, validateInput }) => {
   };
 
   const selectErrorMessage = () => {
+    console.log(value, isValid);
     if (value && !isValid) return INPUT_RULES.nickname.errorMsg;
     if (isAvailable === false) return '이미 회원가입된 회원입니다.';
   };

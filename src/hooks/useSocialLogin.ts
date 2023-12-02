@@ -21,11 +21,52 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
     onError: error => console.log('Login Failed:', error),
   });
 
+  // const googleLogin = useGoogleLogin({
+  //   flow: 'auth-code',
+  //   redirect_uri: `${import.meta.env.VITE_API_SCHEME}`,
+  //   onSuccess: codeResponse => {
+  // const oAuth2Client = new OAuth2Client(
+  //   import.meta.env.VITE_API_GOOGLE_CLIENT_ID,
+  //   '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',
+  //   `${import.meta.env.VITE_API_SCHEME}://${location.host}`,
+  // );
+  // oAuth2Client.getToken(codeResponse.code).then(res => {
+  //   console.log(res);
+  // });
+
+  // axios
+  //   .post(
+  //     'https://oauth2.googleapis.com/token',
+  //     {
+  //       code:
+  //         codeResponse.code +
+  //         `&client_id=${
+  //           import.meta.env.VITE_API_GOOGLE_CLIENT_ID
+  //         }&client_secret=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&redirect_uri=${
+  //           import.meta.env.VITE_API_SCHEME
+  //         }://${location.host}&grant_type=authorization_code`,
+  //     },
+  //     {
+  //       headers: {
+  //         'content-type': 'x-www-form-urlencoded',
+  //       },
+  //     },
+  //   )
+  //   .then(res => {
+  //     console.log(res);
+  //     // setSocialAccessToken(res.access_token);
+  //   });
+  //   },
+  //   onError: error => console.log('Login Failed:', error),
+  // });
+
+  console.log(socialAccessToken);
+
   const openKakaoPopupWindow = () => {
     const popup = window.open(
       `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${
         import.meta.env.VITE_API_KAKAO_CLIENT_ID
-      }&redirect_uri=http://${location.host}/&scope=account_email`,
+      }&redirect_uri=${import.meta.env.VITE_API_SCHEME}://${location.host}/&scope=account_email`,
       'PopupWin',
       'width=500,height=600',
     );
@@ -46,7 +87,9 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
     const { data } = await axios.post(
       `https://kauth.kakao.com/oauth/token?client_id=${
         import.meta.env.VITE_API_KAKAO_CLIENT_ID
-      }&redirect_uri=http://${location.host}/&code=${token}&grant_type=authorization_code`,
+      }&redirect_uri=${import.meta.env.VITE_API_SCHEME}://${
+        location.host
+      }/&code=${token}&grant_type=authorization_code`,
     );
     setSocialAccessToken(data.access_token);
   };
