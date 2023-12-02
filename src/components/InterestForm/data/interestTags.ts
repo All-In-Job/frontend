@@ -61,7 +61,17 @@ export const interestTags = [
   },
   {
     name: '어학',
-    keyWords: ['영어', '중국어', '스페인어', '일본어', '포르투갈어', '아랍어'],
+    // keyWords: ['영어', '중국어', '스페인어', '일본어', '포르투갈어', '아랍어'],
+    keyWords: [
+      'TOEIC',
+      'TOEIC (Bridge)',
+      'TOEIC (Speaking Writing)',
+      'TOEIC (Writing)',
+      'TOEIC (Speaking)',
+      'JPT',
+      'SJPT일본어 말하기 시험',
+      'TSC중국어 말하기 시험',
+    ],
   },
   {
     name: '인턴',
