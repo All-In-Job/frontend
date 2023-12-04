@@ -2,15 +2,19 @@ import { useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 
+import { findManyThermometer } from 'apis/thermometer';
+import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
 import { FlexColumnContainer } from 'pages/home/PassionTemperature/passionTemperature.style';
 import PassionThermometer from 'pages/home/PassionTemperature/Thermometer';
 import { thermometerPercentList } from 'pages/home/PassionTemperature/Thermometer/mock';
 
 import Indicator from './Indicator';
 import TemperatureCategory from './TemperatureCategory';
+import { TemperatureCategoryList } from './type';
 import { getTotalWidth } from './utils';
 
 const PassionTemperature = () => {
+  const [categoryList, setCategoryList] = useState<TemperatureCategoryList>();
   const temperatureRef = useRef<HTMLElement>(null);
   const [temperatureWidth, setTemperatureWidth] = useState(0);
   const indicatorRef = useRef<HTMLElement>(null);
@@ -33,7 +37,18 @@ const PassionTemperature = () => {
   useEffect(() => {
     if (indicatorRef.current == null) return;
     setIndicatorWidth(indicatorRef.current.clientWidth);
+    updateCategoryList();
   }, []);
+
+  const updateCategoryList = async () => {
+    try {
+      const res = await findManyThermometer();
+      setCategoryList(res.data);
+    } catch (error) {
+      console.log('Error getting data:', error);
+      throw error;
+    }
+  };
 
   const totalWidth = getTotalWidth(temperatureWidth, thermometerPercentList, indicatorWidth);
   return (
@@ -48,7 +63,8 @@ const PassionTemperature = () => {
           thermometerPercentList={thermometerPercentList}
         />
       </TemperatureContainer>
-      <TemperatureCategory />
+      {categoryList && <TemperatureCategory categoryList={categoryList} />}
+      <ActivityHistory />
     </Container>
   );
 };
@@ -56,6 +72,7 @@ const PassionTemperature = () => {
 export default PassionTemperature;
 
 const Container = styled(FlexColumnContainer)`
+  grid-column: span 12;
   height: 128px;
   max-width: 1155px;
   min-width: 600px;
