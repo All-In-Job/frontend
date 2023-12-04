@@ -4,10 +4,11 @@ import styled from '@emotion/styled';
 import { Scrap } from 'types/scrap';
 
 import { getUserScrap, getUserScrapTotalCount } from 'apis/scrap';
-import { NoResult } from 'components/Error/NoResult';
 import Badge from 'pages/home/AsideProfile/components/Badge';
 import ItemWithImage from 'pages/scrap/components/ItemWithImage';
 import PageController from 'pages/scrap/components/PageController';
+
+import { NoResultScrap } from './NoResultScrap';
 
 const titleList = ['공모전', '대외활동', '어학', '자격증', '인턴'];
 
@@ -52,23 +53,25 @@ const ScrapSection: FC<Props> = ({ title, index }) => {
   return (
     <>
       <FilledBadge title={titleList[index]} />
-      <VerticalAlign>
-        <HorizontalItemList>
-          {scrapList ? (
-            scrapList.map(item => <ItemWithImage key={item.id} {...item} />)
-          ) : (
-            <NoResult />
-          )}
-        </HorizontalItemList>
-        <PageController
-          canBack={canBack}
-          canForward={canForward}
-          currentPage={currentPage}
-          onClickNext={handleClickNext}
-          onClickPrev={handleClickBack}
-          totalPage={totalPage}
-        />
-      </VerticalAlign>
+      {scrapList ? (
+        <VerticalAlign>
+          <HorizontalItemList>
+            {scrapList.map(item => (
+              <ItemWithImage key={item.id} {...item} />
+            ))}
+          </HorizontalItemList>
+          <PageController
+            canBack={canBack}
+            canForward={canForward}
+            currentPage={currentPage}
+            onClickNext={handleClickNext}
+            onClickPrev={handleClickBack}
+            totalPage={totalPage}
+          />
+        </VerticalAlign>
+      ) : (
+        <NoResultScrap />
+      )}
     </>
   );
 };
