@@ -1,13 +1,12 @@
 export type Category = {
-  id: string;
-  name: string;
-  subCategoryList: string[];
+  field: string;
+  activeTitle: string[];
 };
 
 export type TemperatureCategoryList = {
-  COMPETITION: Category;
-  OUT_SIDE_ACTIVITY: Category;
-  CERTIFICATE: Category;
-  LANGUAGE_STUDY: Category;
-  INTERN: Category;
+  userCompetition: Category;
+  userOutside: Category;
+  userQnet: Category;
+  userLanguage: Category;
+  userIntern: Category;
 };

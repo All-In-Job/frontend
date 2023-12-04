@@ -1,19 +1,23 @@
 import styled from '@emotion/styled';
 
-import { categoryList } from 'pages/home/PassionTemperature/mock/categories';
 import { BAR_PIECE_COLOR } from 'pages/home/PassionTemperature/Thermometer/constants';
 import { BarPieceColor } from 'pages/home/PassionTemperature/Thermometer/types';
 
-const TemperatureCategory = () => {
+import { TemperatureCategoryList } from './type';
+
+type TemperatureCategory = {
+  categoryList: TemperatureCategoryList;
+};
+const TemperatureCategory = ({ categoryList }: TemperatureCategory) => {
   return (
     <Container>
       <CategoryList>
         {Object.entries(categoryList).map(([k, v]) => {
           return (
             <CardContainer key={k}>
-              <CardHeader color={BAR_PIECE_COLOR[k as keyof BarPieceColor]}>{v.name}</CardHeader>
+              <CardHeader color={BAR_PIECE_COLOR[k as keyof BarPieceColor]}>{v.field}</CardHeader>
               <Category key={k}>
-                {v.subCategoryList.map((c, i) => (
+                {v.activeTitle.map((c, i) => (
                   <CategoryName key={`${k}_${c}_${i}`}>{c}</CategoryName>
                 ))}
               </Category>
@@ -36,18 +40,17 @@ const CategoryList = styled.ul`
 `;
 const Category = styled.li`
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  align-content: flex-start;
   margin-top: 17px;
-  margin-bottom: 24px;
-
-  width: 100%;
+  margin-bottom: 30px;
   height: 241px;
   padding: 16px;
   gap: 8px;
   background: var(--background-primary-50, #f8f8f8);
 `;
 const CategoryName = styled.span`
+  width: 100%;
   color: var(--title-black, #121110);
   text-align: center;
   font-family: SUIT;
