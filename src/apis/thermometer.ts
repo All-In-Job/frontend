@@ -52,6 +52,13 @@ export const deleteThermometerData = async (formData: deleteData) => {
   });
 };
 
+export const getCountActivity = async () => {
+  return userApi({
+    method: 'GET',
+    url: 'getCount',
+  });
+};
+
 export const findManyThermometer = async () => {
   return userApi({
     method: 'GET',

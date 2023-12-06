@@ -2,23 +2,28 @@ import { useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import { findManyThermometer } from 'apis/thermometer';
+import { findManyThermometer, getCountActivity } from 'apis/thermometer';
 import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
 import { FlexColumnContainer } from 'pages/home/PassionTemperature/passionTemperature.style';
 import PassionThermometer from 'pages/home/PassionTemperature/Thermometer';
-import { thermometerPercentList } from 'pages/home/PassionTemperature/Thermometer/mock';
+// import { thermometerPercentList } from 'pages/home/PassionTemperature/Thermometer/mock';
 
 import Indicator from './Indicator';
 import TemperatureCategory from './TemperatureCategory';
+import { ThermometerList } from './Thermometer/types';
 import { TemperatureCategoryList } from './type';
 import { getTotalWidth } from './utils';
 
 const PassionTemperature = () => {
   const [categoryList, setCategoryList] = useState<TemperatureCategoryList>();
+  const [thermometerList, setThermometerList] = useState<ThermometerList>();
+  const [temperatureSum, setTemperatureSum] = useState<number>();
+
   const temperatureRef = useRef<HTMLElement>(null);
   const [temperatureWidth, setTemperatureWidth] = useState(0);
   const indicatorRef = useRef<HTMLElement>(null);
   const [indicatorWidth, setIndicatorWidth] = useState(0);
+
   useEffect(() => {
     function adjustWidth() {
       if (temperatureRef.current == null) return;
@@ -38,6 +43,7 @@ const PassionTemperature = () => {
     if (indicatorRef.current == null) return;
     setIndicatorWidth(indicatorRef.current.clientWidth);
     updateCategoryList();
+    updateThermometer();
   }, []);
 
   const updateCategoryList = async () => {
@@ -50,17 +56,34 @@ const PassionTemperature = () => {
     }
   };
 
-  const totalWidth = getTotalWidth(temperatureWidth, thermometerPercentList, indicatorWidth);
+  const updateThermometer = async () => {
+    try {
+      const res = await getCountActivity();
+      setThermometerList(res.data);
+      setTemperatureSum(res.data.sum);
+    } catch (error) {
+      console.log('Error getting data:', error);
+      throw error;
+    }
+  };
+
+  const totalWidth = getTotalWidth(temperatureWidth, indicatorWidth, temperatureSum);
+
+  // console.log(Object.keys(thermometerPercentList).length);
   return (
     <Container>
       <Title>열정온도</Title>
       <TemperatureContainer>
-        <Description>IT프로그래밍 분야 중 상위 25%</Description>
-        <Indicator indicatorRef={indicatorRef} totalWidth={totalWidth} />
+        <Description>{`IT프로그래밍 분야 중 상위 ${temperatureSum}%`}</Description>
+        <Indicator
+          indicatorRef={indicatorRef}
+          totalWidth={totalWidth}
+          temperatureSum={temperatureSum}
+        />
         <PassionThermometer
           temperatureRef={temperatureRef}
           temperatureWidth={temperatureWidth}
-          thermometerPercentList={thermometerPercentList}
+          thermometerList={thermometerList}
         />
       </TemperatureContainer>
       {categoryList && <TemperatureCategory categoryList={categoryList} />}

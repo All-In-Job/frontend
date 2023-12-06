@@ -15,7 +15,9 @@ const TemperatureCategory = ({ categoryList }: TemperatureCategory) => {
         {Object.entries(categoryList).map(([k, v]) => {
           return (
             <CardContainer key={k}>
-              <CardHeader color={BAR_PIECE_COLOR[k as keyof BarPieceColor]}>{v.field}</CardHeader>
+              <CardHeader color={BAR_PIECE_COLOR[k.slice(4).toLowerCase() as keyof BarPieceColor]}>
+                {v.field}
+              </CardHeader>
               <Category key={k}>
                 {v.activeTitle.map((c, i) => (
                   <CategoryName key={`${k}_${c}_${i}`}>{c}</CategoryName>

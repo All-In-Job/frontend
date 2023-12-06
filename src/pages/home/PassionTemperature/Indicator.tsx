@@ -8,12 +8,13 @@ import { ReactComponent as SmileIcon } from 'pages/home/res/img/smile.svg';
 interface Props {
   indicatorRef: RefObject<HTMLElement>;
   totalWidth: number;
+  temperatureSum?: number;
 }
 
-const Indicator: FC<Props> = ({ totalWidth, indicatorRef }) => {
+const Indicator: FC<Props> = ({ totalWidth, indicatorRef, temperatureSum }) => {
   return (
     <Container ref={indicatorRef as RefObject<HTMLDivElement>} left={`${totalWidth}px`}>
-      <IndicatorText>열정온도 60℃</IndicatorText>
+      <IndicatorText>{`열정온도 ${temperatureSum}℃`}</IndicatorText>
       <SmileIcon />
     </Container>
   );
