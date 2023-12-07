@@ -12,15 +12,11 @@ interface Props {
   thermometerList?: ThermometerList;
 }
 
-const PassionThermometer: FC<Props> = ({
-  temperatureWidth: temperatureWidth,
-  temperatureRef: temperatureRef,
-  thermometerList,
-}) => {
+const PassionThermometer: FC<Props> = ({ temperatureWidth, temperatureRef, thermometerList }) => {
   let acc = 0;
   let prefAcc = 0;
 
-  console.log('temperatureWidth : ', temperatureWidth);
+  // console.log('temperatureWidth : ', temperatureWidth);
 
   return (
     <Container ref={temperatureRef as RefObject<HTMLDivElement>}>
@@ -46,35 +42,37 @@ const PassionThermometer: FC<Props> = ({
         />
         <g mask='url(#barMask)'>
           {thermometerList &&
-            Object.keys(thermometerList).map(key => {
-              const { percent, barType } = thermometerList[key as keyof ThermometerList];
-              const width = getBarWidth(percent, 1155);
-              prefAcc = acc;
-              acc += Number(width);
+            Object.keys(thermometerList)
+              .slice(0, 5)
+              .map(key => {
+                const { percent, barType } = thermometerList[key as keyof ThermometerList];
+                const width = getBarWidth(percent, temperatureWidth);
+                prefAcc = acc;
+                acc += Number(width);
 
-              return (
-                <g key={`${acc}_${barType}`}>
-                  <rect
-                    x={prefAcc.toString()}
-                    y='0'
-                    width={width.toString()}
-                    height='34'
-                    fill={BAR_PIECE_COLOR[barType]}
-                  />
-                  {percent > 0 && (
-                    <text
-                      x={prefAcc + Number(width) / 2}
-                      y='21'
-                      fill='black'
-                      fontSize='12px'
-                      textAnchor='middle'
-                    >
-                      {percent}%
-                    </text>
-                  )}
-                </g>
-              );
-            })}
+                return (
+                  <g key={`${acc}_${barType}`}>
+                    <rect
+                      x={prefAcc.toString()}
+                      y='0'
+                      width={width.toString()}
+                      height='34'
+                      fill={BAR_PIECE_COLOR[barType]}
+                    />
+                    {percent > 0 && (
+                      <text
+                        x={(prefAcc + Number(width) / 2).toString()}
+                        y='21'
+                        fill='black'
+                        fontSize='12px'
+                        textAnchor='middle'
+                      >
+                        {percent}%
+                      </text>
+                    )}
+                  </g>
+                );
+              })}
         </g>
       </svg>
     </Container>

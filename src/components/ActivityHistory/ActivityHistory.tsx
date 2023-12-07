@@ -43,7 +43,6 @@ export const ActivityHistory = ({ setUpdateTemperature }: ActivityHistoryProps) 
       const res = await findPathThermometer(tabId);
       setActivityList(res.data.data);
       setUpdateTemperature(true);
-      console.log(res.data.data);
     } catch (error) {
       console.log('Error getting data:', error);
       throw error;
@@ -65,8 +64,6 @@ export const ActivityHistory = ({ setUpdateTemperature }: ActivityHistoryProps) 
       console.error('Error deleting data:', error);
     }
   };
-
-  console.log(activityList);
 
   return (
     <S.ActivityHistory>

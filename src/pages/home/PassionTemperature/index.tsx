@@ -6,6 +6,7 @@ import { findManyThermometer, getCountActivity } from 'apis/thermometer';
 import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
 import { FlexColumnContainer } from 'pages/home/PassionTemperature/passionTemperature.style';
 import PassionThermometer from 'pages/home/PassionTemperature/Thermometer';
+// import { thermometerPercentList } from 'pages/home/PassionTemperature/Thermometer/mock';
 
 import Indicator from './Indicator';
 import TemperatureCategory from './TemperatureCategory';
@@ -15,9 +16,9 @@ import { TemperatureCategoryList } from './type';
 const PassionTemperature = () => {
   const [categoryList, setCategoryList] = useState<TemperatureCategoryList>();
   const [thermometerList, setThermometerList] = useState<ThermometerList>();
+  const [updateTemperature, setUpdateTemperature] = useState(false);
   const [temperatureSum, setTemperatureSum] = useState<number>(0);
   const [topPercentage, setTopPercentage] = useState<number>(0);
-  const [updateTemperature, setUpdateTemperature] = useState(false);
 
   const temperatureRef = useRef<HTMLElement>(null);
   const [temperatureWidth, setTemperatureWidth] = useState(0);
@@ -43,6 +44,7 @@ const PassionTemperature = () => {
   }, [updateTemperature]);
 
   const updateCategoryList = async () => {
+    //활동내역
     try {
       const res = await findManyThermometer();
       setCategoryList(res.data);
@@ -54,6 +56,7 @@ const PassionTemperature = () => {
   };
 
   const updateThermometer = async () => {
+    //온도계
     try {
       const res = await getCountActivity();
       setThermometerList(res.data);
