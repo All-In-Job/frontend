@@ -7,12 +7,12 @@ import theme from 'styles/theme';
 const { palette, textStyle } = theme;
 
 type Props = {
-  title: string;
+  category: string;
   isActive: boolean;
 };
 
-const CategoryButton: FC<Props> = ({ title, isActive }) => {
-  return <Button isActive={isActive}>{title}</Button>;
+const CategoryButton: FC<Props> = ({ category, isActive }) => {
+  return <Button isActive={isActive}>{category}</Button>;
 };
 
 export default CategoryButton;
