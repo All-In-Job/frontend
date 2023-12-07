@@ -19,10 +19,11 @@ function PostCard({
   index,
   id,
   isScrap,
+  path,
 }: PostCardProps) {
   return (
     <PostCardContainer>
-      <Link to={id} target='_blank'>
+      <Link to={path} target='_blank'>
         <PostCardImage
           mainImage={mainImage}
           Dday={Dday}

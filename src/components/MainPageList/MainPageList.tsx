@@ -56,6 +56,7 @@ export const MainPageList = () => {
       ) : (
         <CardList
           data={data}
+          getParams={homeCardList?.getParams}
           isChangeInfoLayout={homeCardList?.getParams === 'intern' ? true : false}
           isLoad={isLoad}
         />
