@@ -6,7 +6,11 @@ import Badge from 'pages/home/AsideProfile/components/Badge';
 import { ReactComponent as MiniBookMarkIcon } from 'pages/scrap/res/images/miniBookmark.svg';
 import { ReactComponent as ViewIcon } from 'pages/scrap/res/images/view.svg';
 
-const ItemWithImage = ({
+type ItemWithImageProps = Scrap & {
+  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const ItemWithImage: React.FC<ItemWithImageProps> = ({
   Dday,
   enterprise,
   institution,
@@ -21,7 +25,8 @@ const ItemWithImage = ({
   id,
   isScrap,
   path,
-}: Scrap) => {
+  setIsActive,
+}) => {
   const isQnet = period && examDate;
   const isLanguage = closeDate && examDate;
   const isIntern = !(location == null);
@@ -33,7 +38,7 @@ const ItemWithImage = ({
         <Date>
           <DateBadge title={Dday} />
         </Date>
-        <BookMarkWrapper>
+        <BookMarkWrapper onClick={() => setIsActive(false)}>
           <ScrapButton path={path} id={id} isScrap={isScrap} fill={'primary'} />
         </BookMarkWrapper>
       </ImageContainer>

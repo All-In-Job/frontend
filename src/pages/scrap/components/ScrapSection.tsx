@@ -19,6 +19,7 @@ interface Props {
 
 const ScrapSection: FC<Props> = ({ title, index }) => {
   const [scrapList, setScrapList] = useState<Scrap[]>([]);
+  const [isActive, setIsActive] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState<number>(1);
   const totalPage = Math.ceil(totalCount / 4);
@@ -37,18 +38,20 @@ const ScrapSection: FC<Props> = ({ title, index }) => {
   }
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await getUserScrap(title, currentPage);
-        const count = await getUserScrapTotalCount(title, true);
-        setScrapList(res.data.data);
-        setTotalCount(count.data.data);
-        console.log('호출 성공', res.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [title, currentPage]);
+    updateScrapList();
+  }, [currentPage, isActive]);
+
+  const updateScrapList = async () => {
+    try {
+      const res = await getUserScrap(title, currentPage);
+      const count = await getUserScrapTotalCount(title, true);
+      setScrapList(res.data.data);
+      setTotalCount(count.data.data);
+      setIsActive(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -57,7 +60,7 @@ const ScrapSection: FC<Props> = ({ title, index }) => {
         <VerticalAlign>
           <HorizontalItemList>
             {scrapList.map(item => (
-              <ItemWithImage key={item.id} {...item} />
+              <ItemWithImage key={item.id} {...item} setIsActive={setIsActive} />
             ))}
           </HorizontalItemList>
           <PageController
