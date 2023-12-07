@@ -35,4 +35,5 @@ export type Community = {
   user: UserInfo;
   comments: Comments[];
   communityLikes: CommunityLikes[];
+  path: string;
 };

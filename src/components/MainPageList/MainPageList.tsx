@@ -52,7 +52,12 @@ export const MainPageList = () => {
   return (
     <S.CardListWrapper>
       {selectCertificate || selectCommunity ? (
-        <PostList data={data} selectCertificate={selectCertificate} isLoad={isLoad} />
+        <PostList
+          data={data}
+          getParams={homeCardList?.getParams}
+          selectCertificate={selectCertificate}
+          isLoad={isLoad}
+        />
       ) : (
         <CardList
           data={data}

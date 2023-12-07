@@ -10,11 +10,12 @@ import CommunityItem from 'components/Community/CommunityItem/CommunityItem';
 
 type Props = {
   data: Certificate[] | Community[];
+  getParams: string | undefined;
   selectCertificate: boolean;
   isLoad: boolean;
 };
 
-export const PostList: FC<Props> = ({ data, isLoad }) => {
+export const PostList: FC<Props> = ({ data, getParams, isLoad }) => {
   const renderCertificate = (el: Certificate) => {
     if (isLoad) {
       return (
@@ -31,6 +32,7 @@ export const PostList: FC<Props> = ({ data, isLoad }) => {
           mainImage={el.mainImage}
           type={el.type}
           isScrap={el.isScrap}
+          path={`/${getParams}/detail/${el.id}`}
         />
       );
     } else {
@@ -51,6 +53,7 @@ export const PostList: FC<Props> = ({ data, isLoad }) => {
           comment={el.comment}
           date={el.date}
           user={el.user}
+          path={`/${getParams}/detail/${el.id}`}
         />
       );
     } else {
