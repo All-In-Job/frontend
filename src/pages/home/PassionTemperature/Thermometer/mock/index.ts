@@ -1,24 +1,24 @@
-import { ThermometerPercentList } from 'pages/home/PassionTemperature/Thermometer/types';
+import { ThermometerList } from 'pages/home/PassionTemperature/Thermometer/types';
 
-export const thermometerPercentList: ThermometerPercentList = {
-  COMPETITION: {
-    barType: 'COMPETITION',
+export const thermometerPercentList: ThermometerList = {
+  competition: {
+    barType: 'competition',
     percent: 20,
   },
-  OUT_SIDE_ACTIVITY: {
-    barType: 'OUT_SIDE_ACTIVITY',
+  outside: {
+    barType: 'outside',
     percent: 20,
   },
-  CERTIFICATE: {
-    barType: 'CERTIFICATE',
+  qnet: {
+    barType: 'qnet',
     percent: 20,
   },
-  LANGUAGE_STUDY: {
-    barType: 'LANGUAGE_STUDY',
+  language: {
+    barType: 'language',
     percent: 20,
   },
-  INTERN: {
-    barType: 'INTERN',
+  intern: {
+    barType: 'intern',
     percent: 20,
   },
 };

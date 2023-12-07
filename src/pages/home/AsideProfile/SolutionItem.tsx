@@ -16,11 +16,11 @@ interface Props {
 
 const SolutionItem: FC<Props> = ({ itemKey, solution }) => {
   const itemMapper: Record<keyof BarPieceColor, ReactNode> = {
-    CERTIFICATE: <CertificationItem solution={solution} />,
-    INTERN: <InternItem solution={solution} />,
-    COMPETITION: <CompetitionItem solution={solution} />,
-    LANGUAGE_STUDY: <LanguageStudy solution={solution} />,
-    OUT_SIDE_ACTIVITY: <OutSideActivity solution={solution} />,
+    qnet: <CertificationItem solution={solution} />,
+    intern: <InternItem solution={solution} />,
+    competition: <CompetitionItem solution={solution} />,
+    language: <LanguageStudy solution={solution} />,
+    outside: <OutSideActivity solution={solution} />,
   };
 
   return <>{itemMapper[itemKey]}</>;
