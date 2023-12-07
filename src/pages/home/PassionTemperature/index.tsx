@@ -6,7 +6,6 @@ import { findManyThermometer, getCountActivity } from 'apis/thermometer';
 import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
 import { FlexColumnContainer } from 'pages/home/PassionTemperature/passionTemperature.style';
 import PassionThermometer from 'pages/home/PassionTemperature/Thermometer';
-// import { thermometerPercentList } from 'pages/home/PassionTemperature/Thermometer/mock';
 
 import Indicator from './Indicator';
 import TemperatureCategory from './TemperatureCategory';
@@ -18,10 +17,10 @@ const PassionTemperature = () => {
   const [thermometerList, setThermometerList] = useState<ThermometerList>();
   const [temperatureSum, setTemperatureSum] = useState<number>(0);
   const [topPercentage, setTopPercentage] = useState<number>(0);
+  const [updateTemperature, setUpdateTemperature] = useState(false);
+
   const temperatureRef = useRef<HTMLElement>(null);
   const [temperatureWidth, setTemperatureWidth] = useState(0);
-  // const indicatorRef = useRef<HTMLElement>(null);
-  // const [indicatorWidth, setIndicatorWidth] = useState(0);
 
   useEffect(() => {
     function adjustWidth() {
@@ -39,16 +38,15 @@ const PassionTemperature = () => {
   }, []);
 
   useEffect(() => {
-    // if (indicatorRef.current == null) return;
-    // setIndicatorWidth(indicatorRef.current.clientWidth);
     updateCategoryList();
     updateThermometer();
-  }, []);
+  }, [updateTemperature]);
 
   const updateCategoryList = async () => {
     try {
       const res = await findManyThermometer();
       setCategoryList(res.data);
+      setUpdateTemperature(false);
     } catch (error) {
       console.log('Error getting data:', error);
       throw error;
@@ -61,6 +59,7 @@ const PassionTemperature = () => {
       setThermometerList(res.data);
       setTemperatureSum(res.data.sum);
       setTopPercentage(0);
+      setUpdateTemperature(false);
     } catch (error) {
       console.log('Error getting data:', error);
       throw error;
@@ -79,7 +78,7 @@ const PassionTemperature = () => {
         />
       </TemperatureContainer>
       {categoryList && <TemperatureCategory categoryList={categoryList} />}
-      <ActivityHistory />
+      <ActivityHistory setUpdateTemperature={setUpdateTemperature} />
     </Container>
   );
 };
