@@ -7,6 +7,7 @@ import CategoryFilter from 'components/CategoryFilter';
 import { CategoryData } from 'components/CategoryFilter/type';
 import HashTagFilter from 'components/HashTagFilter';
 import { HashTagData } from 'components/HashTagFilter/type';
+import MenuFilter from 'components/MenuFilter/MenuFilter';
 
 import { MenuId, getMenuById } from './menuCategoies';
 
@@ -75,6 +76,8 @@ const Menu = () => {
           onRefresh={() => function () {}}
         />
       </MenuHeadContent>
+
+      <MenuFilter />
 
       <Outlet context={{ selectedKeyword }} />
     </MenuWrapper>
