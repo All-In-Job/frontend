@@ -27,7 +27,7 @@ const RegistrationBox = styled.div`
   justify-content: center;
   align-items: center;
   padding: 24px 0px;
-  margin: 24px 0;
+  margin: 24px 0 100px;
   gap: 4px;
   border-radius: 12px;
   background: ${props => props.theme.palette.orange100};

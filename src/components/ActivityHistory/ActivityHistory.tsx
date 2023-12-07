@@ -69,7 +69,7 @@ export const ActivityHistory = ({ setUpdateTemperature }: ActivityHistoryProps) 
     <S.ActivityHistory>
       <S.Heading>{'활동내역'}</S.Heading>
       <TabNavigation onModalOpen={onModalOpen} />
-      <Registration onModalOpen={onModalOpen} />
+      {activityList.length === 0 && <Registration onModalOpen={onModalOpen} />}
       <ActivityList
         activityList={activityList}
         onEdit={onEdit}
