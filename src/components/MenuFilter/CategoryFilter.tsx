@@ -11,9 +11,10 @@ type Props = {
   title: string;
   categories?: string[];
   selectedCategory: string;
+  onClickCategory: (category: string) => void;
 };
 
-const CategoryFilter: FC<Props> = ({ title, categories, selectedCategory }) => {
+const CategoryFilter: FC<Props> = ({ title, categories, selectedCategory, onClickCategory }) => {
   const INTEREST_SWITCH = 'INTEREST_SWITCH';
   const [isActive, setIsActive] = useState(false);
 
@@ -24,7 +25,11 @@ const CategoryFilter: FC<Props> = ({ title, categories, selectedCategory }) => {
         <Categoies>
           {categories?.map(category => (
             <li key={category}>
-              <CategoryButton category={category} isSelected={category === selectedCategory} />
+              <CategoryButton
+                category={category}
+                isSelected={selectedCategory === category}
+                onClickCategory={onClickCategory}
+              />
             </li>
           ))}
         </Categoies>

@@ -9,10 +9,15 @@ const { palette, textStyle } = theme;
 type Props = {
   category: string;
   isSelected: boolean;
+  onClickCategory: (category: string) => void;
 };
 
-const CategoryButton: FC<Props> = ({ category, isSelected }) => {
-  return <Button isSelected={isSelected}>{category}</Button>;
+const CategoryButton: FC<Props> = ({ category, isSelected, onClickCategory }) => {
+  return (
+    <Button onClick={() => onClickCategory(category)} isSelected={isSelected}>
+      {category}
+    </Button>
+  );
 };
 
 export default CategoryButton;

@@ -23,6 +23,10 @@ const RestCategoryFilter = () => {
     setInitalSelectedCategory();
   }, [categoryId]);
 
+  const handleClickCategory = (category: string) => {
+    setSelectedCategory(category);
+  };
+
   console.log(foundMenuCategoryData?.items);
 
   return (
@@ -31,6 +35,7 @@ const RestCategoryFilter = () => {
         title={foundMenuCategoryData?.title as string}
         categories={categories}
         selectedCategory={selectedCategory}
+        onClickCategory={handleClickCategory}
       />
       <KeywordFilter />
     </MenuFilterWrapper>
