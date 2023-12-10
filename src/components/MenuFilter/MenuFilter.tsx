@@ -1,11 +1,17 @@
+import { FC } from 'react';
+
 import styled from '@emotion/styled';
 
-import KeywordButton from './Buttons/KeywordButton';
+import CategoryFilter from './CategoryFilter/CategoryFilter';
 
-const MenuFilter = () => {
+type Props = {
+  title: string;
+};
+
+const MenuFilter: FC<Props> = ({ title }) => {
   return (
     <MenuFilterWrapper>
-      <KeywordButton keyword='기획/아이디어' isActive />
+      <CategoryFilter title={title} />
     </MenuFilterWrapper>
   );
 };

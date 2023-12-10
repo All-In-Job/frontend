@@ -77,7 +77,7 @@ const Menu = () => {
         />
       </MenuHeadContent>
 
-      <MenuFilter />
+      <MenuFilter title={foundMenuCategories?.title as string} />
 
       <Outlet context={{ selectedKeyword }} />
     </MenuWrapper>
