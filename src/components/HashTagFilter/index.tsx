@@ -52,6 +52,7 @@ const HashTagFilter: FC<Props> = ({ hashTagList, title, onSearch, onRefresh, cla
 
   const handleDeleteClick = (value: HashTagData) => {
     setSelectedHashs(selectedHashs.filter(item => item.id !== value.id));
+    onSearch(selectedHashs.filter(item => item.id !== value.id));
   };
 
   const handleClickRefresh = () => {

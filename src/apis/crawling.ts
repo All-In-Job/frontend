@@ -8,7 +8,7 @@ import { crawlingApi } from './index';
 
 type FuncType = (
   menu: string,
-  queries: object,
+  queries?: object,
 ) => Promise<AxiosResponse<{ data: Certificate[] | Language[] | Inter[] | PostCardProps[] }>>;
 
 export const requestCrawlingData: FuncType = async (menu, queries) => {

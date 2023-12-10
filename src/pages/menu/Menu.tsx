@@ -39,8 +39,10 @@ const Menu = () => {
         );
 
         if (foundItem) {
+          const path = foundItem?.id;
           const keywords = foundItem?.keywords || {};
           const keywordsArr: HashTagData[] = Object.entries(keywords).map(([id, title]) => ({
+            path: path,
             id,
             title,
           }));
