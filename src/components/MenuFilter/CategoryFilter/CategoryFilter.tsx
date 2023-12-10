@@ -16,7 +16,7 @@ const CategoryFilter: FC<Props> = ({ title }) => {
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <CategoryFilterContainer>
+    <>
       <Title>{title}</Title>
       <CategoryFilterFooter>
         <Categoies>
@@ -36,20 +36,17 @@ const CategoryFilter: FC<Props> = ({ title }) => {
               onChange={() => setIsActive(!isActive)}
               hidden
             />
-
             <ToggleBallContainer>
               <ToggleBall isActive={isActive} />
             </ToggleBallContainer>
           </ToggleSwitch>
         </UserInterestWrapper>
       </CategoryFilterFooter>
-    </CategoryFilterContainer>
+    </>
   );
 };
 
 export default CategoryFilter;
-
-const CategoryFilterContainer = styled.div``;
 
 const Title = styled.h2`
   font-size: ${textStyle.headLine02.fontSize};
