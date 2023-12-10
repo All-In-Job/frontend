@@ -21,7 +21,7 @@ const RestCategoryFilter = () => {
     };
 
     setInitalSelectedCategory();
-  }, []);
+  }, [categoryId]);
 
   console.log(foundMenuCategoryData?.items);
 
