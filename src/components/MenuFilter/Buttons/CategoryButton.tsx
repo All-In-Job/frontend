@@ -8,20 +8,20 @@ const { palette, textStyle } = theme;
 
 type Props = {
   category: string;
-  isActive: boolean;
+  isSelected: boolean;
 };
 
-const CategoryButton: FC<Props> = ({ category, isActive }) => {
-  return <Button isActive={isActive}>{category}</Button>;
+const CategoryButton: FC<Props> = ({ category, isSelected }) => {
+  return <Button isSelected={isSelected}>{category}</Button>;
 };
 
 export default CategoryButton;
 
-const Button = styled.button<{ isActive: boolean }>`
+const Button = styled.button<{ isSelected: boolean }>`
   padding: 8px 16px;
   border-radius: 4px;
-  color: ${props => (props.isActive ? '#f6f6f6' : palette.black200)};
-  background-color: ${props => (props.isActive ? palette.orange500 : palette.background.primary)};
+  color: ${props => (props.isSelected ? '#f6f6f6' : palette.black200)};
+  background-color: ${props => (props.isSelected ? palette.orange500 : palette.background.primary)};
   font-size: ${textStyle.body01.fontSize};
   font-family: Bold;
   line-height: ${textStyle.body01.lineHeight};

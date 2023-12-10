@@ -9,9 +9,11 @@ const { palette, textStyle } = theme;
 
 type Props = {
   title: string;
+  categories?: string[];
+  selectedCategory: string;
 };
 
-const CategoryFilter: FC<Props> = ({ title }) => {
+const CategoryFilter: FC<Props> = ({ title, categories, selectedCategory }) => {
   const INTEREST_SWITCH = 'INTEREST_SWITCH';
   const [isActive, setIsActive] = useState(false);
 
@@ -20,9 +22,11 @@ const CategoryFilter: FC<Props> = ({ title }) => {
       <Title>{title}</Title>
       <CategoryFilterFooter>
         <Categoies>
-          <li>
-            <CategoryButton category='기획/아이디어' isActive />
-          </li>
+          {categories?.map(category => (
+            <li key={category}>
+              <CategoryButton category={category} isSelected={category === selectedCategory} />
+            </li>
+          ))}
         </Categoies>
 
         <UserInterestWrapper>
