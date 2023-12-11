@@ -1,7 +1,9 @@
 import { createContext, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { AxiosError } from 'axios';
 
+import { getCalendar } from 'apis/user';
 import theme from 'styles/theme';
 
 import { CalendarMain } from './CalendarMain';
@@ -47,10 +49,6 @@ export const CalendarContext = createContext<CalendarContextType | null>(null);
 export const CurrentDateContext = createContext<CurrentDateContextType | null>(null);
 export const ClickedDateContext = createContext<ClickedDateContextType | null>(null);
 
-// 월 바꿔도 마지막 클릭 날짜로 고정
-// 카드 클릭하면 상세 페이지로 이동할 수 있어야함
-//
-
 export const Calendar = () => {
   const [currentDate, setCurrentDate] = useState<CurrentDateType>({
     year: new Date().getFullYear(),
@@ -66,60 +64,19 @@ export const Calendar = () => {
 
   const [monthlySchedules, setMonthlySchedules] = useState<MonthlySchedulesType>();
   useEffect(() => {
-    setMonthlySchedules({
-      10: [
-        {
-          id: '1',
-          title: '2023 Meta Spark AR 콘텐츠 공모전1',
-          status: 'open',
-        },
-        {
-          id: '2',
-          title: '2023 Meta Spark AR 콘텐츠 공모전2',
-          status: 'close',
-        },
-      ],
-      15: [
-        {
-          id: '1',
-          title: '2023 Meta Spark AR 콘텐츠 공모전3',
-          status: 'open',
-        },
-        {
-          id: '2',
-          title: '2023 Meta Spark AR 콘텐츠 공모전4',
-          status: 'close',
-        },
-        {
-          id: '3',
-          title: '2023 Meta Spark AR 콘텐츠 공모전5',
-          status: 'close',
-        },
-        {
-          id: '4',
-          title: '2023 Meta Spark AR 콘텐츠 공모전6',
-          status: 'exam',
-        },
-        {
-          id: '5',
-          title: '2023 Meta Spark AR 콘텐츠 공모전7',
-          status: 'exam',
-        },
-        {
-          id: '6',
-          title: '2023 Meta Spark AR 콘텐츠 공모전8',
-          status: 'exam',
-        },
-      ],
-      20: [
-        {
-          id: '1',
-          title: '2023 Meta Spark AR 콘텐츠 공모전6',
-          status: 'exam',
-        },
-      ],
-    });
-  }, []);
+    const year = String(currentDate.year).replace('20', '');
+    getCalendar(Number(year), currentDate.month)
+      .then(res => {
+        const data = res.data.data;
+        console.log(data);
+        setMonthlySchedules(data);
+      })
+      .catch(e => {
+        if (e instanceof AxiosError && e.response) {
+          console.log(e.response);
+        }
+      });
+  }, [currentDate]);
 
   return (
     <CalendarContext.Provider value={{ calendarState, setCalendarState }}>
@@ -129,6 +86,7 @@ export const Calendar = () => {
             <StyledHeader>
               <StyledTitle>나만의 달력</StyledTitle>
             </StyledHeader>
+
             <StyledBody>
               <CalendarMain monthlySchedules={monthlySchedules} />
               <CalendarSub />
