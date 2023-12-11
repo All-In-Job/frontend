@@ -19,7 +19,7 @@ const CategoryFilter: FC<Props> = ({ title, categories, selectedCategory, onClic
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <>
+    <CategoryFilterContainer>
       <Title>{title}</Title>
       <CategoryFilterFooter>
         <Categoies>
@@ -51,11 +51,16 @@ const CategoryFilter: FC<Props> = ({ title, categories, selectedCategory, onClic
           </ToggleSwitch>
         </UserInterestWrapper>
       </CategoryFilterFooter>
-    </>
+    </CategoryFilterContainer>
   );
 };
 
 export default CategoryFilter;
+
+const CategoryFilterContainer = styled.div`
+  border-bottom: 1px solid ${palette.line.normal};
+  padding-bottom: 24px;
+`;
 
 const Title = styled.h2`
   font-size: ${textStyle.headLine02.fontSize};
@@ -100,6 +105,7 @@ const ToggleSwitch = styled.label<{ isActive: boolean }>`
   border-radius: 30px;
   background-color: ${palette.background.primary50};
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
 `;
 
 const ToggleBallContainer = styled.span`
