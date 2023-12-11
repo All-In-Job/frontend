@@ -17,6 +17,7 @@ export type Keyword = {
 type Props = {
   keywordList: Keyword[];
   selectedKeywords: Keyword[];
+  onClickResetKeywords: () => void;
   onClickKeyword: (keyword: Keyword) => void;
   onClickSelectedKeyword: (keyword: Keyword) => void;
 };
@@ -24,6 +25,7 @@ type Props = {
 const KeywordFilter: FC<Props> = ({
   keywordList,
   selectedKeywords,
+  onClickResetKeywords,
   onClickKeyword,
   onClickSelectedKeyword,
 }) => {
@@ -31,7 +33,7 @@ const KeywordFilter: FC<Props> = ({
     <KeywordFilterContainer>
       <HeadContainer>
         <Title>키워드</Title>
-        <ResetButton>
+        <ResetButton onClick={() => onClickResetKeywords()}>
           <ResetText>초기화</ResetText>
           <ResetIcon />
         </ResetButton>

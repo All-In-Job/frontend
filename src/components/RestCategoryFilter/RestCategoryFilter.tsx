@@ -24,6 +24,10 @@ const RestCategoryFilter = () => {
     setInitalSelectedCategory();
   }, [categoryId]);
 
+  const handleClickResetKeywords = () => {
+    setSelectedKeywords([]);
+  };
+
   const handleClickCategory = (category: string) => {
     setSelectedCategory(category);
   };
@@ -66,6 +70,7 @@ const RestCategoryFilter = () => {
       <KeywordFilter
         keywordList={keywordList}
         selectedKeywords={selectedKeywords}
+        onClickResetKeywords={handleClickResetKeywords}
         onClickKeyword={handleClickKeyword}
         onClickSelectedKeyword={handleClickSelectedKeyword}
       />
