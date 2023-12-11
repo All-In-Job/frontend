@@ -18,11 +18,15 @@ type Props = {
   keywordList: Keyword[];
   selectedKeywords: Keyword[];
   onClickKeyword: (keyword: Keyword) => void;
+  onClickSelectedKeyword: (keyword: Keyword) => void;
 };
 
-const KeywordFilter: FC<Props> = ({ keywordList, selectedKeywords, onClickKeyword }) => {
-  console.log(selectedKeywords.length);
-
+const KeywordFilter: FC<Props> = ({
+  keywordList,
+  selectedKeywords,
+  onClickKeyword,
+  onClickSelectedKeyword,
+}) => {
   return (
     <KeywordFilterContainer>
       <HeadContainer>
@@ -51,7 +55,11 @@ const KeywordFilter: FC<Props> = ({ keywordList, selectedKeywords, onClickKeywor
         <SelectedKeywordList>
           {selectedKeywords.map(selectedKeyword => (
             <li key={selectedKeyword.id}>
-              <KeywordButton keyword={selectedKeyword} isSelect onClickKeyword={() => {}} />
+              <KeywordButton
+                keyword={selectedKeyword}
+                isSelect
+                onClickKeyword={onClickSelectedKeyword}
+              />
             </li>
           ))}
         </SelectedKeywordList>

@@ -41,13 +41,18 @@ const RestCategoryFilter = () => {
 
   const handleClickKeyword = (keyword: Keyword) => {
     const isSelected = selectedKeywords.some(kw => kw.id === keyword.id);
-    console.log(isSelected);
+
     if (isSelected) {
       const updatedKeywords = selectedKeywords.filter(kw => kw.id !== keyword.id);
       setSelectedKeywords(updatedKeywords);
     } else {
       setSelectedKeywords(selectedKeywords => [...selectedKeywords, keyword]);
     }
+  };
+
+  const handleClickSelectedKeyword = (keyword: Keyword) => {
+    const updatedKeywords = selectedKeywords.filter(kw => kw.id !== keyword.id);
+    setSelectedKeywords(updatedKeywords);
   };
 
   return (
@@ -62,6 +67,7 @@ const RestCategoryFilter = () => {
         keywordList={keywordList}
         selectedKeywords={selectedKeywords}
         onClickKeyword={handleClickKeyword}
+        onClickSelectedKeyword={handleClickSelectedKeyword}
       />
     </MenuFilterWrapper>
   );
