@@ -10,12 +10,14 @@ import MenuPagination from 'components/commons/Pagination/MenuPagination';
 import { useControlPageParam } from 'hooks/useControlPageParam';
 
 import CommunityItem from './CommunityItem';
+import { CommunitySearch } from './CommunitySearch';
 
 export const CommunityPageList = () => {
   const { menuName } = useParams();
   const [communityList, setCommunityList] = useState<Community[]>([]);
   const [totalCount, setTotalCount] = useState(1);
   const { getPageParam } = useControlPageParam();
+
   const currentPage = getPageParam ? Number(getPageParam) : 1;
 
   useEffect(() => {
@@ -30,24 +32,29 @@ export const CommunityPageList = () => {
       }
     })();
   }, [menuName, getPageParam]);
+
+  const renderList = (list: Community[]) => {
+    return list.map(el => (
+      <CommunityItem
+        id={el.id}
+        key={el.id}
+        category={el.category}
+        title={el.title}
+        date={el.date}
+        view={el.view}
+        like={el.like}
+        comment={el.comment}
+        user={el.user}
+      />
+    ));
+  };
+
   if (communityList)
     return (
       <>
-        <List>
-          {communityList.map(el => (
-            <CommunityItem
-              id={el.id}
-              key={el.id}
-              category={el.category}
-              title={el.title}
-              date={el.date}
-              view={el.view}
-              like={el.like}
-              comment={el.comment}
-              user={el.user}
-            />
-          ))}
-        </List>
+        <CommunitySearch setCommunityList={setCommunityList} />
+
+        <List>{renderList(communityList)}</List>
 
         <MenuPagination currentPage={currentPage} totalItemsCount={totalCount} itemsPerPage={10} />
       </>
