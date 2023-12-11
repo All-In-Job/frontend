@@ -9,16 +9,18 @@ import { ReactComponent as ResetIcon } from '/src/components/MenuFilter/res/img/
 
 const { palette, textStyle } = theme;
 
-type KeywordList = {
+export type Keyword = {
   id: string;
   title: string;
 };
 
 type Props = {
-  keywordList: KeywordList[];
+  keywordList: Keyword[];
+  selectedKeywords: Keyword[];
+  onClickKeyword: (keyword: Keyword) => void;
 };
 
-const KeywordFilter: FC<Props> = ({ keywordList }) => {
+const KeywordFilter: FC<Props> = ({ keywordList, selectedKeywords, onClickKeyword }) => {
   return (
     <KeywordFilterContainer>
       <HeadContainer>
@@ -32,15 +34,19 @@ const KeywordFilter: FC<Props> = ({ keywordList }) => {
       <KeywordList>
         {keywordList.map(keyword => (
           <li key={keyword.id}>
-            <KeywordButton keyword={keyword.title} isActive />
+            <KeywordButton
+              keyword={keyword}
+              isSelect={selectedKeywords.some(
+                selectedKeyword => selectedKeyword.title === keyword.title,
+              )}
+              onClickKeyword={onClickKeyword}
+            />
           </li>
         ))}
       </KeywordList>
 
       <SelectedKeywordList>
-        <li>
-          <KeywordButton keyword='기획/아이디어' isActive />
-        </li>
+        <li>{/* <KeywordButton keyword='기획/아이디어' isSelect /> */}</li>
       </SelectedKeywordList>
     </KeywordFilterContainer>
   );

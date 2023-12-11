@@ -4,11 +4,12 @@ import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
 
 import CategoryFilter from 'components/MenuFilter/CategoryFilter';
-import KeywordFilter from 'components/MenuFilter/KeywordFilter';
+import KeywordFilter, { Keyword } from 'components/MenuFilter/KeywordFilter';
 import { MenuId, getMenuById } from 'pages/menu/menuCategoies';
 
 const RestCategoryFilter = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedKeywords, setSelectedKeywords] = useState<Keyword[]>([]);
   const { menuName, categoryId } = useParams();
 
   const foundMenuCategoryData = getMenuById(menuName! as MenuId);
@@ -31,12 +32,16 @@ const RestCategoryFilter = () => {
     item => item.category === selectedCategory,
   );
 
-  const keywordList = Object.entries(foundKeywordList?.keywords || []).map(([key, value]) => ({
-    id: key,
-    title: value,
-  }));
+  const keywordList: Keyword[] = Object.entries(foundKeywordList?.keywords || []).map(
+    ([key, value]) => ({
+      id: key,
+      title: value,
+    }),
+  );
 
-  console.log(keywordList);
+  const handleClickKeyword = (keyword: Keyword) => {
+    setSelectedKeywords(selectedKeywords => [...selectedKeywords, keyword]);
+  };
 
   return (
     <MenuFilterWrapper>
@@ -46,7 +51,11 @@ const RestCategoryFilter = () => {
         selectedCategory={selectedCategory}
         onClickCategory={handleClickCategory}
       />
-      <KeywordFilter keywordList={keywordList} />
+      <KeywordFilter
+        keywordList={keywordList}
+        selectedKeywords={selectedKeywords}
+        onClickKeyword={handleClickKeyword}
+      />
     </MenuFilterWrapper>
   );
 };
