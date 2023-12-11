@@ -110,6 +110,9 @@ const KeywordList = styled.ul`
 `;
 
 const SelectedKeywordList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 8px;
   border-top: 1px solid ${palette.line.normal};
   padding-top: 24px;
   margin-top: 24px;
