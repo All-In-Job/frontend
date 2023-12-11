@@ -1,3 +1,5 @@
+import { FC } from 'react';
+
 import styled from '@emotion/styled';
 
 import KeywordButton from 'components/MenuFilter/Buttons/KeywordButton';
@@ -7,7 +9,11 @@ import { ReactComponent as ResetIcon } from '/src/components/MenuFilter/res/img/
 
 const { palette, textStyle } = theme;
 
-const KeywordFilter = () => {
+type Props = {
+  keywordList: string[];
+};
+
+const KeywordFilter: FC<Props> = ({ keywordList }) => {
   return (
     <KeywordFilterContainer>
       <HeadContainer>
@@ -19,9 +25,11 @@ const KeywordFilter = () => {
       </HeadContainer>
 
       <KeywordList>
-        <li>
-          <KeywordButton keyword='기획/아이디어' isActive />
-        </li>
+        {keywordList.map(keyword => (
+          <li key={keyword}>
+            <KeywordButton keyword={keyword} isActive />
+          </li>
+        ))}
       </KeywordList>
 
       <SelectedKeywordList>
