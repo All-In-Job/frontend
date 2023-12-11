@@ -49,3 +49,10 @@ export const findUserProfile = async () => {
     url: 'findUserProfile',
   });
 };
+
+export const getCalendar = async (year: number, month: number) => {
+  return await userApi({
+    method: 'GET',
+    url: `calendar?year=${year}&month=${month}`,
+  });
+};
