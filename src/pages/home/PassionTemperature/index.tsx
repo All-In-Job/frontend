@@ -61,7 +61,7 @@ const PassionTemperature = () => {
       const res = await getCountActivity();
       setThermometerList(res.data);
       setTemperatureSum(res.data.sum);
-      setTopPercentage(0);
+      setTopPercentage(res.data.top);
       setUpdateTemperature(false);
     } catch (error) {
       console.log('Error getting data:', error);
