@@ -9,8 +9,13 @@ import { ReactComponent as ResetIcon } from '/src/components/MenuFilter/res/img/
 
 const { palette, textStyle } = theme;
 
+type KeywordList = {
+  id: string;
+  title: string;
+};
+
 type Props = {
-  keywordList: string[];
+  keywordList: KeywordList[];
 };
 
 const KeywordFilter: FC<Props> = ({ keywordList }) => {
@@ -26,8 +31,8 @@ const KeywordFilter: FC<Props> = ({ keywordList }) => {
 
       <KeywordList>
         {keywordList.map(keyword => (
-          <li key={keyword}>
-            <KeywordButton keyword={keyword} isActive />
+          <li key={keyword.id}>
+            <KeywordButton keyword={keyword.title} isActive />
           </li>
         ))}
       </KeywordList>

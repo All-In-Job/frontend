@@ -31,7 +31,12 @@ const RestCategoryFilter = () => {
     item => item.category === selectedCategory,
   );
 
-  const keywordList = Object.values(foundKeywordList?.keywords || []);
+  const keywordList = Object.entries(foundKeywordList?.keywords || []).map(([key, value]) => ({
+    id: key,
+    title: value,
+  }));
+
+  console.log(keywordList);
 
   return (
     <MenuFilterWrapper>
