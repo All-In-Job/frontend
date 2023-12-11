@@ -58,6 +58,7 @@ const KeywordFilter: FC<Props> = ({
               <KeywordButton
                 keyword={selectedKeyword}
                 isSelect
+                isSelectedButton
                 onClickKeyword={onClickSelectedKeyword}
               />
             </li>

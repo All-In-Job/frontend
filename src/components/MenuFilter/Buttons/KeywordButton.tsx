@@ -12,13 +12,14 @@ const { palette, textStyle } = theme;
 type Props = {
   keyword: Keyword;
   isSelect: boolean;
+  isSelectedButton?: boolean;
   onClickKeyword: (keyword: Keyword) => void;
 };
 
-const KeywordButton: FC<Props> = ({ keyword, isSelect, onClickKeyword }) => {
+const KeywordButton: FC<Props> = ({ keyword, isSelect, isSelectedButton, onClickKeyword }) => {
   return (
     <Button onClick={() => onClickKeyword(keyword)} isSelect={isSelect}>
-      #{keyword.title} <Delete />
+      #{keyword.title} {isSelectedButton && <Delete />}
     </Button>
   );
 };
