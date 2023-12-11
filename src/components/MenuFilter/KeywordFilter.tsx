@@ -46,7 +46,11 @@ const KeywordFilter: FC<Props> = ({ keywordList, selectedKeywords, onClickKeywor
       </KeywordList>
 
       <SelectedKeywordList>
-        <li>{/* <KeywordButton keyword='기획/아이디어' isSelect /> */}</li>
+        {selectedKeywords.map(selectedKeyword => (
+          <li key={selectedKeyword.id}>
+            <KeywordButton keyword={selectedKeyword} isSelect onClickKeyword={() => {}} />
+          </li>
+        ))}
       </SelectedKeywordList>
     </KeywordFilterContainer>
   );
