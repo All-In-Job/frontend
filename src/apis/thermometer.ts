@@ -4,6 +4,7 @@ import { ActivityListData } from 'types/activityHistory';
 import { userApi } from './index';
 
 export type pathInfo = {
+  field: string;
   category: string;
   activeTitle: string;
   activeContent: string;
@@ -48,6 +49,20 @@ export const deleteThermometerData = async (formData: deleteData) => {
     method: 'POST',
     url: 'updateThermometer',
     data: formData,
+  });
+};
+
+export const getCountActivity = async () => {
+  return userApi({
+    method: 'GET',
+    url: 'getCount',
+  });
+};
+
+export const findManyThermometer = async () => {
+  return userApi({
+    method: 'GET',
+    url: 'findManyThermometer',
   });
 };
 

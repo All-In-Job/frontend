@@ -4,11 +4,11 @@ export interface BarPieceProps {
 }
 
 export type BarPieceColor = {
-  COMPETITION: string;
-  OUT_SIDE_ACTIVITY: string;
-  CERTIFICATE: string;
-  LANGUAGE_STUDY: string;
-  INTERN: string;
+  competition: string;
+  outside: string;
+  qnet: string;
+  language: string;
+  intern: string;
 };
 
 export type BarPieceAttr = {
@@ -17,6 +17,6 @@ export type BarPieceAttr = {
   isTail: boolean;
 };
 
-export type ThermometerPercent = Pick<BarPieceProps, 'barType' | 'percent'>;
+export type Thermometer = Pick<BarPieceProps, 'barType' | 'percent'>;
 
-export type ThermometerPercentList = Record<keyof BarPieceColor, ThermometerPercent>;
+export type ThermometerList = Record<keyof BarPieceColor, Thermometer>;

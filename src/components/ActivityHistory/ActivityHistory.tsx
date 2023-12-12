@@ -13,7 +13,11 @@ import { Registration } from './ActivityComponents/Registration';
 import { TabNavigation } from './ActivityComponents/TabNavigation';
 import * as S from './ActivityHistory.styles';
 
-export const ActivityHistory = () => {
+type ActivityHistoryProps = {
+  setUpdateTemperature: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export const ActivityHistory = ({ setUpdateTemperature }: ActivityHistoryProps) => {
   const [activityList, setActivityList] = useState<ActivityListData[]>([]);
   const [isAcitiviyModalVisible, setIsModalVisible] = useRecoilState(isActivityModalState);
   const [activityListId, setActivityListId] = useRecoilState(idsState('activityListId'));
@@ -31,12 +35,14 @@ export const ActivityHistory = () => {
 
   useEffect(() => {
     updateActivityList(tabId);
+    setUpdateTemperature(true);
   }, [tabId]);
 
   const updateActivityList = async (tabId: string) => {
     try {
       const res = await findPathThermometer(tabId);
       setActivityList(res.data.data);
+      setUpdateTemperature(true);
     } catch (error) {
       console.log('Error getting data:', error);
       throw error;
@@ -53,6 +59,7 @@ export const ActivityHistory = () => {
       const res = await deleteThermometerData(deleteData);
       console.log('활동내역 삭제 성공:', res.data);
       updateActivityList(tabId); //activityList 업데이트
+      setUpdateTemperature(true);
     } catch (error) {
       console.error('Error deleting data:', error);
     }
@@ -62,7 +69,7 @@ export const ActivityHistory = () => {
     <S.ActivityHistory>
       <S.Heading>{'활동내역'}</S.Heading>
       <TabNavigation onModalOpen={onModalOpen} />
-      <Registration onModalOpen={onModalOpen} />
+      {activityList.length === 0 && <Registration onModalOpen={onModalOpen} />}
       <ActivityList
         activityList={activityList}
         onEdit={onEdit}

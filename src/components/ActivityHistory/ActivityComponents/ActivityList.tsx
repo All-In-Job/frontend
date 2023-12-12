@@ -11,7 +11,6 @@ type ActivityListProps = {
 };
 
 export const ActivityList = ({ activityList, onEdit, onDeleteFormData }: ActivityListProps) => {
-  console.log(activityList);
   return (
     <>
       {activityList.map(list => {
@@ -41,7 +40,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
-  margin-bottom: 40px;
   color: ${props => props.theme.palette.black300};
   font-family: SUIT;
   font-size: 20px;
@@ -49,6 +47,9 @@ const Container = styled.div`
   font-weight: 700;
   line-height: 26px;
   margin: 24px 0;
+  &:last-child {
+    margin: 24px 0 100px;
+  }
 `;
 
 const ActivityBox = styled.div`

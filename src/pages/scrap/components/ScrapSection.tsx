@@ -8,6 +8,8 @@ import Badge from 'pages/home/AsideProfile/components/Badge';
 import ItemWithImage from 'pages/scrap/components/ItemWithImage';
 import PageController from 'pages/scrap/components/PageController';
 
+import { NoResultScrap } from './NoResultScrap';
+
 const titleList = ['공모전', '대외활동', '어학', '자격증', '인턴'];
 
 interface Props {
@@ -17,6 +19,7 @@ interface Props {
 
 const ScrapSection: FC<Props> = ({ title, index }) => {
   const [scrapList, setScrapList] = useState<Scrap[]>([]);
+  const [isActive, setIsActive] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState<number>(1);
   const totalPage = Math.ceil(totalCount / 4);
@@ -35,35 +38,43 @@ const ScrapSection: FC<Props> = ({ title, index }) => {
   }
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await getUserScrap(title, currentPage);
-        const count = await getUserScrapTotalCount(title, true);
-        setScrapList(res.data.data);
-        setTotalCount(count.data.data);
-        console.log('호출 성공', res.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [title, currentPage]);
+    updateScrapList();
+  }, [currentPage, isActive]);
+
+  const updateScrapList = async () => {
+    try {
+      const res = await getUserScrap(title, currentPage);
+      const count = await getUserScrapTotalCount(title, true);
+      setScrapList(res.data.data);
+      setTotalCount(count.data.data);
+      setIsActive(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <FilledBadge title={titleList[index]} />
-      <VerticalAlign>
-        <HorizontalItemList>
-          {scrapList && scrapList.map(item => <ItemWithImage key={item.id} {...item} />)}
-        </HorizontalItemList>
-        <PageController
-          canBack={canBack}
-          canForward={canForward}
-          currentPage={currentPage}
-          onClickNext={handleClickNext}
-          onClickPrev={handleClickBack}
-          totalPage={totalPage}
-        />
-      </VerticalAlign>
+      {scrapList ? (
+        <VerticalAlign>
+          <HorizontalItemList>
+            {scrapList.map(item => (
+              <ItemWithImage key={item.id} {...item} setIsActive={setIsActive} />
+            ))}
+          </HorizontalItemList>
+          <PageController
+            canBack={canBack}
+            canForward={canForward}
+            currentPage={currentPage}
+            onClickNext={handleClickNext}
+            onClickPrev={handleClickBack}
+            totalPage={totalPage}
+          />
+        </VerticalAlign>
+      ) : (
+        <NoResultScrap />
+      )}
     </>
   );
 };
@@ -73,7 +84,6 @@ export default ScrapSection;
 const HorizontalItemList = styled.ul`
   display: flex;
   width: 100%;
-  white-space: nowrap;
 `;
 
 const FilledBadge = styled(Badge)`

@@ -1,29 +1,47 @@
-import { FC, RefObject } from 'react';
+import { FC } from 'react';
 
 import styled from '@emotion/styled';
 
-import { FlexCenterContainer } from 'pages/home/PassionTemperature/passionTemperature.style';
 import { ReactComponent as SmileIcon } from 'pages/home/res/img/smile.svg';
 
 interface Props {
-  indicatorRef: RefObject<HTMLElement>;
-  totalWidth: number;
+  temperatureSum: number;
+  topPercentage: number;
 }
 
-const Indicator: FC<Props> = ({ totalWidth, indicatorRef }) => {
+const Indicator: FC<Props> = ({ temperatureSum, topPercentage }) => {
   return (
-    <Container ref={indicatorRef as RefObject<HTMLDivElement>} left={`${totalWidth}px`}>
-      <IndicatorText>열정온도 60℃</IndicatorText>
-      <SmileIcon />
+    <Container>
+      <Description>{`IT프로그래밍 분야 중 상위 ${topPercentage}%`}</Description>
+      <IndicatorBox>
+        <IndicatorText>{`열정온도 ${temperatureSum}℃`}</IndicatorText>
+        <SmileIcon />
+      </IndicatorBox>
     </Container>
   );
 };
 
 export default Indicator;
 
-const Container = styled(FlexCenterContainer)<{ left: string }>`
-  position: absolute;
-  left: ${({ left }) => left};
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+`;
+
+const Description = styled.h2`
+  color: var(--title-black, #121110);
+  font-family: SUIT;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
+
+const IndicatorBox = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const IndicatorText = styled.span`

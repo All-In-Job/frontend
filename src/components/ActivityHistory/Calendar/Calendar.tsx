@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { ko } from 'date-fns/esm/locale';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -11,7 +11,11 @@ import { inputValuesState } from 'store/activityHistory';
 import * as S from './Calendar.styes';
 // import { ReactComponent as CalendarIcon } from './res/img/calendar.svg';
 
-const Calendar = () => {
+type CalendarProps = {
+  periodData: string | null;
+};
+
+const Calendar = ({ periodData }: CalendarProps) => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const setPeriodValue = useSetRecoilState(inputValuesState('period'));
@@ -37,6 +41,21 @@ const Calendar = () => {
     }
   };
 
+  const parseAndSetPeriod = (periodData: string | null) => {
+    if (periodData) {
+      const [start, end] = periodData.split(' ~ ');
+      const startDate = parse(start, 'yyyy.MM', new Date());
+      const endDate = parse(end, 'yyyy.MM', new Date());
+
+      setStartDate(startDate);
+      setEndDate(endDate);
+    }
+  };
+
+  useEffect(() => {
+    parseAndSetPeriod(periodData);
+  }, [periodData]);
+
   return (
     <S.CalendarContainer>
       <DatePicker
@@ -51,6 +70,7 @@ const Calendar = () => {
         selected={endDate}
         onChange={handleEndDateChange}
         dateFormat='yyyy.MM'
+        minDate={startDate}
         showMonthYearPicker
         placeholderText='시작년월 선택'
         locale={ko}

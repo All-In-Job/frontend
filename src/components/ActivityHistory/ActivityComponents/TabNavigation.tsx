@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 
-import categoryList from 'components/ActivityHistory/data/category.json';
+import { categoryList } from 'components/ActivityHistory/data/category';
 import { ReactComponent as AddIcon } from 'components/ActivityHistory/res/img/add_circle.svg';
 import { tabIdState } from 'store/activityHistory';
 

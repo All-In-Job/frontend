@@ -2,19 +2,27 @@ import { useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 
+import { findManyThermometer, getCountActivity } from 'apis/thermometer';
+import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
 import { FlexColumnContainer } from 'pages/home/PassionTemperature/passionTemperature.style';
 import PassionThermometer from 'pages/home/PassionTemperature/Thermometer';
-import { thermometerPercentList } from 'pages/home/PassionTemperature/Thermometer/mock';
+// import { thermometerPercentList } from 'pages/home/PassionTemperature/Thermometer/mock';
 
 import Indicator from './Indicator';
 import TemperatureCategory from './TemperatureCategory';
-import { getTotalWidth } from './utils';
+import { ThermometerList } from './Thermometer/types';
+import { TemperatureCategoryList } from './type';
 
 const PassionTemperature = () => {
+  const [categoryList, setCategoryList] = useState<TemperatureCategoryList>();
+  const [thermometerList, setThermometerList] = useState<ThermometerList>();
+  const [updateTemperature, setUpdateTemperature] = useState(false);
+  const [temperatureSum, setTemperatureSum] = useState<number>(0);
+  const [topPercentage, setTopPercentage] = useState<number>(0);
+
   const temperatureRef = useRef<HTMLElement>(null);
   const [temperatureWidth, setTemperatureWidth] = useState(0);
-  const indicatorRef = useRef<HTMLElement>(null);
-  const [indicatorWidth, setIndicatorWidth] = useState(0);
+
   useEffect(() => {
     function adjustWidth() {
       if (temperatureRef.current == null) return;
@@ -31,24 +39,49 @@ const PassionTemperature = () => {
   }, []);
 
   useEffect(() => {
-    if (indicatorRef.current == null) return;
-    setIndicatorWidth(indicatorRef.current.clientWidth);
-  }, []);
+    updateCategoryList();
+    updateThermometer();
+  }, [updateTemperature]);
 
-  const totalWidth = getTotalWidth(temperatureWidth, thermometerPercentList, indicatorWidth);
+  const updateCategoryList = async () => {
+    //활동내역
+    try {
+      const res = await findManyThermometer();
+      setCategoryList(res.data);
+      setUpdateTemperature(false);
+    } catch (error) {
+      console.log('Error getting data:', error);
+      throw error;
+    }
+  };
+
+  const updateThermometer = async () => {
+    //온도계
+    try {
+      const res = await getCountActivity();
+      setThermometerList(res.data);
+      setTemperatureSum(res.data.sum);
+      setTopPercentage(res.data.top);
+      setUpdateTemperature(false);
+    } catch (error) {
+      console.log('Error getting data:', error);
+      throw error;
+    }
+  };
+
   return (
     <Container>
       <Title>열정온도</Title>
       <TemperatureContainer>
-        <Description>IT프로그래밍 분야 중 상위 25%</Description>
-        <Indicator indicatorRef={indicatorRef} totalWidth={totalWidth} />
+        <Indicator temperatureSum={temperatureSum} topPercentage={topPercentage} />
         <PassionThermometer
           temperatureRef={temperatureRef}
           temperatureWidth={temperatureWidth}
-          thermometerPercentList={thermometerPercentList}
+          thermometerList={thermometerList}
         />
       </TemperatureContainer>
-      <TemperatureCategory />
+      {categoryList && <TemperatureCategory categoryList={categoryList} />}
+      <ActivityHistory setUpdateTemperature={setUpdateTemperature} />
     </Container>
   );
 };
@@ -56,6 +89,7 @@ const PassionTemperature = () => {
 export default PassionTemperature;
 
 const Container = styled(FlexColumnContainer)`
+  grid-column: span 12;
   height: 128px;
   max-width: 1155px;
   min-width: 600px;
@@ -71,16 +105,6 @@ const Title = styled.h2`
   font-weight: 700;
   line-height: normal;
   letter-spacing: 0.134px;
-`;
-
-const Description = styled.h2`
-  margin-bottom: 12px;
-  color: var(--title-black, #121110);
-  font-family: SUIT;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
 `;
 
 const TemperatureContainer = styled(FlexColumnContainer)`

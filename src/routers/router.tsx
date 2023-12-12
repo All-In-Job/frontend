@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { createBrowserRouter } from 'react-router-dom';
 
 import { getLoginUserInfo } from 'apis/user';
-import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
+// import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
 import { BasicInformation } from 'components/BasicInformation/BasicInformation';
 import { Calendar } from 'components/Calendar/Calendar';
 import Error from 'components/Error/Error';
@@ -10,6 +10,7 @@ import InterestForm from 'components/InterestForm/InterestForm';
 import { DetailPage } from 'pages/detail';
 import FindID from 'pages/findID/FindID';
 import { Home } from 'pages/Home';
+import PassionTemperature from 'pages/home/PassionTemperature';
 import Login from 'pages/login/Login';
 import Menu from 'pages/menu/Menu';
 import MenuList from 'pages/menu/MenuList/MenuList';
@@ -64,7 +65,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'passion-temperature',
-        element: <ActivityHistory />,
+        element: <PassionTemperature />,
         loader: getUserProfile,
       },
       {
