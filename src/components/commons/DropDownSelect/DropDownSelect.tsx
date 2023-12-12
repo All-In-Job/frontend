@@ -1,4 +1,4 @@
-import { ReactComponent as ExpendMoreIcon } from 'assets/icons/icon_expend_more.svg';
+import { ReactComponent as ExpendMoreIcon } from 'assets/icons/icon_expand_more.svg';
 import { ReactComponent as ReversExpendMoreIcon } from 'assets/icons/icon_revers_expend_more.svg';
 import Select, { StylesConfig, components, DropdownIndicatorProps, ActionMeta } from 'react-select';
 
