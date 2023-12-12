@@ -1,6 +1,7 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { ReactComponent as ArrowExpandIcon } from 'assets/icons/icon_expand_more.svg';
 import { Community } from 'types/community.type';
 
 import theme from 'styles/theme';
@@ -27,6 +28,9 @@ export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
             <StyledOption onClick={() => setSelected(item)}>{item}</StyledOption>
           ))}
         </StyledUl>
+        <StyledArrowIconContainer isOpen={isOpen}>
+          <ArrowExpandIcon />
+        </StyledArrowIconContainer>
       </StyledSelect>
       <StyledSearchBar placeholder='취준job담을 검색해보세요!' />
       <StyledSearchButton onClick={() => searchItemsRequest(selected)}>검색</StyledSearchButton>
@@ -40,6 +44,7 @@ const StyledSearch = styled.div`
   margin-bottom: 24px;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 const StyledSelect = styled.div`
   position: relative;
@@ -48,6 +53,13 @@ const StyledSelect = styled.div`
   border-radius: 4px;
   border: 1px solid ${theme.palette.black100};
   cursor: pointer;
+`;
+const StyledArrowIconContainer = styled.div<{ isOpen: boolean }>`
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  padding-top: 3px;
+  transform: ${props => (props.isOpen ? 'rotate(180deg) translateY(50%)' : 'translateY(-50%)')};
 `;
 const StyledUl = styled.ul<{ isOpen: boolean }>`
   position: absolute;
