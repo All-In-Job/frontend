@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData, useOutletContext, useParams } from 'react-router-dom';
 import { Language } from 'types/language.type';
 
 import { requestCrawlingData } from 'apis/crawling';
 import { requestCrawlingTotalCount } from 'apis/crawlingCount';
 import MenuPagination from 'components/commons/Pagination/MenuPagination';
+import { HashTagData } from 'components/HashTagFilter/type';
 import { useControlPageParam } from 'hooks/useControlPageParam';
 
 import { LanguagePageItem } from './LanguageInfo/LanguagePageItem';
+
+type UseOutletType = {
+  selectedKeyword: HashTagData[];
+};
 
 export const LanguagePageList = () => {
   const { menuName } = useParams();
@@ -18,6 +23,10 @@ export const LanguagePageList = () => {
   const { getPageParam } = useControlPageParam();
   const currentPage = getPageParam ? Number(getPageParam) : 1;
   const userId = useLoaderData() as { id: string };
+
+  const { selectedKeyword } = useOutletContext<UseOutletType>();
+
+  console.log(selectedKeyword);
 
   useEffect(() => {
     const fetchData = async () => {

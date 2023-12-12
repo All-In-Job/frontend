@@ -14,9 +14,11 @@ import { InternPageItem } from './InternInfo/InternPageItem';
 import * as S from './InternPageList.styles';
 
 const TableName = ['기업명', '공고명', '지역', '마감일', '조회수', '스크랩'];
+
 type UseOutletType = {
   selectedKeyword: HashTagData[];
 };
+
 export const InternPageList = () => {
   const { menuName } = useParams();
   const [InternPageList, setInternPageList] = useState<Inter[]>([]);
@@ -26,7 +28,6 @@ export const InternPageList = () => {
   const userId = useLoaderData() as { id: string };
 
   const { selectedKeyword } = useOutletContext<UseOutletType>();
-
   const [institution, setInstitution] = useState<string[]>([]);
   const [preferentialTreatment, setPreferentialTreatment] = useState<string[]>([]);
   const [location, setLocation] = useState<string[]>([]);
@@ -50,8 +51,6 @@ export const InternPageList = () => {
     setPreferentialTreatment(updatedPreferentialTreatment);
     setLocation(updatedLocation);
   }, [selectedKeyword]);
-
-  console.log(selectedKeyword);
 
   useEffect(() => {
     const fetchData = async () => {
