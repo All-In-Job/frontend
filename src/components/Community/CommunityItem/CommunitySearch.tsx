@@ -19,28 +19,21 @@ export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
   };
 
   return (
-    <StyledHeader>
-      <StyledSearch>
-        <StyledSelect onClick={() => setIsOpen(!isOpen)}>
-          {selected}
-          <StyledUl isOpen={isOpen}>
-            {['제목 + 내용', '제목', '글작성자'].map(item => (
-              <StyledOption onClick={() => setSelected(item)}>{item}</StyledOption>
-            ))}
-          </StyledUl>
-        </StyledSelect>
-        <StyledSearchBar placeholder='취준job담을 검색해보세요!' />
-        <StyledSearchButton onClick={() => searchItemsRequest(selected)}>검색</StyledSearchButton>
-      </StyledSearch>
-      <StyledWriteButton>작성하기</StyledWriteButton>
-    </StyledHeader>
+    <StyledSearch>
+      <StyledSelect onClick={() => setIsOpen(!isOpen)}>
+        {selected}
+        <StyledUl isOpen={isOpen}>
+          {['제목 + 내용', '제목', '글작성자'].map(item => (
+            <StyledOption onClick={() => setSelected(item)}>{item}</StyledOption>
+          ))}
+        </StyledUl>
+      </StyledSelect>
+      <StyledSearchBar placeholder='취준job담을 검색해보세요!' />
+      <StyledSearchButton onClick={() => searchItemsRequest(selected)}>검색</StyledSearchButton>
+    </StyledSearch>
   );
 };
 
-const StyledHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
 const StyledSearch = styled.div`
   display: flex;
   gap: 8px;
@@ -87,14 +80,5 @@ const StyledSearchButton = styled.button`
   border-radius: 4px;
   background-color: ${theme.palette.orange500};
   color: white;
-  cursor: pointer;
-`;
-const StyledWriteButton = styled.button`
-  width: 108px;
-  height: 48px;
-  border-radius: 4px;
-  border: 1px solid ${theme.palette.black100};
-  background-color: ${theme.palette.background.primary50};
-  color: ${theme.palette.orange500};
   cursor: pointer;
 `;

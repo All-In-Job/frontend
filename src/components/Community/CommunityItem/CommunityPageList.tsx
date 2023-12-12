@@ -8,6 +8,7 @@ import { requestCommunityData } from 'apis/community';
 import { requestCommunityCount } from 'apis/communityCount';
 import MenuPagination from 'components/commons/Pagination/MenuPagination';
 import { useControlPageParam } from 'hooks/useControlPageParam';
+import theme from 'styles/theme';
 
 import CommunityItem from './CommunityItem';
 import { CommunitySearch } from './CommunitySearch';
@@ -52,7 +53,10 @@ export const CommunityPageList = () => {
   if (communityList)
     return (
       <>
-        <CommunitySearch setCommunityList={setCommunityList} />
+        <StyledHeader>
+          <CommunitySearch setCommunityList={setCommunityList} />
+          <StyledWriteButton>작성하기</StyledWriteButton>
+        </StyledHeader>
 
         <List>{renderList(communityList)}</List>
 
@@ -60,5 +64,18 @@ export const CommunityPageList = () => {
       </>
     );
 };
+const StyledHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const StyledWriteButton = styled.button`
+  width: 108px;
+  height: 48px;
+  border-radius: 4px;
+  border: 1px solid ${theme.palette.black100};
+  background-color: ${theme.palette.background.primary50};
+  color: ${theme.palette.orange500};
+  cursor: pointer;
+`;
 
 const List = styled.div``;
