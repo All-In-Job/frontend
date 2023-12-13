@@ -6,6 +6,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 // import CategoryFilter from 'components/CategoryFilter';
 // import { CategoryData } from 'components/CategoryFilter/type';
 // import HashTagFilter from 'components/HashTagFilter';
+import CertificateCategoryFilter from 'components/CertificateCategoryFilter/CertificateCategoryFilter';
 import { HashTagData } from 'components/HashTagFilter/type';
 import RestCategoryFilter from 'components/RestCategoryFilter/RestCategoryFilter';
 
@@ -25,6 +26,7 @@ const Menu = () => {
     competition: <RestCategoryFilter />,
     outside: <RestCategoryFilter />,
     intern: <RestCategoryFilter />,
+    qnet: <CertificateCategoryFilter />,
   };
 
   const selectedCategoryFilter = menuToCategoryFilter[menuName as string];
