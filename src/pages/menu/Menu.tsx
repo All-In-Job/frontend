@@ -8,6 +8,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 // import HashTagFilter from 'components/HashTagFilter';
 import CertificateCategoryFilter from 'components/CertificateCategoryFilter/CertificateCategoryFilter';
 import { HashTagData } from 'components/HashTagFilter/type';
+import LanguageCategoryFilter from 'components/LanguageCategoryFilter/LanguageCategoryFilter';
 import RestCategoryFilter from 'components/RestCategoryFilter/RestCategoryFilter';
 
 // import { MenuId, getMenuById } from './menuCategoies';
@@ -27,6 +28,7 @@ const Menu = () => {
     outside: <RestCategoryFilter />,
     intern: <RestCategoryFilter />,
     qnet: <CertificateCategoryFilter />,
+    language: <LanguageCategoryFilter />,
   };
 
   const selectedCategoryFilter = menuToCategoryFilter[menuName as string];
