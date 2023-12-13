@@ -43,6 +43,7 @@ const CertificateCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
 
   const keywordList: Keyword[] = Object.entries(foundKeywordList?.keywords || []).map(
     ([key, value]) => ({
+      path: foundKeywordList?.id,
       id: key,
       title: value,
     }),
