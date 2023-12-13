@@ -6,3 +6,13 @@ export const requestCommunityData = async (page: string) => {
     params: { page },
   });
 };
+
+export const getCommunitySearchResult = async (target: string, text: string) => {
+  return await communityApi({
+    method: 'get',
+    params: {
+      [target]: text,
+      page: 1,
+    },
+  });
+};
