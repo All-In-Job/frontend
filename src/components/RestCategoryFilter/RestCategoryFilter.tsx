@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
@@ -7,7 +7,11 @@ import CategoryFilter from 'components/MenuFilter/CategoryFilter';
 import KeywordFilter, { Keyword } from 'components/MenuFilter/KeywordFilter';
 import { MenuId, getMenuById } from 'pages/menu/menuCategoies';
 
-const RestCategoryFilter = () => {
+type Props = {
+  onSearchSelectedKeyword: (selectedKeywords: Keyword[]) => void;
+};
+
+const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedKeywords, setSelectedKeywords] = useState<Keyword[]>([]);
   const { menuName, categoryId } = useParams();
@@ -58,6 +62,10 @@ const RestCategoryFilter = () => {
     const updatedKeywords = selectedKeywords.filter(kw => kw.id !== keyword.id);
     setSelectedKeywords(updatedKeywords);
   };
+
+  useEffect(() => {
+    onSearchSelectedKeyword(selectedKeywords);
+  }, [selectedKeywords]);
 
   return (
     <MenuFilterWrapper>
