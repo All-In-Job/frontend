@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { ReactComponent as ArrowExpandIcon } from 'assets/icons/icon_expand_more.svg';
 import { Community } from 'types/community.type';
 
+import { getCommunitySearchResult } from 'apis/community';
 import theme from 'styles/theme';
 
 type Props = {
@@ -11,12 +12,23 @@ type Props = {
 };
 
 export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
-  const [selected, setSelected] = useState('제목 + 내용');
+  const [selected, setSelected] = useState('title');
+  const [text, setText] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
-  const searchItemsRequest = async (selected: string) => {
-    console.log(selected);
-    setCommunityList([]);
+  const requestSearchResult = async () => {
+    getCommunitySearchResult(selected, text)
+      .then(res => {
+        setCommunityList(res.data.data);
+      })
+      .catch(err => console.log(err));
+  };
+  const filterSearchTarget = (target: string) => {
+    let translated: string = '';
+    if (target === '제목 + 내용') translated = 'content';
+    if (target === '제목') translated = 'title';
+    if (target === '글작성자') translated = 'nickName';
+    setSelected(translated);
   };
 
   return (
@@ -25,15 +37,18 @@ export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
         {selected}
         <StyledUl isOpen={isOpen}>
           {['제목 + 내용', '제목', '글작성자'].map(item => (
-            <StyledOption onClick={() => setSelected(item)}>{item}</StyledOption>
+            <StyledOption onClick={() => filterSearchTarget(item)}>{item}</StyledOption>
           ))}
         </StyledUl>
         <StyledArrowIconContainer isOpen={isOpen}>
           <ArrowExpandIcon />
         </StyledArrowIconContainer>
       </StyledSelect>
-      <StyledSearchBar placeholder='취준job담을 검색해보세요!' />
-      <StyledSearchButton onClick={() => searchItemsRequest(selected)}>검색</StyledSearchButton>
+      <StyledSearchBar
+        placeholder='취준job담을 검색해보세요!'
+        onChange={e => setText(e.target.value)}
+      />
+      <StyledSearchButton onClick={() => requestSearchResult()}>검색</StyledSearchButton>
     </StyledSearch>
   );
 };
