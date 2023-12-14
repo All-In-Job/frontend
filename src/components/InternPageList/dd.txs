@@ -7,18 +7,16 @@ import { requestCrawlingData } from 'apis/crawling';
 import { requestCrawlingTotalCount } from 'apis/crawlingCount';
 import MenuPagination from 'components/commons/Pagination/MenuPagination';
 import { NoResult } from 'components/Error/NoResult';
-import { Keyword } from 'components/MenuFilter/KeywordFilter';
+import { HashTagData } from 'components/HashTagFilter/type';
 import { useControlPageParam } from 'hooks/useControlPageParam';
 
 import { InternPageItem } from './InternInfo/InternPageItem';
 import * as S from './InternPageList.styles';
 
-type UseOutletType = {
-  selectedKeyword: Keyword[];
-};
-
 const TableName = ['기업명', '공고명', '지역', '마감일', '조회수', '스크랩'];
-
+type UseOutletType = {
+  selectedKeyword: HashTagData[];
+};
 export const InternPageList = () => {
   const { menuName } = useParams();
   const [InternPageList, setInternPageList] = useState<Inter[]>([]);
@@ -65,10 +63,10 @@ export const InternPageList = () => {
         const queries = {
           path: menuName,
           page: getPageParam,
-          id: userId?.id,
+          location: arrayToString(location),
           institution: arrayToString(institution),
           preferentialTreatment: arrayToString(preferentialTreatment),
-          location: arrayToString(location),
+          id: userId?.id,
         };
 
         const res = await requestCrawlingData(menuName as string, queries);
