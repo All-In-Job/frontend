@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import * as S from './CertificatePageSearch.styles';
 import { ReactComponent as ExpandCircle } from './res/expand_circle_right.svg';
@@ -8,7 +8,7 @@ type searchProps = {
   keyword: string | undefined;
   searchedCertificates: string[];
   certificate: string | undefined;
-  setCertificate: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setCertificate: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const CertificatePageSearch = ({
@@ -23,8 +23,12 @@ export const CertificatePageSearch = ({
   const onChangeInputTitleValue = (e: ChangeEvent<HTMLInputElement>) =>
     setCertificate(e.target.value);
   const onSelectTitle = (title: string) => setCertificate(title);
-  const onClickInput = () => setIsVisibleTitle(prev => !prev);
+  const onClickInput = () => keyword && setIsVisibleTitle(prev => !prev);
   const onBlurInput = () => setIsVisibleTitle(false);
+
+  useEffect(() => {
+    setCertificate('');
+  }, [keyword]);
 
   return (
     <S.Container>

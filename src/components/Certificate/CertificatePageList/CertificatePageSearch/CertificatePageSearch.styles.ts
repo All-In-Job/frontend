@@ -70,7 +70,6 @@ export const Input = styled.input`
   font-size: 17px;
   font-weight: 500;
   line-height: 24px;
-  /* cursor: pointer; */
   ::placeholder {
     color: ${props => props.theme.palette.black500};
   }

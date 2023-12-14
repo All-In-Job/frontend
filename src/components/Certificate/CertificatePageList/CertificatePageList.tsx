@@ -19,20 +19,22 @@ export const CertificatePageList = () => {
   const { menuName } = useParams();
   const userId = useLoaderData() as { id: string };
   const [certificateList, setCertificateList] = useState<Certificate[]>([]);
-  const [certificate, setCertificate] = useState<string>();
-  const [keyword, setKeyword] = useState<string>();
+  const [certificate, setCertificate] = useState<string>('');
+  const [keyword, setKeyword] = useState<string>('');
   const searchedCertificates = certificateList.map(el => el.title);
 
   const { selectedKeyword } = useOutletContext<UseOutletType>();
   const [mainCategory, setMainCategory] = useState<string>();
 
   useEffect(() => {
-    selectedKeyword.forEach(el => {
-      if (el.path) {
+    if (selectedKeyword.length !== 0) {
+      selectedKeyword.forEach(el => {
         setMainCategory(el.id);
         setKeyword(el.title);
-      }
-    });
+      });
+    } else {
+      setKeyword('');
+    }
   }, [selectedKeyword]);
 
   useEffect(() => {
