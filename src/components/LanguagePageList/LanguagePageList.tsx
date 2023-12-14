@@ -36,10 +36,8 @@ export const LanguagePageList = () => {
     const updatedTest: string[] = [];
 
     selectedKeyword.forEach(el => {
-      if (el.path) {
-        setClassify(el.path);
-        updatedTest.push(el.id);
-      }
+      setClassify(el.path);
+      updatedTest.push(el.id);
     });
     setTest(updatedTest);
   }, [selectedKeyword]);

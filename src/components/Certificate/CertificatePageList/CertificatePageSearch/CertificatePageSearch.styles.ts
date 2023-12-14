@@ -40,13 +40,12 @@ export const SelectBox = styled.div<{ show: boolean }>`
   height: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: ${props =>
-    props.show
-      ? '0px 9px 28px 8px rgba(0, 0, 0, 0.05), 0px 6px 16px 0px rgba(0, 0, 0, 0.08), 0px 3px 6px -4px rgba(0, 0, 0, 0.12)'
-      : 'none'};
   label {
     position: relative;
     cursor: pointer;
+    input {
+      cursor: pointer;
+    }
     svg {
       position: absolute;
       top: 12px;
@@ -71,7 +70,6 @@ export const Input = styled.input`
   font-size: 17px;
   font-weight: 500;
   line-height: 24px;
-  /* cursor: pointer; */
   ::placeholder {
     color: ${props => props.theme.palette.black500};
   }
