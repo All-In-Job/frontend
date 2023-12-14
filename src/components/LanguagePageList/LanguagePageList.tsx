@@ -1,15 +1,21 @@
 import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useLoaderData, useOutletContext, useParams } from 'react-router-dom';
 import { Language } from 'types/language.type';
 
 import { requestCrawlingData } from 'apis/crawling';
 import { requestCrawlingTotalCount } from 'apis/crawlingCount';
 import MenuPagination from 'components/commons/Pagination/MenuPagination';
+import { NoResult } from 'components/Error/NoResult';
+import { Keyword } from 'components/MenuFilter/KeywordFilter';
 import { useControlPageParam } from 'hooks/useControlPageParam';
 
 import { LanguagePageItem } from './LanguageInfo/LanguagePageItem';
+
+type UseOutletType = {
+  selectedKeyword: Keyword[];
+};
 
 export const LanguagePageList = () => {
   const { menuName } = useParams();
@@ -19,13 +25,37 @@ export const LanguagePageList = () => {
   const currentPage = getPageParam ? Number(getPageParam) : 1;
   const userId = useLoaderData() as { id: string };
 
+  const { selectedKeyword } = useOutletContext<UseOutletType>();
+  const [classify, setClassify] = useState<string>();
+  const [test, setTest] = useState<string[]>([]);
+
+  console.log(selectedKeyword);
+
+  useEffect(() => {
+    const updatedTest: string[] = [];
+
+    selectedKeyword.forEach(el => {
+      if (el.path) {
+        setClassify(el.path);
+        updatedTest.push(el.id);
+      }
+    });
+    setTest(updatedTest);
+  }, [selectedKeyword]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const arrayToString = (arr: string[]) => {
+          return arr.length === 0 ? undefined : arr.join(',');
+        };
+
         const queries = {
           path: menuName,
           page: getPageParam,
           id: userId?.id,
+          classify: classify,
+          test: arrayToString(test),
         };
 
         const res = await requestCrawlingData(menuName as string, queries);
@@ -38,26 +68,35 @@ export const LanguagePageList = () => {
     };
 
     fetchData();
-  }, [menuName, getPageParam, userId]);
+  }, [menuName, getPageParam, userId, classify, test]);
 
   return (
     <>
-      <LanguageContainer>
-        {languageList.map(el => (
-          <LanguagePageItem
-            key={el.id}
-            id={el.id}
-            title={el.title}
-            homePage={el.homePage}
-            examDate={el.examDate}
-            openDate={el.openDate}
-            closeDate={el.closeDate}
-            isScrap={el.isScrap}
+      {languageList.length !== 0 ? (
+        <>
+          <LanguageContainer>
+            {languageList.map(el => (
+              <LanguagePageItem
+                key={el.id}
+                id={el.id}
+                title={el.title}
+                homePage={el.homePage}
+                examDate={el.examDate}
+                openDate={el.openDate}
+                closeDate={el.closeDate}
+                isScrap={el.isScrap}
+              />
+            ))}
+          </LanguageContainer>
+          <MenuPagination
+            currentPage={currentPage}
+            totalItemsCount={totalCount}
+            itemsPerPage={12}
           />
-        ))}
-      </LanguageContainer>
-
-      <MenuPagination currentPage={currentPage} totalItemsCount={totalCount} itemsPerPage={12} />
+        </>
+      ) : (
+        <NoResult />
+      )}
     </>
   );
 };
