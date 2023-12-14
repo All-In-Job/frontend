@@ -7,6 +7,7 @@ import { Language } from 'types/language.type';
 import { requestCrawlingData } from 'apis/crawling';
 import { requestCrawlingTotalCount } from 'apis/crawlingCount';
 import MenuPagination from 'components/commons/Pagination/MenuPagination';
+import { arrayToString } from 'components/commons/utils/arrayToString';
 import { NoResult } from 'components/Error/NoResult';
 import { Keyword } from 'components/MenuFilter/KeywordFilter';
 import { useControlPageParam } from 'hooks/useControlPageParam';
@@ -46,10 +47,6 @@ export const LanguagePageList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const arrayToString = (arr: string[]) => {
-          return arr.length === 0 ? undefined : arr.join(',');
-        };
-
         const queries = {
           path: menuName,
           page: getPageParam,
