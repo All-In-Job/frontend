@@ -9,6 +9,8 @@ import { Keyword } from 'components/MenuFilter/KeywordFilter';
 
 import { CertificatePageItem } from './CertificatePageItem/CertificatePageItem';
 import * as S from './CertificatePageList.styles';
+import { CertificatePageSearch } from './CertificatePageSearch/CertificatePageSearch';
+// import { CertificatePageSearch } from './CertificatePageSearch/CertificatePageSearch';
 
 type UseOutletType = {
   selectedKeyword: Keyword[];
@@ -16,9 +18,11 @@ type UseOutletType = {
 
 export const CertificatePageList = () => {
   const { menuName } = useParams();
-
-  const [certificateList, setCertificateList] = useState<Certificate[]>([]);
   const userId = useLoaderData() as { id: string };
+  const [certificateList, setCertificateList] = useState<Certificate[]>([]);
+  const [certificate, setCertificate] = useState<string>();
+  const [keyword, setKeyword] = useState<string>();
+  const searchedCertificates = certificateList.map(el => el.title);
 
   const { selectedKeyword } = useOutletContext<UseOutletType>();
   const [mainCategory, setMainCategory] = useState<string>();
@@ -29,6 +33,7 @@ export const CertificatePageList = () => {
     selectedKeyword.forEach(el => {
       if (el.path) {
         setMainCategory(el.id);
+        setKeyword(el.title);
       }
     });
   }, [selectedKeyword]);
@@ -56,11 +61,17 @@ export const CertificatePageList = () => {
     <>
       {certificateList.length !== 0 ? (
         <S.List>
+          <CertificatePageSearch
+            keyword={keyword}
+            searchedCertificates={searchedCertificates}
+            certificate={certificate}
+            setCertificate={setCertificate}
+          />
           {certificateList.map(el => (
             <CertificatePageItem
+              key={el.id}
               mainImage={el.mainImage}
               location='page'
-              key={el.id}
               id={el.id}
               title={el.title}
               institution={el.institution}
