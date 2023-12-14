@@ -7,14 +7,19 @@ import theme from 'styles/theme';
 
 const { palette, textStyle } = theme;
 
+export type Category = {
+  id: string;
+  title: string;
+};
+
 type Props = {
   title: string;
-  categories?: string[];
-  selectedCategory: string;
+  categories: Category[];
+  selectedCategories: Category[];
   onClickCategory: (category: string) => void;
 };
 
-const CategoryFilter: FC<Props> = ({ title, categories, selectedCategory, onClickCategory }) => {
+const CategoryFilter: FC<Props> = ({ title, categories, selectedCategories, onClickCategory }) => {
   const INTEREST_SWITCH = 'INTEREST_SWITCH';
   const [isActive, setIsActive] = useState(false);
 
@@ -24,10 +29,12 @@ const CategoryFilter: FC<Props> = ({ title, categories, selectedCategory, onClic
       <CategoryFilterFooter>
         <Categoies>
           {categories?.map(category => (
-            <li key={category}>
+            <li key={category.id}>
               <CategoryButton
-                category={category}
-                isSelected={selectedCategory === category}
+                category={category.title}
+                isSelected={selectedCategories.some(
+                  selectedCategory => selectedCategory.title === category.title,
+                )}
                 onClickCategory={onClickCategory}
               />
             </li>

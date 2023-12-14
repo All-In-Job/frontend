@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import CertificateCategoryFilter from 'components/CertificateCategoryFilter/CertificateCategoryFilter';
+import CommunityCategoryFilter from 'components/CommunityCategoryFilter/CommunityCategoryFilter';
 import LanguageCategoryFilter from 'components/LanguageCategoryFilter/LanguageCategoryFilter';
 import { Keyword } from 'components/MenuFilter/KeywordFilter';
 import RestCategoryFilter from 'components/RestCategoryFilter/RestCategoryFilter';
@@ -31,6 +32,7 @@ const Menu = () => {
     intern: <RestCategoryFilter onSearchSelectedKeyword={onSearch} />,
     qnet: <CertificateCategoryFilter onSearchSelectedKeyword={onSearch} />,
     language: <LanguageCategoryFilter onSearchSelectedKeyword={onSearch} />,
+    community: <CommunityCategoryFilter />,
   };
 
   const selectedCategoryFilter = menuToCategoryFilter[menuName as string];
