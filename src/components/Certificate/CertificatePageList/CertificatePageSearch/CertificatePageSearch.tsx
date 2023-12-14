@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import * as S from './CertificatePageSearch.styles';
 import { ReactComponent as ExpandCircle } from './res/expand_circle_right.svg';
@@ -17,19 +17,14 @@ export const CertificatePageSearch = ({
   certificate,
   setCertificate,
 }: searchProps) => {
-  // const [certificate, setCertificate] = useState<string>();
   const [isVisibleTitle, setIsVisibleTitle] = useState(false);
 
   const removeDuplicates = (titles: string[]): string[] => [...new Set(titles)];
   const onChangeInputTitleValue = (e: ChangeEvent<HTMLInputElement>) =>
     setCertificate(e.target.value);
   const onSelectTitle = (title: string) => setCertificate(title);
-  const onFocusInput = () => keyword && setIsVisibleTitle(true);
+  const onClickInput = () => setIsVisibleTitle(prev => !prev);
   const onBlurInput = () => setIsVisibleTitle(false);
-
-  useEffect(() => {}, []);
-
-  console.log(searchedCertificates);
 
   return (
     <S.Container>
@@ -47,11 +42,11 @@ export const CertificatePageSearch = ({
         <S.SelectBox show={isVisibleTitle}>
           <label>
             <S.Input
-              type='text'
+              type='search'
               placeholder='자격증을 선택해주세요.'
               value={certificate}
               onChange={onChangeInputTitleValue}
-              onFocus={onFocusInput}
+              onClick={onClickInput}
               onBlur={onBlurInput}
               readOnly
             />

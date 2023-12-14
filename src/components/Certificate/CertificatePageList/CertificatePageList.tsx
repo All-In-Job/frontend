@@ -10,7 +10,6 @@ import { Keyword } from 'components/MenuFilter/KeywordFilter';
 import { CertificatePageItem } from './CertificatePageItem/CertificatePageItem';
 import * as S from './CertificatePageList.styles';
 import { CertificatePageSearch } from './CertificatePageSearch/CertificatePageSearch';
-// import { CertificatePageSearch } from './CertificatePageSearch/CertificatePageSearch';
 
 type UseOutletType = {
   selectedKeyword: Keyword[];
@@ -26,8 +25,6 @@ export const CertificatePageList = () => {
 
   const { selectedKeyword } = useOutletContext<UseOutletType>();
   const [mainCategory, setMainCategory] = useState<string>();
-
-  console.log(selectedKeyword);
 
   useEffect(() => {
     selectedKeyword.forEach(el => {
