@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useLoaderData, useOutletContext, useParams } from 'react-router-dom';
 import { Inter } from 'types/intern.type';
@@ -28,23 +28,26 @@ export const InternPageList = () => {
   const userId = useLoaderData() as { id: string };
 
   const { selectedKeyword } = useOutletContext<UseOutletType>();
-
   const [institution, setInstitution] = useState<string[]>([]);
   const [preferentialTreatment, setPreferentialTreatment] = useState<string[]>([]);
   const [location, setLocation] = useState<string[]>([]);
 
   useEffect(() => {
-    const updatedInstitution: SetStateAction<string[] | undefined> = [];
-    const updatedPreferentialTreatment: SetStateAction<string[] | undefined> = [];
-    const updatedLocation: SetStateAction<string[]> = [];
+    const updatedInstitution: string[] = [];
+    const updatedPreferentialTreatment: string[] = [];
+    const updatedLocation: string[] = [];
 
     selectedKeyword.forEach(el => {
-      if (el.path === 'company_type') {
-        updatedInstitution.push(el.id);
-      } else if (el.path === 'job_position') {
-        updatedPreferentialTreatment.push(el.id);
-      } else {
-        updatedLocation.push(el.id);
+      switch (el.path) {
+        case 'company_type':
+          updatedInstitution.push(el.id);
+          break;
+        case 'job_position':
+          updatedPreferentialTreatment.push(el.id);
+          break;
+        case 'work_location':
+          updatedLocation.push(el.id);
+          break;
       }
     });
 
@@ -52,8 +55,6 @@ export const InternPageList = () => {
     setPreferentialTreatment(updatedPreferentialTreatment);
     setLocation(updatedLocation);
   }, [selectedKeyword]);
-
-  console.log(selectedKeyword);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,15 +82,7 @@ export const InternPageList = () => {
     };
 
     fetchData();
-  }, [
-    menuName,
-    getPageParam,
-    userId,
-    selectedKeyword,
-    location,
-    institution,
-    preferentialTreatment,
-  ]);
+  }, [menuName, getPageParam, userId, location, institution, preferentialTreatment]);
 
   return (
     <>
