@@ -76,6 +76,7 @@ const LanguageCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
         categories={categories}
         selectedCategory={selectedCategory}
         onClickCategory={handleClickCategory}
+        isToggleSwitch
       />
       <KeywordFilter
         keywordList={keywordList}

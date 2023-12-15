@@ -20,6 +20,8 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
   const categories = foundMenuCategoryData?.items.map(item => item.category);
 
   useEffect(() => {
+    setSelectedKeywords([]);
+
     const setInitalSelectedCategory = () => {
       const initalCategoryData = foundMenuCategoryData?.items.find(item => item.id === categoryId);
       setSelectedCategory(initalCategoryData?.category as string);
@@ -75,6 +77,7 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
         categories={categories}
         selectedCategory={selectedCategory}
         onClickCategory={handleClickCategory}
+        isToggleSwitch
       />
       <KeywordFilter
         keywordList={keywordList}
