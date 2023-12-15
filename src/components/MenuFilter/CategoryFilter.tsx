@@ -7,20 +7,14 @@ import theme from 'styles/theme';
 
 const { palette, textStyle } = theme;
 
-export type Category = {
-  path: string | undefined;
-  id: string;
-  title: string;
-};
-
 type Props = {
   title: string;
-  categories: Category[];
-  selectedCategories: Category[];
-  onClickCategory: (category: Category) => void;
+  categories?: string[];
+  selectedCategory: string;
+  onClickCategory: (category: string) => void;
 };
 
-const CategoryFilter: FC<Props> = ({ title, categories, selectedCategories, onClickCategory }) => {
+const CategoryFilter: FC<Props> = ({ title, categories, selectedCategory, onClickCategory }) => {
   const INTEREST_SWITCH = 'INTEREST_SWITCH';
   const [isActive, setIsActive] = useState(false);
 
@@ -30,12 +24,10 @@ const CategoryFilter: FC<Props> = ({ title, categories, selectedCategories, onCl
       <CategoryFilterFooter>
         <Categoies>
           {categories?.map(category => (
-            <li key={category.id}>
+            <li key={category}>
               <CategoryButton
                 category={category}
-                isSelected={selectedCategories.some(
-                  selectedCategory => selectedCategory.title === category.title,
-                )}
+                isSelected={selectedCategory === category}
                 onClickCategory={onClickCategory}
               />
             </li>
@@ -86,7 +78,6 @@ const CategoryFilterFooter = styled.div`
 const Categoies = styled.ul`
   display: flex;
   align-items: center;
-
   > li:not(:last-of-type) {
     margin-right: 16px;
   }
