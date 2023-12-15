@@ -12,9 +12,16 @@ type Props = {
   categories?: string[];
   selectedCategory: string;
   onClickCategory: (category: string) => void;
+  isToggleSwitch: boolean;
 };
 
-const CategoryFilter: FC<Props> = ({ title, categories, selectedCategory, onClickCategory }) => {
+const CategoryFilter: FC<Props> = ({
+  title,
+  categories,
+  selectedCategory,
+  onClickCategory,
+  isToggleSwitch,
+}) => {
   const INTEREST_SWITCH = 'INTEREST_SWITCH';
   const [isActive, setIsActive] = useState(false);
 
@@ -34,22 +41,24 @@ const CategoryFilter: FC<Props> = ({ title, categories, selectedCategory, onClic
           ))}
         </Categoies>
 
-        <UserInterestWrapper>
-          <UserInterestText>나의 관심 커리어</UserInterestText>
+        {isToggleSwitch && (
+          <UserInterestWrapper>
+            <UserInterestText>나의 관심 커리어</UserInterestText>
 
-          <ToggleSwitch htmlFor={INTEREST_SWITCH} isActive={isActive}>
-            <input
-              type='checkbox'
-              id={INTEREST_SWITCH}
-              checked={isActive}
-              onChange={() => setIsActive(!isActive)}
-              hidden
-            />
-            <ToggleBallContainer>
-              <ToggleBall isActive={isActive} />
-            </ToggleBallContainer>
-          </ToggleSwitch>
-        </UserInterestWrapper>
+            <ToggleSwitch htmlFor={INTEREST_SWITCH} isActive={isActive}>
+              <input
+                type='checkbox'
+                id={INTEREST_SWITCH}
+                checked={isActive}
+                onChange={() => setIsActive(!isActive)}
+                hidden
+              />
+              <ToggleBallContainer>
+                <ToggleBall isActive={isActive} />
+              </ToggleBallContainer>
+            </ToggleSwitch>
+          </UserInterestWrapper>
+        )}
       </CategoryFilterFooter>
     </>
   );

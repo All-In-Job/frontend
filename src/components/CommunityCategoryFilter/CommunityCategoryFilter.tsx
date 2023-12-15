@@ -63,6 +63,7 @@ const CommunityCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
         categories={categories}
         selectedCategory={foundSelectedCategory?.title as string}
         onClickCategory={handleClickCategory}
+        isToggleSwitch={false}
       />
     </MenuFilterWrapper>
   );
