@@ -43,7 +43,7 @@ const LanguageCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
 
   const keywordList: Keyword[] = Object.entries(foundKeywordList?.keywords || []).map(
     ([key, value]) => ({
-      path: foundKeywordList?.id,
+      path: foundKeywordList?.category,
       id: key,
       title: value,
     }),

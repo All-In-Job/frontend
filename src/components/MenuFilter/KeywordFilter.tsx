@@ -10,6 +10,7 @@ import { ReactComponent as ResetIcon } from '/src/components/MenuFilter/res/img/
 const { palette, textStyle } = theme;
 
 export type Keyword = {
+  path: string | undefined;
   id: string;
   title: string;
 };
