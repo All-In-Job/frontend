@@ -31,6 +31,7 @@ export const CertificatePageList = () => {
       selectedKeyword.forEach(el => {
         setMainCategory(el.id);
         setKeyword(el.title);
+        setCertificate('');
       });
     } else {
       setKeyword('');
@@ -44,6 +45,7 @@ export const CertificatePageList = () => {
           path: menuName,
           id: userId?.id,
           mainCategory: mainCategory,
+          subCategory: certificate !== '' ? certificate : undefined,
         };
 
         const res = await requestCrawlingData(menuName as string, queries);
@@ -54,7 +56,7 @@ export const CertificatePageList = () => {
     };
 
     fetchData();
-  }, [menuName, userId, mainCategory]);
+  }, [menuName, userId, mainCategory, certificate]);
 
   return (
     <>
