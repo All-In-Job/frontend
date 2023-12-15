@@ -10,9 +10,11 @@ import { ReactComponent as NicknameIcon } from './res/img/visibility.svg';
 
 type Props = Omit<Community, 'detail' | 'userId' | 'comments' | 'communityLikes'>;
 
-function CommunityItem({ id, user, category, title, view, like, comment, date }: Props) {
+function CommunityItem({ id, user, category, title, view, like, comment, date, path }: Props) {
+  console.log(id);
+
   return (
-    <S.CommunityItem to={`/community/detail/${id}`}>
+    <S.CommunityItem to={path}>
       <S.UserInfo>
         <S.Nickname>
           <NicknameIcon />

@@ -12,4 +12,5 @@ export type PostCardProps = {
   isChangeInfoLayout?: boolean;
   index: number | null;
   isScrap: boolean | undefined;
+  path: string;
 };
