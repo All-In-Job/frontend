@@ -1,26 +1,48 @@
 import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { useParams } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
 import { requestCommunityData } from 'apis/community';
 import { requestCommunityCount } from 'apis/communityCount';
 import MenuPagination from 'components/commons/Pagination/MenuPagination';
+import { Keyword } from 'components/MenuFilter/KeywordFilter';
 import { useControlPageParam } from 'hooks/useControlPageParam';
 import theme from 'styles/theme';
 
 import CommunityItem from './CommunityItem';
 import { CommunitySearch } from './CommunitySearch';
 
+type UseOutletType = {
+  selectedKeyword: Keyword[];
+};
+
 export const CommunityPageList = () => {
   const { menuName } = useParams();
   const [communityList, setCommunityList] = useState<Community[]>([]);
   const [totalCount, setTotalCount] = useState(1);
   const { getPageParam } = useControlPageParam();
-
   const currentPage = getPageParam ? Number(getPageParam) : 1;
 
+  const { selectedKeyword } = useOutletContext<UseOutletType>();
+  // const [category, setCategory] = useState<string[]>([]);
+
+  // useEffect(() => {
+  //   const updatedCategory: string[] = [];
+
+  //   selectedKeyword.forEach(el => {
+  //     if (el.path) {
+  //       setClassify(el.path);
+  //       updatedTest.push(el.id);
+  //     }
+  //   });
+  //   setTest(updatedTest);
+
+  //   setCategory(updatedCategory);
+  // }, [selectedKeyword]);
+
+  console.log(selectedKeyword);
   useEffect(() => {
     (async () => {
       try {

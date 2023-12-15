@@ -1,80 +1,45 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 import styled from '@emotion/styled';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
-import CategoryFilter from 'components/CategoryFilter';
-import { CategoryData } from 'components/CategoryFilter/type';
-import HashTagFilter from 'components/HashTagFilter';
-import { HashTagData } from 'components/HashTagFilter/type';
-
-import { MenuId, getMenuById } from './menuCategoies';
+import CertificateCategoryFilter from 'components/CertificateCategoryFilter/CertificateCategoryFilter';
+import CommunityCategoryFilter from 'components/CommunityCategoryFilter/CommunityCategoryFilter';
+import LanguageCategoryFilter from 'components/LanguageCategoryFilter/LanguageCategoryFilter';
+import { Keyword } from 'components/MenuFilter/KeywordFilter';
+import RestCategoryFilter from 'components/RestCategoryFilter/RestCategoryFilter';
 
 const menuPaths = ['competition', 'outside', 'qnet', 'language', 'intern', 'community'];
 
 const Menu = () => {
-  const [keywords, setKeywords] = useState<HashTagData[]>([]);
-  const [selectedKeyword, setSelectedKeyword] = useState<HashTagData[]>([]);
+  const [selectedKeyword, setSelectedKeyword] = useState<Keyword[]>([]);
 
   const { menuName, categoryId } = useParams();
   const navigate = useNavigate();
-  const foundMenuCategories = getMenuById(menuName! as MenuId);
 
   if (!categoryId) navigate('/');
   if (!menuPaths.find(path => path === menuName)) {
     throw new Error('Not Found Address');
   }
 
-  const categoryList: CategoryData[] =
-    foundMenuCategories?.items.map(item => ({
-      id: item.id,
-      title: item.category,
-    })) || [];
+  const onSearch = (selectedKeywords: Keyword[]) => {
+    setSelectedKeyword(selectedKeywords);
+  };
 
-  const searchKeywordsByCategory = useCallback(
-    (selectedCategory: CategoryData[]) => {
-      if (selectedCategory.length > 0) {
-        const foundItem = foundMenuCategories?.items.find(
-          item => item.id === selectedCategory[0].id,
-        );
+  const menuToCategoryFilter: Record<string, JSX.Element> = {
+    competition: <RestCategoryFilter onSearchSelectedKeyword={onSearch} />,
+    outside: <RestCategoryFilter onSearchSelectedKeyword={onSearch} />,
+    intern: <RestCategoryFilter onSearchSelectedKeyword={onSearch} />,
+    qnet: <CertificateCategoryFilter onSearchSelectedKeyword={onSearch} />,
+    language: <LanguageCategoryFilter onSearchSelectedKeyword={onSearch} />,
+    community: <CommunityCategoryFilter onSearchSelectedKeyword={onSearch} />,
+  };
 
-        if (foundItem) {
-          const keywords = foundItem?.keywords || {};
-          const keywordsArr: HashTagData[] = Object.entries(keywords).map(([id, title]) => ({
-            id,
-            title,
-          }));
-
-          setKeywords(keywordsArr);
-        }
-      }
-    },
-    [foundMenuCategories],
-  );
-
-  const searchSelectedKeywords = useCallback(
-    (selectedKeywords: HashTagData[]) => {
-      setSelectedKeyword(selectedKeywords);
-    },
-    [selectedKeyword],
-  );
+  const selectedCategoryFilter = menuToCategoryFilter[menuName as string];
 
   return (
     <MenuWrapper>
-      <MenuHeadContent>
-        <CategoryFilter
-          title={foundMenuCategories?.title as string}
-          categoryList={categoryList}
-          onSearch={searchKeywordsByCategory}
-          onClickMyInterest={() => true}
-        />
-        <HashTagFilter
-          title='키워드'
-          hashTagList={keywords}
-          onSearch={searchSelectedKeywords}
-          onRefresh={() => function () {}}
-        />
-      </MenuHeadContent>
+      <MenuHeadContent>{selectedCategoryFilter}</MenuHeadContent>
 
       <Outlet context={{ selectedKeyword }} />
     </MenuWrapper>

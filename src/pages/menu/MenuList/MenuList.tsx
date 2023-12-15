@@ -2,13 +2,13 @@ import { useOutletContext, useParams } from 'react-router-dom';
 
 import { CertificatePageList } from 'components/Certificate/CertificatePageList/CertificatePageList';
 import { CommunityPageList } from 'components/Community/CommunityItem/CommunityPageList';
-import { HashTagData } from 'components/HashTagFilter/type';
 import { InternPageList } from 'components/InternPageList/InternPageList';
 import { LanguagePageList } from 'components/LanguagePageList/LanguagePageList';
+import { Keyword } from 'components/MenuFilter/KeywordFilter';
 import { RestPageList } from 'components/RestPageList/RestPageList';
 
 type UseOutletType = {
-  selectedKeyword: HashTagData[];
+  selectedKeyword: Keyword[];
 };
 
 const MenuList = () => {
