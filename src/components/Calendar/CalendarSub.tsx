@@ -1,6 +1,7 @@
 import { useContext, useLayoutEffect, useMemo, useRef } from 'react';
 
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 import theme from 'styles/theme';
 
@@ -24,10 +25,16 @@ export const CalendarSub = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollableRef = useRef<HTMLDivElement>(null);
 
+  const navigate = useNavigate();
+
   const { year, month, date } = useMemo(() => {
     if (clickedDate.date) return clickedDate;
     return TODAY;
   }, [clickedDate]);
+
+  useLayoutEffect(() => {
+    updateScrollableFrameHeightByCurrentDate();
+  }, [currentDate]);
 
   const updateScrollableFrameHeightByCurrentDate = () => {
     const container = containerRef.current;
@@ -36,9 +43,9 @@ export const CalendarSub = () => {
       scrollableFrame.style.height = container.offsetHeight - CONTAINER_PADDING_VERTICAL * 4 + 'px';
   };
 
-  useLayoutEffect(() => {
-    updateScrollableFrameHeightByCurrentDate();
-  }, [currentDate]);
+  const moveToDetailPage = () => {
+    navigate('');
+  };
 
   return (
     <StyledContainer ref={containerRef}>
@@ -59,7 +66,7 @@ export const CalendarSub = () => {
             calendarState.schedules.map(
               schedule =>
                 schedule.title && (
-                  <StyledLi key={schedule.title}>
+                  <StyledLi key={schedule.title} onClick={moveToDetailPage}>
                     <StyledStatusBar bgColor={filterScheduleStatus(schedule.status)} />
                     <span>{schedule.title}</span>
                   </StyledLi>
@@ -109,5 +116,6 @@ const StyledLi = styled.li`
   padding: 16px;
   display: grid;
   gap: 11px;
+  cursor: pointer;
   background-color: ${theme.palette.background.primary50};
 `;
