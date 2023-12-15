@@ -1,6 +1,5 @@
+import { Solution } from 'pages/home/AsideProfile/type';
 import { BarPieceColor } from 'pages/home/PassionTemperature/Thermometer/types';
-
-import { Solution } from '../type';
 
 export const solutions: Record<keyof BarPieceColor, Solution> = {
   competition: {
@@ -23,16 +22,16 @@ export const solutions: Record<keyof BarPieceColor, Solution> = {
     target: '청년',
     img: [{ url: '', name: '' }],
   },
-  language: {
-    id: '어학',
-    name: '00어학',
-    host: '2023 상공회의소',
-    date: '2023-12-23',
-    category: '',
-    region: '서울시',
-    target: '청년',
-    img: [{ url: '', name: '' }],
-  },
+  // language: {
+  //   id: '어학',
+  //   name: '00어학',
+  //   host: '2023 상공회의소',
+  //   date: '2023-12-23',
+  //   category: '',
+  //   region: '서울시',
+  //   target: '청년',
+  //   img: [{ url: '', name: '' }],
+  // },
   intern: {
     id: '인턴',
     name: '00인턴',
