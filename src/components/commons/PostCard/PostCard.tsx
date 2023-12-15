@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import { PostCardProps } from 'types/postCard.type';
 
 import PostCardFooter from './PostCardFooter/PostCardFooter';
@@ -18,28 +19,31 @@ function PostCard({
   index,
   id,
   isScrap,
+  path,
 }: PostCardProps) {
   return (
     <PostCardContainer>
-      <PostCardImage
-        mainImage={mainImage}
-        Dday={Dday}
-        index={index}
-        isChangeInfoLayout={isChangeInfoLayout}
-        id={id}
-        isScrap={isScrap}
-      />
+      <Link to={path} target='_blank'>
+        <PostCardImage
+          mainImage={mainImage}
+          Dday={Dday}
+          index={index}
+          isChangeInfoLayout={isChangeInfoLayout}
+          id={id}
+          isScrap={isScrap}
+        />
 
-      <PostCardInfo
-        title={title}
-        enterprise={enterprise}
-        dDay={Dday}
-        applicationPeriod={applicationPeriod}
-        location={location}
-        isChangeInfoLayout={isChangeInfoLayout}
-      />
+        <PostCardInfo
+          title={title}
+          enterprise={enterprise}
+          dDay={Dday}
+          applicationPeriod={applicationPeriod}
+          location={location}
+          isChangeInfoLayout={isChangeInfoLayout}
+        />
 
-      <PostCardFooter scrap={scrap} view={view} />
+        <PostCardFooter scrap={scrap} view={view} />
+      </Link>
     </PostCardContainer>
   );
 }

@@ -9,11 +9,12 @@ import * as S from './cardList.styles';
 
 type Props = {
   data: PostCardProps[];
+  getParams: string | undefined;
   isChangeInfoLayout: boolean;
   isLoad: boolean;
 };
 
-export const CardList: FC<Props> = ({ data, isChangeInfoLayout, isLoad }) => {
+export const CardList: FC<Props> = ({ data, getParams, isChangeInfoLayout, isLoad }) => {
   const renderPost = (el: PostCardProps, index: number) => {
     if (isLoad) {
       return (
@@ -32,6 +33,7 @@ export const CardList: FC<Props> = ({ data, isChangeInfoLayout, isLoad }) => {
           index={index}
           isScrap={el.isScrap}
           isChangeInfoLayout={isChangeInfoLayout}
+          path={`/${getParams}/detail/${el.id}`}
         />
       );
     } else {
