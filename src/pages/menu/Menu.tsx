@@ -32,7 +32,7 @@ const Menu = () => {
     intern: <RestCategoryFilter onSearchSelectedKeyword={onSearch} />,
     qnet: <CertificateCategoryFilter onSearchSelectedKeyword={onSearch} />,
     language: <LanguageCategoryFilter onSearchSelectedKeyword={onSearch} />,
-    community: <CommunityCategoryFilter />,
+    community: <CommunityCategoryFilter onSearchSelectedKeyword={onSearch} />,
   };
 
   const selectedCategoryFilter = menuToCategoryFilter[menuName as string];

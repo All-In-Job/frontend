@@ -8,6 +8,7 @@ import theme from 'styles/theme';
 const { palette, textStyle } = theme;
 
 export type Category = {
+  path: string | undefined;
   id: string;
   title: string;
 };
@@ -16,7 +17,7 @@ type Props = {
   title: string;
   categories: Category[];
   selectedCategories: Category[];
-  onClickCategory: (category: string) => void;
+  onClickCategory: (category: Category) => void;
 };
 
 const CategoryFilter: FC<Props> = ({ title, categories, selectedCategories, onClickCategory }) => {
@@ -31,7 +32,7 @@ const CategoryFilter: FC<Props> = ({ title, categories, selectedCategories, onCl
           {categories?.map(category => (
             <li key={category.id}>
               <CategoryButton
-                category={category.title}
+                category={category}
                 isSelected={selectedCategories.some(
                   selectedCategory => selectedCategory.title === category.title,
                 )}

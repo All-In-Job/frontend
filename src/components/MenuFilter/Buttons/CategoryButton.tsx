@@ -2,20 +2,21 @@ import { FC } from 'react';
 
 import styled from '@emotion/styled';
 
+import { Category } from 'components/MenuFilter/CategoryFilter';
 import theme from 'styles/theme';
 
 const { palette, textStyle } = theme;
 
 type Props = {
-  category: string;
+  category: Category;
   isSelected: boolean;
-  onClickCategory: (category: string) => void;
+  onClickCategory: (category: Category) => void;
 };
 
 const CategoryButton: FC<Props> = ({ category, isSelected, onClickCategory }) => {
   return (
     <Button onClick={() => onClickCategory(category)} isSelected={isSelected}>
-      {category}
+      {category.title}
     </Button>
   );
 };
