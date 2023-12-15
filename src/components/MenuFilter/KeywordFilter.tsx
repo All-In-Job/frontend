@@ -75,7 +75,9 @@ const KeywordFilter: FC<Props> = ({
 export default KeywordFilter;
 
 const KeywordFilterContainer = styled.div`
+  border-top: 1px solid ${palette.line.normal};
   padding-top: 24px;
+  margin-top: 24px;
 `;
 
 const HeadContainer = styled.div`
