@@ -94,7 +94,15 @@ function Header() {
             <S.MenuWrapper>
               {menuItems.map(item => (
                 <S.MenuItem key={item.name}>
-                  <Link to={`${item.path}/${item.subItems[0].subPath}`}>{item.name}</Link>
+                  <Link
+                    to={
+                      item.name === '취준job담'
+                        ? 'community/all'
+                        : `${item.path}/${item.subItems[0].subPath}`
+                    }
+                  >
+                    {item.name}
+                  </Link>
                 </S.MenuItem>
               ))}
               {isHovered ? (
