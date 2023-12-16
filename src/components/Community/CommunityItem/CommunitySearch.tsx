@@ -49,7 +49,7 @@ export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
 
         <StyledUl isOpen={isOpen}>
           {Object.keys(options).map(item => (
-            <StyledOption onClick={() => filterSearchTarget(item as SearchOption)}>
+            <StyledOption key={item} onClick={() => filterSearchTarget(item as SearchOption)}>
               {options[item as SearchOption]}
             </StyledOption>
           ))}
