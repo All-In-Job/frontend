@@ -64,8 +64,9 @@ export const CommunityDetail = () => {
   };
 
   const submitCommentData = async () => {
-    console.log(detailData?.id);
+    if (comment === '') return;
     const commentData = { id: detailData?.id as string, comment };
+
     try {
       const res = await submitComment(commentData);
       console.log(res);
