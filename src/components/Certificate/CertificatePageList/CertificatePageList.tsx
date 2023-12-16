@@ -83,6 +83,7 @@ export const CertificatePageList = () => {
               examSchedules={el.examSchedules}
               type={el.type}
               isScrap={el.isScrap}
+              path={`/${menuName}/detail/${el.id}`}
             />
           ))}
         </S.List>
