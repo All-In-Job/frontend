@@ -1,7 +1,7 @@
 import { Certificate } from 'types/certificate.type';
 
 import * as S from './CertificateDetailInfo.styles';
-type Props = Omit<Certificate, 'id' | 'scrap' | 'view' | 'examSchedules' | 'isScrap'>;
+type Props = Omit<Certificate, 'id' | 'scrap' | 'view' | 'examSchedules' | 'isScrap' | 'path'>;
 
 export const CertificateDetailInfo = ({
   mainImage,

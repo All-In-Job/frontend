@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 import { BAR_PIECE_COLOR } from 'pages/home/PassionTemperature/Thermometer/constants';
-import { BarPieceColor } from 'pages/home/PassionTemperature/Thermometer/types';
+import { temperatureColor } from 'pages/home/PassionTemperature/Thermometer/types';
 
 import { TemperatureCategoryList } from './type';
 
@@ -15,7 +15,9 @@ const TemperatureCategory = ({ categoryList }: TemperatureCategory) => {
         {Object.entries(categoryList).map(([k, v]) => {
           return (
             <CardContainer key={k}>
-              <CardHeader color={BAR_PIECE_COLOR[k.slice(4).toLowerCase() as keyof BarPieceColor]}>
+              <CardHeader
+                color={BAR_PIECE_COLOR[k.slice(4).toLowerCase() as keyof temperatureColor]}
+              >
                 {v.field}
               </CardHeader>
               <Category key={k}>
