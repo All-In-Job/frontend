@@ -2,7 +2,6 @@ import { ChangeEvent, useEffect, useState } from 'react';
 
 import { ReactComponent as HorizontalIcon } from 'assets/icons/icon-horizontal_rule.svg';
 import { ReactComponent as ViewIcon } from 'assets/icons/icon-view.svg';
-import axios from 'axios';
 import DOMPurify from 'dompurify';
 import { useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
@@ -26,11 +25,6 @@ export const CommunityDetail = () => {
   const [detailData, setDetailData] = useState<Community>();
   const [comment, setComment] = useState('');
 
-  const requestMockupData = async () => {
-    const ret = await axios.get('/mocks/detailCommunity.json');
-    setDetailData(ret.data.data);
-  };
-
   useEffect(() => {
     (async () => {
       try {
@@ -39,7 +33,7 @@ export const CommunityDetail = () => {
           setDetailData(res.data.data);
         }
       } catch (error) {
-        requestMockupData();
+        console.log(error);
       }
     })();
   }, []);
