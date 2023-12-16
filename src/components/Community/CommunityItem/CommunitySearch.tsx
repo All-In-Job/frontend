@@ -40,6 +40,7 @@ export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
     <StyledSearch>
       <StyledSelect onClick={() => setIsOpen(!isOpen)}>
         {selected}
+
         <StyledUl isOpen={isOpen}>
           {['content', 'title', 'nickName'].map(item => (
             <StyledOption onClick={() => filterSearchTarget(item as SearchOption)}>
@@ -47,10 +48,12 @@ export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
             </StyledOption>
           ))}
         </StyledUl>
+
         <StyledArrowIconContainer isOpen={isOpen}>
           <ArrowExpandIcon />
         </StyledArrowIconContainer>
       </StyledSelect>
+
       <StyledSearchBar
         placeholder='취준job담을 검색해보세요!'
         onChange={e => setText(e.target.value)}
