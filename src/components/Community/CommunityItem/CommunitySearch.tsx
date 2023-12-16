@@ -8,13 +8,14 @@ import { getCommunitySearchResult } from 'apis/community';
 import theme from 'styles/theme';
 
 type SearchOption = 'content' | 'title' | 'nickName';
+type SearchOptionKorean = '제목 + 내용' | '제목' | '글작성자';
 
 type Props = {
   setCommunityList: Dispatch<SetStateAction<Community[]>>;
 };
 
 export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
-  const [selected, setSelected] = useState('제목');
+  const [selected, setSelected] = useState<SearchOptionKorean>('제목');
   const [text, setText] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -23,9 +24,14 @@ export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
     title: '제목',
     nickName: '글작성자',
   } as const;
+  const reversedOptions = {
+    '제목 + 내용': 'content',
+    제목: 'title',
+    글작성자: 'nickName',
+  } as const;
 
   const requestSearchResult = async () => {
-    getCommunitySearchResult(selected, text)
+    getCommunitySearchResult(reversedOptions[selected], text)
       .then(res => {
         setCommunityList(res.data.data);
       })
@@ -42,7 +48,7 @@ export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
         {selected}
 
         <StyledUl isOpen={isOpen}>
-          {['content', 'title', 'nickName'].map(item => (
+          {Object.keys(options).map(item => (
             <StyledOption onClick={() => filterSearchTarget(item as SearchOption)}>
               {options[item as SearchOption]}
             </StyledOption>
