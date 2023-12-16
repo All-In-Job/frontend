@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import { ReactComponent as HorizontalIcon } from 'assets/icons/icon-horizontal_rule.svg';
 import { ReactComponent as ViewIcon } from 'assets/icons/icon-view.svg';
-import axios from 'axios';
 import DOMPurify from 'dompurify';
 import { useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
+import { submitComment } from 'apis/comment';
 import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
 import { patchToggleLike } from 'apis/toggleLike';
 import { Count } from 'components/commons/Count/Count';
@@ -23,11 +23,7 @@ import { ReactComponent as ShareSolidIcon } from './res/icon-share.svg';
 export const CommunityDetail = () => {
   const { detailId } = useParams();
   const [detailData, setDetailData] = useState<Community>();
-
-  const requestMockupData = async () => {
-    const ret = await axios.get('/mocks/detailCommunity.json');
-    setDetailData(ret.data.data);
-  };
+  const [comment, setComment] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -37,7 +33,7 @@ export const CommunityDetail = () => {
           setDetailData(res.data.data);
         }
       } catch (error) {
-        requestMockupData();
+        console.log(error);
       }
     })();
   }, []);
@@ -55,7 +51,27 @@ export const CommunityDetail = () => {
     }
   };
 
+  const onChangeComment = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setComment(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const submitCommentData = async () => {
+    if (comment === '') return;
+    const commentData = { id: detailData?.id as string, comment };
+
+    try {
+      const res = await submitComment(commentData);
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const clean = detailData ? DOMPurify.sanitize(detailData.detail) : '';
+
+  console.log(detailData);
 
   return (
     <S.Container>
@@ -94,12 +110,19 @@ export const CommunityDetail = () => {
         <S.Title>댓글</S.Title>
         <S.CommentInputContainer>
           <ProfileImage />
-          <S.CommentInput placeholder='댓글을 남겨보세요!' />
-          <S.SubmitButton>등록</S.SubmitButton>
+          <S.CommentInput placeholder='댓글을 남겨보세요!' onChange={onChangeComment} />
+          <S.SubmitButton type='button' onClick={submitCommentData}>
+            등록
+          </S.SubmitButton>
         </S.CommentInputContainer>
         <S.CommentContainer>
           {detailData?.comments.map(ele => (
-            <Comment key={ele.id} nickname={ele.nickname} comment={ele.comment} date={ele.date} />
+            <Comment
+              key={ele.id}
+              nickname={ele.user.nickname}
+              comment={ele.comment}
+              date={ele.date}
+            />
           ))}
         </S.CommentContainer>
       </S.Footer>
