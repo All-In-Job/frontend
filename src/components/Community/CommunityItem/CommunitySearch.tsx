@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import { ReactComponent as ArrowExpandIcon } from 'assets/icons/icon_expand_more.svg';
 import { Community } from 'types/community.type';
 
-
 import { getCommunitySearchResult } from 'apis/community';
 import theme from 'styles/theme';
 
@@ -13,7 +12,6 @@ type Props = {
 };
 
 export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
-
   const [selected, setSelected] = useState('title');
   const [text, setText] = useState('');
   const [isOpen, setIsOpen] = useState(false);

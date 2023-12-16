@@ -28,6 +28,7 @@ const Profile = () => {
           <LogoutButton
             onClick={() => {
               logout().then(res => res.status && refreshWindow());
+              localStorage.clear();
             }}
           >
             로그아웃

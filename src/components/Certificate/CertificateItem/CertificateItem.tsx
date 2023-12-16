@@ -16,10 +16,11 @@ const CertificateItem = ({
   mainImage,
   id,
   isScrap,
+  path,
 }: Props) => {
   return (
     <S.CertificateListContainer location={location}>
-      <S.CertificateInfo to={id}>
+      <S.CertificateInfo to={path}>
         <S.Image src={mainImage}></S.Image>
         <S.CertificateInfoText>
           <S.Title>{title}</S.Title>

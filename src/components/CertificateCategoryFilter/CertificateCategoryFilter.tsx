@@ -50,7 +50,14 @@ const CertificateCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
   );
 
   const handleClickKeyword = (keyword: Keyword) => {
-    setSelectedKeywords([keyword]);
+    const isSelected = selectedKeywords.some(kw => kw.id === keyword.id);
+
+    if (isSelected) {
+      const updatedKeywords = selectedKeywords.filter(kw => kw.id !== keyword.id);
+      setSelectedKeywords(updatedKeywords);
+    } else {
+      setSelectedKeywords([keyword]);
+    }
   };
 
   const handleClickSelectedKeyword = (keyword: Keyword) => {
@@ -69,6 +76,7 @@ const CertificateCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
         categories={categories}
         selectedCategory={selectedCategory}
         onClickCategory={handleClickCategory}
+        isToggleSwitch
       />
       <KeywordFilter
         keywordList={keywordList}

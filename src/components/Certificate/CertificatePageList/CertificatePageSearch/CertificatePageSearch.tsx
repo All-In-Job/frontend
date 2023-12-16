@@ -8,7 +8,7 @@ type searchProps = {
   keyword: string | undefined;
   searchedCertificates: string[];
   certificate: string | undefined;
-  setCertificate: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setCertificate: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const CertificatePageSearch = ({

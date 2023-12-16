@@ -21,6 +21,7 @@ export type Certificate = {
   mainImage: string;
   enTitle: string;
   isScrap: boolean | undefined;
+  path: string;
 };
 
 export interface CertificateItemProps extends Certificate {

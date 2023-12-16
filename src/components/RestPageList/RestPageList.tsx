@@ -39,10 +39,14 @@ export const RestPageList = () => {
   useEffect(() => {
     if (menuName !== 'competition') return;
 
+    // 공모전
     const updatedInterests: string[] = [];
     const updatedScale: string[] = [];
     const updatedBenefits: string[] = [];
     const updatedTarget: string[] = [];
+
+    setInterests(updatedInterests);
+    setBenefits(updatedBenefits);
 
     selectedKeyword.forEach(el => {
       switch (el.path) {
@@ -70,11 +74,15 @@ export const RestPageList = () => {
   useEffect(() => {
     if (menuName !== 'outside') return;
 
+    // 대외활동
     const updatedField: string[] = [];
     const updatedInterests: string[] = [];
     const updatedBenefits: string[] = [];
     const updatedMonth: string[] = [];
     const updatedLocation: string[] = [];
+
+    setInterests(updatedInterests);
+    setBenefits(updatedBenefits);
 
     selectedKeyword.forEach(el => {
       switch (el.path) {
@@ -103,7 +111,7 @@ export const RestPageList = () => {
     setLocation(updatedLocation);
   }, [menuName, selectedKeyword]);
 
-  console.log(selectedKeyword);
+  console.log(menuName);
 
   useEffect(() => {
     const fetchData = async () => {

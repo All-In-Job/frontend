@@ -12,14 +12,21 @@ type Props = {
   categories?: string[];
   selectedCategory: string;
   onClickCategory: (category: string) => void;
+  isToggleSwitch: boolean;
 };
 
-const CategoryFilter: FC<Props> = ({ title, categories, selectedCategory, onClickCategory }) => {
+const CategoryFilter: FC<Props> = ({
+  title,
+  categories,
+  selectedCategory,
+  onClickCategory,
+  isToggleSwitch,
+}) => {
   const INTEREST_SWITCH = 'INTEREST_SWITCH';
   const [isActive, setIsActive] = useState(false);
 
   return (
-    <CategoryFilterContainer>
+    <>
       <Title>{title}</Title>
       <CategoryFilterFooter>
         <Categoies>
@@ -34,33 +41,30 @@ const CategoryFilter: FC<Props> = ({ title, categories, selectedCategory, onClic
           ))}
         </Categoies>
 
-        <UserInterestWrapper>
-          <UserInterestText>나의 관심 커리어</UserInterestText>
+        {isToggleSwitch && (
+          <UserInterestWrapper>
+            <UserInterestText>나의 관심 커리어</UserInterestText>
 
-          <ToggleSwitch htmlFor={INTEREST_SWITCH} isActive={isActive}>
-            <input
-              type='checkbox'
-              id={INTEREST_SWITCH}
-              checked={isActive}
-              onChange={() => setIsActive(!isActive)}
-              hidden
-            />
-            <ToggleBallContainer>
-              <ToggleBall isActive={isActive} />
-            </ToggleBallContainer>
-          </ToggleSwitch>
-        </UserInterestWrapper>
+            <ToggleSwitch htmlFor={INTEREST_SWITCH} isActive={isActive}>
+              <input
+                type='checkbox'
+                id={INTEREST_SWITCH}
+                checked={isActive}
+                onChange={() => setIsActive(!isActive)}
+                hidden
+              />
+              <ToggleBallContainer>
+                <ToggleBall isActive={isActive} />
+              </ToggleBallContainer>
+            </ToggleSwitch>
+          </UserInterestWrapper>
+        )}
       </CategoryFilterFooter>
-    </CategoryFilterContainer>
+    </>
   );
 };
 
 export default CategoryFilter;
-
-const CategoryFilterContainer = styled.div`
-  border-bottom: 1px solid ${palette.line.normal};
-  padding-bottom: 24px;
-`;
 
 const Title = styled.h2`
   font-size: ${textStyle.headLine02.fontSize};
@@ -78,7 +82,6 @@ const CategoryFilterFooter = styled.div`
 const Categoies = styled.ul`
   display: flex;
   align-items: center;
-
   > li:not(:last-of-type) {
     margin-right: 16px;
   }
