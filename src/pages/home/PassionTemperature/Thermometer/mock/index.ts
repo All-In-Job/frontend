@@ -13,10 +13,10 @@ export const thermometerPercentList: ThermometerList = {
     barType: 'qnet',
     percent: 20,
   },
-  // language: {
-  //   barType: 'language',
-  //   percent: 20,
-  // },
+  language: {
+    barType: 'language',
+    percent: 20,
+  },
   intern: {
     barType: 'intern',
     percent: 20,
