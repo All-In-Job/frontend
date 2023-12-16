@@ -71,6 +71,8 @@ export const CommunityDetail = () => {
 
   const clean = detailData ? DOMPurify.sanitize(detailData.detail) : '';
 
+  console.log(detailData);
+
   return (
     <S.Container>
       <S.Head>
@@ -115,7 +117,12 @@ export const CommunityDetail = () => {
         </S.CommentInputContainer>
         <S.CommentContainer>
           {detailData?.comments.map(ele => (
-            <Comment key={ele.id} nickname={ele.nickname} comment={ele.comment} date={ele.date} />
+            <Comment
+              key={ele.id}
+              nickname={ele.user.nickname}
+              comment={ele.comment}
+              date={ele.date}
+            />
           ))}
         </S.CommentContainer>
       </S.Footer>

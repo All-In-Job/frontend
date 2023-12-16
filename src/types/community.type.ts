@@ -9,12 +9,17 @@ export type UserInfo = {
   major: string;
 };
 
-export type Comments = {
+export type CommentUser = {
   id: string;
   nickname: string;
+  profileImage: string;
+};
+
+export type Comments = {
+  id: string;
   comment: string;
   date: string;
-  userId: string;
+  user: CommentUser;
 };
 
 export type CommunityLikes = {
