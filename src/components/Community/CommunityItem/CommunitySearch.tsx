@@ -7,14 +7,22 @@ import { Community } from 'types/community.type';
 import { getCommunitySearchResult } from 'apis/community';
 import theme from 'styles/theme';
 
+type SearchOption = 'content' | 'title' | 'nickName';
+
 type Props = {
   setCommunityList: Dispatch<SetStateAction<Community[]>>;
 };
 
 export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
-  const [selected, setSelected] = useState('title');
+  const [selected, setSelected] = useState('제목');
   const [text, setText] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+
+  const options = {
+    content: '제목 + 내용',
+    title: '제목',
+    nickName: '글작성자',
+  } as const;
 
   const requestSearchResult = async () => {
     getCommunitySearchResult(selected, text)
@@ -23,12 +31,9 @@ export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
       })
       .catch(err => console.log(err));
   };
-  const filterSearchTarget = (target: string) => {
-    let translated: string = '';
-    if (target === '제목 + 내용') translated = 'content';
-    if (target === '제목') translated = 'title';
-    if (target === '글작성자') translated = 'nickName';
-    setSelected(translated);
+
+  const filterSearchTarget = (target: SearchOption) => {
+    setSelected(options[target]);
   };
 
   return (
@@ -36,8 +41,10 @@ export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
       <StyledSelect onClick={() => setIsOpen(!isOpen)}>
         {selected}
         <StyledUl isOpen={isOpen}>
-          {['제목 + 내용', '제목', '글작성자'].map(item => (
-            <StyledOption onClick={() => filterSearchTarget(item)}>{item}</StyledOption>
+          {['content', 'title', 'nickName'].map(item => (
+            <StyledOption onClick={() => filterSearchTarget(item as SearchOption)}>
+              {options[item as SearchOption]}
+            </StyledOption>
           ))}
         </StyledUl>
         <StyledArrowIconContainer isOpen={isOpen}>
