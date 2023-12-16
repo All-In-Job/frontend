@@ -7,7 +7,7 @@ export type BarPieceColor = {
   competition: string;
   outside: string;
   qnet: string;
-  // language: string;
+  language: string;
   intern: string;
 };
 
