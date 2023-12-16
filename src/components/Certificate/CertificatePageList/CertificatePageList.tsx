@@ -16,23 +16,26 @@ type UseOutletType = {
 };
 
 export const CertificatePageList = () => {
-  const { menuName } = useParams();
   const userId = useLoaderData() as { id: string };
+  const { menuName } = useParams();
+  const { selectedKeyword } = useOutletContext<UseOutletType>();
   const [certificateList, setCertificateList] = useState<Certificate[]>([]);
-  const [certificate, setCertificate] = useState<string>('');
+
+  const [certificate, setCertificate] = useState<string | undefined>(undefined);
+  const [mainCategory, setMainCategory] = useState<string | undefined>(undefined);
   const [keyword, setKeyword] = useState<string>('');
   const searchedCertificates = certificateList.map(el => el.title);
-
-  const { selectedKeyword } = useOutletContext<UseOutletType>();
-  const [mainCategory, setMainCategory] = useState<string>();
 
   useEffect(() => {
     if (selectedKeyword.length !== 0) {
       selectedKeyword.forEach(el => {
         setMainCategory(el.id);
         setKeyword(el.title);
+        setCertificate(undefined);
       });
     } else {
+      setMainCategory(undefined);
+      setCertificate(undefined);
       setKeyword('');
     }
   }, [selectedKeyword]);
@@ -44,6 +47,7 @@ export const CertificatePageList = () => {
           path: menuName,
           id: userId?.id,
           mainCategory: mainCategory,
+          subCategory: certificate,
         };
 
         const res = await requestCrawlingData(menuName as string, queries);
@@ -54,7 +58,7 @@ export const CertificatePageList = () => {
     };
 
     fetchData();
-  }, [menuName, userId, mainCategory]);
+  }, [menuName, userId, mainCategory, certificate]);
 
   return (
     <>
