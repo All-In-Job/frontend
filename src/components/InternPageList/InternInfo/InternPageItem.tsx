@@ -16,10 +16,11 @@ export const InternPageItem = ({
   title,
   enterprise,
   isScrap,
+  path,
 }: Inter) => {
   return (
     <S.InternWrapper>
-      <Link to={id} target={'_blank'}>
+      <Link to={path} target={'_blank'}>
         <S.CompanyBox>
           <S.Img src={mainImage}></S.Img>
           <span>{enterprise}</span>
