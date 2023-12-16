@@ -1,40 +1,42 @@
 import { FC } from 'react';
 
+import { CommonProps } from 'types/solution';
+
 import {
+  Img,
   Desc,
   FlexContainer,
   LightDesc,
   SolutionInfoContainer,
   SolutionItemContainer,
-} from '../asideProfile.style';
-import Badge from '../components/Badge';
-import DateBefore from '../components/DateBefore';
-import { Solution } from '../type';
-
-import Picture from './Picture';
+} from 'pages/home/AsideProfile/asideProfile.style';
+import Badge from 'pages/home/AsideProfile/components/Badge';
+import DateBefore from 'pages/home/AsideProfile/components/DateBefore';
 
 interface Props {
-  solution: Solution;
+  solution: CommonProps;
 }
 
 const CompetitionItem: FC<Props> = ({ solution }) => {
   return (
     <>
-      <Badge title={solution.id} />
-      <SolutionItemContainer>
-        <Picture img={solution.img[0]} />
-        <SolutionInfoContainer>
-          <LightDesc>주최기관</LightDesc>
-          <Desc>{solution.host}</Desc>
-          <FlexContainer>
-            <DateBefore date={solution.date} />
-            <LightDesc>{solution.date}</LightDesc>
-          </FlexContainer>
-          <Desc>분야</Desc>
-          <Desc>지역</Desc>
-          <Desc>대상</Desc>
-        </SolutionInfoContainer>
-      </SolutionItemContainer>
+      {solution && (
+        <>
+          <Badge title={'공모전'} />
+          <SolutionItemContainer>
+            <Img src={solution?.mainImage} width='110' height='102' />
+            <SolutionInfoContainer>
+              <FlexContainer>
+                <DateBefore date={solution?.Dday} />
+              </FlexContainer>
+              <LightDesc>{solution?.enterprise}</LightDesc>
+              <Desc>{solution?.title}</Desc>
+              <Desc>{solution?.interests}</Desc>
+              <Desc>{solution?.target}</Desc>
+            </SolutionInfoContainer>
+          </SolutionItemContainer>
+        </>
+      )}
     </>
   );
 };

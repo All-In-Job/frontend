@@ -1,34 +1,38 @@
 import { FC } from 'react';
 
+import { qnetProps } from 'types/solution';
+
 import {
+  Img,
   Desc,
   LightDesc,
   SolutionInfoContainer,
   SolutionItemContainer,
-} from '../asideProfile.style';
-import Badge from '../components/Badge';
-import { Solution } from '../type';
-
-import Picture from './Picture';
+} from 'pages/home/AsideProfile/asideProfile.style';
+import Badge from 'pages/home/AsideProfile/components/Badge';
 
 interface Props {
-  solution: Solution;
+  solution: qnetProps;
 }
 
 const CertificationItem: FC<Props> = ({ solution }) => {
   return (
     <>
-      <Badge title={solution.id} />
+      {solution && (
+        <>
+          <Badge title={'자격증'} />
 
-      <SolutionItemContainer>
-        <Picture img={solution.img[0]} />
-        <SolutionInfoContainer>
-          <LightDesc>시행기관</LightDesc>
-          <Desc>{solution.host}</Desc>
-          <LightDesc>{solution.date}</LightDesc>
-          <Desc>분야</Desc>
-        </SolutionInfoContainer>
-      </SolutionItemContainer>
+          <SolutionItemContainer>
+            <Img src={solution?.mainImage} width='82' height='66' />
+            <SolutionInfoContainer>
+              <LightDesc>{solution?.institution}</LightDesc>
+              <Desc>{solution?.title}</Desc>
+              <LightDesc>{'필기접수기간 : ' + solution?.wtPeriod}</LightDesc>
+              <LightDesc>{'실기접수기간 : ' + solution?.ptPeriod}</LightDesc>
+            </SolutionInfoContainer>
+          </SolutionItemContainer>
+        </>
+      )}
     </>
   );
 };
