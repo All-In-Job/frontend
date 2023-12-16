@@ -122,6 +122,7 @@ export const SubmitButton = styled.button`
   padding: 8px 16px;
   border-radius: 4px;
   background-color: ${palette.background.primary};
+  cursor: pointer;
 `;
 
 export const CommentContainer = styled.ul``;

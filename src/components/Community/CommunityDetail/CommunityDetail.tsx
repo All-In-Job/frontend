@@ -67,8 +67,8 @@ export const CommunityDetail = () => {
     console.log(detailData?.id);
     const commentData = { id: detailData?.id as string, comment };
     try {
-      await submitComment(commentData);
-      // await submitComment({ detailId: detailData?.id as string, commentData: commentData });
+      const res = await submitComment(commentData);
+      console.log(res);
     } catch (error) {
       console.error(error);
     }
