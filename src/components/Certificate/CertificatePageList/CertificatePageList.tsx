@@ -20,7 +20,6 @@ export const CertificatePageList = () => {
   const { menuName } = useParams();
   const { selectedKeyword } = useOutletContext<UseOutletType>();
   const [certificateList, setCertificateList] = useState<Certificate[]>([]);
-
   const [certificate, setCertificate] = useState<string | undefined>(undefined);
   const [mainCategory, setMainCategory] = useState<string | undefined>(undefined);
   const [keyword, setKeyword] = useState<string>('');
