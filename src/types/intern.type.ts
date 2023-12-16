@@ -9,4 +9,5 @@ export type Inter = {
   location: string;
   title: string;
   isScrap: boolean | undefined;
+  path: string;
 };

@@ -103,6 +103,7 @@ export const InternPageList = () => {
               location={el.location}
               title={el.title}
               isScrap={el.isScrap}
+              path={`/${menuName}/detail/${el.id}`}
             />
           ))}
           <MenuPagination

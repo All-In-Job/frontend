@@ -18,6 +18,7 @@ export const CertificatePageItem = ({
   mainImage,
   type,
   isScrap,
+  path,
 }: Props) => {
   const pathProps = (data: ExamSchedule[]) => {
     return data && examSchedules[0];
@@ -40,6 +41,7 @@ export const CertificatePageItem = ({
             examSchedules={examSchedules}
             type={type}
             isScrap={isScrap}
+            path={path}
           />
         </S.CertificateItemWrapper>
       </S.Container>

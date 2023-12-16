@@ -8,7 +8,7 @@ type searchProps = {
   keyword: string | undefined;
   searchedCertificates: string[];
   certificate: string | undefined;
-  setCertificate: React.Dispatch<React.SetStateAction<string>>;
+  setCertificate: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
 export const CertificatePageSearch = ({
@@ -27,7 +27,7 @@ export const CertificatePageSearch = ({
   const onBlurInput = () => setIsVisibleTitle(false);
 
   useEffect(() => {
-    setCertificate('');
+    setCertificate(undefined);
   }, [keyword]);
 
   return (
@@ -48,7 +48,7 @@ export const CertificatePageSearch = ({
             <S.Input
               type='search'
               placeholder='자격증을 선택해주세요.'
-              value={certificate}
+              value={certificate == undefined ? '' : certificate}
               onChange={onChangeInputTitleValue}
               onClick={onClickInput}
               onBlur={onBlurInput}

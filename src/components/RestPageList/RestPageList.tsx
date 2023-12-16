@@ -161,6 +161,7 @@ export const RestPageList = () => {
                   location={el.location}
                   index={null}
                   isScrap={el.isScrap}
+                  path={`/${menuName}/detail/${el.id}`}
                 />
               );
             })}

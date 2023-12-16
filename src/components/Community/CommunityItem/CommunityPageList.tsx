@@ -68,6 +68,7 @@ export const CommunityPageList = () => {
         like={el.like}
         comment={el.comment}
         user={el.user}
+        path={`/${menuName}/detail/${el.id}`}
       />
     ));
   };
