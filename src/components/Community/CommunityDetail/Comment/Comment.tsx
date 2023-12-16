@@ -17,9 +17,25 @@ export const Comment = ({ profileImage, nickname, comment, date }: Comments) => 
 
       <S.CommentContent>
         <p>{comment}</p>
-        <S.IconBtn>
-          <LikeSolidIcon /> <p>좋아요</p>
-        </S.IconBtn>
+        <S.ButtonList>
+          <li>
+            <S.Button>
+              <LikeSolidIcon style={{ marginRight: '4px' }} /> <p>좋아요</p>
+            </S.Button>
+          </li>
+          <li>
+            <S.Dotted />
+          </li>
+          <li>
+            <S.Button>수정</S.Button>
+          </li>
+          <li>
+            <S.Dotted />
+          </li>
+          <li>
+            <S.Button>삭제</S.Button>
+          </li>
+        </S.ButtonList>
       </S.CommentContent>
     </S.Comment>
   );

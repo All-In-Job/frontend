@@ -18,12 +18,30 @@ export const Profile = styled.img`
   width: 44px;
 `;
 
-export const IconBtn = styled.button`
+export const ButtonList = styled.ul`
   display: flex;
   align-items: center;
-  gap: 4px;
-  ${textStyle.title01}
   color: ${palette.black200};
+  gap: 6px;
+
+  > li {
+    font-size: 14px;
+    color: ${palette.black200};
+  }
+`;
+
+export const Button = styled.button`
+  display: flex;
+  align-items: center;
+  color: ${palette.black200};
+  cursor: pointer;
+`;
+
+export const Dotted = styled.div`
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: ${palette.black100};
 `;
 
 export const Nickname = styled.div`
@@ -35,7 +53,11 @@ export const TimeDiff = styled.div`
   color: ${palette.black200};
 `;
 
-export const Comment = styled.li``;
+export const Comment = styled.li`
+  :not(:last-of-type) {
+    margin-bottom: 32px;
+  }
+`;
 
 export const CommentContent = styled.div`
   display: flex;
