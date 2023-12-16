@@ -7,43 +7,59 @@ import { Community } from 'types/community.type';
 import { getCommunitySearchResult } from 'apis/community';
 import theme from 'styles/theme';
 
+type SearchOption = 'content' | 'title' | 'nickName';
+type SearchOptionKorean = '제목 + 내용' | '제목' | '글작성자';
+
 type Props = {
   setCommunityList: Dispatch<SetStateAction<Community[]>>;
 };
 
 export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
-  const [selected, setSelected] = useState('title');
+  const [selected, setSelected] = useState<SearchOptionKorean>('제목');
   const [text, setText] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
+  const options = {
+    content: '제목 + 내용',
+    title: '제목',
+    nickName: '글작성자',
+  } as const;
+  const reversedOptions = {
+    '제목 + 내용': 'content',
+    제목: 'title',
+    글작성자: 'nickName',
+  } as const;
+
   const requestSearchResult = async () => {
-    getCommunitySearchResult(selected, text)
+    getCommunitySearchResult(reversedOptions[selected], text)
       .then(res => {
         setCommunityList(res.data.data);
       })
       .catch(err => console.log(err));
   };
-  const filterSearchTarget = (target: string) => {
-    let translated: string = '';
-    if (target === '제목 + 내용') translated = 'content';
-    if (target === '제목') translated = 'title';
-    if (target === '글작성자') translated = 'nickName';
-    setSelected(translated);
+
+  const filterSearchTarget = (target: SearchOption) => {
+    setSelected(options[target]);
   };
 
   return (
     <StyledSearch>
       <StyledSelect onClick={() => setIsOpen(!isOpen)}>
         {selected}
+
         <StyledUl isOpen={isOpen}>
-          {['제목 + 내용', '제목', '글작성자'].map(item => (
-            <StyledOption onClick={() => filterSearchTarget(item)}>{item}</StyledOption>
+          {Object.keys(options).map(item => (
+            <StyledOption onClick={() => filterSearchTarget(item as SearchOption)}>
+              {options[item as SearchOption]}
+            </StyledOption>
           ))}
         </StyledUl>
+
         <StyledArrowIconContainer isOpen={isOpen}>
           <ArrowExpandIcon />
         </StyledArrowIconContainer>
       </StyledSelect>
+
       <StyledSearchBar
         placeholder='취준job담을 검색해보세요!'
         onChange={e => setText(e.target.value)}

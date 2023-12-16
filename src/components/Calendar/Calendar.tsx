@@ -68,7 +68,6 @@ export const Calendar = () => {
     getCalendar(Number(year), currentDate.month)
       .then(res => {
         const data = res.data.data;
-        console.log(data);
         setMonthlySchedules(data);
       })
       .catch(e => {
