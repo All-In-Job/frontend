@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import { ReactComponent as HorizontalIcon } from 'assets/icons/icon-horizontal_rule.svg';
 import { ReactComponent as ViewIcon } from 'assets/icons/icon-view.svg';
@@ -7,6 +7,7 @@ import DOMPurify from 'dompurify';
 import { useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
+import { submitComment } from 'apis/comment';
 import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
 import { patchToggleLike } from 'apis/toggleLike';
 import { Count } from 'components/commons/Count/Count';
@@ -23,6 +24,7 @@ import { ReactComponent as ShareSolidIcon } from './res/icon-share.svg';
 export const CommunityDetail = () => {
   const { detailId } = useParams();
   const [detailData, setDetailData] = useState<Community>();
+  const [comment, setComment] = useState('');
 
   const requestMockupData = async () => {
     const ret = await axios.get('/mocks/detailCommunity.json');
@@ -50,6 +52,23 @@ export const CommunityDetail = () => {
         ...(prevData as Community),
         like: res.data.data.count,
       }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onChangeComment = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setComment(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const submitCommentData = async () => {
+    console.log(detailData?.id);
+    const commentData = { id: detailData?.id as string, comment };
+    try {
+      await submitComment(commentData);
+      // await submitComment({ detailId: detailData?.id as string, commentData: commentData });
     } catch (error) {
       console.error(error);
     }
@@ -94,8 +113,10 @@ export const CommunityDetail = () => {
         <S.Title>댓글</S.Title>
         <S.CommentInputContainer>
           <ProfileImage />
-          <S.CommentInput placeholder='댓글을 남겨보세요!' />
-          <S.SubmitButton>등록</S.SubmitButton>
+          <S.CommentInput placeholder='댓글을 남겨보세요!' onChange={onChangeComment} />
+          <S.SubmitButton type='button' onClick={submitCommentData}>
+            등록
+          </S.SubmitButton>
         </S.CommentInputContainer>
         <S.CommentContainer>
           {detailData?.comments.map(ele => (
