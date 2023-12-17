@@ -1,6 +1,6 @@
 import { detailCommunityApi } from 'apis';
 
-export const requestDetailCrawlingApiData = async (id: string) => {
+export const requestCommunityDetailData = async (id: string) => {
   return await detailCommunityApi({
     method: 'get',
     url: id,
