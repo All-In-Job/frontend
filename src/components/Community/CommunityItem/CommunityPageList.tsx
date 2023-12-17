@@ -51,7 +51,7 @@ export const CommunityPageList = () => {
     findUserProfile()
       .then(res => {
         if (res.status === 200) {
-          navigate('/community/newPost');
+          navigate('/community/newpost');
         }
       })
       .catch(e => {
