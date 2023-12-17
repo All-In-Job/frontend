@@ -1,19 +1,29 @@
+import { FC } from 'react';
+
 import { ContentInfo } from 'components/Community/CommunityDetail/ContentsInfo/ContentInfo';
 import { ReactComponent as LikeSolidIcon } from 'components/Community/CommunityDetail/res/icon-like-solid.svg';
 
 import * as S from './Comment.style';
 
-type Comments = {
-  profileImage?: string;
-  nickname?: string;
-  comment?: string;
-  date: string;
+type User = {
+  id: string;
+  nickname: string;
+  profileImage: string;
 };
 
-export const Comment = ({ profileImage, nickname, comment, date }: Comments) => {
+type CommentProps = {
+  comment: string;
+  date: string;
+  id: string;
+  user: User;
+};
+
+const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
+  console.log(id);
+
   return (
     <S.Comment>
-      <ContentInfo profileImage={profileImage} nickname={nickname} date={date} />
+      <ContentInfo profileImage={user.profileImage} nickname={user.nickname} date={date} />
 
       <S.CommentContent>
         <p>{comment}</p>
@@ -40,3 +50,5 @@ export const Comment = ({ profileImage, nickname, comment, date }: Comments) => 
     </S.Comment>
   );
 };
+
+export default Comment;
