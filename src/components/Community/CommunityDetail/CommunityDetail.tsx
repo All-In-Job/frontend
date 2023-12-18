@@ -63,15 +63,19 @@ export const CommunityDetail = () => {
 
     try {
       const res = await submitComment(commentData);
-      console.log(res);
+      if (res) {
+        setComment('');
+        setDetailData(prevData => ({
+          ...(prevData as Community),
+          comments: res.data.data.comments,
+        }));
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
   const clean = detailData ? DOMPurify.sanitize(detailData.detail) : '';
-
-  console.log(detailData);
 
   return (
     <S.Container>
@@ -110,7 +114,11 @@ export const CommunityDetail = () => {
         <S.Title>댓글</S.Title>
         <S.CommentInputContainer>
           <ProfileImage />
-          <S.CommentInput placeholder='댓글을 남겨보세요!' onChange={onChangeComment} />
+          <S.CommentInput
+            placeholder='댓글을 남겨보세요!'
+            value={comment}
+            onChange={onChangeComment}
+          />
           <S.SubmitButton type='button' onClick={submitCommentData}>
             등록
           </S.SubmitButton>
