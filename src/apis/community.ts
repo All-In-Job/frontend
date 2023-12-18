@@ -1,6 +1,6 @@
 import { communityApi } from './index';
 
-export const requestCommunityData = async (page: string, category: string | undefined) => {
+export const requestCommunityData = async (page: string, category: string) => {
   return await communityApi({
     method: 'get',
     params: { page, category },

@@ -29,7 +29,7 @@ export const CommunityPageList = () => {
   const currentPage = getPageParam ? Number(getPageParam) : 1;
 
   const { selectedKeyword } = useOutletContext<UseOutletType>();
-  const [category, setCategory] = useState<string | undefined>('');
+  const [category, setCategory] = useState<string>('전체');
 
   useEffect(() => {
     if (selectedKeyword.length !== 0) {
@@ -38,8 +38,6 @@ export const CommunityPageList = () => {
       });
     }
   }, [selectedKeyword]);
-
-  console.log(menuName);
 
   const navigateToWritePage = () => {
     findUserProfile()
