@@ -22,7 +22,7 @@ function Login() {
     <S.LoginContainer>
       <S.LoginWrapper>
         <S.LoginBox>
-          <S.LogoBox src='/src/assets/images/mainLogo.png' onClick={() => navigate('/')} />
+          <S.LogoBox src='/images/mainLogo.png' onClick={() => navigate('/')} />
           <S.Logo onClick={() => navigate('/')}>ALL IN JOB</S.Logo>
 
           <S.divisionLine>
