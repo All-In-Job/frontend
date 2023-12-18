@@ -2,10 +2,10 @@ import { FC } from 'react';
 
 import styled from '@emotion/styled';
 
-import { Img } from '../type';
+// import { Img } from '../type';
 
 interface Props {
-  img: Img;
+  img: string;
 }
 
 const Picture: FC<Props> = ({ img }) => {
@@ -14,7 +14,7 @@ const Picture: FC<Props> = ({ img }) => {
 
   return (
     <Container>
-      <Image src={img.url || emptyURL} alt={img.name || 'sample'} />
+      <Image src={img || emptyURL} />
     </Container>
   );
 };
@@ -23,8 +23,9 @@ export default Picture;
 
 const Container = styled.div`
   margin-right: 8px;
-  width: 110px;
-  height: 124px;
+  width: 82px;
+  height: 64px;
+  border: 4px;
 `;
 
 const Image = styled.img`
