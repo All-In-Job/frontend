@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { useOutletContext, useParams } from 'react-router-dom';
+import { AxiosError } from 'axios';
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
 import { requestCommunityData } from 'apis/community';
 import { requestCommunityCount } from 'apis/communityCount';
+import { findUserProfile } from 'apis/user';
 import MenuPagination from 'components/commons/Pagination/MenuPagination';
 import { Keyword } from 'components/MenuFilter/KeywordFilter';
 import { useControlPageParam } from 'hooks/useControlPageParam';
@@ -23,6 +25,7 @@ export const CommunityPageList = () => {
   const [communityList, setCommunityList] = useState<Community[]>([]);
   const [totalCount, setTotalCount] = useState(1);
   const { getPageParam } = useControlPageParam();
+  const navigate = useNavigate();
   const currentPage = getPageParam ? Number(getPageParam) : 1;
 
   const { selectedKeyword } = useOutletContext<UseOutletType>();
@@ -43,6 +46,21 @@ export const CommunityPageList = () => {
   // }, [selectedKeyword]);
 
   console.log(selectedKeyword);
+
+  const navigateToWritePage = () => {
+    findUserProfile()
+      .then(res => {
+        if (res.status === 200) {
+          navigate('/community/newpost');
+        }
+      })
+      .catch(e => {
+        if (e instanceof AxiosError) {
+          alert('로그인 후 이용해주시기 바랍니다.');
+        }
+      });
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -78,7 +96,7 @@ export const CommunityPageList = () => {
       <>
         <StyledHeader>
           <CommunitySearch setCommunityList={setCommunityList} />
-          <StyledWriteButton>작성하기</StyledWriteButton>
+          <StyledWriteButton onClick={navigateToWritePage}>작성하기</StyledWriteButton>
         </StyledHeader>
 
         <List>{renderList(communityList)}</List>
