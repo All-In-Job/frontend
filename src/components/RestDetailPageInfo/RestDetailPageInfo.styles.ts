@@ -35,6 +35,29 @@ export const Tbody = styled.tbody`
   line-height: 30px;
   th {
     color: var(--black-300, #717070);
+    white-space: nowrap;
+  }
+  td {
+    width: 243px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+  &.second {
+    width: 100%;
+    td {
+      width: 100%;
+      a {
+        width: 580px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+      }
+    }
   }
   td.tag {
     display: flex;
