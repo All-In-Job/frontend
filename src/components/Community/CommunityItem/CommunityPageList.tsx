@@ -29,23 +29,17 @@ export const CommunityPageList = () => {
   const currentPage = getPageParam ? Number(getPageParam) : 1;
 
   const { selectedKeyword } = useOutletContext<UseOutletType>();
-  // const [category, setCategory] = useState<string[]>([]);
+  const [category, setCategory] = useState<string | undefined>('');
 
-  // useEffect(() => {
-  //   const updatedCategory: string[] = [];
+  useEffect(() => {
+    if (selectedKeyword.length !== 0) {
+      selectedKeyword.forEach(el => {
+        setCategory(el.title);
+      });
+    }
+  }, [selectedKeyword]);
 
-  //   selectedKeyword.forEach(el => {
-  //     if (el.path) {
-  //       setClassify(el.path);
-  //       updatedTest.push(el.id);
-  //     }
-  //   });
-  //   setTest(updatedTest);
-
-  //   setCategory(updatedCategory);
-  // }, [selectedKeyword]);
-
-  console.log(selectedKeyword);
+  console.log(menuName);
 
   const navigateToWritePage = () => {
     findUserProfile()
@@ -64,7 +58,7 @@ export const CommunityPageList = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await requestCommunityData(getPageParam as string);
+        const res = await requestCommunityData(getPageParam as string, category);
         const totalCount = await requestCommunityCount();
         setCommunityList(res.data.data);
         setTotalCount(totalCount.data.data);
@@ -72,7 +66,7 @@ export const CommunityPageList = () => {
         console.error(error);
       }
     })();
-  }, [menuName, getPageParam]);
+  }, [menuName, getPageParam, category]);
 
   const renderList = (list: Community[]) => {
     return list.map(el => (
