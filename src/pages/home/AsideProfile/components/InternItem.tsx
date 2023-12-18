@@ -1,34 +1,39 @@
 import { FC } from 'react';
 
+import { internProps } from 'types/solution';
+
 import {
+  Img,
   Desc,
   LightDesc,
   SolutionInfoContainer,
   SolutionItemContainer,
-} from '../asideProfile.style';
-import { Solution } from '../type';
+} from 'pages/home/AsideProfile/asideProfile.style';
 
 import Badge from './Badge';
-import Picture from './Picture';
 
 interface Props {
-  solution: Solution;
+  solution: internProps;
 }
 
 const InternItem: FC<Props> = ({ solution }) => {
   return (
     <>
-      <Badge title={solution.id} />
+      {solution && (
+        <>
+          <Badge title={'인턴'} />
 
-      <SolutionItemContainer>
-        <Picture img={solution.img[0]} />
-        <SolutionInfoContainer>
-          <LightDesc>{solution.type ?? ''}</LightDesc>
-          <Desc>{solution.name}</Desc>
-          <Desc>접수기간</Desc>
-          <Desc>{solution.date}</Desc>
-        </SolutionInfoContainer>
-      </SolutionItemContainer>
+          <SolutionItemContainer>
+            <Img src={solution?.mainImage} width='82' height='66' />
+            <SolutionInfoContainer>
+              <LightDesc>{solution?.preferentialTreatment}</LightDesc>
+              <Desc>{solution?.title}</Desc>
+              <LightDesc>{solution?.location}</LightDesc>
+              <Desc>{solution?.closeDate}</Desc>
+            </SolutionInfoContainer>
+          </SolutionItemContainer>
+        </>
+      )}
     </>
   );
 };

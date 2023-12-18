@@ -6,7 +6,7 @@ interface Props {
 }
 
 const DateBefore: FC<Props> = ({ date }) => {
-  return <Container>{getDateFrom(date)}</Container>;
+  return <Container>{date}</Container>;
 };
 
 export default DateBefore;
@@ -23,15 +23,15 @@ const Container = styled.div`
   color: var(--orange-500, #fd6b36);
 `;
 
-function getDateFrom(dateValue: string) {
-  const today = new Date();
-  const dDay = new Date(dateValue);
-  const isNotDateObj = isNaN(dDay.getTime());
-  if (isNotDateObj) return 'Nan';
+// function getDateFrom(dateValue: string) {
+//   const today = new Date();
+//   const dDay = new Date(dateValue);
+//   const isNotDateObj = isNaN(dDay.getTime());
+//   if (isNotDateObj) return 'Nan';
 
-  const diff = dDay.getTime() - today.getTime();
-  const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
-  if (diffDays < 0) return 'Nan';
+//   const diff = dDay.getTime() - today.getTime();
+//   const diffDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+//   if (diffDays < 0) return 'Nan';
 
-  return `D-${diffDays}`;
-}
+//   return `D-${diffDays}`;
+// }

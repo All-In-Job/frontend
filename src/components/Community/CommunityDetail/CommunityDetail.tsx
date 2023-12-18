@@ -7,8 +7,8 @@ import { useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
 import { submitComment } from 'apis/comment';
-import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
-import { patchToggleLike } from 'apis/toggleLike';
+import { requestCommunityDetailData } from 'apis/detailCommunity';
+import { toggleLikeCommunityDetail } from 'apis/toggleLike';
 import { Count } from 'components/commons/Count/Count';
 import { ProfileImage } from 'components/Community/ProfileImage/ProfileImage';
 
@@ -26,21 +26,21 @@ export const CommunityDetail = () => {
   const [comment, setComment] = useState('');
 
   useEffect(() => {
-    (async () => {
+    const getCommunityDetailData = async () => {
       try {
-        const res = await requestDetailCrawlingApiData(detailId as string);
-        if (res) {
-          setDetailData(res.data.data);
-        }
+        const res = await requestCommunityDetailData(detailId as string);
+        if (res) setDetailData(res.data.data);
       } catch (error) {
         console.log(error);
       }
-    })();
+    };
+
+    getCommunityDetailData();
   }, []);
 
   const handleToggleLike = async () => {
     try {
-      const res = await patchToggleLike(detailData?.id as string);
+      const res = await toggleLikeCommunityDetail(detailData?.id as string);
 
       setDetailData(prevData => ({
         ...(prevData as Community),
@@ -63,15 +63,19 @@ export const CommunityDetail = () => {
 
     try {
       const res = await submitComment(commentData);
-      console.log(res);
+      if (res) {
+        setComment('');
+        setDetailData(prevData => ({
+          ...(prevData as Community),
+          comments: res.data.data.comments,
+        }));
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
   const clean = detailData ? DOMPurify.sanitize(detailData.detail) : '';
-
-  console.log(detailData);
 
   return (
     <S.Container>
@@ -110,7 +114,11 @@ export const CommunityDetail = () => {
         <S.Title>댓글</S.Title>
         <S.CommentInputContainer>
           <ProfileImage />
-          <S.CommentInput placeholder='댓글을 남겨보세요!' onChange={onChangeComment} />
+          <S.CommentInput
+            placeholder='댓글을 남겨보세요!'
+            value={comment}
+            onChange={onChangeComment}
+          />
           <S.SubmitButton type='button' onClick={submitCommentData}>
             등록
           </S.SubmitButton>

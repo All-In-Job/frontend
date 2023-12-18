@@ -103,7 +103,7 @@ export const RestDetailPageInfo = ({
         </S.Tbody>
 
         <S.HorizontalRule />
-        <S.Tbody>
+        <S.Tbody className='second'>
           {outsideRender && (
             <tr>
               <th>{'활동분야'}</th>
