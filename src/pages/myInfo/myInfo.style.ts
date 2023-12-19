@@ -5,7 +5,6 @@ export const MyInfoContainer = styled.div`
 `;
 
 export const Title = styled.p`
-  margin-top: 32px;
   font-size: 24px;
   font-weight: bold;
 `;

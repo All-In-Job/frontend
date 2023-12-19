@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import * as React from 'react';
 
 import styled from '@emotion/styled';
 import { Outlet, useLoaderData, useOutlet } from 'react-router-dom';
@@ -13,6 +14,8 @@ import { loginUserState } from 'store/user';
 
 import AsideProfile from './home/AsideProfile';
 
+import Element = React.JSX.Element;
+
 export const Home = () => {
   const [, setLoginUser] = useRecoilState(loginUserState);
   const outlet = useOutlet();
@@ -20,11 +23,16 @@ export const Home = () => {
 
   const [marginTop, setMarginTop] = useState('');
 
-  const isHeaderShown = () => {
+  const isComponentShown = (Component: () => Element) => {
     const { pathname } = location;
     if (pathname.includes('login')) return null;
-    if (pathname.includes('signup')) return null;
-    return <Header />;
+    return React.createElement(Component, null, null);
+  };
+
+  const hasAside = () => {
+    const { pathname } = location;
+    if (pathname.includes('login')) return { marginTop: 0, height: '100%' };
+    return { display: 'flex', justifyContent: 'center', gap: 35, marginTop };
   };
 
   useEffect(() => {
@@ -35,11 +43,13 @@ export const Home = () => {
   }, []);
 
   return (
-    <>
-      {isHeaderShown()}
-      <Layout setMarginTop={setMarginTop}>{outlet ? <Outlet /> : <Main />}</Layout>
-      <Sidebar style={{ marginTop }}>{loader ? <AsideProfile /> : <Aside />}</Sidebar>
-    </>
+    <div style={hasAside()}>
+      {isComponentShown(Header)}
+      <Layout setMarginTop={location.pathname.includes('login') ? undefined : setMarginTop}>
+        {outlet ? <Outlet /> : <Main />}
+      </Layout>
+      <Sidebar>{isComponentShown(loader ? AsideProfile : Aside)}</Sidebar>
+    </div>
   );
 };
 

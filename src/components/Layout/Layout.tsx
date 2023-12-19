@@ -7,7 +7,7 @@ import theme from 'styles/theme';
 import * as S from './layout.styles';
 
 type Props = {
-  setMarginTop: Dispatch<SetStateAction<string>>;
+  setMarginTop?: Dispatch<SetStateAction<string>>;
 };
 
 export const Layout: FC<PropsWithChildren<Props>> = ({ children, setMarginTop }) => {
@@ -17,9 +17,8 @@ export const Layout: FC<PropsWithChildren<Props>> = ({ children, setMarginTop })
 
   const orangeBg = ['/login', '/signup', '/find-id'];
 
-  const setLayoutMarginTop = (layout: HTMLElement, height: number) => {
-    layout.style.marginTop = height + 32 + 'px';
-    setMarginTop(layout.style.marginTop);
+  const setLayoutMarginTop = (height: number) => {
+    setMarginTop && setMarginTop(height + 32 + 'px');
   };
 
   const getHeaderHeight = (header: HTMLElement | null) => {
@@ -31,7 +30,7 @@ export const Layout: FC<PropsWithChildren<Props>> = ({ children, setMarginTop })
     const Layout = layoutEl.current;
     if (Layout) {
       const Header = Layout.previousSibling;
-      setLayoutMarginTop(Layout, getHeaderHeight(Header as HTMLHeadElement));
+      setLayoutMarginTop(getHeaderHeight(Header as HTMLHeadElement));
     }
 
     if (kakaoToken) {
