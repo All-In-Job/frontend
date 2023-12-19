@@ -25,7 +25,6 @@ const LeftBody = styled.main`
 `;
 
 const Title = styled.h2`
-  margin-top: 32px;
   color: var(--black-500, #121110);
   font-feature-settings: 'ss10' on;
 
