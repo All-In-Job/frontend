@@ -77,8 +77,6 @@ export const CommunityDetail = () => {
 
   const clean = detailData ? DOMPurify.sanitize(detailData.detail) : '';
 
-  console.log('Comments', detailData?.comments);
-
   return (
     <S.Container>
       <S.Head>

@@ -1,35 +1,38 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+
+import { useRecoilState } from 'recoil';
 
 import { toggleCommentLike } from 'apis/comment';
 import { ContentInfo } from 'components/Community/CommunityDetail/ContentsInfo/ContentInfo';
-import { ReactComponent as LikeSolidIcon } from 'components/Community/CommunityDetail/res/icon-like-solid.svg';
+import { loginUserState } from 'store/user';
 
 import * as S from './Comment.style';
-
-type User = {
-  id: string;
-  nickname: string;
-  profileImage: string;
-};
-
-type CommentProps = {
-  comment: string;
-  date: string;
-  id: string;
-  user: User;
-};
+import { CommentLike, CommentProps } from './Comment.types';
 
 const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
+  const [loginUser] = useRecoilState(loginUserState);
+  const [commentLike, setCommentLike] = useState<CommentLike[]>([]);
+  const [isMatch, setIsMatch] = useState(false);
+
   const handleToggleCommentLike = async () => {
     if (!localStorage.getItem('accessToken')) return;
 
     try {
       const res = await toggleCommentLike(id);
-      console.log('댓글 좋아요 기능', res.data.data.commentLike);
+      if (res) {
+        const isMatched = res.data.data.commentLike.some(
+          (data: CommentLike) => data.user.id === loginUser.id,
+        );
+        console.log(isMatched);
+        setCommentLike(res.data.data.commentLike);
+        setIsMatch(isMatched);
+      }
     } catch (error) {
       console.log(error);
     }
   };
+
+  console.log(commentLike);
 
   return (
     <S.Comment>
@@ -40,7 +43,8 @@ const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
         <S.ButtonList>
           <li>
             <S.Button onClick={() => handleToggleCommentLike()}>
-              <LikeSolidIcon style={{ marginRight: '4px' }} /> <p>좋아요</p>
+              <S.LikeIcon style={{ marginRight: '4px' }} data-ismatched={isMatch} />
+              <S.LikeText isMatched={isMatch}>좋아요</S.LikeText>
             </S.Button>
           </li>
           <li>

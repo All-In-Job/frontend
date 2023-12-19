@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 
+import { ReactComponent as LikeSolidIcon } from 'components/Community/CommunityDetail/res/icon-like-solid.svg';
 import theme from 'styles/theme';
 
 const { palette } = theme;
@@ -35,6 +36,16 @@ export const Button = styled.button`
   align-items: center;
   color: ${palette.black200};
   cursor: pointer;
+`;
+
+export const LikeText = styled.p<{ isMatched: boolean }>`
+  color: ${props => (props.isMatched ? palette.orange500 : palette.black200)};
+`;
+
+export const LikeIcon = styled(LikeSolidIcon)<{ 'data-ismatched': boolean | undefined }>`
+  path {
+    stroke: ${props => (props['data-ismatched'] ? palette.orange500 : palette.black200)};
+  }
 `;
 
 export const Dotted = styled.div`
