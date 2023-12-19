@@ -22,6 +22,7 @@ const LeftBody = styled.main`
   grid-column: span 12;
   flex-direction: column;
   width: 100%;
+  padding-bottom: 120px;
 `;
 
 const Title = styled.h2`
