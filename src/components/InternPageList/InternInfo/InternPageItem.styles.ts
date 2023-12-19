@@ -40,6 +40,7 @@ export const Img = styled.img`
   width: 84px;
   height: 100%;
   padding: 11px 8px;
+  object-fit: contain;
 `;
 
 export const TextBox = styled.span`
