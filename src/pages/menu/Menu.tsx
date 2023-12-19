@@ -50,7 +50,6 @@ export default Menu;
 
 const MenuWrapper = styled.div`
   grid-column: span 12;
-  margin-top: 32px;
 `;
 const MenuHeadContent = styled.div`
   padding-bottom: 32px;

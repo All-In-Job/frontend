@@ -11,7 +11,6 @@ export const LoginWrapper = styled.div`
   margin: auto;
   background-color: white;
   width: 588px;
-  //height: 669px;
   border-radius: 24px;
   padding: 30px;
 `;
