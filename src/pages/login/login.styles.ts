@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const LoginContainer = styled.div`
-  background-color: #fd805d;
+  display: flex;
   grid-column: span 12;
 `;
 
