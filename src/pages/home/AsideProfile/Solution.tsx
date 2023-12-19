@@ -39,7 +39,6 @@ const Solution = () => {
 export default Solution;
 
 const Container = styled.div`
-  overflow-y: auto;
   margin-top: 16px;
   padding: 16px;
   width: 100%;
