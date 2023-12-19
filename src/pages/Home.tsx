@@ -26,6 +26,7 @@ export const Home = () => {
   const isComponentShown = (Component: () => Element) => {
     const { pathname } = location;
     if (pathname.includes('login')) return null;
+    if (pathname.includes('signup')) return null;
     return React.createElement(Component, null, null);
   };
 
