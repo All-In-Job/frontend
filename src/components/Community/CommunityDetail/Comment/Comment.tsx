@@ -23,7 +23,6 @@ const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
         const isMatched = res.data.data.commentLike.some(
           (data: CommentLike) => data.user.id === loginUser.id,
         );
-        console.log(isMatched);
         setCommentLike(res.data.data.commentLike);
         setIsMatch(isMatched);
       }
@@ -47,18 +46,22 @@ const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
               <S.LikeText isMatched={isMatch}>좋아요</S.LikeText>
             </S.Button>
           </li>
-          <li>
-            <S.Dotted />
-          </li>
-          <li>
-            <S.Button>수정</S.Button>
-          </li>
-          <li>
-            <S.Dotted />
-          </li>
-          <li>
-            <S.Button>삭제</S.Button>
-          </li>
+          {user.id === loginUser.id && (
+            <>
+              <li>
+                <S.Dotted />
+              </li>
+              <li>
+                <S.Button>수정</S.Button>
+              </li>
+              <li>
+                <S.Dotted />
+              </li>
+              <li>
+                <S.Button>삭제</S.Button>
+              </li>
+            </>
+          )}
         </S.ButtonList>
       </S.CommentContent>
     </S.Comment>
