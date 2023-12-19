@@ -12,6 +12,7 @@ import {
   CurrentDateContext,
   Purple,
   Red,
+  SchedulesType,
   TODAY,
 } from './Calendar';
 import { filterScheduleStatus } from './Row';
@@ -43,8 +44,8 @@ export const CalendarSub = () => {
       scrollableFrame.style.height = container.offsetHeight - CONTAINER_PADDING_VERTICAL * 4 + 'px';
   };
 
-  const moveToDetailPage = () => {
-    navigate('');
+  const moveToDetailPage = (schedule: SchedulesType[number]) => {
+    navigate(`/${schedule.path}/detail/${schedule.id}`);
   };
 
   return (
@@ -66,7 +67,7 @@ export const CalendarSub = () => {
             calendarState.schedules.map(
               schedule =>
                 schedule.title && (
-                  <StyledLi key={schedule.title} onClick={moveToDetailPage}>
+                  <StyledLi key={schedule.title} onClick={() => moveToDetailPage(schedule)}>
                     <StyledStatusBar bgColor={filterScheduleStatus(schedule.status)} />
                     <span>{schedule.title}</span>
                   </StyledLi>
