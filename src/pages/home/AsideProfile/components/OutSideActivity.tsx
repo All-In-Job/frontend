@@ -1,5 +1,6 @@
 import { FC } from 'react';
 
+import { Link } from 'react-router-dom';
 import { CommonProps } from 'types/solution';
 
 import {
@@ -19,10 +20,11 @@ interface Props {
 }
 
 const LanguageStudy: FC<Props> = ({ solution }) => {
+  console.log(solution);
   return (
     <>
       {solution && (
-        <>
+        <Link to={`${solution.path}/detail/${solution.id}`}>
           <Badge title={'대외활동'} />
           <SolutionItemContainer>
             <Img src={solution?.mainImage} width='110' height='102' />
@@ -36,7 +38,7 @@ const LanguageStudy: FC<Props> = ({ solution }) => {
               <Desc>{solution?.target}</Desc>
             </SolutionInfoContainer>
           </SolutionItemContainer>
-        </>
+        </Link>
       )}
     </>
   );
