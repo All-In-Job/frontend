@@ -11,10 +11,23 @@ type FuncType = (
   queries: object,
 ) => Promise<AxiosResponse<{ data: Certificate[] | Language[] | Inter[] | PostCardProps[] }>>;
 
+type TitleType = (
+  menu: string,
+  mainCategory: string | undefined,
+) => Promise<AxiosResponse<{ data: Certificate[] }>>;
+
 export const requestCrawlingData: FuncType = async (menu, queries) => {
   return await crawlingApi({
     method: 'get',
     url: `${menu}`,
     params: { ...queries },
+  });
+};
+
+export const requestCrawlingTitleData: TitleType = async (menu, mainCategory) => {
+  return await crawlingApi({
+    method: 'get',
+    url: `${menu}`,
+    params: { mainCategory },
   });
 };
