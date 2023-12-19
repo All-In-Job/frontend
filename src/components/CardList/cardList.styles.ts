@@ -5,5 +5,4 @@ export const Section = styled.section`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 11px 24px;
-  margin-bottom: 100px;
 `;
