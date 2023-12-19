@@ -44,6 +44,9 @@ export const resetCSS = css`
   #root {
     min-height: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 35px;
   }
   menu, ol, ul {
     list-style: none;

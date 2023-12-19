@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useLayoutEffect, useRef } from 'react';
+import { Dispatch, FC, PropsWithChildren, SetStateAction, useLayoutEffect, useRef } from 'react';
 
 import { useLocation, useSearchParams } from 'react-router-dom';
 
@@ -6,7 +6,11 @@ import theme from 'styles/theme';
 
 import * as S from './layout.styles';
 
-export const Layout: FC<PropsWithChildren> = ({ children }) => {
+type Props = {
+  setMarginTop: Dispatch<SetStateAction<string>>;
+};
+
+export const Layout: FC<PropsWithChildren<Props>> = ({ children, setMarginTop }) => {
   const location = useLocation();
   const layoutEl = useRef<HTMLDivElement>(null);
   const kakaoToken = useSearchParams()[0].get('code');
@@ -14,7 +18,8 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
   const orangeBg = ['/login', '/signup', '/find-id'];
 
   const setLayoutMarginTop = (layout: HTMLElement, height: number) => {
-    layout.style.marginTop = height + 'px';
+    layout.style.marginTop = height + 32 + 'px';
+    setMarginTop(layout.style.marginTop);
   };
 
   const getHeaderHeight = (header: HTMLElement | null) => {
