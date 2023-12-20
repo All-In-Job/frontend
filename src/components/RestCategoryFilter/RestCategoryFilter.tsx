@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { requestUserKeywordData } from 'apis/crawling';
 import CategoryFilter from 'components/MenuFilter/CategoryFilter';
@@ -17,6 +17,7 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
   const [selectedKeywords, setSelectedKeywords] = useState<Keyword[]>([]);
   const [isOn, setIsOn] = useState(false);
   const { menuName, categoryId } = useParams();
+  const navigate = useNavigate();
 
   const foundMenuCategoryData = getMenuById(menuName! as MenuId);
   const categories = foundMenuCategoryData?.items.map(item => item.category);
@@ -69,6 +70,8 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
   };
 
   const handleClickToggleSwitch = async () => {
+    if (!localStorage.getItem('accessToken')) return navigate('/login');
+
     try {
       const res = await requestUserKeywordData(menuName as string);
       console.log(res);
