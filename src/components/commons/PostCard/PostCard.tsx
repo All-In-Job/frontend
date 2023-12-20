@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { PostCardProps } from 'types/postCard.type';
 
+import { ScrapButton } from 'components/commons/Buttons/Scrap/ScrapButton';
+
 import PostCardFooter from './PostCardFooter/PostCardFooter';
 import PostCardImage from './PostCardImage/PostCardImage';
 import PostCardInfo from './PostCardInfo/PostCardInfo';
@@ -23,14 +25,16 @@ function PostCard({
 }: PostCardProps) {
   return (
     <PostCardContainer>
+      <ScrapContainer imgHeight={isChangeInfoLayout ? '118px' : '282px'}>
+        <ScrapButton id={id} isScrap={isScrap} fill={'primary'} />
+      </ScrapContainer>
+
       <Link to={path} target='_blank'>
         <PostCardImage
           mainImage={mainImage}
           Dday={Dday}
           index={index}
           isChangeInfoLayout={isChangeInfoLayout}
-          id={id}
-          isScrap={isScrap}
         />
 
         <PostCardInfo
@@ -55,4 +59,15 @@ const PostCardContainer = styled.article`
   position: relative;
   margin: 0 auto;
   cursor: pointer;
+`;
+
+const ScrapContainer = styled.div<{ imgHeight: string }>`
+  position: absolute;
+  width: 16px;
+  height: 23px;
+  top: ${props => `calc(${props.imgHeight} - 39px)`};
+  right: 16px;
+  background-color: transparent;
+  cursor: pointer;
+  z-index: 1;
 `;
