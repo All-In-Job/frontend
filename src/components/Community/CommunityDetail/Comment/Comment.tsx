@@ -2,7 +2,7 @@ import { ChangeEvent, FC, FormEvent, useState } from 'react';
 
 import { useRecoilState } from 'recoil';
 
-import { submitEditComment, toggleCommentLike } from 'apis/comment';
+import { deleteComment, submitEditComment, toggleCommentLike } from 'apis/comment';
 import { ContentInfo } from 'components/Community/CommunityDetail/ContentsInfo/ContentInfo';
 import { loginUserState } from 'store/user';
 
@@ -17,8 +17,10 @@ const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
 
+  const accessToken = localStorage.getItem('accessToken');
+
   const handleToggleCommentLike = async () => {
-    if (!localStorage.getItem('accessToken')) return;
+    if (!accessToken) return;
 
     try {
       const res = await toggleCommentLike(id);
@@ -40,6 +42,8 @@ const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
   };
 
   const handleSubmitEditComment = async (e: FormEvent<HTMLFormElement>) => {
+    if (!accessToken) return;
+
     e.preventDefault();
     if (editComment === '') return;
 
@@ -49,6 +53,17 @@ const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
       setCommentValue(res.data.data.comment);
       setEditComment('');
       setIsEdit(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDeleteComment = async () => {
+    if (!accessToken) return;
+
+    try {
+      const res = await deleteComment(id);
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -92,7 +107,7 @@ const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
                 <S.Dotted />
               </li>
               <li>
-                <S.Button>삭제</S.Button>
+                <S.Button onClick={() => handleDeleteComment()}>삭제</S.Button>
               </li>
             </>
           )}

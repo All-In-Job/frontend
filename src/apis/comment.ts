@@ -20,6 +20,13 @@ export const submitEditComment = async (data: CommentDataType) => {
   });
 };
 
+export const deleteComment = async (commentId: string) => {
+  return await commentApi({
+    method: 'delete',
+    url: `delete/${commentId}`,
+  });
+};
+
 export const toggleCommentLike = async (commentId: string) => {
   return await likeCommentApi({
     method: 'patch',
