@@ -23,7 +23,7 @@ const CategoryFilter: FC<Props> = ({
   isToggleSwitch,
 }) => {
   const INTEREST_SWITCH = 'INTEREST_SWITCH';
-  const [isActive, setIsActive] = useState(false);
+  const [isOn, setIsOn] = useState(false);
 
   return (
     <>
@@ -45,16 +45,16 @@ const CategoryFilter: FC<Props> = ({
           <UserInterestWrapper>
             <UserInterestText>나의 관심 커리어</UserInterestText>
 
-            <ToggleSwitch htmlFor={INTEREST_SWITCH} isActive={isActive}>
+            <ToggleSwitch htmlFor={INTEREST_SWITCH} isActive={isOn}>
               <input
                 type='checkbox'
                 id={INTEREST_SWITCH}
-                checked={isActive}
-                onChange={() => setIsActive(!isActive)}
+                checked={isOn}
+                onChange={() => setIsOn(!isOn)}
                 hidden
               />
               <ToggleBallContainer>
-                <ToggleBall isActive={isActive} />
+                <ToggleBall isOn={isOn} />
               </ToggleBallContainer>
             </ToggleSwitch>
           </UserInterestWrapper>
@@ -119,14 +119,14 @@ const ToggleBallContainer = styled.span`
   padding: 6px;
 `;
 
-const ToggleBall = styled.span<{ isActive: boolean }>`
+const ToggleBall = styled.span<{ isOn: boolean }>`
   display: inline-block;
   position: absolute;
   top: 50%;
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background-color: ${props => (props.isActive ? palette.orange500 : palette.line.normal)};
-  transform: translateY(-50%) translateX(${({ isActive }) => (isActive ? 'calc(100% + 4px)' : 0)});
+  background-color: ${props => (props.isOn ? palette.orange500 : palette.line.normal)};
+  transform: translateY(-50%) translateX(${({ isOn }) => (isOn ? 'calc(100% + 4px)' : 0)});
   transition: all 0.3s ease-in-out;
 `;
