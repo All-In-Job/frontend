@@ -27,8 +27,10 @@ const Profile = () => {
           </UserDescContainer>
           <LogoutButton
             onClick={() => {
-              logout().then(res => res.status && refreshWindow());
-              localStorage.clear();
+              logout().then(res => {
+                localStorage.clear();
+                res.status && refreshWindow();
+              });
             }}
           >
             로그아웃
