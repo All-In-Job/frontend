@@ -47,7 +47,7 @@ export const CertificatePageItem = ({
       </S.Container>
 
       <S.Container>
-        <S.Title>시험정보 정보</S.Title>
+        <S.Title>시험정보</S.Title>
         <CertificateExamSchedule
           id={pathProps(examSchedules)?.id}
           key={pathProps(examSchedules)?.id}

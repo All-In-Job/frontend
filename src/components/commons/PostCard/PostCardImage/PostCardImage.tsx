@@ -2,18 +2,14 @@ import { FC } from 'react';
 
 import styled from '@emotion/styled';
 
-import { ScrapButton } from 'components/commons/Buttons/Scrap/ScrapButton';
-
 type Props = {
-  id: string;
   mainImage: string;
   Dday: string;
   index: number | null;
   isChangeInfoLayout?: boolean;
-  isScrap: boolean | undefined;
 };
 
-const PostCardImage: FC<Props> = ({ id, mainImage, Dday, index, isChangeInfoLayout, isScrap }) => {
+const PostCardImage: FC<Props> = ({ mainImage, Dday, index, isChangeInfoLayout }) => {
   return (
     <ImageContainer imgHeight={isChangeInfoLayout ? '118px' : '282px'}>
       {Boolean(mainImage) && <img src={mainImage} />}
@@ -24,10 +20,6 @@ const PostCardImage: FC<Props> = ({ id, mainImage, Dday, index, isChangeInfoLayo
           <DateDday>{Dday}</DateDday>
         </TagContainer>
       )}
-
-      <ScrapContainer>
-        <ScrapButton id={id} isScrap={isScrap} fill={'primary'} />
-      </ScrapContainer>
     </ImageContainer>
   );
 };
@@ -76,14 +68,4 @@ const PostCardTag = styled.div`
   background-color: ${props => props.theme.palette.orange500};
   font-size: 14px;
   font-family: SemiBold;
-`;
-
-const ScrapContainer = styled.div`
-  position: absolute;
-  width: 16px;
-  height: 23px;
-  right: 16px;
-  bottom: 16px;
-  background-color: transparent;
-  cursor: pointer;
 `;
