@@ -30,4 +30,5 @@ export const detailCommunityApi = createAxiosInstance('community');
 export const postCommunityApi = createAxiosInstance('community/create');
 export const mainCrawlingApi = createAxiosInstance('crawling/main');
 export const likeCommunityApi = createAxiosInstance('community/like');
-export const postCommentApi = createAxiosInstance('community/comment');
+export const commentApi = createAxiosInstance('community/comment');
+export const likeCommentApi = createAxiosInstance('community/comment/like');

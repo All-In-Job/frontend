@@ -93,36 +93,11 @@ export const Title = styled.div`
   ${textStyle.headLine02}
 `;
 
-export const CommentInputContainer = styled.form`
-  display: flex;
-  padding-bottom: 27px;
-  border-bottom: 1px solid ${palette.black100};
-`;
-
 export const Profile = styled.img`
   background-color: ${palette.background.primary};
   border-radius: 100%;
   height: 44px;
   width: 44px;
-`;
-
-export const CommentInput = styled.input`
-  margin-left: 8px;
-  padding: 0px 8px;
-  flex: 1 0 auto;
-  &::placeholder {
-    ${textStyle.title02}
-    color: ${palette.black200};
-  }
-`;
-
-export const SubmitButton = styled.button`
-  ${textStyle.body01}
-  color: ${palette.black300};
-  padding: 8px 16px;
-  border-radius: 4px;
-  background-color: ${palette.background.primary};
-  cursor: pointer;
 `;
 
 export const CommentContainer = styled.ul``;

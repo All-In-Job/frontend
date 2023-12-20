@@ -10,9 +10,9 @@ import { submitComment } from 'apis/comment';
 import { requestCommunityDetailData } from 'apis/detailCommunity';
 import { toggleLikeCommunityDetail } from 'apis/toggleLike';
 import { Count } from 'components/commons/Count/Count';
-import { ProfileImage } from 'components/Community/ProfileImage/ProfileImage';
 
-import { Comment } from './Comment/Comment';
+import Comment from './Comment/Comment';
+import CommentSubmit from './CommentSubmit/CommentSubmit';
 import * as S from './CommunityDetail.styles';
 import { ContentInfo } from './ContentsInfo/ContentInfo';
 import { ReactComponent as CommendIcon } from './res/icon-commend.svg';
@@ -54,7 +54,6 @@ export const CommunityDetail = () => {
   const onChangeComment = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setComment(e.target.value);
-    console.log(e.target.value);
   };
 
   const submitCommentData = async () => {
@@ -112,24 +111,20 @@ export const CommunityDetail = () => {
 
       <S.Footer>
         <S.Title>댓글</S.Title>
-        <S.CommentInputContainer>
-          <ProfileImage />
-          <S.CommentInput
-            placeholder='댓글을 남겨보세요!'
-            value={comment}
-            onChange={onChangeComment}
-          />
-          <S.SubmitButton type='button' onClick={submitCommentData}>
-            등록
-          </S.SubmitButton>
-        </S.CommentInputContainer>
+        <CommentSubmit
+          inputValue={comment}
+          onChangeComment={onChangeComment}
+          submitCommentData={submitCommentData}
+        />
+
         <S.CommentContainer>
-          {detailData?.comments.map(ele => (
+          {detailData?.comments.map(comment => (
             <Comment
-              key={ele.id}
-              nickname={ele.user.nickname}
-              comment={ele.comment}
-              date={ele.date}
+              key={comment.id}
+              id={comment.id}
+              comment={comment.comment}
+              date={comment.date}
+              user={comment.user}
             />
           ))}
         </S.CommentContainer>

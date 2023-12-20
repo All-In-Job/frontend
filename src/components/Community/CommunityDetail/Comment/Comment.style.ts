@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 
+import { ReactComponent as LikeSolidIcon } from 'components/Community/CommunityDetail/res/icon-like-solid.svg';
 import theme from 'styles/theme';
 
 const { palette } = theme;
@@ -37,6 +38,16 @@ export const Button = styled.button`
   cursor: pointer;
 `;
 
+export const LikeText = styled.p<{ isMatched: boolean }>`
+  color: ${props => (props.isMatched ? palette.orange500 : palette.black200)};
+`;
+
+export const LikeIcon = styled(LikeSolidIcon)<{ 'data-ismatched': boolean | undefined }>`
+  path {
+    stroke: ${props => (props['data-ismatched'] ? palette.orange500 : palette.black200)};
+  }
+`;
+
 export const Dotted = styled.div`
   width: 3px;
   height: 3px;
@@ -70,5 +81,34 @@ export const CommentContent = styled.div`
     background-color: ${palette.background.secondary};
     padding: 12px 16px;
     border-radius: 8px;
+  }
+`;
+
+export const CommentEditForm = styled.form`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid ${palette.orange100};
+  padding: 12px 16px;
+  border-radius: 8px;
+
+  & > input {
+    flex: 1;
+    color: ${palette.black500};
+    font-size: ${textStyle.title02.fontSize};
+
+    ::placeholder {
+      color: ${palette.black200};
+    }
+  }
+`;
+
+export const EditButton = styled.button`
+  font-size: ${textStyle.body01.fontSize};
+  color: ${palette.black200};
+  cursor: pointer;
+
+  :hover {
+    color: ${palette.orange500};
   }
 `;
