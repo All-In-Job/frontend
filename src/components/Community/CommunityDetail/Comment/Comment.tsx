@@ -1,8 +1,8 @@
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useState } from 'react';
 
 import { useRecoilState } from 'recoil';
 
-import { toggleCommentLike } from 'apis/comment';
+import { submitEditComment, toggleCommentLike } from 'apis/comment';
 import { ContentInfo } from 'components/Community/CommunityDetail/ContentsInfo/ContentInfo';
 import { loginUserState } from 'store/user';
 
@@ -11,7 +11,10 @@ import { CommentLike, CommentProps } from './Comment.types';
 
 const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
   const [loginUser] = useRecoilState(loginUserState);
+  const [commentValue, setCommentValue] = useState(comment);
+  const [editComment, setEditComment] = useState('');
   const [commentLike, setCommentLike] = useState<CommentLike[]>([]);
+  const [isEdit, setIsEdit] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
 
   const handleToggleCommentLike = async () => {
@@ -31,6 +34,26 @@ const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
     }
   };
 
+  const onChangeEditComment = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setEditComment(e.target.value);
+  };
+
+  const handleSubmitEditComment = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (editComment === '') return;
+
+    try {
+      const res = await submitEditComment({ id, comment: editComment });
+
+      setCommentValue(res.data.data.comment);
+      setEditComment('');
+      setIsEdit(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   console.log(commentLike);
 
   return (
@@ -38,7 +61,18 @@ const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
       <ContentInfo profileImage={user.profileImage} nickname={user.nickname} date={date} />
 
       <S.CommentContent>
-        <p>{comment}</p>
+        {isEdit ? (
+          <S.CommentEditForm onSubmit={handleSubmitEditComment}>
+            <input
+              value={editComment}
+              onChange={onChangeEditComment}
+              placeholder='댓글을 입력해주세요!'
+            />
+            <S.EditButton>수정</S.EditButton>
+          </S.CommentEditForm>
+        ) : (
+          <p>{commentValue}</p>
+        )}
         <S.ButtonList>
           <li>
             <S.Button onClick={() => handleToggleCommentLike()}>
@@ -52,7 +86,7 @@ const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
                 <S.Dotted />
               </li>
               <li>
-                <S.Button>수정</S.Button>
+                <S.Button onClick={() => setIsEdit(prev => !prev)}>수정</S.Button>
               </li>
               <li>
                 <S.Dotted />

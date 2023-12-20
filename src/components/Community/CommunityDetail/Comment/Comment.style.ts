@@ -83,3 +83,32 @@ export const CommentContent = styled.div`
     border-radius: 8px;
   }
 `;
+
+export const CommentEditForm = styled.form`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid ${palette.orange100};
+  padding: 12px 16px;
+  border-radius: 8px;
+
+  & > input {
+    flex: 1;
+    color: ${palette.black500};
+    font-size: ${textStyle.title02.fontSize};
+
+    ::placeholder {
+      color: ${palette.black200};
+    }
+  }
+`;
+
+export const EditButton = styled.button`
+  font-size: ${textStyle.body01.fontSize};
+  color: ${palette.black200};
+  cursor: pointer;
+
+  :hover {
+    color: ${palette.orange500};
+  }
+`;

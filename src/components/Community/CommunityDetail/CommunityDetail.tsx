@@ -54,7 +54,6 @@ export const CommunityDetail = () => {
   const onChangeComment = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setComment(e.target.value);
-    console.log(e.target.value);
   };
 
   const submitCommentData = async () => {
