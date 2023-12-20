@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { PostCardProps } from 'types/postCard.type';
@@ -23,10 +25,12 @@ function PostCard({
   isScrap,
   path,
 }: PostCardProps) {
+  const [scrapCount, setScrapCount] = useState(Number(scrap));
+
   return (
     <PostCardContainer>
       <ScrapContainer imgHeight={isChangeInfoLayout ? '118px' : '282px'}>
-        <ScrapButton id={id} isScrap={isScrap} fill={'primary'} />
+        <ScrapButton id={id} isScrap={isScrap} fill={'primary'} setScrapCount={setScrapCount} />
       </ScrapContainer>
 
       <Link to={path} target='_blank'>
@@ -46,7 +50,7 @@ function PostCard({
           isChangeInfoLayout={isChangeInfoLayout}
         />
 
-        <PostCardFooter scrap={scrap} view={view} />
+        <PostCardFooter scrapCount={scrapCount} view={view} />
       </Link>
     </PostCardContainer>
   );
