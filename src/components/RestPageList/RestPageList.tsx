@@ -22,7 +22,7 @@ export const RestPageList = () => {
   const [postPageList, setPostPageList] = useState<PostCardProps[]>([]);
   const [totalCount, setTotalCount] = useState(1);
 
-  const { getPageParam } = useControlPageParam();
+  const { getPageParam, searchParameter, setSearchParameter } = useControlPageParam();
   const currentPage = getPageParam ? Number(getPageParam) : 1;
   const userId = useLoaderData() as { id: string };
 
@@ -140,6 +140,11 @@ export const RestPageList = () => {
 
     fetchData();
   }, [menuName, getPageParam, userId, interests, scale, benefits, target, field, month, location]);
+
+  useEffect(() => {
+    searchParameter.set('page', String(1));
+    setSearchParameter(searchParameter);
+  }, [selectedKeyword]);
 
   return (
     <>
