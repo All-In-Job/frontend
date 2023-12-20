@@ -1,20 +1,37 @@
-import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 
-import { BarPieceColor } from 'pages/home/PassionTemperature/Thermometer/types';
+import styled from '@emotion/styled';
+import { SolutionProps } from 'types/solution';
+
+import { getLoginUserInfo } from 'apis/user';
 
 import { Desc } from './asideProfile.style';
-import { solutions } from './mock/solution';
 import SolutionItem from './SolutionItem';
 
 const Solution = () => {
+  const [solutions, setSolutions] = useState<SolutionProps[]>([]);
   const solutionList = Object.entries(solutions);
+
+  useEffect(() => {
+    const getUserProfile = async () => {
+      try {
+        const res = await getLoginUserInfo();
+        setSolutions(res.data.data.solution);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getUserProfile();
+  }, []);
 
   return (
     <Container>
       <Title size='15px'>올인잡 솔루션</Title>
-      {solutionList.map(([k, v]) => {
-        return <SolutionItem itemKey={k as keyof BarPieceColor} key={k} solution={v} />;
-      })}
+      {solutionList &&
+        solutionList.map(([k, v]) => {
+          return <SolutionItem key={k} solution={v} />;
+        })}
     </Container>
   );
 };
@@ -22,7 +39,6 @@ const Solution = () => {
 export default Solution;
 
 const Container = styled.div`
-  overflow-y: auto;
   margin-top: 16px;
   padding: 16px;
   width: 100%;

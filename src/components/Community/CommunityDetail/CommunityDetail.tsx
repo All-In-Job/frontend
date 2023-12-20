@@ -7,8 +7,8 @@ import { useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
 import { submitComment } from 'apis/comment';
-import { requestDetailCrawlingApiData } from 'apis/detailCommunity';
-import { patchToggleLike } from 'apis/toggleLike';
+import { requestCommunityDetailData } from 'apis/detailCommunity';
+import { toggleLikeCommunityDetail } from 'apis/toggleLike';
 import { Count } from 'components/commons/Count/Count';
 
 import Comment from './Comment/Comment';
@@ -26,21 +26,21 @@ export const CommunityDetail = () => {
   const [comment, setComment] = useState('');
 
   useEffect(() => {
-    (async () => {
+    const getCommunityDetailData = async () => {
       try {
-        const res = await requestDetailCrawlingApiData(detailId as string);
-        if (res) {
-          setDetailData(res.data.data);
-        }
+        const res = await requestCommunityDetailData(detailId as string);
+        if (res) setDetailData(res.data.data);
       } catch (error) {
         console.log(error);
       }
-    })();
+    };
+
+    getCommunityDetailData();
   }, []);
 
   const handleToggleLike = async () => {
     try {
-      const res = await patchToggleLike(detailData?.id as string);
+      const res = await toggleLikeCommunityDetail(detailData?.id as string);
 
       setDetailData(prevData => ({
         ...(prevData as Community),

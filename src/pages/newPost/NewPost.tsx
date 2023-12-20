@@ -17,7 +17,7 @@ const options = [
   { value: '자격증/어학', label: '자격증/어학' },
   { value: '인턴', label: '인턴' },
   { value: '스터디', label: '스터디' },
-  { value: '취업선배 Q&A', label: '취업선배 Q&A' },
+  { value: '취업선배Q&A', label: '취업선배Q&A' },
   { value: '자유게시판', label: '자유게시판' },
 ];
 

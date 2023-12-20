@@ -1,40 +1,43 @@
 import { FC } from 'react';
 
+import { CommonProps } from 'types/solution';
+
 import {
+  Img,
   Desc,
   FlexContainer,
   LightDesc,
   SolutionInfoContainer,
   SolutionItemContainer,
-} from '../asideProfile.style';
-import { Solution } from '../type';
+} from 'pages/home/AsideProfile/asideProfile.style';
 
 import Badge from './Badge';
 import DateBefore from './DateBefore';
-import Picture from './Picture';
 
 interface Props {
-  solution: Solution;
+  solution: CommonProps;
 }
 
 const LanguageStudy: FC<Props> = ({ solution }) => {
   return (
     <>
-      <Badge title={solution.id} />
-
-      <SolutionItemContainer>
-        <Picture img={solution.img[0]} />
-        <SolutionInfoContainer>
-          <LightDesc>{solution.type ?? ''}</LightDesc>
-          <Desc>{solution.name}</Desc>
-          <Desc>기간</Desc>
-          <FlexContainer>
-            <DateBefore date={solution.date} />
-            <LightDesc>{solution.date}</LightDesc>
-          </FlexContainer>
-          <Desc>{solution.date}</Desc>
-        </SolutionInfoContainer>
-      </SolutionItemContainer>
+      {solution && (
+        <>
+          <Badge title={'대외활동'} />
+          <SolutionItemContainer>
+            <Img src={solution?.mainImage} width='110' height='102' />
+            <SolutionInfoContainer>
+              <FlexContainer>
+                <DateBefore date={solution?.Dday} />
+              </FlexContainer>
+              <LightDesc>{solution?.enterprise}</LightDesc>
+              <Desc>{solution?.title}</Desc>
+              <Desc>{solution?.interests}</Desc>
+              <Desc>{solution?.target}</Desc>
+            </SolutionInfoContainer>
+          </SolutionItemContainer>
+        </>
+      )}
     </>
   );
 };

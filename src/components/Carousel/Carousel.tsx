@@ -13,13 +13,11 @@ export type Image = {
 const images: Image[] = [
   {
     id: 1,
-    source:
-      'https://images.pexels.com/photos/933054/pexels-photo-933054.jpeg?cs=srgb&dl=pexels-joyston-judah-933054.jpg&fm=jpg',
+    source: '/images/carousel_1.png',
   },
   {
     id: 2,
-    source:
-      'https://wallpapers.com/images/hd/high-resolution-nature-mountains-landscape-5n3jp9psonuimymd.jpg',
+    source: '/images/carousel_2.png',
   },
   { id: 3, source: 'https://wallpapers.com/images/hd/mountain-top-t6qhv1lk4j0au09t.jpg' },
 ];
@@ -105,4 +103,5 @@ const StyledContainer = styled.div`
   height: 439px;
   overflow: hidden;
   position: relative;
+  border-radius: 12px;
 `;

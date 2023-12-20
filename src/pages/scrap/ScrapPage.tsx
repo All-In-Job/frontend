@@ -22,10 +22,10 @@ const LeftBody = styled.main`
   grid-column: span 12;
   flex-direction: column;
   width: 100%;
+  padding-bottom: 120px;
 `;
 
 const Title = styled.h2`
-  margin-top: 32px;
   color: var(--black-500, #121110);
   font-feature-settings: 'ss10' on;
 

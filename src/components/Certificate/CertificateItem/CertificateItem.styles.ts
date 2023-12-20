@@ -28,7 +28,7 @@ export const Image = styled.img`
   height: 68px;
   width: 68px;
   margin-right: 16px;
-  background-color: #d9d9d9;
+  object-fit: contain;
 `;
 
 export const CertificateInfoText = styled.div`

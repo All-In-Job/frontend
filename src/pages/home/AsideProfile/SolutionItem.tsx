@@ -1,27 +1,25 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
-import { BarPieceColor } from 'pages/home/PassionTemperature/Thermometer/types';
+import { SolutionProps } from 'types/solution';
 
 import CertificationItem from './components/CertificationItem';
 import CompetitionItem from './components/CompetitionItem';
 import InternItem from './components/InternItem';
 import OutSideActivity from './components/OutSideActivity';
-import { Solution } from './type';
 
 interface Props {
-  itemKey: keyof BarPieceColor;
-  solution: Solution;
+  solution: SolutionProps;
 }
 
-const SolutionItem: FC<Props> = ({ itemKey, solution }) => {
-  const itemMapper: Record<keyof BarPieceColor, ReactNode> = {
-    qnet: <CertificationItem solution={solution} />,
-    intern: <InternItem solution={solution} />,
-    competition: <CompetitionItem solution={solution} />,
-    outside: <OutSideActivity solution={solution} />,
-  };
-
-  return <>{itemMapper[itemKey]}</>;
+const SolutionItem: FC<Props> = ({ solution }) => {
+  return (
+    <>
+      <OutSideActivity solution={solution?.outside} />
+      <CompetitionItem solution={solution?.competition} />
+      <CertificationItem solution={solution?.qnet} />
+      <InternItem solution={solution?.intern} />
+    </>
+  );
 };
 
 export default SolutionItem;

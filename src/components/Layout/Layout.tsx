@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useLayoutEffect, useRef } from 'react';
+import { Dispatch, FC, PropsWithChildren, SetStateAction, useLayoutEffect, useRef } from 'react';
 
 import { useLocation, useSearchParams } from 'react-router-dom';
 
@@ -6,15 +6,19 @@ import theme from 'styles/theme';
 
 import * as S from './layout.styles';
 
-export const Layout: FC<PropsWithChildren> = ({ children }) => {
+type Props = {
+  setMarginTop?: Dispatch<SetStateAction<string>>;
+};
+
+export const Layout: FC<PropsWithChildren<Props>> = ({ children, setMarginTop }) => {
   const location = useLocation();
   const layoutEl = useRef<HTMLDivElement>(null);
   const kakaoToken = useSearchParams()[0].get('code');
 
   const orangeBg = ['/login', '/signup', '/find-id'];
 
-  const setLayoutMarginTop = (layout: HTMLElement, height: number) => {
-    layout.style.marginTop = height + 'px';
+  const setLayoutMarginTop = (height: number) => {
+    setMarginTop && setMarginTop(height + 32 + 'px');
   };
 
   const getHeaderHeight = (header: HTMLElement | null) => {
@@ -26,7 +30,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
     const Layout = layoutEl.current;
     if (Layout) {
       const Header = Layout.previousSibling;
-      setLayoutMarginTop(Layout, getHeaderHeight(Header as HTMLHeadElement));
+      setLayoutMarginTop(getHeaderHeight(Header as HTMLHeadElement));
     }
 
     if (kakaoToken) {

@@ -5,4 +5,5 @@ export const List = styled.div`
   flex-direction: column;
   gap: 36px;
   font-family: Bold;
+  margin-bottom: 120px;
 `;
