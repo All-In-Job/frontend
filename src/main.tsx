@@ -13,9 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <ThemeProvider theme={theme}>
       <GlobalStyles>
         <GoogleOAuthProvider clientId={import.meta.env.VITE_API_GOOGLE_CLIENT_ID}>
-          {/* <ScrollToTop> */}
           <App />
-          {/* </ScrollToTop> */}
         </GoogleOAuthProvider>
       </GlobalStyles>
     </ThemeProvider>
