@@ -15,5 +15,5 @@ export const getTimeDiffString = (pastTime: string) => {
   if (diffDays > 0) return `${diffDays}일전`;
   if (diffHours > 0) return `${diffHours}시간전`;
   if (diffMinutes > 0) return `${diffMinutes}분전`;
-  if (diffSeconds > 0) return `${diffSeconds}초전`;
+  if (diffSeconds >= 0) return `방금전`;
 };
