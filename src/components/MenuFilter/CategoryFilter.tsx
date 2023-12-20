@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import styled from '@emotion/styled';
 
@@ -12,7 +12,10 @@ type Props = {
   categories?: string[];
   selectedCategory: string;
   onClickCategory: (category: string) => void;
-  isToggleSwitch: boolean;
+  onClickToggleSwitch: () => void;
+  isShowSwitch: boolean;
+  isOn: boolean;
+  setIsOn: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const CategoryFilter: FC<Props> = ({
@@ -20,10 +23,13 @@ const CategoryFilter: FC<Props> = ({
   categories,
   selectedCategory,
   onClickCategory,
-  isToggleSwitch,
+  onClickToggleSwitch,
+  isShowSwitch,
+  isOn,
+  setIsOn,
 }) => {
   const INTEREST_SWITCH = 'INTEREST_SWITCH';
-  const [isOn, setIsOn] = useState(false);
+  // const [isOn, setIsOn] = useState(false);
 
   return (
     <>
@@ -41,11 +47,15 @@ const CategoryFilter: FC<Props> = ({
           ))}
         </Categoies>
 
-        {isToggleSwitch && (
+        {isShowSwitch && (
           <UserInterestWrapper>
             <UserInterestText>나의 관심 커리어</UserInterestText>
 
-            <ToggleSwitch htmlFor={INTEREST_SWITCH} isActive={isOn}>
+            <ToggleSwitch
+              htmlFor={INTEREST_SWITCH}
+              onClick={() => onClickToggleSwitch()}
+              isActive={isOn}
+            >
               <input
                 type='checkbox'
                 id={INTEREST_SWITCH}

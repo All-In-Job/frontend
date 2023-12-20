@@ -26,6 +26,7 @@ export const loginApi = createAxiosInstance('login');
 export const communityApi = createAxiosInstance('community');
 export const crawlingApi = createAxiosInstance('crawling/finde');
 export const detailCrawlingApi = createAxiosInstance('crawling/findeDetail');
+export const userKeywordCrawlingApi = createAxiosInstance('crawling/myKeywordCrawling');
 export const detailCommunityApi = createAxiosInstance('community');
 export const postCommunityApi = createAxiosInstance('community/create');
 export const mainCrawlingApi = createAxiosInstance('crawling/main');

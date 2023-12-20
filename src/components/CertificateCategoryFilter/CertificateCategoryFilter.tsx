@@ -76,7 +76,7 @@ const CertificateCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
         categories={categories}
         selectedCategory={selectedCategory}
         onClickCategory={handleClickCategory}
-        isToggleSwitch
+        isShowSwitch
       />
       <KeywordFilter
         keywordList={keywordList}

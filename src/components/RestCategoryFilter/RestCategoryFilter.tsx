@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
 
+import { requestUserKeywordData } from 'apis/crawling';
 import CategoryFilter from 'components/MenuFilter/CategoryFilter';
 import KeywordFilter, { Keyword } from 'components/MenuFilter/KeywordFilter';
 import { MenuId, getMenuById } from 'pages/menu/menuCategoies';
@@ -14,6 +15,7 @@ type Props = {
 const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedKeywords, setSelectedKeywords] = useState<Keyword[]>([]);
+  const [isOn, setIsOn] = useState(false);
   const { menuName, categoryId } = useParams();
 
   const foundMenuCategoryData = getMenuById(menuName! as MenuId);
@@ -66,6 +68,15 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
     setSelectedKeywords(updatedKeywords);
   };
 
+  const handleClickToggleSwitch = async () => {
+    try {
+      const res = await requestUserKeywordData(menuName as string);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     onSearchSelectedKeyword(selectedKeywords);
   }, [selectedKeywords]);
@@ -77,7 +88,10 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
         categories={categories}
         selectedCategory={selectedCategory}
         onClickCategory={handleClickCategory}
-        isToggleSwitch
+        onClickToggleSwitch={handleClickToggleSwitch}
+        isShowSwitch
+        isOn={isOn}
+        setIsOn={setIsOn}
       />
       <KeywordFilter
         keywordList={keywordList}
