@@ -18,7 +18,7 @@ function CommunityItem({ user, category, title, view, like, comment, date, path 
         <S.Nickname>
           <div
             style={{
-              backgroundImage: `url(${user.profileImage})`,
+              backgroundImage: `url(${user?.profileImage})`,
               backgroundPosition: 'center',
               backgroundSize: 'cover',
               borderRadius: '100%',
