@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 import CategoryButton from 'components/MenuFilter/Buttons/CategoryButton.tsx';
 import theme from 'styles/theme';
@@ -12,7 +13,6 @@ type Props = {
   categories?: string[];
   selectedCategory: string;
   onClickCategory: (category: string) => void;
-  onClickToggleSwitch: () => void;
   isShowSwitch: boolean;
   isOn: boolean;
   setIsOn: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,14 +23,18 @@ const CategoryFilter: FC<Props> = ({
   categories,
   selectedCategory,
   onClickCategory,
-  onClickToggleSwitch,
   isShowSwitch,
   isOn,
   setIsOn,
 }) => {
   const INTEREST_SWITCH = 'INTEREST_SWITCH';
   // const [isOn, setIsOn] = useState(false);
+  const navigate = useNavigate();
 
+  const onChangeSwitch = () => {
+    if (!localStorage.getItem('accessToken')) return navigate('/login');
+    setIsOn(prev => !prev);
+  };
   return (
     <>
       <Title>{title}</Title>
@@ -51,16 +55,12 @@ const CategoryFilter: FC<Props> = ({
           <UserInterestWrapper>
             <UserInterestText>나의 관심 커리어</UserInterestText>
 
-            <ToggleSwitch
-              htmlFor={INTEREST_SWITCH}
-              onClick={() => onClickToggleSwitch()}
-              isActive={isOn}
-            >
+            <ToggleSwitch htmlFor={INTEREST_SWITCH} isActive={isOn}>
               <input
                 type='checkbox'
                 id={INTEREST_SWITCH}
                 checked={isOn}
-                onChange={() => setIsOn(!isOn)}
+                onChange={() => onChangeSwitch()}
                 hidden
               />
               <ToggleBallContainer>

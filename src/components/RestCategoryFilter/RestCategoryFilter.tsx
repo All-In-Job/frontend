@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { requestUserKeywordData } from 'apis/crawling';
 import CategoryFilter from 'components/MenuFilter/CategoryFilter';
@@ -15,9 +15,9 @@ type Props = {
 const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedKeywords, setSelectedKeywords] = useState<Keyword[]>([]);
+  const [userKeywords, setUserKeywords] = useState<string[]>([]);
   const [isOn, setIsOn] = useState(false);
   const { menuName, categoryId } = useParams();
-  const navigate = useNavigate();
 
   const foundMenuCategoryData = getMenuById(menuName! as MenuId);
   const categories = foundMenuCategoryData?.items.map(item => item.category);
@@ -69,20 +69,26 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
     setSelectedKeywords(updatedKeywords);
   };
 
-  const handleClickToggleSwitch = async () => {
-    if (!localStorage.getItem('accessToken')) return navigate('/login');
-
-    try {
-      const res = await requestUserKeywordData(menuName as string);
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     onSearchSelectedKeyword(selectedKeywords);
   }, [selectedKeywords]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if (isOn) {
+          const res = await requestUserKeywordData(menuName as string);
+          setUserKeywords(res.data.keyword);
+        } else {
+          setUserKeywords([]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [isOn]);
+
+  console.log(userKeywords);
 
   return (
     <MenuFilterWrapper>
@@ -91,7 +97,6 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
         categories={categories}
         selectedCategory={selectedCategory}
         onClickCategory={handleClickCategory}
-        onClickToggleSwitch={handleClickToggleSwitch}
         isShowSwitch
         isOn={isOn}
         setIsOn={setIsOn}
