@@ -91,9 +91,6 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
     })();
   }, [isOn]);
 
-  // console.log(userKeywords);
-  // console.log(keywordList);
-
   return (
     <MenuFilterWrapper>
       <CategoryFilter

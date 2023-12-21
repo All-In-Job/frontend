@@ -24,13 +24,8 @@ const KeywordButton: FC<Props> = ({
   onClickKeyword,
   isDisabled,
 }) => {
-  console.log(isDisabled);
   return (
-    <Button
-      onClick={() => onClickKeyword(keyword)}
-      isSelect={isSelect}
-      disabled={isDisabled ?? isDisabled}
-    >
+    <Button onClick={() => onClickKeyword(keyword)} isSelect={isSelect} disabled={isDisabled}>
       #{keyword.title} {isSelectedButton && <Delete />}
     </Button>
   );

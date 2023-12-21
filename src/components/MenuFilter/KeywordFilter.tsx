@@ -53,7 +53,14 @@ const KeywordFilter: FC<Props> = ({
                 selectedKeyword => selectedKeyword.title === keyword.title,
               )}
               onClickKeyword={onClickKeyword}
-              isDisabled={isDisabled ? !userKeywords.includes(keyword.title) : false}
+              isDisabled={
+                isDisabled
+                  ? !userKeywords.includes(keyword.title) &&
+                    (keyword.path === 'competition_field' ||
+                      keyword.path === 'activity_field' ||
+                      keyword.path === 'company_type')
+                  : false
+              }
             />
           </li>
         ))}
