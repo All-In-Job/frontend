@@ -58,7 +58,8 @@ const KeywordFilter: FC<Props> = ({
                   ? !userKeywords.includes(keyword.title) &&
                     (keyword.path === 'competition_field' ||
                       keyword.path === 'area_of_interest' ||
-                      keyword.path === 'company_type')
+                      keyword.path === 'company_type' ||
+                      keyword.path === 'technical')
                   : false
               }
             />
