@@ -90,7 +90,7 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
         console.log(error);
       }
     })();
-  }, [isOn]);
+  }, [isOn, menuName]);
 
   return (
     <MenuFilterWrapper>

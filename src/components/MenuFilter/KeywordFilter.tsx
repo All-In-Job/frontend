@@ -57,7 +57,7 @@ const KeywordFilter: FC<Props> = ({
                 isDisabled
                   ? !userKeywords.includes(keyword.title) &&
                     (keyword.path === 'competition_field' ||
-                      keyword.path === 'activity_field' ||
+                      keyword.path === 'area_of_interest' ||
                       keyword.path === 'company_type')
                   : false
               }
