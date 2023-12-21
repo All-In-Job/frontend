@@ -18,17 +18,21 @@ export type Keyword = {
 type Props = {
   keywordList: Keyword[];
   selectedKeywords: Keyword[];
+  userKeywords: string[];
   onClickResetKeywords: () => void;
   onClickKeyword: (keyword: Keyword) => void;
   onClickSelectedKeyword: (keyword: Keyword) => void;
+  isDisabled: boolean;
 };
 
 const KeywordFilter: FC<Props> = ({
   keywordList,
   selectedKeywords,
+  userKeywords,
   onClickResetKeywords,
   onClickKeyword,
   onClickSelectedKeyword,
+  isDisabled,
 }) => {
   return (
     <KeywordFilterContainer>
@@ -49,6 +53,7 @@ const KeywordFilter: FC<Props> = ({
                 selectedKeyword => selectedKeyword.title === keyword.title,
               )}
               onClickKeyword={onClickKeyword}
+              isDisabled={isDisabled ? !userKeywords.includes(keyword.title) : false}
             />
           </li>
         ))}

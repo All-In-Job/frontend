@@ -17,6 +17,7 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
   const [selectedKeywords, setSelectedKeywords] = useState<Keyword[]>([]);
   const [userKeywords, setUserKeywords] = useState<string[]>([]);
   const [isOn, setIsOn] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const { menuName, categoryId } = useParams();
 
   const foundMenuCategoryData = getMenuById(menuName! as MenuId);
@@ -79,8 +80,10 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
         if (isOn) {
           const res = await requestUserKeywordData(menuName as string);
           setUserKeywords(res.data.keyword);
+          setIsDisabled(true);
         } else {
           setUserKeywords([]);
+          setIsDisabled(false);
         }
       } catch (error) {
         console.log(error);
@@ -88,7 +91,8 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
     })();
   }, [isOn]);
 
-  console.log(userKeywords);
+  // console.log(userKeywords);
+  // console.log(keywordList);
 
   return (
     <MenuFilterWrapper>
@@ -104,9 +108,11 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
       <KeywordFilter
         keywordList={keywordList}
         selectedKeywords={selectedKeywords}
+        userKeywords={userKeywords}
         onClickResetKeywords={handleClickResetKeywords}
         onClickKeyword={handleClickKeyword}
         onClickSelectedKeyword={handleClickSelectedKeyword}
+        isDisabled={isDisabled}
       />
     </MenuFilterWrapper>
   );
