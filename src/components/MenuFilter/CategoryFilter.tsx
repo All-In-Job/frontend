@@ -14,8 +14,8 @@ type Props = {
   selectedCategory: string;
   onClickCategory: (category: string) => void;
   isShowSwitch: boolean;
-  isOn: boolean;
-  setIsOn: React.Dispatch<React.SetStateAction<boolean>>;
+  isOn?: boolean;
+  setIsOn?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const CategoryFilter: FC<Props> = ({
@@ -24,7 +24,7 @@ const CategoryFilter: FC<Props> = ({
   selectedCategory,
   onClickCategory,
   isShowSwitch,
-  isOn,
+  isOn = false,
   setIsOn,
 }) => {
   const INTEREST_SWITCH = 'INTEREST_SWITCH';
@@ -33,7 +33,7 @@ const CategoryFilter: FC<Props> = ({
 
   const onChangeSwitch = () => {
     if (!localStorage.getItem('accessToken')) return navigate('/login');
-    setIsOn(prev => !prev);
+    setIsOn?.((prev: boolean) => !prev);
   };
   return (
     <>

@@ -80,7 +80,6 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
       try {
         if (isOn) {
           const res = await requestUserKeywordData(menuName as string);
-          console.log(res);
           setSelectedKeywords([]);
           setUserKeywords(res.data.keyword);
           setIsDisabled(true);
