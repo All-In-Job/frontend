@@ -85,7 +85,38 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
 
   const requestMyInfoUpdate: FormEventHandler = e => {
     e.preventDefault();
-    updateProfile(state)
+
+    const tempArr: string[] = [];
+
+    state.interestKeyword.map(interest => {
+      if (interest.interest === 'language') {
+        const obj = {
+          TOEIC: 'toeic',
+          'TOEIC (Bridge)': 'toeicBR',
+          'TOEIC (Speaking Writing)': 'toeicSW',
+          'TOEIC (Writing)': 'toeicWT',
+          'TOEIC (Speaking)': 'toeicST',
+          'TSC 중국어 말하기 시험': 'ch',
+          JPT: 'jp',
+          'SJPT 일본어 말하기 시험': 'jpSP',
+        } as const;
+
+        interest.keyword.map(keyword => {
+          tempArr.push(obj[keyword as keyof typeof obj]);
+        });
+      }
+    });
+
+    const tempInterestKeyword = [...state.interestKeyword];
+    tempInterestKeyword.map(interest => {
+      if (interest.interest === 'language') {
+        interest.keyword = tempArr;
+      }
+    });
+
+    console.log('temp:', tempInterestKeyword);
+
+    updateProfile({ ...state, interestKeyword: tempInterestKeyword })
       .then(res => {
         console.log(res);
         setIsVisible(false);
@@ -100,6 +131,8 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
   useEffect(() => {
     findUserProfile().then(res => {
       const data = res.data.data;
+      console.log('effect', data);
+
       setState({
         nickname: data.nickname,
         profileImage: data.profileImage,
