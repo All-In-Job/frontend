@@ -1,5 +1,6 @@
 import { FC } from 'react';
 
+import { Link } from 'react-router-dom';
 import { CommonProps } from 'types/solution';
 
 import {
@@ -15,13 +16,14 @@ import DateBefore from 'pages/home/AsideProfile/components/DateBefore';
 
 interface Props {
   solution: CommonProps;
+  path: string;
 }
 
-const CompetitionItem: FC<Props> = ({ solution }) => {
+const CompetitionItem: FC<Props> = ({ solution, path }) => {
   return (
     <>
       {solution && (
-        <>
+        <Link to={`${path}/detail/${solution?.id}`} target={'_blank'}>
           <Badge title={'공모전'} />
           <SolutionItemContainer>
             <Img src={solution?.mainImage} width='110' height='102' />
@@ -35,7 +37,7 @@ const CompetitionItem: FC<Props> = ({ solution }) => {
               <Desc>{solution?.target}</Desc>
             </SolutionInfoContainer>
           </SolutionItemContainer>
-        </>
+        </Link>
       )}
     </>
   );

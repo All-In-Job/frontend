@@ -1,5 +1,6 @@
 import { FC } from 'react';
 
+import { Link } from 'react-router-dom';
 import { CommonProps } from 'types/solution';
 
 import {
@@ -16,13 +17,14 @@ import DateBefore from './DateBefore';
 
 interface Props {
   solution: CommonProps;
+  path: string;
 }
 
-const LanguageStudy: FC<Props> = ({ solution }) => {
+const OutSideItem: FC<Props> = ({ solution, path }) => {
   return (
     <>
       {solution && (
-        <>
+        <Link to={`${path}/detail/${solution?.id}`} target={'_blank'}>
           <Badge title={'대외활동'} />
           <SolutionItemContainer>
             <Img src={solution?.mainImage} width='110' height='102' />
@@ -36,10 +38,10 @@ const LanguageStudy: FC<Props> = ({ solution }) => {
               <Desc>{solution?.target}</Desc>
             </SolutionInfoContainer>
           </SolutionItemContainer>
-        </>
+        </Link>
       )}
     </>
   );
 };
 
-export default LanguageStudy;
+export default OutSideItem;
