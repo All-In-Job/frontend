@@ -40,6 +40,9 @@ export const SolutionInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
 
+  &.qnet {
+    width: 120px;
+  }
   > p {
     margin-bottom: 4px;
   }
