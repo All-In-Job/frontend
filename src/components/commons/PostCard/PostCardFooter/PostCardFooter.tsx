@@ -6,16 +6,16 @@ import { ReactComponent as SmallBookmark } from 'components/commons/PostCard/res
 import { ReactComponent as Visibility } from 'components/commons/PostCard/res/img/visibility.svg';
 
 type Props = {
-  scrapCount: number;
+  scrap: string;
   view: string;
 };
 
-const PostCardFooter: FC<Props> = ({ scrapCount, view }) => {
+const PostCardFooter: FC<Props> = ({ scrap, view }) => {
   return (
     <FooterContainer>
       <li>
         <SmallScrapIcon />
-        <FooterCount>{scrapCount}</FooterCount>
+        <FooterCount>{scrap}</FooterCount>
       </li>
       <li>
         <DvideLine />

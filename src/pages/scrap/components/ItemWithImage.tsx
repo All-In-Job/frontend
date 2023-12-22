@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import styled from '@emotion/styled';
 import { Scrap } from 'types/scrap';
 
@@ -32,7 +30,6 @@ const ItemWithImage: React.FC<ItemWithImageProps> = ({
   const isQnet = period && examDate;
   const isLanguage = closeDate && examDate;
   const isIntern = !(location == null);
-  const [scrapCount, setScrapCount] = useState(Number(scrap));
 
   return (
     <Item>
@@ -42,13 +39,7 @@ const ItemWithImage: React.FC<ItemWithImageProps> = ({
           <DateBadge title={Dday} />
         </Date>
         <BookMarkWrapper onClick={() => setIsActive(false)}>
-          <ScrapButton
-            path={path}
-            id={id}
-            isScrap={isScrap}
-            fill={'primary'}
-            setScrapCount={setScrapCount}
-          />
+          <ScrapButton path={path} id={id} isScrap={isScrap} fill={'primary'} />
         </BookMarkWrapper>
       </ImageContainer>
       {!isQnet && !isLanguage ? (
@@ -74,7 +65,7 @@ const ItemWithImage: React.FC<ItemWithImageProps> = ({
       <Record>
         <RecordItem>
           <MiniBookMarkIcon />
-          <RecordCount>{scrapCount}</RecordCount>
+          <RecordCount>{scrap}</RecordCount>
         </RecordItem>
         <VerticalDivider />
         <RecordItem>

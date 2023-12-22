@@ -1,10 +1,8 @@
 import { ChangeEvent, FC } from 'react';
 
 import styled from '@emotion/styled';
-import { useRecoilState } from 'recoil';
 
 import { ProfileImage } from 'components/Community/ProfileImage/ProfileImage';
-import { loginUserState } from 'store/user';
 import theme from 'styles/theme';
 
 const { palette, textStyle } = theme;
@@ -16,13 +14,9 @@ type Props = {
 };
 
 const CommentSubmit: FC<Props> = ({ inputValue, onChangeComment, submitCommentData }) => {
-  const [loginUser] = useRecoilState(loginUserState);
-
-  console.log(loginUser);
-
   return (
     <CommentInputContainer>
-      <ProfileImage profileImage={loginUser.profileImage} />
+      <ProfileImage />
       <CommentInput
         placeholder='댓글을 남겨보세요!'
         value={inputValue}
