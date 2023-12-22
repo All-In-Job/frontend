@@ -10,7 +10,6 @@ import Aside from 'components/Aside/Aside';
 import { Layout } from 'components/Layout/Layout';
 import { Main } from 'components/Main/Main';
 import Header from 'components/Navigation/Header/Header';
-import ScrollToTop from 'components/ScrollToTop/ScrollToTop';
 import { loginUserState } from 'store/user';
 
 import AsideProfile from './home/AsideProfile';
@@ -45,15 +44,13 @@ export const Home = () => {
   }, []);
 
   return (
-    <ScrollToTop>
-      <div style={hasAside()}>
-        {isComponentShown(Header)}
-        <Layout setMarginTop={location.pathname.includes('login') ? undefined : setMarginTop}>
-          {outlet ? <Outlet /> : <Main />}
-        </Layout>
-        <Sidebar>{isComponentShown(loader ? AsideProfile : Aside)}</Sidebar>
-      </div>
-    </ScrollToTop>
+    <div style={hasAside()}>
+      {isComponentShown(Header)}
+      <Layout setMarginTop={location.pathname.includes('login') ? undefined : setMarginTop}>
+        {outlet ? <Outlet /> : <Main />}
+      </Layout>
+      <Sidebar>{isComponentShown(loader ? AsideProfile : Aside)}</Sidebar>
+    </div>
   );
 };
 
