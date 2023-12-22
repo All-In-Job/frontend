@@ -10,7 +10,6 @@ import SolutionItem from './SolutionItem';
 
 const Solution = () => {
   const [solutions, setSolutions] = useState<SolutionProps[]>([]);
-  const solutionList = Object.entries(solutions);
 
   useEffect(() => {
     const getUserProfile = async () => {
@@ -28,9 +27,9 @@ const Solution = () => {
   return (
     <Container>
       <Title size='15px'>올인잡 솔루션</Title>
-      {solutionList &&
-        solutionList.map(([k, v]) => {
-          return <SolutionItem key={k} solution={v} />;
+      {solutions &&
+        solutions.map((solution, index) => {
+          return <SolutionItem key={index} solution={solution} />;
         })}
     </Container>
   );
@@ -45,13 +44,14 @@ const Container = styled.div`
   border-radius: 12px;
   background: var(--orange-100, #ffe8df);
 
-  > div:not(:last-child) {
-    margin-bottom: 15px;
+  > a {
+    span {
+      margin-top: 16px;
+    }
   }
 `;
 
 const Title = styled(Desc)`
-  margin-bottom: 16px;
   color: var(--black-500, #121110);
   /* Body 2/Semi */
   font-family: SUIT;
