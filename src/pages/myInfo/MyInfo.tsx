@@ -18,17 +18,19 @@ function MyInfo() {
   const [profile, setProfile] = useState<MyInfoFormState & { keywords: string[] }>();
 
   useEffect(() => {
-    findUserProfile().then(res => {
-      if (res.status === 200) {
-        const data = res.data.data as MyInfoFormState;
+    if (!isUpdateModalVisible) {
+      findUserProfile().then(res => {
+        if (res.status === 200) {
+          const data = res.data.data as MyInfoFormState;
 
-        setProfile({
-          ...data,
-          keywords: data.interestKeyword.map(interestObj => interestObj.keyword).flat(),
-        });
-      }
-    });
-  }, []);
+          setProfile({
+            ...data,
+            keywords: data.interestKeyword.map(interestObj => interestObj.keyword).flat(),
+          });
+        }
+      });
+    }
+  }, [isUpdateModalVisible]);
 
   if (profile)
     return (
