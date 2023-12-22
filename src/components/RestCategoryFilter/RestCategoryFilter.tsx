@@ -54,6 +54,7 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
     }),
   );
 
+  console.log(keywordList);
   const handleClickKeyword = (keyword: Keyword) => {
     const isSelected = selectedKeywords.some(kw => kw.id === keyword.id);
 
@@ -79,6 +80,7 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
       try {
         if (isOn) {
           const res = await requestUserKeywordData(menuName as string);
+          console.log(res);
           setSelectedKeywords([]);
           setUserKeywords(res.data.keyword);
           setIsDisabled(true);

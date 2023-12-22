@@ -34,6 +34,8 @@ const KeywordFilter: FC<Props> = ({
   onClickSelectedKeyword,
   isDisabled,
 }) => {
+  console.log('keywordList', keywordList[1]?.path);
+  console.log('userKeywords', userKeywords.includes(keywordList[1]?.title));
   return (
     <KeywordFilterContainer>
       <HeadContainer>
@@ -59,7 +61,10 @@ const KeywordFilter: FC<Props> = ({
                     (keyword.path === 'competition_field' ||
                       keyword.path === 'area_of_interest' ||
                       keyword.path === 'company_type' ||
-                      keyword.path === 'technical')
+                      keyword.path === 'technical' ||
+                      keyword.path === 'english' ||
+                      keyword.path === 'japanese' ||
+                      keyword.path === 'chinese')
                   : false
               }
             />
