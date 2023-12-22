@@ -91,8 +91,6 @@ const LanguageCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
     })();
   }, [isOn, menuName]);
 
-  console.log(foundKeywordList);
-
   return (
     <MenuFilterWrapper>
       <CategoryFilter

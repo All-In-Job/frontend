@@ -34,8 +34,6 @@ const KeywordFilter: FC<Props> = ({
   onClickSelectedKeyword,
   isDisabled,
 }) => {
-  console.log('keywordList', keywordList[1]?.path);
-  console.log('userKeywords', userKeywords.includes(keywordList[1]?.title));
   return (
     <KeywordFilterContainer>
       <HeadContainer>
