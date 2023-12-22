@@ -45,6 +45,10 @@ export const CalendarSub = () => {
   };
 
   const moveToDetailPage = (schedule: SchedulesType[number]) => {
+    if (schedule.homePage) {
+      window.open(schedule.homePage);
+      return;
+    }
     navigate(`/${schedule.path}/detail/${schedule.id}`);
   };
 

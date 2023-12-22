@@ -19,6 +19,7 @@ export type SchedulesType = {
   title: string;
   status: 'open' | 'close' | 'exam';
   path: 'competition' | 'outside' | 'qnet' | 'intern' | 'language';
+  homePage?: string;
 }[];
 export type MonthlySchedulesType = Record<string, SchedulesType>;
 
