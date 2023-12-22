@@ -14,8 +14,8 @@ type Props = {
   selectedCategory: string;
   onClickCategory: (category: string) => void;
   isShowSwitch: boolean;
-  isOn: boolean;
-  setIsOn: React.Dispatch<React.SetStateAction<boolean>>;
+  isOn?: boolean;
+  setIsOn?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const CategoryFilter: FC<Props> = ({
@@ -33,7 +33,9 @@ const CategoryFilter: FC<Props> = ({
 
   const onChangeSwitch = () => {
     if (!localStorage.getItem('accessToken')) return navigate('/login');
-    setIsOn(prev => !prev);
+    if (isOn && setIsOn) {
+      setIsOn(prev => !prev);
+    }
   };
   return (
     <>
@@ -53,9 +55,9 @@ const CategoryFilter: FC<Props> = ({
 
         {isShowSwitch && (
           <UserInterestWrapper>
-            <UserInterestText>나의 관심 커리어</UserInterestText>
+            <UserInterestText>나의관심커리어</UserInterestText>
 
-            <ToggleSwitch htmlFor={INTEREST_SWITCH} isActive={isOn}>
+            <ToggleSwitch htmlFor={INTEREST_SWITCH} isActive={isOn ?? false}>
               <input
                 type='checkbox'
                 id={INTEREST_SWITCH}
@@ -64,7 +66,7 @@ const CategoryFilter: FC<Props> = ({
                 hidden
               />
               <ToggleBallContainer>
-                <ToggleBall isOn={isOn} />
+                <ToggleBall isOn={isOn ?? false} />
               </ToggleBallContainer>
             </ToggleSwitch>
           </UserInterestWrapper>
