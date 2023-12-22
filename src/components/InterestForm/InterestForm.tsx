@@ -48,16 +48,34 @@ function InterestForm() {
     const tempInterests: Array<object> = [];
     let i = 0;
     for (const key in interestsState.interests) {
-      tempInterests[i] = {
-        interest: interestsMap[key as TagName],
-        keyword: interestsState.interests[key as TagName],
-      };
+      if (key === '어학') {
+        const obj = {
+          TOEIC: 'toeic',
+          'TOEIC (Bridge)': 'toeicBR',
+          'TOEIC (Speaking Writing)': 'toeicSW',
+          'TOEIC (Writing)': 'toeicWT',
+          'TOEIC (Speaking)': 'toeicST',
+          'TSC 중국어 말하기 시험': 'ch',
+          JPT: 'jp',
+          'SJPT 일본어 말하기 시험': 'jpSP',
+        } as const;
+        tempInterests[i] = {
+          interest: 'language',
+          keyword: interestsState.interests[key as TagName].map(
+            keyword => obj[keyword as keyof typeof obj],
+          ),
+        };
+
+        console.log(interestsState.interests[key as TagName]);
+      } else {
+        tempInterests[i] = {
+          interest: interestsMap[key as TagName],
+          keyword: interestsState.interests[key as TagName],
+        };
+      }
       i++;
     }
-    // for (const key in interestsState.interests) {
-    //   tempInterests[i] = { [key]: interestsState.interests[key as TagName] };
-    //   i++;
-    // }
+
     return tempInterests;
   };
 

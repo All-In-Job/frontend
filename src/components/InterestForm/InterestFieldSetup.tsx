@@ -33,24 +33,6 @@ export const InterestFieldSetup: FC<Props> = ({ interestsState, setInterestsStat
   };
 
   const updateFormState = (tagName: TagName, keywords: string[]) => {
-    if (tagName === '어학') {
-      const obj = {
-        TOEIC: 'toeic',
-        'TOEIC (Bridge)': 'toeicBR',
-        'TOEIC (Speaking, Writing)': 'toeicSW',
-        'TOEIC (Writing)': 'toeicWT',
-        'TOEIC (Speaking)': 'toeicST',
-        'TSC 중국어 말하기 시험': 'ch',
-        JPT: 'jp',
-        'SJPT 일본어 말하기 시험': 'jpSP',
-      } as const;
-      const tempKeywords = keywords.map(keyword => obj[keyword as keyof typeof obj]);
-      setInterestsState({
-        interests: { ...interestsState.interests, [tagName]: tempKeywords },
-      });
-      return;
-    }
-
     setInterestsState({
       interests: { ...interestsState.interests, [tagName]: keywords },
     });
