@@ -25,12 +25,14 @@ const CertificationItem: FC<Props> = ({ solution, path }) => {
           <Badge title={'자격증'} />
 
           <SolutionItemContainer>
-            <Img src={solution?.mainImage} width='82' height='66' />
-            <SolutionInfoContainer>
+            <Img src={solution?.mainImage} width='100' height='90' />
+            <SolutionInfoContainer className='qnet'>
               <LightDesc>{solution?.institution}</LightDesc>
               <Desc>{solution?.title}</Desc>
-              <LightDesc>{'필기접수기간 : ' + solution?.wtPeriod}</LightDesc>
-              <LightDesc>{'실기접수기간 : ' + solution?.ptPeriod}</LightDesc>
+              <LightDesc>{'필기접수기간'}</LightDesc>
+              <Desc>{solution?.wtPeriod}</Desc>
+              <LightDesc>{'실기접수기간'}</LightDesc>
+              <Desc>{solution?.ptPeriod}</Desc>
             </SolutionInfoContainer>
           </SolutionItemContainer>
         </Link>
