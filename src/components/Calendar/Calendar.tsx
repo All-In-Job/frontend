@@ -1,9 +1,7 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { AxiosError } from 'axios';
 
-import { getCalendar } from 'apis/user';
 import theme from 'styles/theme';
 
 import { CalendarMain } from './CalendarMain';
@@ -64,21 +62,6 @@ export const Calendar = () => {
   });
   const [clickedDate, setClickedDate] = useState<ClickedDateType>({ year: 0, month: 0, date: 0 });
 
-  const [monthlySchedules, setMonthlySchedules] = useState<MonthlySchedulesType>();
-  useEffect(() => {
-    const year = String(currentDate.year).replace('20', '');
-    getCalendar(Number(year), currentDate.month)
-      .then(res => {
-        const data = res.data.data;
-        setMonthlySchedules(data);
-      })
-      .catch(e => {
-        if (e instanceof AxiosError && e.response) {
-          console.log(e.response);
-        }
-      });
-  }, [currentDate]);
-
   return (
     <CalendarContext.Provider value={{ calendarState, setCalendarState }}>
       <CurrentDateContext.Provider value={{ currentDate, setCurrentDate }}>
@@ -89,7 +72,7 @@ export const Calendar = () => {
             </StyledHeader>
 
             <StyledBody>
-              <CalendarMain monthlySchedules={monthlySchedules} />
+              <CalendarMain />
               <CalendarSub />
             </StyledBody>
           </StyledContainer>
