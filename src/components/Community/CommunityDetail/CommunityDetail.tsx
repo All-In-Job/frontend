@@ -25,8 +25,6 @@ export const CommunityDetail = () => {
   const [detailData, setDetailData] = useState<Community>();
   const [comment, setComment] = useState('');
 
-  console.log(detailData);
-
   useEffect(() => {
     const getCommunityDetailData = async () => {
       try {
