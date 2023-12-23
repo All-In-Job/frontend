@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import styled from '@emotion/styled';
+import { useParams } from 'react-router-dom';
 
 import KeywordButton from 'components/MenuFilter/Buttons/KeywordButton';
 import theme from 'styles/theme';
@@ -34,6 +35,8 @@ const KeywordFilter: FC<Props> = ({
   onClickSelectedKeyword,
   isDisabled,
 }) => {
+  const { categoryId } = useParams();
+
   return (
     <KeywordFilterContainer>
       <HeadContainer>
@@ -56,13 +59,13 @@ const KeywordFilter: FC<Props> = ({
               isDisabled={
                 isDisabled
                   ? !userKeywords.includes(keyword.title) &&
-                    (keyword.path === 'competition_field' ||
-                      keyword.path === 'area_of_interest' ||
-                      keyword.path === 'company_type' ||
-                      keyword.path === 'technical' ||
-                      keyword.path === 'english' ||
-                      keyword.path === 'japanese' ||
-                      keyword.path === 'chinese')
+                    (categoryId === 'competition_field' ||
+                      categoryId === 'area_of_interest' ||
+                      categoryId === 'company_type' ||
+                      categoryId === 'technical' ||
+                      categoryId === 'english' ||
+                      categoryId === 'japanese' ||
+                      categoryId === 'chinese')
                   : false
               }
             />
