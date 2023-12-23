@@ -4,29 +4,15 @@ export type User = {
   profileImage: string;
 };
 
-export type CommentProps = {
-  comment: string;
-  date: string;
-  id: string;
+export type CommentLike = {
+  commentId: string;
   user: User;
 };
 
-export type CommentLikeUser = {
-  email: string;
+export type CommentProps = {
+  comment: string;
+  commentLike: CommentLike[];
+  date: string;
   id: string;
-  name: string;
-  nickname: string;
-  phone: string;
-  profileImage: string;
-  provider: string;
-  subMajorId: string;
-  thermometer: number;
-  top: number;
-};
-
-export type CommentLike = {
-  commentId: string;
-  id: string;
-  userId: string;
-  user: CommentLikeUser;
+  user: User;
 };

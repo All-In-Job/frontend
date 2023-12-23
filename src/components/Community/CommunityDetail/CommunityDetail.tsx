@@ -25,6 +25,8 @@ export const CommunityDetail = () => {
   const [detailData, setDetailData] = useState<Community>();
   const [comment, setComment] = useState('');
 
+  console.log(detailData);
+
   useEffect(() => {
     const getCommunityDetailData = async () => {
       try {
@@ -123,6 +125,7 @@ export const CommunityDetail = () => {
               key={comment.id}
               id={comment.id}
               comment={comment.comment}
+              commentLike={comment.commentLike}
               date={comment.date}
               user={comment.user}
             />
