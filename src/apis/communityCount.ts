@@ -1,8 +1,11 @@
 import { communityApi } from 'apis';
+import { AxiosResponse } from 'axios';
 
-export const requestCommunityCount = async () => {
+type FuncType = (category?: string) => Promise<AxiosResponse<{ data: number }>>;
+
+export const requestCommunityCount: FuncType = async category => {
   return await communityApi({
     method: 'get',
-    params: { count: true },
+    params: { count: true, category },
   });
 };

@@ -24,7 +24,7 @@ export const CommunityPageList = () => {
   const { menuName } = useParams();
   const [communityList, setCommunityList] = useState<Community[]>([]);
   const [totalCount, setTotalCount] = useState(1);
-  const { getPageParam } = useControlPageParam();
+  const { getPageParam, searchParameter, setSearchParameter } = useControlPageParam();
   const navigate = useNavigate();
   const currentPage = getPageParam ? Number(getPageParam) : 1;
 
@@ -57,14 +57,24 @@ export const CommunityPageList = () => {
     (async () => {
       try {
         const res = await requestCommunityData(getPageParam as string, category);
-        const totalCount = await requestCommunityCount();
         setCommunityList(res.data.data);
-        setTotalCount(totalCount.data.data);
+        if (category === '전체') {
+          const totalCount = await requestCommunityCount();
+          setTotalCount(totalCount.data.data);
+        } else {
+          const totalCount = await requestCommunityCount(category);
+          setTotalCount(totalCount.data.data);
+        }
       } catch (error) {
         console.error(error);
       }
     })();
   }, [menuName, getPageParam, category]);
+
+  useEffect(() => {
+    searchParameter.set('page', String(1));
+    setSearchParameter(searchParameter);
+  }, [selectedKeyword]);
 
   const renderList = (list: Community[]) => {
     return list.map(el => (
