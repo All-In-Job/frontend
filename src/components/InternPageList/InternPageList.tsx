@@ -24,7 +24,7 @@ export const InternPageList = () => {
   const { menuName } = useParams();
   const [InternPageList, setInternPageList] = useState<Inter[]>([]);
   const [totalCount, setTotalCount] = useState(1);
-  const { getPageParam } = useControlPageParam();
+  const { getPageParam, searchParameter, setSearchParameter } = useControlPageParam();
   const currentPage = getPageParam ? Number(getPageParam) : 1;
   const userId = useLoaderData() as { id: string };
 
@@ -69,8 +69,14 @@ export const InternPageList = () => {
           location: arrayToString(location),
         };
 
+        const countQueries = {
+          institution: arrayToString(institution),
+          preferentialTreatment: arrayToString(preferentialTreatment),
+          location: arrayToString(location),
+        };
+
         const res = await requestCrawlingData(menuName as string, queries);
-        const totalCount = await requestCrawlingTotalCount(menuName as string);
+        const totalCount = await requestCrawlingTotalCount(menuName as string, countQueries);
         setInternPageList(res.data.data as Inter[]);
         setTotalCount(totalCount.data.data);
       } catch (error) {
@@ -80,6 +86,11 @@ export const InternPageList = () => {
 
     fetchData();
   }, [menuName, getPageParam, userId, location, institution, preferentialTreatment]);
+
+  useEffect(() => {
+    searchParameter.set('page', String(1));
+    setSearchParameter(searchParameter);
+  }, [selectedKeyword]);
 
   return (
     <>
