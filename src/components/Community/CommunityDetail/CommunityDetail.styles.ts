@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 
 import theme from 'styles/theme';
 
+import { ReactComponent as LikeSolidIcon } from './res/icon-like-solid.svg';
+
 const { palette } = theme;
 const { textStyle } = theme;
 
@@ -66,13 +68,19 @@ export const ButtonContainer = styled.div`
   gap: 8px;
 `;
 
-export const IconBtn = styled.button`
+export const IconBtn = styled.button<{ isLike: boolean }>`
   display: flex;
   align-items: center;
   gap: 4px;
   ${textStyle.title01}
-  color: ${palette.black200};
+  color: ${props => (props.isLike ? palette.orange500 : palette.black200)};
   cursor: pointer;
+`;
+
+export const LikeSolid = styled(LikeSolidIcon)<{ 'data-isliked': boolean }>`
+  path {
+    stroke: ${props => (props['data-isliked'] ? palette.orange500 : palette.black200)};
+  }
 `;
 
 export const CountContainer = styled.div`
