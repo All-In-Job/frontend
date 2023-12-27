@@ -65,7 +65,7 @@ export const interestTags = [
     keyWords: [
       'TOEIC',
       'TOEIC (Bridge)',
-      'TOEIC (Speaking Writing)',
+      'TOEIC (Speaking, Writing)',
       'TOEIC (Writing)',
       'TOEIC (Speaking)',
       'JPT',
