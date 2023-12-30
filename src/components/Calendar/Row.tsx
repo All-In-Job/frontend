@@ -16,6 +16,7 @@ import { Date } from './Date';
 export type RowProps = {
   dates: Dates;
   nth: number;
+  loading?: boolean;
   monthlySchedules?: MonthlySchedulesType;
 };
 
@@ -25,7 +26,7 @@ export const filterScheduleStatus = (status: 'open' | 'close' | 'exam') => {
   return Purple;
 };
 
-export const Row: FC<RowProps> = ({ dates, nth, monthlySchedules }) => {
+export const Row: FC<RowProps> = ({ dates, nth, loading, monthlySchedules }) => {
   const { calendarState, setCalendarState } = useContext(CalendarContext)!;
 
   const saveSchedules = (e: MouseEvent, date: string | number) => {
@@ -59,7 +60,8 @@ export const Row: FC<RowProps> = ({ dates, nth, monthlySchedules }) => {
       {dates.map((date, idx) => (
         <StyledDateWrapper key={'date-' + idx} onClick={e => saveSchedules(e, date)}>
           <Date nth={nth} day={date} idx={idx} />
-          {monthlySchedules &&
+          {!loading &&
+            monthlySchedules &&
             monthlySchedules[date] &&
             filterSchedule(monthlySchedules[date]).map(status => (
               <ScheduleBar key={status} style={{ backgroundColor: filterScheduleStatus(status) }} />
