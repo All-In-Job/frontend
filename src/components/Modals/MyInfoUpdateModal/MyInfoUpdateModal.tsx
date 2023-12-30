@@ -93,7 +93,7 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
         const obj = {
           TOEIC: 'toeic',
           'TOEIC (Bridge)': 'toeicBR',
-          'TOEIC (Speaking Writing)': 'toeicSW',
+          'TOEIC (Speaking, Writing)': 'toeicSW',
           'TOEIC (Writing)': 'toeicWT',
           'TOEIC (Speaking)': 'toeicST',
           'TSC 중국어 말하기 시험': 'ch',
