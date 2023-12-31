@@ -123,6 +123,7 @@ export const CommunityDetail = () => {
               key={comment.id}
               id={comment.id}
               comment={comment.comment}
+              commentLike={comment.commentLike}
               date={comment.date}
               user={comment.user}
             />

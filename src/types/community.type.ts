@@ -15,9 +15,15 @@ export type CommentUser = {
   profileImage: string;
 };
 
+export type CommentLike = {
+  commentId: string;
+  user: CommentUser;
+};
+
 export type Comments = {
   id: string;
   comment: string;
+  commentLike: CommentLike[];
   date: string;
   user: CommentUser;
 };

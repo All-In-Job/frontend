@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 
 import { useRecoilState } from 'recoil';
 
@@ -9,27 +9,32 @@ import { loginUserState } from 'store/user';
 import * as S from './Comment.style';
 import { CommentLike, CommentProps } from './Comment.types';
 
-const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
+const Comment: FC<CommentProps> = ({ comment, commentLike, date, id, user }) => {
   const [loginUser] = useRecoilState(loginUserState);
   const [commentValue, setCommentValue] = useState(comment);
   const [editComment, setEditComment] = useState('');
-  const [commentLike, setCommentLike] = useState<CommentLike[]>([]);
   const [isEdit, setIsEdit] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
 
   const accessToken = localStorage.getItem('accessToken');
 
+  useEffect(() => {
+    const isMatched = commentLike.some(like => like.user.id === loginUser.id);
+    setIsMatch(isMatched);
+  }, []);
+
   const handleToggleCommentLike = async () => {
+    setIsMatch(isMatch => !isMatch);
     if (!accessToken) return;
 
     try {
       const res = await toggleCommentLike(id);
-      if (res) {
-        const isMatched = res.data.data.commentLike.some(
+      const updatedCommentLikes = res.data.data.commentLike;
+      if (updatedCommentLikes > 0) {
+        const isLikedByUser = updatedCommentLikes.some(
           (data: CommentLike) => data.user.id === loginUser.id,
         );
-        setCommentLike(res.data.data.commentLike);
-        setIsMatch(isMatched);
+        setIsMatch(isLikedByUser);
       }
     } catch (error) {
       console.log(error);
@@ -68,8 +73,6 @@ const Comment: FC<CommentProps> = ({ comment, date, id, user }) => {
       console.log(error);
     }
   };
-
-  console.log(commentLike);
 
   return (
     <S.Comment>
