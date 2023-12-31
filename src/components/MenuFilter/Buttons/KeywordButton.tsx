@@ -14,11 +14,18 @@ type Props = {
   isSelect: boolean;
   isSelectedButton?: boolean;
   onClickKeyword: (keyword: Keyword) => void;
+  isDisabled?: boolean;
 };
 
-const KeywordButton: FC<Props> = ({ keyword, isSelect, isSelectedButton, onClickKeyword }) => {
+const KeywordButton: FC<Props> = ({
+  keyword,
+  isSelect,
+  isSelectedButton,
+  onClickKeyword,
+  isDisabled,
+}) => {
   return (
-    <Button onClick={() => onClickKeyword(keyword)} isSelect={isSelect}>
+    <Button onClick={() => onClickKeyword(keyword)} isSelect={isSelect} disabled={isDisabled}>
       #{keyword.title} {isSelectedButton && <Delete />}
     </Button>
   );
@@ -37,6 +44,11 @@ const Button = styled.button<{ isSelect: boolean }>`
   font-family: ${props => (props.isSelect ? 'Bold' : 'Medium')};
   line-height: ${textStyle.body01.lineHeight};
   cursor: pointer;
+
+  :disabled {
+    background-color: ${palette.background.primary};
+    cursor: default;
+  }
 `;
 
 const Delete = styled(DeleteIcon)`

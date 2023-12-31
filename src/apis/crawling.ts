@@ -4,7 +4,7 @@ import { Inter } from 'types/intern.type';
 import { Language } from 'types/language.type';
 import { PostCardProps } from 'types/postCard.type';
 
-import { crawlingApi } from './index';
+import { crawlingApi, userKeywordCrawlingApi } from './index';
 
 type FuncType = (
   menu: string,
@@ -29,5 +29,13 @@ export const requestCrawlingTitleData: TitleType = async (menu, mainCategory) =>
     method: 'get',
     url: `${menu}`,
     params: { mainCategory },
+  });
+};
+
+export const requestUserKeywordData = async (menuName: string) => {
+  return await userKeywordCrawlingApi({
+    method: 'get',
+    url: menuName,
+    params: { page: 1 },
   });
 };

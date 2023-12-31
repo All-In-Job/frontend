@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 import CategoryButton from 'components/MenuFilter/Buttons/CategoryButton.tsx';
 import theme from 'styles/theme';
@@ -12,7 +13,9 @@ type Props = {
   categories?: string[];
   selectedCategory: string;
   onClickCategory: (category: string) => void;
-  isToggleSwitch: boolean;
+  isShowSwitch: boolean;
+  isOn?: boolean;
+  setIsOn?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const CategoryFilter: FC<Props> = ({
@@ -20,11 +23,18 @@ const CategoryFilter: FC<Props> = ({
   categories,
   selectedCategory,
   onClickCategory,
-  isToggleSwitch,
+  isShowSwitch,
+  isOn = false,
+  setIsOn,
 }) => {
   const INTEREST_SWITCH = 'INTEREST_SWITCH';
-  const [isActive, setIsActive] = useState(false);
+  // const [isOn, setIsOn] = useState(false);
+  const navigate = useNavigate();
 
+  const onChangeSwitch = () => {
+    if (!localStorage.getItem('accessToken')) return navigate('/login');
+    setIsOn?.((prev: boolean) => !prev);
+  };
   return (
     <>
       <Title>{title}</Title>
@@ -41,20 +51,20 @@ const CategoryFilter: FC<Props> = ({
           ))}
         </Categoies>
 
-        {isToggleSwitch && (
+        {isShowSwitch && (
           <UserInterestWrapper>
-            <UserInterestText>나의 관심 커리어</UserInterestText>
+            <UserInterestText>나의관심커리어</UserInterestText>
 
-            <ToggleSwitch htmlFor={INTEREST_SWITCH} isActive={isActive}>
+            <ToggleSwitch htmlFor={INTEREST_SWITCH} isActive={isOn}>
               <input
                 type='checkbox'
                 id={INTEREST_SWITCH}
-                checked={isActive}
-                onChange={() => setIsActive(!isActive)}
+                checked={isOn}
+                onChange={() => onChangeSwitch()}
                 hidden
               />
               <ToggleBallContainer>
-                <ToggleBall isActive={isActive} />
+                <ToggleBall isOn={isOn} />
               </ToggleBallContainer>
             </ToggleSwitch>
           </UserInterestWrapper>
@@ -119,14 +129,14 @@ const ToggleBallContainer = styled.span`
   padding: 6px;
 `;
 
-const ToggleBall = styled.span<{ isActive: boolean }>`
+const ToggleBall = styled.span<{ isOn: boolean }>`
   display: inline-block;
   position: absolute;
   top: 50%;
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background-color: ${props => (props.isActive ? palette.orange500 : palette.line.normal)};
-  transform: translateY(-50%) translateX(${({ isActive }) => (isActive ? 'calc(100% + 4px)' : 0)});
+  background-color: ${props => (props.isOn ? palette.orange500 : palette.line.normal)};
+  transform: translateY(-50%) translateX(${({ isOn }) => (isOn ? 'calc(100% + 4px)' : 0)});
   transition: all 0.3s ease-in-out;
 `;

@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
 
+import { requestUserKeywordData } from 'apis/crawling';
 import CategoryFilter from 'components/MenuFilter/CategoryFilter';
 import KeywordFilter, { Keyword } from 'components/MenuFilter/KeywordFilter';
 import { MenuId, getMenuById } from 'pages/menu/menuCategoies';
@@ -14,6 +15,9 @@ type Props = {
 const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedKeywords, setSelectedKeywords] = useState<Keyword[]>([]);
+  const [userKeywords, setUserKeywords] = useState<string[]>([]);
+  const [isOn, setIsOn] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const { menuName, categoryId } = useParams();
 
   const foundMenuCategoryData = getMenuById(menuName! as MenuId);
@@ -50,6 +54,7 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
     }),
   );
 
+  console.log(keywordList);
   const handleClickKeyword = (keyword: Keyword) => {
     const isSelected = selectedKeywords.some(kw => kw.id === keyword.id);
 
@@ -70,6 +75,24 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
     onSearchSelectedKeyword(selectedKeywords);
   }, [selectedKeywords]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        if (isOn) {
+          const res = await requestUserKeywordData(menuName as string);
+          setSelectedKeywords([]);
+          setUserKeywords(res.data.keyword);
+          setIsDisabled(true);
+        } else {
+          setUserKeywords([]);
+          setIsDisabled(false);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [isOn, menuName]);
+
   return (
     <MenuFilterWrapper>
       <CategoryFilter
@@ -77,14 +100,18 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
         categories={categories}
         selectedCategory={selectedCategory}
         onClickCategory={handleClickCategory}
-        isToggleSwitch
+        isShowSwitch
+        isOn={isOn}
+        setIsOn={setIsOn}
       />
       <KeywordFilter
         keywordList={keywordList}
         selectedKeywords={selectedKeywords}
+        userKeywords={userKeywords}
         onClickResetKeywords={handleClickResetKeywords}
         onClickKeyword={handleClickKeyword}
         onClickSelectedKeyword={handleClickSelectedKeyword}
+        isDisabled={isDisabled}
       />
     </MenuFilterWrapper>
   );
