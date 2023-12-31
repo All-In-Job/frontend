@@ -107,7 +107,6 @@ const PhoneInput: FC<
     minutes: 5,
     seconds: 0,
   });
-  const [intervalId, setIntervalId] = useState(0);
 
   const requestPhoneVerificationCode = async () => {
     // 네트워크 요청 - 인증번호 요청
@@ -133,15 +132,13 @@ const PhoneInput: FC<
       const res = await validateTokenSNS(Number(token), currentFormState.phone.value);
       if (res.data.data) {
         setIsCodeConfirmed(true);
-        clearInterval(intervalId);
-        setIntervalId(-1);
       } else setIsCodeConfirmed(false);
     } catch (e) {
       if (e instanceof AxiosError && e.response) console.log(e.response);
     }
   };
   const filterMessage = () => {
-    if (isCodeRequested && intervalId > 0)
+    if (isCodeRequested && countdown.minutes >= 0 && countdown.seconds)
       return (
         <>
           <span>인증 번호가 요청되었습니다. 인증 완료 버튼을 눌러주세요.</span>
@@ -151,35 +148,29 @@ const PhoneInput: FC<
         </>
       );
     if (value && !isValid) return INPUT_RULES.phone.errorMsg;
-    if (intervalId === -1) return '인증이 완료되었습니다.';
+    if (isCodeConfirmed) return '인증이 완료되었습니다.';
     return null;
   };
 
   useEffect(() => {
     if (isCodeRequested) {
-      let minutes = 0;
-      let seconds = 59;
+      let minutes = 5;
+      let seconds = 0;
+      let intervalId = 0;
 
-      let timerId = setTimeout(() => {
-        setCountdown({ minutes: --countdown.minutes, seconds: 59 });
-        clearTimeout(timerId);
-        timerId = -1;
-
-        setIntervalId(
-          setInterval(() => {
-            if (timerId === -1) {
-              if (seconds === 0 && minutes === 0) clearInterval(intervalId);
-              if (seconds === 0 && minutes > 0) {
-                seconds = 59;
-                minutes = minutes - 1;
-                setCountdown(prevState => ({ minutes: --prevState.minutes, seconds: 59 }));
-              } else if (minutes >= 0 && seconds > 0) {
-                seconds = seconds - 1;
-                setCountdown(prevState => ({ ...prevState, seconds }));
-              }
-            }
-          }, 1000),
-        );
+      intervalId = setInterval(() => {
+        if (seconds === 0 && minutes === 0) {
+          clearInterval(intervalId);
+          setCountdown({ minutes: 5, seconds: 0 });
+        }
+        if (seconds === 0 && minutes > 0) {
+          seconds = 59;
+          minutes = minutes - 1;
+          setCountdown(prevState => ({ minutes: --prevState.minutes, seconds: 59 }));
+        } else if (minutes >= 0 && seconds > 0) {
+          seconds = seconds - 1;
+          setCountdown(prevState => ({ ...prevState, seconds }));
+        }
       }, 1000);
     }
   }, [isCodeRequested]);
