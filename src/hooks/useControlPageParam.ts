@@ -25,5 +25,12 @@ export const useControlPageParam = () => {
     setSearchParameter(searchParameter);
   };
 
-  return { getPageParam, increasePage, decreasePage, selectedNumberPage };
+  return {
+    getPageParam,
+    searchParameter,
+    setSearchParameter,
+    increasePage,
+    decreasePage,
+    selectedNumberPage,
+  };
 };

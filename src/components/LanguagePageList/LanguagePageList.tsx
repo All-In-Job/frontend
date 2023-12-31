@@ -22,7 +22,7 @@ export const LanguagePageList = () => {
   const { menuName } = useParams();
   const [languageList, setLanguageList] = useState<Language[]>([]);
   const [totalCount, setTotalCount] = useState(1);
-  const { getPageParam } = useControlPageParam();
+  const { getPageParam, searchParameter, setSearchParameter } = useControlPageParam();
   const currentPage = getPageParam ? Number(getPageParam) : 1;
   const userId = useLoaderData() as { id: string };
 
@@ -53,8 +53,13 @@ export const LanguagePageList = () => {
           test: arrayToString(test),
         };
 
+        const countQueries = {
+          classify: classify,
+          test: arrayToString(test),
+        };
+
         const res = await requestCrawlingData(menuName as string, queries);
-        const totalCount = await requestCrawlingTotalCount(menuName as string);
+        const totalCount = await requestCrawlingTotalCount(menuName as string, countQueries);
         setLanguageList(res.data.data as Language[]);
         setTotalCount(totalCount.data.data);
       } catch (error) {
@@ -64,6 +69,11 @@ export const LanguagePageList = () => {
 
     fetchData();
   }, [menuName, getPageParam, userId, classify, test]);
+
+  useEffect(() => {
+    searchParameter.set('page', String(1));
+    setSearchParameter(searchParameter);
+  }, [selectedKeyword]);
 
   return (
     <>

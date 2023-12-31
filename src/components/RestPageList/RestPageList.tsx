@@ -22,7 +22,7 @@ export const RestPageList = () => {
   const [postPageList, setPostPageList] = useState<PostCardProps[]>([]);
   const [totalCount, setTotalCount] = useState(1);
 
-  const { getPageParam } = useControlPageParam();
+  const { getPageParam, searchParameter, setSearchParameter } = useControlPageParam();
   const currentPage = getPageParam ? Number(getPageParam) : 1;
   const userId = useLoaderData() as { id: string };
 
@@ -129,8 +129,18 @@ export const RestPageList = () => {
           location: arrayToString(location),
         };
 
+        const countQueries = {
+          interests: arrayToString(interests),
+          scale: arrayToString(scale),
+          benefits: arrayToString(benefits),
+          target: arrayToString(target),
+          field: arrayToString(field),
+          month: arrayToString(month),
+          location: arrayToString(location),
+        };
+
         const res = await requestCrawlingData(menuName as string, queries);
-        const totalCount = await requestCrawlingTotalCount(menuName as string);
+        const totalCount = await requestCrawlingTotalCount(menuName as string, countQueries);
         setPostPageList(res.data.data as PostCardProps[]);
         setTotalCount(totalCount.data.data);
       } catch (error) {
@@ -139,7 +149,24 @@ export const RestPageList = () => {
     };
 
     fetchData();
-  }, [menuName, getPageParam, userId, interests, scale, benefits, target, field, month, location]);
+  }, [
+    menuName,
+    getPageParam,
+    selectedKeyword,
+    userId,
+    interests,
+    scale,
+    benefits,
+    target,
+    field,
+    month,
+    location,
+  ]);
+
+  useEffect(() => {
+    searchParameter.set('page', String(1));
+    setSearchParameter(searchParameter);
+  }, [selectedKeyword]);
 
   return (
     <>
