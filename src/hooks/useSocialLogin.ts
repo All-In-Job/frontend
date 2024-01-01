@@ -63,8 +63,6 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
   //   onError: error => console.log('Login Failed:', error),
   // });
 
-  console.log(socialAccessToken);
-
   const openKakaoPopupWindow = () => {
     const popup = window.open(
       `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${
