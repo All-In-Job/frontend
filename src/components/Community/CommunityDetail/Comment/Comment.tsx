@@ -19,8 +19,10 @@ const Comment: FC<CommentProps> = ({ comment, commentLike, date, id, user }) => 
   const accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
-    const isMatched = commentLike.some(like => like.user.id === loginUser.id);
-    setIsMatch(isMatched);
+    if (commentLike) {
+      const isMatched = commentLike.some(like => like.user.id === loginUser.id);
+      setIsMatch(isMatched);
+    }
   }, []);
 
   const handleToggleCommentLike = async () => {

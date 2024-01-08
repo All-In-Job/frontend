@@ -159,6 +159,7 @@ export const CommunityDetail = () => {
           inputValue={comment}
           onChangeComment={onChangeComment}
           submitCommentData={submitCommentData}
+          profileImage={loginUser.profileImage}
         />
 
         <S.CommentContainer>
