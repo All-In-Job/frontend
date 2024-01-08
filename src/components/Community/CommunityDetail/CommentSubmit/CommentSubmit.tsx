@@ -11,12 +11,18 @@ type Props = {
   inputValue: string;
   onChangeComment: (e: ChangeEvent<HTMLInputElement>) => void;
   submitCommentData: () => void;
+  profileImage: string;
 };
 
-const CommentSubmit: FC<Props> = ({ inputValue, onChangeComment, submitCommentData }) => {
+const CommentSubmit: FC<Props> = ({
+  inputValue,
+  onChangeComment,
+  submitCommentData,
+  profileImage,
+}) => {
   return (
     <CommentInputContainer>
-      <ProfileImage />
+      <ProfileImage profileImage={profileImage} />
       <CommentInput
         placeholder='댓글을 남겨보세요!'
         value={inputValue}
