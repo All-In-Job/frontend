@@ -66,7 +66,7 @@ export const CommunityDetail = () => {
     };
 
     getCommunityDetailData();
-  }, []);
+  }, [loginUser]);
 
   const handleToggleLike = async () => {
     try {
@@ -159,6 +159,7 @@ export const CommunityDetail = () => {
           inputValue={comment}
           onChangeComment={onChangeComment}
           submitCommentData={submitCommentData}
+          profileImage={loginUser.profileImage}
         />
 
         <S.CommentContainer>
