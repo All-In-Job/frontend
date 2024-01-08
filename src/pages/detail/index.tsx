@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useLoaderData, useParams } from 'react-router-dom';
-import { ExamSchedule } from 'types/certificate.type';
+import { useLoaderData, useOutlet, useParams } from 'react-router-dom';
 
 import { ResponseData, requestDetailCrawlingData } from 'apis/detailCrawling';
 import { CertificateDetailInfo } from 'components/Certificate/CertificateDetailInfo/CertificateDetailInfo';
@@ -17,8 +16,6 @@ export const DetailPage = () => {
   const { menuName, detailId } = useParams();
   const [detailData, setDetailData] = useState<ResponseData>();
   const userId = useLoaderData() as { id: string };
-
-  const pathProps = (data: ExamSchedule[]) => data && data[0];
 
   useEffect(() => {
     (async () => {
@@ -89,15 +86,8 @@ export const DetailPage = () => {
 
           {'enTitle' in detailData && (
             <CertificateExamSchedule
-              id={pathProps(detailData.examSchedules)?.id}
-              key={pathProps(detailData.examSchedules)?.id}
-              turn={pathProps(detailData.examSchedules)?.turn}
-              wtReceipt={pathProps(detailData.examSchedules)?.wtReceipt}
-              wtDday={pathProps(detailData.examSchedules)?.wtDday}
-              wtResultDay={pathProps(detailData.examSchedules)?.wtResultDay}
-              ptReceipt={pathProps(detailData.examSchedules)?.ptReceipt}
-              ptDday={pathProps(detailData.examSchedules)?.ptDday}
-              resultDay={pathProps(detailData.examSchedules)?.resultDay}
+              type={detailData.type}
+              examSchedules={detailData.examSchedules}
             />
           )}
         </S.Container>

@@ -1,6 +1,6 @@
-import { CertificateItemProps, ExamSchedule } from 'types/certificate.type';
+import { CertificateItemProps } from 'types/certificate.type';
 
-import { CertificateExamSchedule } from 'components/Certificate/CertificateExamSchedule/CertificateExamSchedule';
+// import { CertificateExamSchedule } from 'components/Certificate/CertificateExamSchedule/CertificateExamSchedule';
 import CertificateItem from 'components/Certificate/CertificateItem/CertificateItem';
 
 import * as S from './CertificatePageItem.styles';
@@ -20,9 +20,9 @@ export const CertificatePageItem = ({
   isScrap,
   path,
 }: Props) => {
-  const pathProps = (data: ExamSchedule[]) => {
-    return data && examSchedules[0];
-  };
+  // const pathProps = (data: ExamSchedule[]) => {
+  //   return data && examSchedules[0];
+  // };
 
   return (
     <S.CertificateInfo>
@@ -46,7 +46,7 @@ export const CertificatePageItem = ({
         </S.CertificateItemWrapper>
       </S.Container>
 
-      <S.Container>
+      {/* <S.Container>
         <S.Title>시험정보</S.Title>
         <CertificateExamSchedule
           id={pathProps(examSchedules)?.id}
@@ -59,7 +59,7 @@ export const CertificatePageItem = ({
           ptDday={pathProps(examSchedules)?.ptDday}
           resultDay={pathProps(examSchedules)?.resultDay}
         />
-      </S.Container>
+      </S.Container> */}
     </S.CertificateInfo>
   );
 };
