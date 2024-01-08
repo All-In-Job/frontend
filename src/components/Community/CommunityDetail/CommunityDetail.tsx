@@ -66,7 +66,7 @@ export const CommunityDetail = () => {
     };
 
     getCommunityDetailData();
-  }, []);
+  }, [loginUser]);
 
   const handleToggleLike = async () => {
     try {

@@ -23,7 +23,7 @@ const Comment: FC<CommentProps> = ({ comment, commentLike, date, id, user }) => 
       const isMatched = commentLike.some(like => like.user.id === loginUser.id);
       setIsMatch(isMatched);
     }
-  }, []);
+  }, [loginUser]);
 
   const handleToggleCommentLike = async () => {
     setIsMatch(isMatch => !isMatch);
