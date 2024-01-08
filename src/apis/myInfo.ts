@@ -9,3 +9,10 @@ export const updateProfile = async (payload: MyInfoFormState) => {
     data: payload,
   });
 };
+
+export const getUserActivity = async (currentPage: number) => {
+  return await userApi({
+    method: 'GET',
+    url: `findPeriodThermometer?count=true&page=${currentPage}`,
+  });
+};

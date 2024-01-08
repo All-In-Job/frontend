@@ -16,29 +16,21 @@ export const DetailPage = () => {
   const { menuName, detailId } = useParams();
   const [detailData, setDetailData] = useState<ResponseData>();
   const userId = useLoaderData() as { id: string };
-  const out = useOutlet();
-  console.log(out);
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
         if (menuName !== 'community') {
           const res = await requestDetailCrawlingData(userId?.id, menuName, detailId);
-          if (res) {
-            setDetailData(res.data.data);
-          }
+          if (res) setDetailData(res.data.data);
         }
       } catch (error) {
         console.error(error);
       }
-    };
-
-    fetchData();
+    })();
   }, [menuName, detailId]);
 
-  console.log(detailData);
-
-  if (!detailData) return <CommunityDetail />;
+  if (menuName === 'community') return <CommunityDetail />;
 
   if (detailData)
     return (
