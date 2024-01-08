@@ -26,7 +26,7 @@ export const PostList: FC<Props> = ({ data, getParams, isLoad }) => {
           key={el.id}
           title={el.title}
           institution={el.institution}
-          relateDepartment={el.relateDepartment}
+          relatedDepartment={el.relatedDepartment}
           scrap={el.scrap}
           view={el.view}
           mainImage={el.mainImage}

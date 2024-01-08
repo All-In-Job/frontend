@@ -13,7 +13,7 @@ export type Certificate = {
   type: 'certificate';
   id: string;
   title: string;
-  relateDepartment: string;
+  relatedDepartment: string;
   scrap: number;
   view: number;
   institution: string;

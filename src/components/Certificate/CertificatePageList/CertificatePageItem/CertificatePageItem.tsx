@@ -11,7 +11,7 @@ export const CertificatePageItem = ({
   id,
   title,
   institution,
-  relateDepartment,
+  relatedDepartment,
   scrap,
   view,
   examSchedules,
@@ -34,7 +34,7 @@ export const CertificatePageItem = ({
             location='page'
             title={title}
             institution={institution}
-            relateDepartment={relateDepartment}
+            relatedDepartment={relatedDepartment}
             scrap={scrap}
             view={view}
             mainImage={mainImage}

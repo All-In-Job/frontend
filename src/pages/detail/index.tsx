@@ -50,7 +50,7 @@ export const DetailPage = () => {
       <>
         <DetailPageInfo
           title={detailData.title}
-          dDay={12}
+          dDay={detailData.Dday}
           bookmarkCount={detailData.scrap}
           viewCount={detailData.view}
           id={detailId}
@@ -84,7 +84,7 @@ export const DetailPage = () => {
               mainImage={detailData.mainImage}
               title={detailData.title}
               enTitle={detailData.enTitle}
-              relateDepartment={detailData.relateDepartment}
+              relatedDepartment={detailData.relatedDepartment}
               institution={detailData.institution}
             />
           )}

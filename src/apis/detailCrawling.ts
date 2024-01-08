@@ -5,6 +5,7 @@ import { Rest } from 'types/rest.type';
 
 export type ResponseData = (Certificate | Rest) & {
   title: string;
+  Dday: string;
   scrap: number;
   view: number;
   id: string;

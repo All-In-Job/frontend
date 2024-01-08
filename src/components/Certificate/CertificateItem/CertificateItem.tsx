@@ -12,7 +12,7 @@ const CertificateItem = ({
   location,
   title,
   institution,
-  relateDepartment,
+  relatedDepartment,
   scrap,
   view = 0,
   mainImage,
@@ -31,7 +31,7 @@ const CertificateItem = ({
           <S.Bottom>
             <S.Path>
               {'관련부처 : '}
-              {relateDepartment}
+              {relatedDepartment}
             </S.Path>
             <S.Path>
               {'시행기관 : '}
