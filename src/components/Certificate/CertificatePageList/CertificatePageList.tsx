@@ -80,7 +80,7 @@ export const CertificatePageList = () => {
               id={el.id}
               title={el.title}
               institution={el.institution}
-              relateDepartment={el.relateDepartment}
+              relatedDepartment={el.relatedDepartment}
               scrap={el.scrap}
               view={el.view}
               examSchedules={el.examSchedules}
