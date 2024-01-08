@@ -7,6 +7,7 @@ import {
   MyInfoFormState,
   MyInfoUpdateModal,
 } from 'components/Modals/MyInfoUpdateModal/MyInfoUpdateModal';
+import { MyInfoActivityList } from 'components/MyInfoActivity/MyInfoActivityList';
 import { isMyInfoUpdateModalVisible } from 'store/modal';
 
 import * as S from './myInfo.style';
@@ -69,6 +70,11 @@ function MyInfo() {
             </S.InterestFieldBox>
           </S.LoginInfoWrapper>
         </S.MyInfoContainer>
+
+        <MyInfoActivityList period='New' />
+        <MyInfoActivityList period='This week' />
+        <MyInfoActivityList period='This month' />
+
         <MyInfoUpdateModal
           isVisible={isUpdateModalVisible}
           setIsVisible={setIsUpdateModalVisible}
