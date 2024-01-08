@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useLoaderData, useOutlet, useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 
 import { ResponseData, requestDetailCrawlingData } from 'apis/detailCrawling';
 import { CertificateDetailInfo } from 'components/Certificate/CertificateDetailInfo/CertificateDetailInfo';

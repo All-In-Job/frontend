@@ -16,9 +16,9 @@ type Props = {
 
 const CommentSubmit: FC<Props> = ({
   inputValue,
-  profileImage,
   onChangeComment,
   submitCommentData,
+  profileImage,
 }) => {
   return (
     <CommentInputContainer>
