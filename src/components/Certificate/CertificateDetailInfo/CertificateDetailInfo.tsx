@@ -7,7 +7,7 @@ export const CertificateDetailInfo = ({
   mainImage,
   title,
   enTitle,
-  relateDepartment,
+  relatedDepartment,
   institution,
 }: Props) => {
   return (
@@ -27,7 +27,7 @@ export const CertificateDetailInfo = ({
         </S.Info>
         <S.Info>
           <h3>{'관련부처'}</h3>
-          <p>{relateDepartment}</p>
+          <p>{relatedDepartment}</p>
         </S.Info>
         <S.Info>
           <h3>{'시행기관'}</h3>

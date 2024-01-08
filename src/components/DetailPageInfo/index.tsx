@@ -8,7 +8,7 @@ import { ReactComponent as ViewIcon } from './res/icon-view.svg';
 
 type Props = {
   title: string;
-  dDay: number;
+  dDay: string;
   bookmarkCount: number;
   viewCount: number;
   children: React.ReactNode;
@@ -29,7 +29,7 @@ export const DetailPageInfo = ({
     <S.Wrapper>
       <S.Head>
         <S.TitleWrapper>
-          <S.DDay>{`D-${dDay}`}</S.DDay>
+          {dDay && <S.DDay>{dDay}</S.DDay>}
           <S.Title>{title}</S.Title>
         </S.TitleWrapper>
         <S.Scrap>

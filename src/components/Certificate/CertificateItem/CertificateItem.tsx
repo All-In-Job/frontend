@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { CertificateItemProps } from 'types/certificate.type';
 
 import { ScrapButton } from 'components/commons/Buttons/Scrap/ScrapButton';
@@ -10,7 +12,7 @@ const CertificateItem = ({
   location,
   title,
   institution,
-  relateDepartment,
+  relatedDepartment,
   scrap,
   view = 0,
   mainImage,
@@ -18,6 +20,8 @@ const CertificateItem = ({
   isScrap,
   path,
 }: Props) => {
+  const [scrapCount, setScrapCount] = useState(Number(scrap));
+
   return (
     <S.CertificateListContainer location={location}>
       <S.CertificateInfo to={path}>
@@ -27,7 +31,7 @@ const CertificateItem = ({
           <S.Bottom>
             <S.Path>
               {'관련부처 : '}
-              {relateDepartment}
+              {relatedDepartment}
             </S.Path>
             <S.Path>
               {'시행기관 : '}
@@ -41,7 +45,7 @@ const CertificateItem = ({
           <>
             <S.Count>
               <S.BookmarkIcon />
-              {scrap}
+              {scrapCount}
             </S.Count>
             <S.HorizontalIcon />
             <S.Count>
@@ -51,7 +55,7 @@ const CertificateItem = ({
           </>
         ) : null}
         <S.Scrap>
-          <ScrapButton id={id} isScrap={isScrap} fill={'secondary'} />
+          <ScrapButton id={id} isScrap={isScrap} fill={'secondary'} setScrapCount={setScrapCount} />
         </S.Scrap>
       </S.CountWrapper>
     </S.CertificateListContainer>
