@@ -50,7 +50,7 @@ export const DetailPage = () => {
       <>
         <DetailPageInfo
           title={detailData.title}
-          dDay={12}
+          dDay={detailData.Dday}
           bookmarkCount={detailData.scrap}
           viewCount={detailData.view}
           id={detailId}
