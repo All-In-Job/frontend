@@ -47,6 +47,7 @@ export const CommunityDetail = () => {
   const [detailData, setDetailData] = useState<Community>();
   const [comment, setComment] = useState('');
   const [isLike, setIsLike] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getCommunityDetailData = async () => {
@@ -59,6 +60,7 @@ export const CommunityDetail = () => {
           );
           setIsLike(isLiked);
           setDetailData(res.data.data);
+          setIsLoading(false);
         }
       } catch (error) {
         console.log(error);
@@ -66,7 +68,7 @@ export const CommunityDetail = () => {
     };
 
     getCommunityDetailData();
-  }, []);
+  }, [loginUser]);
 
   const handleToggleLike = async () => {
     try {
@@ -120,60 +122,61 @@ export const CommunityDetail = () => {
 
   const clean = detailData ? DOMPurify.sanitize(detailData.detail) : '';
 
-  return (
-    <S.Container>
-      <S.Head>
-        <h1>취준job담</h1> <S.Category>{detailData?.category}</S.Category>
-      </S.Head>
+  if (!isLoading)
+    return (
+      <S.Container>
+        <S.Head>
+          <h1>취준job담</h1> <S.Category>{detailData?.category}</S.Category>
+        </S.Head>
 
-      <S.Body>
-        <ContentInfo
-          date={detailData?.date}
-          profileImage={detailData?.user.profileImage}
-          nickname={detailData?.user.nickname}
-        />
-        <S.ArticleTitle>{detailData?.title}</S.ArticleTitle>
-        <S.Article dangerouslySetInnerHTML={{ __html: clean }} />
-        <S.ArticleFooter>
-          <S.ButtonContainer>
-            <S.IconBtn isLike={isLike} onClick={() => handleToggleLike()}>
-              <S.LikeSolid data-isliked={isLike} /> <p>좋아요</p>
-            </S.IconBtn>
-            <S.IconBtn isLike={false}>
-              <ShareSolidIcon /> <p>공유하기</p>
-            </S.IconBtn>
-          </S.ButtonContainer>
-          <S.CountContainer>
-            <Count count={detailData?.view} children={<ViewIcon />} />
-            <HorizontalIcon />
-            <Count count={detailData?.comment} children={<CommendIcon />} />
-            <HorizontalIcon />
-            <Count count={detailData?.like} children={<LikeIcon />} />
-          </S.CountContainer>
-        </S.ArticleFooter>
-      </S.Body>
+        <S.Body>
+          <ContentInfo
+            date={detailData?.date}
+            profileImage={detailData?.user.profileImage}
+            nickname={detailData?.user.nickname}
+          />
+          <S.ArticleTitle>{detailData?.title}</S.ArticleTitle>
+          <S.Article dangerouslySetInnerHTML={{ __html: clean }} />
+          <S.ArticleFooter>
+            <S.ButtonContainer>
+              <S.IconBtn isLike={isLike} onClick={() => handleToggleLike()}>
+                <S.LikeSolid data-isliked={isLike} /> <p>좋아요</p>
+              </S.IconBtn>
+              <S.IconBtn isLike={false}>
+                <ShareSolidIcon /> <p>공유하기</p>
+              </S.IconBtn>
+            </S.ButtonContainer>
+            <S.CountContainer>
+              <Count count={detailData?.view} children={<ViewIcon />} />
+              <HorizontalIcon />
+              <Count count={detailData?.comment} children={<CommendIcon />} />
+              <HorizontalIcon />
+              <Count count={detailData?.like} children={<LikeIcon />} />
+            </S.CountContainer>
+          </S.ArticleFooter>
+        </S.Body>
 
-      <S.Footer>
-        <S.Title>댓글</S.Title>
-        <CommentSubmit
-          inputValue={comment}
-          onChangeComment={onChangeComment}
-          submitCommentData={submitCommentData}
-        />
+        <S.Footer>
+          <S.Title>댓글</S.Title>
+          <CommentSubmit
+            inputValue={comment}
+            onChangeComment={onChangeComment}
+            submitCommentData={submitCommentData}
+          />
 
-        <S.CommentContainer>
-          {detailData?.comments.map(comment => (
-            <Comment
-              key={comment.id}
-              id={comment.id}
-              comment={comment.comment}
-              commentLike={comment.commentLike}
-              date={comment.date}
-              user={comment.user}
-            />
-          ))}
-        </S.CommentContainer>
-      </S.Footer>
-    </S.Container>
-  );
+          <S.CommentContainer>
+            {detailData?.comments.map(comment => (
+              <Comment
+                key={comment.id}
+                id={comment.id}
+                comment={comment.comment}
+                commentLike={comment.commentLike}
+                date={comment.date}
+                user={comment.user}
+              />
+            ))}
+          </S.CommentContainer>
+        </S.Footer>
+      </S.Container>
+    );
 };
