@@ -41,10 +41,12 @@ export const LanguagePageItem = ({
           <S.Tag>
             {new Date(openDate) > now ? (
               <S.Disabled>접수예정</S.Disabled>
-            ) : (
+            ) : new Date(closeDate) > now ? (
               <S.Activate>접수중</S.Activate>
+            ) : (
+              <S.Disabled>접수마감</S.Disabled>
             )}
-            {Dday === 3 ? <S.Imminent>마감임박</S.Imminent> : null}
+            {Dday > 0 && Dday < 4 && <S.Imminent>마감임박</S.Imminent>}
           </S.Tag>
           <ScrapButton id={id} isScrap={isScrap} fill={'primary'} />
         </S.TagWrapper>
@@ -59,6 +61,8 @@ export const LanguagePageItem = ({
 
       {new Date(openDate) > now ? (
         <S.DisabledBtn>{`${timestamp(openDate).slice(0, 10)} 접수예정`}</S.DisabledBtn>
+      ) : new Date(closeDate) < now ? (
+        <S.DisabledBtn>{`접수마감`}</S.DisabledBtn>
       ) : (
         <S.ActivateBtn>
           <Link to={`${homePage}`} target={'_blank'}>
