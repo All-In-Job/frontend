@@ -32,15 +32,14 @@ const ItemWithImage: React.FC<ItemWithImageProps> = ({
   const isQnet = period && examDate;
   const isLanguage = closeDate && examDate;
   const isIntern = !(location == null);
+  const isPath = isQnet || isLanguage || isIntern;
   const [scrapCount, setScrapCount] = useState(Number(scrap));
 
   return (
     <Item>
-      <ImageContainer>
-        <Img src={mainImage} />
-        <Date>
-          <DateBadge title={Dday} />
-        </Date>
+      <ImageContainer isHeight={Dday !== undefined ? true : false}>
+        <Img src={mainImage} className={!isPath ? '' : 'objectFit'} />
+        <Date>{Dday && <DateBadge title={Dday} />}</Date>
         <BookMarkWrapper onClick={() => setIsActive(false)}>
           <ScrapButton
             path={path}
@@ -93,11 +92,11 @@ const Item = styled.li`
   width: 282px;
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled.div<{ isHeight: boolean }>`
   position: relative;
   margin-bottom: 16px;
   width: 282px;
-  height: 282px;
+  height: ${props => (props.isHeight ? 282 : 150)}px;
   border-radius: 12px;
   background: var(--background-primary, #ededed);
   overflow: hidden;
@@ -240,4 +239,8 @@ const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  &.objectFit {
+    object-fit: contain;
+    background-color: #fff;
+  }
 `;

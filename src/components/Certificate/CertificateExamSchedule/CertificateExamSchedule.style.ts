@@ -11,10 +11,18 @@ export const Table = styled.table`
   color: ${palette.black400};
   ${textStyle.title02}
   width: 100%;
+  margin-bottom: 50px;
+  tbody {
+    tr {
+      &:last-child {
+        border-bottom: solid 1px ${palette.orange300};
+      }
+    }
+  }
 `;
 
 export const Tr = styled.tr`
-  border: solid 1px ${palette.orange300};
+  border-bottom: solid 1px ${palette.orange100};
   background-color: ${palette.background.secondary};
   color: ${palette.black400};
   ${textStyle.title02}

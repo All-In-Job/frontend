@@ -9,14 +9,20 @@ const { palette, textStyle } = theme;
 
 type Props = {
   inputValue: string;
+  profileImage: string;
   onChangeComment: (e: ChangeEvent<HTMLInputElement>) => void;
   submitCommentData: () => void;
 };
 
-const CommentSubmit: FC<Props> = ({ inputValue, onChangeComment, submitCommentData }) => {
+const CommentSubmit: FC<Props> = ({
+  inputValue,
+  profileImage,
+  onChangeComment,
+  submitCommentData,
+}) => {
   return (
     <CommentInputContainer>
-      <ProfileImage />
+      <ProfileImage profileImage={profileImage} />
       <CommentInput
         placeholder='댓글을 남겨보세요!'
         value={inputValue}
