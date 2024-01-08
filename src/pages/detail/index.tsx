@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useLoaderData, useOutlet, useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { ExamSchedule } from 'types/certificate.type';
 
 import { ResponseData, requestDetailCrawlingData } from 'apis/detailCrawling';
@@ -17,33 +17,23 @@ export const DetailPage = () => {
   const { menuName, detailId } = useParams();
   const [detailData, setDetailData] = useState<ResponseData>();
   const userId = useLoaderData() as { id: string };
-  const out = useOutlet();
-  console.log(out);
 
-  const pathProps = (data: ExamSchedule[]) => {
-    return data && data[0];
-  };
+  const pathProps = (data: ExamSchedule[]) => data && data[0];
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
         if (menuName !== 'community') {
           const res = await requestDetailCrawlingData(userId?.id, menuName, detailId);
-          if (res) {
-            setDetailData(res.data.data);
-          }
+          if (res) setDetailData(res.data.data);
         }
       } catch (error) {
         console.error(error);
       }
-    };
-
-    fetchData();
+    })();
   }, [menuName, detailId]);
 
-  console.log(detailData);
-
-  if (!detailData) return <CommunityDetail />;
+  if (menuName === 'community') return <CommunityDetail />;
 
   if (detailData)
     return (
