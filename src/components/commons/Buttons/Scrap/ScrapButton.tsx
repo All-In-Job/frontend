@@ -12,9 +12,10 @@ type ScrapButtonProps = {
   id: string | undefined;
   isScrap: boolean | undefined;
   fill: string;
+  setScrapCount?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const ScrapButton = ({ path, id, isScrap, fill }: ScrapButtonProps) => {
+export const ScrapButton = ({ path, id, isScrap, fill, setScrapCount }: ScrapButtonProps) => {
   const [isActive, setIsActive] = useState(isScrap);
   const homeCardList = useContext(HomeCardListContext);
   const { menuName } = useParams();
@@ -35,6 +36,9 @@ export const ScrapButton = ({ path, id, isScrap, fill }: ScrapButtonProps) => {
       const res = await scrapping(postData);
       console.log(res);
       setIsActive(isScrap => !isScrap);
+      if (setScrapCount) {
+        isActive ? setScrapCount(prev => prev - 1) : setScrapCount(prev => prev + 1);
+      }
     } catch (error) {
       console.error('Error creating data:', error);
     }
