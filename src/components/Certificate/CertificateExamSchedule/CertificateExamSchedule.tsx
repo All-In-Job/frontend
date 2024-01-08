@@ -1,4 +1,4 @@
-import { ExamSchedule } from 'types/certificate.type';
+import { Certificate } from 'types/certificate.type';
 
 import * as S from './CertificateExamSchedule.style';
 
@@ -12,17 +12,21 @@ const tableData = {
   septenary: '최종합격발표일',
 };
 
-type Props = ExamSchedule & { key: string };
+type Props = Omit<
+  Certificate,
+  | 'id'
+  | 'title'
+  | 'relatedDepartment'
+  | 'scrap'
+  | 'view'
+  | 'institution'
+  | 'mainImage'
+  | 'enTitle'
+  | 'isScrap'
+  | 'path'
+>;
 
-export const CertificateExamSchedule = ({
-  turn,
-  wtReceipt,
-  wtDday,
-  wtResultDay,
-  ptReceipt,
-  ptDday,
-  resultDay,
-}: Props) => {
+export const CertificateExamSchedule = ({ examSchedules }: Props) => {
   return (
     <S.Table>
       <thead>
@@ -37,15 +41,19 @@ export const CertificateExamSchedule = ({
         </S.Tr>
       </thead>
       <tbody>
-        <S.SecondaryTr>
-          <S.Tb>{turn}</S.Tb>
-          <S.Tb>{wtReceipt}</S.Tb>
-          <S.Tb>{wtDday}</S.Tb>
-          <S.Tb>{wtResultDay}</S.Tb>
-          <S.Tb>{ptReceipt}</S.Tb>
-          <S.Tb>{ptDday}</S.Tb>
-          <S.Tb>{resultDay}</S.Tb>
-        </S.SecondaryTr>
+        {examSchedules.map(el => {
+          return (
+            <S.SecondaryTr>
+              <S.Tb>{el.turn}</S.Tb>
+              <S.Tb>{el.wtReceipt}</S.Tb>
+              <S.Tb>{el.wtDday}</S.Tb>
+              <S.Tb>{el.wtResultDay}</S.Tb>
+              <S.Tb>{el.ptReceipt}</S.Tb>
+              <S.Tb>{el.ptDday}</S.Tb>
+              <S.Tb>{el.resultDay}</S.Tb>
+            </S.SecondaryTr>
+          );
+        })}
       </tbody>
     </S.Table>
   );
