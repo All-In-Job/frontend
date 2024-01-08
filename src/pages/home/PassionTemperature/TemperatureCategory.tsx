@@ -48,8 +48,16 @@ const Category = styled.li`
   margin-bottom: 30px;
   height: 241px;
   padding: 16px;
-  gap: 8px;
+  gap: 15px;
   background: var(--background-primary-50, #f8f8f8);
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #a9a9a9;
+  }
 `;
 const CategoryName = styled.span`
   width: 100%;
@@ -60,8 +68,11 @@ const CategoryName = styled.span`
   font-style: normal;
   font-weight: 500;
   line-height: 26px;
-  white-space: pre-wrap;
-  overflow-x: hidden;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 `;
 
 const CardContainer = styled.div`

@@ -9,9 +9,9 @@ const { palette, textStyle } = theme;
 
 type Props = {
   inputValue: string;
+  profileImage: string;
   onChangeComment: (e: ChangeEvent<HTMLInputElement>) => void;
   submitCommentData: () => void;
-  profileImage: string;
 };
 
 const CommentSubmit: FC<Props> = ({
