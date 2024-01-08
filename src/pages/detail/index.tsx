@@ -84,7 +84,7 @@ export const DetailPage = () => {
               mainImage={detailData.mainImage}
               title={detailData.title}
               enTitle={detailData.enTitle}
-              relateDepartment={detailData.relateDepartment}
+              relatedDepartment={detailData.relatedDepartment}
               institution={detailData.institution}
             />
           )}
