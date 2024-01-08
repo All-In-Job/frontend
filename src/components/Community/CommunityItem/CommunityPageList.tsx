@@ -9,6 +9,7 @@ import { requestCommunityData } from 'apis/community';
 import { requestCommunityCount } from 'apis/communityCount';
 import { findUserProfile } from 'apis/user';
 import MenuPagination from 'components/commons/Pagination/MenuPagination';
+import { NoResult } from 'components/Error/NoResult';
 import { Keyword } from 'components/MenuFilter/KeywordFilter';
 import { useControlPageParam } from 'hooks/useControlPageParam';
 import theme from 'styles/theme';
@@ -77,20 +78,24 @@ export const CommunityPageList = () => {
   }, [selectedKeyword]);
 
   const renderList = (list: Community[]) => {
-    return list.map(el => (
-      <CommunityItem
-        id={el.id}
-        key={el.id}
-        category={el.category}
-        title={el.title}
-        date={el.date}
-        view={el.view}
-        like={el.like}
-        comment={el.comment}
-        user={el.user}
-        path={`/${menuName}/detail/${el.id}`}
-      />
-    ));
+    return list.map(el =>
+      el ? (
+        <CommunityItem
+          id={el.id}
+          key={el.id}
+          category={el.category}
+          title={el.title}
+          date={el.date}
+          view={el.view}
+          like={el.like}
+          comment={el.comment}
+          user={el.user}
+          path={`/${menuName}/detail/${el.id}`}
+        />
+      ) : (
+        <NoResult />
+      ),
+    );
   };
 
   if (communityList)
