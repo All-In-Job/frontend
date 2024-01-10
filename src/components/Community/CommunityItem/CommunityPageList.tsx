@@ -78,24 +78,20 @@ export const CommunityPageList = () => {
   }, [selectedKeyword]);
 
   const renderList = (list: Community[]) => {
-    return list.map(el =>
-      el ? (
-        <CommunityItem
-          id={el.id}
-          key={el.id}
-          category={el.category}
-          title={el.title}
-          date={el.date}
-          view={el.view}
-          like={el.like}
-          comment={el.comment}
-          user={el.user}
-          path={`/${menuName}/detail/${el.id}`}
-        />
-      ) : (
-        <NoResult />
-      ),
-    );
+    return list.map(el => (
+      <CommunityItem
+        id={el.id}
+        key={el.id}
+        category={el.category}
+        title={el.title}
+        date={el.date}
+        view={el.view}
+        like={el.like}
+        comment={el.comment}
+        user={el.user}
+        path={`/${menuName}/detail/${el.id}`}
+      />
+    ));
   };
 
   if (communityList)
@@ -106,9 +102,18 @@ export const CommunityPageList = () => {
           <StyledWriteButton onClick={navigateToWritePage}>작성하기</StyledWriteButton>
         </StyledHeader>
 
-        <List>{renderList(communityList)}</List>
-
-        <MenuPagination currentPage={currentPage} totalItemsCount={totalCount} itemsPerPage={10} />
+        {communityList ? (
+          <>
+            <List>{renderList(communityList)}</List>
+            <MenuPagination
+              currentPage={currentPage}
+              totalItemsCount={totalCount}
+              itemsPerPage={10}
+            />
+          </>
+        ) : (
+          <NoResult />
+        )}
       </>
     );
 };

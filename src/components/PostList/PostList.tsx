@@ -43,7 +43,7 @@ export const PostList: FC<Props> = ({ data, getParams, isLoad }) => {
 
   const renderCommunity = (el: Community) => {
     if (isLoad) {
-      return el ? (
+      return (
         <CommunityItem
           key={el.id}
           id={el.id}
@@ -56,8 +56,6 @@ export const PostList: FC<Props> = ({ data, getParams, isLoad }) => {
           user={el.user}
           path={`/${getParams}/detail/${el.id}`}
         />
-      ) : (
-        <NoResult />
       );
     } else {
       return <SkeletonCommunity key={el.id} />;
@@ -72,5 +70,6 @@ export const PostList: FC<Props> = ({ data, getParams, isLoad }) => {
     }
   };
 
+  if (!data || data.length === 0) return <NoResult />;
   if (data) return <section>{data.map(renderPost)}</section>;
 };
