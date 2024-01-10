@@ -12,7 +12,7 @@ import { CommentLike, CommentProps } from './Comment.types';
 const Comment: FC<CommentProps> = ({ comment, commentLike, date, id, user }) => {
   const [loginUser] = useRecoilState(loginUserState);
   const [commentValue, setCommentValue] = useState(comment);
-  const [editComment, setEditComment] = useState('');
+  const [editComment, setEditComment] = useState(comment);
   const [isEdit, setIsEdit] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
 
@@ -58,7 +58,7 @@ const Comment: FC<CommentProps> = ({ comment, commentLike, date, id, user }) => 
       const res = await submitEditComment({ id, comment: editComment });
 
       setCommentValue(res.data.data.comment);
-      setEditComment('');
+      setEditComment(res.data.data.comment);
       setIsEdit(false);
     } catch (error) {
       console.log(error);
@@ -84,7 +84,7 @@ const Comment: FC<CommentProps> = ({ comment, commentLike, date, id, user }) => 
         {isEdit ? (
           <S.CommentEditForm onSubmit={handleSubmitEditComment}>
             <input
-              value={editComment}
+              defaultValue={editComment}
               onChange={onChangeEditComment}
               placeholder='댓글을 입력해주세요!'
             />
