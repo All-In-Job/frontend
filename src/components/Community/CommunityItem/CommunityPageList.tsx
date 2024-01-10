@@ -9,6 +9,7 @@ import { requestCommunityData } from 'apis/community';
 import { requestCommunityCount } from 'apis/communityCount';
 import { findUserProfile } from 'apis/user';
 import MenuPagination from 'components/commons/Pagination/MenuPagination';
+import { NoResult } from 'components/Error/NoResult';
 import { Keyword } from 'components/MenuFilter/KeywordFilter';
 import { useControlPageParam } from 'hooks/useControlPageParam';
 import theme from 'styles/theme';
@@ -101,9 +102,18 @@ export const CommunityPageList = () => {
           <StyledWriteButton onClick={navigateToWritePage}>작성하기</StyledWriteButton>
         </StyledHeader>
 
-        <List>{renderList(communityList)}</List>
-
-        <MenuPagination currentPage={currentPage} totalItemsCount={totalCount} itemsPerPage={10} />
+        {communityList ? (
+          <>
+            <List>{renderList(communityList)}</List>
+            <MenuPagination
+              currentPage={currentPage}
+              totalItemsCount={totalCount}
+              itemsPerPage={10}
+            />
+          </>
+        ) : (
+          <NoResult />
+        )}
       </>
     );
 };

@@ -7,6 +7,7 @@ import CertificateItem from 'components/Certificate/CertificateItem/CertificateI
 import SkeletonCertificate from 'components/commons/Skeleton/SkeletonCertificate';
 import SkeletonCommunity from 'components/commons/Skeleton/SkeletonCommunity';
 import CommunityItem from 'components/Community/CommunityItem/CommunityItem';
+import { NoResult } from 'components/Error/NoResult';
 
 type Props = {
   data: Certificate[] | Community[];
@@ -69,5 +70,6 @@ export const PostList: FC<Props> = ({ data, getParams, isLoad }) => {
     }
   };
 
+  if (!data || data.length === 0) return <NoResult />;
   if (data) return <section>{data.map(renderPost)}</section>;
 };
