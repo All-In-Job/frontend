@@ -2,7 +2,6 @@ import { useOutletContext, useParams } from 'react-router-dom';
 
 import { CertificatePageList } from 'components/Certificate/CertificatePageList/CertificatePageList';
 import { CommunityPageList } from 'components/Community/CommunityItem/CommunityPageList';
-import { NoResult } from 'components/Error/NoResult';
 import { InternPageList } from 'components/InternPageList/InternPageList';
 import { LanguagePageList } from 'components/LanguagePageList/LanguagePageList';
 import { Keyword } from 'components/MenuFilter/KeywordFilter';
@@ -28,7 +27,7 @@ const MenuList = () => {
 
   const selectedComponent = menuToComponent[menuName as string];
 
-  return <div>{selectedComponent || <NoResult />}</div>;
+  return <div>{selectedComponent || null}</div>;
 };
 
 export default MenuList;
