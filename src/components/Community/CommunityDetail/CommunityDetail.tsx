@@ -169,6 +169,7 @@ export const CommunityDetail = () => {
             {detailData?.comments.map(comment => (
               <Comment
                 key={comment.id}
+                setDetailData={setDetailData}
                 id={comment.id}
                 comment={comment.comment}
                 commentLike={comment.commentLike}

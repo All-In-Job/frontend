@@ -1,3 +1,5 @@
+import { Community } from 'types/community.type';
+
 export type User = {
   id: string;
   nickname: string;
@@ -10,6 +12,7 @@ export type CommentLike = {
 };
 
 export type CommentProps = {
+  setDetailData: React.Dispatch<React.SetStateAction<Community | undefined>>;
   comment: string;
   commentLike: CommentLike[];
   date: string;
