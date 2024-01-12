@@ -1,6 +1,8 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 
+import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import { Community } from 'types/community.type';
 
 import { deleteComment, submitEditComment, toggleCommentLike } from 'apis/comment';
 import { ContentInfo } from 'components/Community/CommunityDetail/ContentsInfo/ContentInfo';
@@ -9,13 +11,13 @@ import { loginUserState } from 'store/user';
 import * as S from './Comment.style';
 import { CommentLike, CommentProps } from './Comment.types';
 
-const Comment: FC<CommentProps> = ({ comment, commentLike, date, id, user }) => {
+const Comment: FC<CommentProps> = ({ setDetailData, comment, commentLike, date, id, user }) => {
   const [loginUser] = useRecoilState(loginUserState);
   const [commentValue, setCommentValue] = useState(comment);
   const [editComment, setEditComment] = useState(comment);
   const [isEdit, setIsEdit] = useState(false);
   const [isMatch, setIsMatch] = useState(false);
-
+  const { detailId } = useParams();
   const accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
@@ -69,8 +71,16 @@ const Comment: FC<CommentProps> = ({ comment, commentLike, date, id, user }) => 
     if (!accessToken) return;
 
     try {
-      const res = await deleteComment(id);
-      console.log(res);
+      const res = await deleteComment({ communityId: detailId as string, commentId: id });
+
+      if (res) {
+        setDetailData(prevData => {
+          return {
+            ...(prevData as Community),
+            comments: res.data.data,
+          };
+        });
+      }
     } catch (error) {
       console.log(error);
     }
