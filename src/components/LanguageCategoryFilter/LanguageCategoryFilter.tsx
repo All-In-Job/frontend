@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { isAxiosError } from 'axios';
 import { useParams } from 'react-router-dom';
 
 import { requestUserKeywordData } from 'apis/crawling';
@@ -86,7 +87,7 @@ const LanguageCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
           setIsDisabled(false);
         }
       } catch (error) {
-        console.log(error);
+        if (isAxiosError(error)) throw new Error(error.response?.data);
       }
     })();
   }, [isOn, menuName]);

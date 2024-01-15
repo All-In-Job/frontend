@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 
+import { isAxiosError } from 'axios';
 import { HomeCardListContext } from 'contexts/homeCardMenuContext/homeCardMenuContext';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -23,9 +24,7 @@ export const ScrapButton = ({ path, id, isScrap, fill, setScrapCount }: ScrapBut
   const ScrapIcon = fill === 'primary' ? S.ScrapPrimary : S.ScrapSecondary;
 
   const handleScrap = async () => {
-    if (isScrap == undefined) {
-      return navigate('/login');
-    }
+    if (isScrap == undefined) return navigate('/login');
 
     const postData = {
       path: homeCardList?.getParams || menuName || path,
@@ -33,14 +32,12 @@ export const ScrapButton = ({ path, id, isScrap, fill, setScrapCount }: ScrapBut
     };
 
     try {
-      const res = await scrapping(postData);
-      console.log(res);
+      await scrapping(postData);
       setIsActive(isScrap => !isScrap);
-      if (setScrapCount) {
+      if (setScrapCount)
         isActive ? setScrapCount(prev => prev - 1) : setScrapCount(prev => prev + 1);
-      }
     } catch (error) {
-      console.error('Error creating data:', error);
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 

@@ -30,8 +30,6 @@ export const LanguagePageList = () => {
   const [classify, setClassify] = useState<string>();
   const [test, setTest] = useState<string[]>([]);
 
-  console.log(selectedKeyword);
-
   useEffect(() => {
     const updatedTest: string[] = [];
 

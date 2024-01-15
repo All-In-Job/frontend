@@ -126,13 +126,9 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
     };
 
     try {
-      if (!list) {
-        const res = await createThermometerData(formData); //활동내역 등록
-        console.log('활동내역 등록 성공:', res.data);
-      } else {
-        const res = await patchThermometer(formPatchData); //활동내역 수정
-        console.log('활동내역 수정 성공:', res.data);
-      }
+      if (!list) await createThermometerData(formData); //활동내역 등록
+      else await patchThermometer(formPatchData); //활동내역 수정
+
       updateActivityList();
       resetForm();
     } catch (error) {

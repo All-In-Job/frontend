@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { isAxiosError } from 'axios';
 import { SolutionProps } from 'types/solution';
 
 import { getLoginUserInfo } from 'apis/user';
@@ -17,7 +18,7 @@ const Solution = () => {
         const res = await getLoginUserInfo();
         setSolutions(res.data.data.solution);
       } catch (error) {
-        console.log(error);
+        if (isAxiosError(error)) throw new Error(error.response?.data);
       }
     };
 

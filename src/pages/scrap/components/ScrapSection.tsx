@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { isAxiosError } from 'axios';
 import { Scrap } from 'types/scrap';
 
 import { getUserScrap, getUserScrapTotalCount } from 'apis/scrap';
@@ -49,7 +50,7 @@ const ScrapSection: FC<Props> = ({ title, index }) => {
       setTotalCount(count.data.data);
       setIsActive(true);
     } catch (error) {
-      console.log(error);
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 

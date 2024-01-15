@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { isAxiosError } from 'axios';
 import { useParams } from 'react-router-dom';
 
 import { requestUserKeywordData } from 'apis/crawling';
@@ -54,7 +55,6 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
     }),
   );
 
-  console.log(keywordList);
   const handleClickKeyword = (keyword: Keyword) => {
     const isSelected = selectedKeywords.some(kw => kw.id === keyword.id);
 
@@ -88,7 +88,7 @@ const RestCategoryFilter: FC<Props> = ({ onSearchSelectedKeyword }) => {
           setIsDisabled(false);
         }
       } catch (error) {
-        console.log(error);
+        if (isAxiosError(error)) throw new Error(error.response?.data);
       }
     })();
   }, [isOn, menuName]);

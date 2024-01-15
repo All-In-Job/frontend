@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { isAxiosError } from 'axios';
 
 import { findManyThermometer, getCountActivity } from 'apis/thermometer';
 import { ActivityHistory } from 'components/ActivityHistory/ActivityHistory';
@@ -50,8 +51,7 @@ const PassionTemperature = () => {
       setCategoryList(res.data);
       setUpdateTemperature(false);
     } catch (error) {
-      console.log('Error getting data:', error);
-      throw error;
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 
@@ -64,8 +64,7 @@ const PassionTemperature = () => {
       setTopPercentage(res.data.top);
       setUpdateTemperature(false);
     } catch (error) {
-      console.log('Error getting data:', error);
-      throw error;
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 

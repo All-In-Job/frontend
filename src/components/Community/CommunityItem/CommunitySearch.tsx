@@ -2,6 +2,7 @@ import { Dispatch, FC, SetStateAction, useState } from 'react';
 
 import styled from '@emotion/styled';
 import { ReactComponent as ArrowExpandIcon } from 'assets/icons/icon_expand_more.svg';
+import { isAxiosError } from 'axios';
 import { Community } from 'types/community.type';
 
 import { getCommunitySearchResult } from 'apis/community';
@@ -35,7 +36,9 @@ export const CommunitySearch: FC<Props> = ({ setCommunityList }) => {
       .then(res => {
         setCommunityList(res.data.data);
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        if (isAxiosError(err)) throw new Error(err.response?.data);
+      });
   };
 
   const filterSearchTarget = (target: SearchOption) => {

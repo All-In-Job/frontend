@@ -16,8 +16,6 @@ const PassionThermometer: FC<Props> = ({ temperatureWidth, temperatureRef, therm
   let acc = 0;
   let prefAcc = 0;
 
-  // console.log('temperatureWidth : ', temperatureWidth);
-
   return (
     <Container ref={temperatureRef as RefObject<HTMLDivElement>}>
       <svg

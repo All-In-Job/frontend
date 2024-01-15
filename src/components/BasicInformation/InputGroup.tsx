@@ -12,7 +12,7 @@ import {
 
 import { ReactComponent as ArrowForwardIcon } from 'assets/icons/icon_arrow_forward.svg';
 import { ReactComponent as CheckCircleIcon } from 'assets/icons/icon_check_circle.svg';
-import { AxiosError } from 'axios';
+import { AxiosError, isAxiosError } from 'axios';
 
 import { checkNickNameDuplicate, sendTokenSMS, validateTokenSNS } from 'apis/user';
 import theme from 'styles/theme';
@@ -118,7 +118,7 @@ const PhoneInput: FC<
         else return;
       }
     } catch (e) {
-      if (e instanceof AxiosError && e.response) console.log(e.response);
+      if (isAxiosError(e)) throw new Error(e.response?.data);
     }
   };
   const requestCodeValidation: MouseEventHandler<HTMLButtonElement> = async e => {
