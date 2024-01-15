@@ -7,7 +7,6 @@ import { Calendar } from 'components/Calendar/Calendar';
 import Error from 'components/Error/Error';
 import InterestForm from 'components/InterestForm/InterestForm';
 import { DetailPage } from 'pages/detail';
-import FindID from 'pages/findID/FindID';
 import { Home } from 'pages/Home';
 import PassionTemperature from 'pages/home/PassionTemperature';
 import Login from 'pages/login/Login';
@@ -70,10 +69,6 @@ export const router = createBrowserRouter([
       {
         path: 'scrap',
         element: <ScrapPage />,
-      },
-      {
-        path: 'find-id',
-        element: <FindID />,
       },
       {
         path: ':menuName',
