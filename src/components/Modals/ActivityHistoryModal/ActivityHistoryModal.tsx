@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEventHandler, useEffect, useState } from 'react';
 
+import { isAxiosError } from 'axios';
 import { useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import {
@@ -132,7 +133,7 @@ export const ActivityHistoryModal = ({ list, updateActivityList }: listProps) =>
       updateActivityList();
       resetForm();
     } catch (error) {
-      console.error('Error creating data:', error);
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 

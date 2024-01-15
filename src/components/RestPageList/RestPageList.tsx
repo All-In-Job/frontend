@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { isAxiosError } from 'axios';
 import { useLoaderData, useOutletContext, useParams } from 'react-router-dom';
 import { PostCardProps } from 'types/postCard.type';
 
@@ -111,8 +112,6 @@ export const RestPageList = () => {
     setLocation(updatedLocation);
   }, [menuName, selectedKeyword]);
 
-  console.log(menuName);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -144,7 +143,7 @@ export const RestPageList = () => {
         setPostPageList(res.data.data as PostCardProps[]);
         setTotalCount(totalCount.data.data);
       } catch (error) {
-        console.error(error);
+        if (isAxiosError(error)) throw new Error(error.response?.data);
       }
     };
 

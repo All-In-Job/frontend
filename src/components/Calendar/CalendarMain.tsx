@@ -1,7 +1,7 @@
 import { useContext, useLayoutEffect, useMemo, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { AxiosError } from 'axios';
+import { isAxiosError } from 'axios';
 
 import { getCalendar } from 'apis/user';
 
@@ -27,9 +27,7 @@ export const CalendarMain = () => {
         setLoading(false);
       })
       .catch(e => {
-        if (e instanceof AxiosError && e.response) {
-          console.log(e.response);
-        }
+        if (isAxiosError(e)) throw new Error(e.response?.data);
       });
   }, [currentDate]);
 

@@ -1,5 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
+import { isAxiosError } from 'axios';
+
 import { getUserActivity } from 'apis/myInfo';
 import PageController from 'pages/scrap/components/PageController';
 import theme from 'styles/theme';
@@ -22,7 +24,9 @@ export const MyInfoActivityList: FC<Props> = ({ period }) => {
         setActivityList(res.data.data.data);
         setIsLoading(false);
       })
-      .catch(e => console.log(e));
+      .catch(error => {
+        if (isAxiosError(error)) throw new Error(error.response?.data);
+      });
   }, [pages.currentPage]);
 
   function onClickNext() {
@@ -83,6 +87,8 @@ export const MyInfoActivityList: FC<Props> = ({ period }) => {
         </div>
       </section>
     );
+
+  if (pages.totalPage === 0) return <p>활동 내역이 없습니다.</p>;
 
   return (
     <section style={{ gridColumn: 'span 12' }}>

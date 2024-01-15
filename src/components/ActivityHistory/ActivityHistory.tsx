@@ -56,12 +56,11 @@ export const ActivityHistory = ({ setUpdateTemperature }: ActivityHistoryProps) 
     };
 
     try {
-      const res = await deleteThermometerData(deleteData);
-      console.log('활동내역 삭제 성공:', res.data);
+      await deleteThermometerData(deleteData);
       updateActivityList(tabId); //activityList 업데이트
       setUpdateTemperature(true);
     } catch (error) {
-      console.error('Error deleting data:', error);
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 

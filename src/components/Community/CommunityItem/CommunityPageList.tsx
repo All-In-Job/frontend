@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
-import { AxiosError } from 'axios';
+import { AxiosError, isAxiosError } from 'axios';
 import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import { Community } from 'types/community.type';
 
@@ -67,7 +67,7 @@ export const CommunityPageList = () => {
           setTotalCount(totalCount.data.data);
         }
       } catch (error) {
-        console.error(error);
+        if (isAxiosError(error)) throw new Error(error.response?.data);
       }
     })();
   }, [menuName, getPageParam, category]);

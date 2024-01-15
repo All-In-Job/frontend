@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { AxiosError } from 'axios';
+import { isAxiosError } from 'axios';
 import { useLocation } from 'react-router-dom';
 
 import { login } from 'apis/login';
@@ -65,8 +65,6 @@ function InterestForm() {
             keyword => obj[keyword as keyof typeof obj],
           ),
         };
-
-        console.log(interestsState.interests[key as TagName]);
       } else {
         tempInterests[i] = {
           interest: interestsMap[key as TagName],
@@ -81,17 +79,10 @@ function InterestForm() {
 
   const submitButton = async () => {
     try {
-      console.log({
-        ...locationStateToServer,
-        major: majorState,
-        interestKeywords: generateCorrectInterests(),
-        // interests: generateCorrectInterests(),
-      });
       const res = await createUser({
         ...locationStateToServer,
         major: majorState,
         interestKeyword: generateCorrectInterests(),
-        // interests: generateCorrectInterests(),
       });
 
       if (res.status === 200) {
@@ -99,10 +90,8 @@ function InterestForm() {
         localStorage.setItem('accessToken', data.data);
         location.replace('/');
       }
-    } catch (e) {
-      if (e instanceof AxiosError && e.response) {
-        console.log(e.response);
-      }
+    } catch (error) {
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 

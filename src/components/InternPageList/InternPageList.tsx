@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { isAxiosError } from 'axios';
 import { useLoaderData, useOutletContext, useParams } from 'react-router-dom';
 import { Inter } from 'types/intern.type';
 
@@ -80,7 +81,7 @@ export const InternPageList = () => {
         setInternPageList(res.data.data as Inter[]);
         setTotalCount(totalCount.data.data);
       } catch (error) {
-        console.error(error);
+        if (isAxiosError(error)) throw new Error(error.response?.data);
       }
     };
 
