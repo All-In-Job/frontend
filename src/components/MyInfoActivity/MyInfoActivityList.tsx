@@ -58,33 +58,37 @@ export const MyInfoActivityList: FC<Props> = ({ period }) => {
         >
           {period}
         </div>
-        <div>
-          <ul
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              marginTop: 24,
-            }}
-          >
-            {activityList.map((activity: MyInfoActivityCardProps) => (
-              <li key={activity.id}>
-                <MyInfoActivityCard
-                  title={activity.title}
-                  content={activity.content}
-                  createdAt={new Date(activity.createdAt)}
-                />
-              </li>
-            ))}
-          </ul>
-          <PageController
-            currentPage={pages.currentPage}
-            totalPage={pages.totalPage}
-            canBack={pages.currentPage > 1}
-            canForward={pages.currentPage < pages.totalPage}
-            onClickNext={onClickNext}
-            onClickPrev={onClickPrev}
-          />
-        </div>
+        {pages.totalPage === 0 ? (
+          <p style={{ height: 196, textAlign: 'center' }}>활동 내역이 없습니다</p>
+        ) : (
+          <div>
+            <ul
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginTop: 24,
+              }}
+            >
+              {activityList.map((activity: MyInfoActivityCardProps) => (
+                <li key={activity.id}>
+                  <MyInfoActivityCard
+                    title={activity.title}
+                    content={activity.content}
+                    createdAt={new Date(activity.createdAt)}
+                  />
+                </li>
+              ))}
+            </ul>
+            <PageController
+              currentPage={pages.currentPage}
+              totalPage={pages.totalPage}
+              canBack={pages.currentPage > 1}
+              canForward={pages.currentPage < pages.totalPage}
+              onClickNext={onClickNext}
+              onClickPrev={onClickPrev}
+            />
+          </div>
+        )}
       </section>
     );
 
