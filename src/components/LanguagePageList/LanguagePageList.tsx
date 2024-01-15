@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
+import { isAxiosError } from 'axios';
 import { useLoaderData, useOutletContext, useParams } from 'react-router-dom';
 import { Language } from 'types/language.type';
 
@@ -61,7 +62,7 @@ export const LanguagePageList = () => {
         setLanguageList(res.data.data as Language[]);
         setTotalCount(totalCount.data.data);
       } catch (error) {
-        console.error(error);
+        if (isAxiosError(error)) throw new Error(error.response?.data);
       }
     };
 

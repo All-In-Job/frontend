@@ -134,7 +134,7 @@ const PhoneInput: FC<
         setIsCodeConfirmed(true);
       } else setIsCodeConfirmed(false);
     } catch (e) {
-      if (e instanceof AxiosError && e.response) console.log(e.response);
+      if (isAxiosError(e)) throw new Error(e.response?.data);
     }
   };
   const filterMessage = () => {
@@ -237,20 +237,18 @@ const NicknameInput: FC<InputProps> = ({ rule, validateInput }) => {
     if (isAvailable) return;
 
     try {
-      const res = await checkNickNameDuplicate(currentFormState.nickname.value);
+      await checkNickNameDuplicate(currentFormState.nickname.value);
       setIsAvailable(true);
       setCurrentFormState({
         ...currentFormState,
         nickname: { ...currentFormState.nickname, isConfirmed: true },
       });
-      console.log(res);
     } catch (e) {
       if (e instanceof AxiosError && e.response) setIsAvailable(false);
     }
   };
 
   const selectErrorMessage = () => {
-    console.log(value, isValid);
     if (value && !isValid) return INPUT_RULES.nickname.errorMsg;
     if (isAvailable === false) return '이미 회원가입된 회원입니다.';
   };

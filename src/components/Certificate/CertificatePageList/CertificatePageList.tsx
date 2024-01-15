@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { isAxiosError } from 'axios';
 import { useLoaderData, useOutletContext, useParams } from 'react-router-dom';
 import { Certificate } from 'types/certificate.type';
 
@@ -55,7 +56,7 @@ export const CertificatePageList = () => {
         setCertificateList(res.data.data as Certificate[]);
         setCertificateTitleList(title.data.data as Certificate[]);
       } catch (error) {
-        console.error(error);
+        if (isAxiosError(error)) throw new Error(error.response?.data);
       }
     };
 

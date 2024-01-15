@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 
+import { isAxiosError } from 'axios';
 import { HomeCardListContext } from 'contexts/homeCardMenuContext/homeCardMenuContext';
 import { useLoaderData, useLocation } from 'react-router-dom';
 
@@ -19,24 +20,18 @@ export const MainPageList = () => {
     setIsLoad(false);
 
     (async () => {
-      if (userId) {
-        try {
+      try {
+        if (userId) {
           const res = await mainCrawlingData(homeCardList?.getParams, userId.id);
           setData(res.data.data);
           setIsLoad(true);
-        } catch (error) {
-          console.error(error);
-          setIsLoad(true);
-        }
-      } else {
-        try {
+        } else {
           const result = await mainCrawlingData(homeCardList?.getParams, null);
           setData(result.data.data);
           setIsLoad(true);
-        } catch (error) {
-          console.error(error);
-          setIsLoad(true);
         }
+      } catch (error) {
+        if (isAxiosError(error)) throw new Error(error.response?.data);
       }
     })();
   }, [homeCardList?.getParams]);

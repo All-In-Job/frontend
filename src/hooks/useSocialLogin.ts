@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useGoogleLogin } from '@react-oauth/google';
-import axios, { AxiosError } from 'axios';
+import axios, { isAxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import { socialLogin } from 'apis/login';
@@ -18,50 +18,10 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
 
   const googleLogin = useGoogleLogin({
     onSuccess: codeResponse => setSocialAccessToken(codeResponse.access_token),
-    onError: error => console.log('Login Failed:', error),
+    onError: error => {
+      throw new Error(error.error_description);
+    },
   });
-
-  // const googleLogin = useGoogleLogin({
-  //   flow: 'auth-code',
-  //   redirect_uri: `${import.meta.env.VITE_API_SCHEME}://${location.host}`,
-  //   onSuccess: codeResponse => console.log(codeResponse.code),
-  // onSuccess: codeResponse => {
-  //   const oAuth2Client = new OAuth2Client(
-  //     import.meta.env.VITE_API_GOOGLE_CLIENT_ID,
-  //     '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',
-  //     `${import.meta.env.VITE_API_SCHEME}://${location.host}`,
-  //   );
-  //   oAuth2Client.getToken(codeResponse.code).then(res => {
-  //     console.log(res);
-  //   });
-  //
-  //   console.log(codeResponse.code);
-  //
-  //   axios
-  //     .post(
-  //       'https://oauth2.googleapis.com/token',
-  //       {
-  //         code:
-  //           codeResponse.code +
-  //           `&client_id=${
-  //             import.meta.env.VITE_API_GOOGLE_CLIENT_ID
-  //           }&client_secret=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&redirect_uri=${
-  //             import.meta.env.VITE_API_SCHEME
-  //           }://${location.host}&grant_type=authorization_code`,
-  //       },
-  //       {
-  //         headers: {
-  //           'content-type': 'x-www-form-urlencoded',
-  //         },
-  //       },
-  //     )
-  //     .then(res => {
-  //       console.log(res);
-  //       setSocialAccessToken(res.data);
-  //     });
-  // },
-  //   onError: error => console.log('Login Failed:', error),
-  // });
 
   const openKakaoPopupWindow = () => {
     const popup = window.open(
@@ -111,8 +71,8 @@ export const useSocialLogin = (provider: 'kakao' | 'google') => {
         setSocialLoginResponse({ email: data, accessToken: '' });
       else setSocialLoginResponse({ email: '', accessToken: data });
       setSocialAccessToken(null);
-    } catch (e) {
-      if (e instanceof AxiosError && e.response) console.log(e.response);
+    } catch (error) {
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 

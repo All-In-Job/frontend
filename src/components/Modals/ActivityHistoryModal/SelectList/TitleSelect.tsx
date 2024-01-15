@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 
+import { isAxiosError } from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { requestActivityCrawlingData } from 'apis/activityHistoryCrawling';
@@ -50,7 +51,7 @@ export const TitleSelect = ({ titleData }: TitleSelectProps) => {
       const titleList = res.data.data.map(({ title }) => title);
       setActivityData(titleList);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 

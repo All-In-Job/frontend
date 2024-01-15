@@ -94,7 +94,7 @@ export const CommunityDetail = () => {
         }));
       }
     } catch (error) {
-      console.error(error);
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 
@@ -117,7 +117,7 @@ export const CommunityDetail = () => {
         }));
       }
     } catch (error) {
-      console.error(error);
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 

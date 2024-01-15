@@ -1,6 +1,7 @@
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
+import { isAxiosError } from 'axios';
 import { EditorState, convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { Editor } from 'react-draft-wysiwyg';
@@ -49,19 +50,17 @@ export const NewPost = () => {
   };
 
   const editorToHtml = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-  console.log(editorToHtml);
 
   const SubmitValue = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const communityValue = { category: optionValue, title, detail: editorToHtml };
     try {
       const res = await submitCommunity(communityValue);
-
       if (res.data.data) {
         navigate(`/community/detail/${res.data.data.id}`);
       }
     } catch (error) {
-      console.error(error);
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 

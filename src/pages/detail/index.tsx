@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { isAxiosError } from 'axios';
 import { useLoaderData, useParams } from 'react-router-dom';
 
 import { ResponseData, requestDetailCrawlingData } from 'apis/detailCrawling';
@@ -25,7 +26,7 @@ export const DetailPage = () => {
           if (res) setDetailData(res.data.data);
         }
       } catch (error) {
-        console.error(error);
+        if (isAxiosError(error)) throw new Error(error.response?.data);
       }
     })();
   }, [menuName, detailId]);

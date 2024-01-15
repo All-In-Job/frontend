@@ -13,7 +13,6 @@ export type MyInfoActivityCardProps = {
 };
 
 export const MyInfoActivityCard: FC<MyInfoActivityCardProps> = ({ title, createdAt, content }) => {
-  console.log('card');
   return (
     <StyledContainer>
       <h1 style={{ fontSize: 22, fontWeight: 700 }}>{title}</h1>
