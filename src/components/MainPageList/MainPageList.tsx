@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 
-import axios from 'axios';
 import { HomeCardListContext } from 'contexts/homeCardMenuContext/homeCardMenuContext';
 import { useLoaderData, useLocation } from 'react-router-dom';
 
@@ -31,10 +30,7 @@ export const MainPageList = () => {
         }
       } else {
         try {
-          const result = await axios.get(
-            `${import.meta.env.VITE_API_MAIN_CRAWLING}${homeCardList?.getParams}`,
-          );
-
+          const result = await mainCrawlingData(homeCardList?.getParams, null);
           setData(result.data.data);
           setIsLoad(true);
         } catch (error) {
