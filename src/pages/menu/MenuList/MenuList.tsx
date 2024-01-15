@@ -1,22 +1,17 @@
-import { useOutletContext, useParams } from 'react-router-dom';
+import { ReactNode } from 'react';
+
+import { useParams } from 'react-router-dom';
 
 import { CertificatePageList } from 'components/Certificate/CertificatePageList/CertificatePageList';
 import { CommunityPageList } from 'components/Community/CommunityItem/CommunityPageList';
 import { InternPageList } from 'components/InternPageList/InternPageList';
 import { LanguagePageList } from 'components/LanguagePageList/LanguagePageList';
-import { Keyword } from 'components/MenuFilter/KeywordFilter';
 import { RestPageList } from 'components/RestPageList/RestPageList';
-
-type UseOutletType = {
-  selectedKeyword: Keyword[];
-};
 
 const MenuList = () => {
   const { menuName } = useParams();
-  const { selectedKeyword } = useOutletContext<UseOutletType>();
-  console.log(selectedKeyword);
 
-  const menuToComponent: Record<string, JSX.Element> = {
+  const menuToComponent: Record<string, ReactNode> = {
     outside: <RestPageList />,
     competition: <RestPageList />,
     qnet: <CertificatePageList />,

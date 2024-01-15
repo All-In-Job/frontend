@@ -10,8 +10,6 @@ import { ReactComponent as ViewIcon } from './res/img/view.svg';
 type Props = Omit<Community, 'detail' | 'userId' | 'comments' | 'communityLikes'>;
 
 function CommunityItem({ user, category, title, view, like, comment, date, path }: Props) {
-  console.log(user);
-
   return (
     <S.CommunityItem to={path}>
       <S.UserInfo>

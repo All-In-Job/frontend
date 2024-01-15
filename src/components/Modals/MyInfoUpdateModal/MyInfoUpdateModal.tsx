@@ -114,16 +114,13 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
       }
     });
 
-    console.log('temp:', tempInterestKeyword);
-
     updateProfile({ ...state, interestKeyword: tempInterestKeyword })
-      .then(res => {
-        console.log(res);
+      .then(() => {
         setIsVisible(false);
       })
       .catch(e => {
         if (e instanceof AxiosError && e.response) {
-          console.log(e.response);
+          throw new Error(e.response.data);
         }
       });
   };
@@ -131,8 +128,6 @@ export const MyInfoUpdateModal: FC<Props> = ({ isVisible, setIsVisible }) => {
   useEffect(() => {
     findUserProfile().then(res => {
       const data = res.data.data;
-      console.log('effect', data);
-
       setState({
         nickname: data.nickname,
         profileImage: data.profileImage,

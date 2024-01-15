@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 
 import { ReactComponent as HorizontalIcon } from 'assets/icons/icon-horizontal_rule.svg';
 import { ReactComponent as ViewIcon } from 'assets/icons/icon-view.svg';
+import { isAxiosError } from 'axios';
 import DOMPurify from 'dompurify';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -63,7 +64,7 @@ export const CommunityDetail = () => {
           setIsLoading(false);
         }
       } catch (error) {
-        console.log(error);
+        if (isAxiosError(error)) throw new Error(error.response?.data);
       }
     };
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { isAxiosError } from 'axios';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { ActivityListData } from 'types/activityHistory';
 
@@ -44,8 +45,7 @@ export const ActivityHistory = ({ setUpdateTemperature }: ActivityHistoryProps) 
       setActivityList(res.data.data);
       setUpdateTemperature(true);
     } catch (error) {
-      console.log('Error getting data:', error);
-      throw error;
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 

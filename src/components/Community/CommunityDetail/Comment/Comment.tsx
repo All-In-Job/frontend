@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 
+import { isAxiosError } from 'axios';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { Community } from 'types/community.type';
@@ -41,7 +42,7 @@ const Comment: FC<CommentProps> = ({ setDetailData, comment, commentLike, date, 
         setIsMatch(isLikedByUser);
       }
     } catch (error) {
-      console.log(error);
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 
@@ -63,7 +64,7 @@ const Comment: FC<CommentProps> = ({ setDetailData, comment, commentLike, date, 
       setEditComment(res.data.data.comment);
       setIsEdit(false);
     } catch (error) {
-      console.log(error);
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 
@@ -82,7 +83,7 @@ const Comment: FC<CommentProps> = ({ setDetailData, comment, commentLike, date, 
         });
       }
     } catch (error) {
-      console.log(error);
+      if (isAxiosError(error)) throw new Error(error.response?.data);
     }
   };
 
