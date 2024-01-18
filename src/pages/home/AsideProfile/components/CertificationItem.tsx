@@ -18,7 +18,6 @@ interface Props {
 }
 
 const CertificationItem: FC<Props> = ({ solution, path }) => {
-  console.log(solution);
   return (
     <>
       {solution && (
