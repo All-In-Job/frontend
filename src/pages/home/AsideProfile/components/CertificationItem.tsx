@@ -29,10 +29,14 @@ const CertificationItem: FC<Props> = ({ solution, path }) => {
             <SolutionInfoContainer className='qnet'>
               <LightDesc>{solution?.institution}</LightDesc>
               <Desc>{solution?.title}</Desc>
-              <LightDesc>{'필기접수기간'}</LightDesc>
-              <Desc>{solution?.wtPeriod}</Desc>
-              <LightDesc>{'실기접수기간'}</LightDesc>
-              <Desc>{solution?.ptPeriod}</Desc>
+              {solution?.wtPeriod && solution?.ptPeriod && (
+                <>
+                  <LightDesc>{'필기접수기간'}</LightDesc>
+                  <Desc>{solution?.wtPeriod}</Desc>
+                  <LightDesc>{'실기접수기간'}</LightDesc>
+                  <Desc>{solution?.ptPeriod}</Desc>
+                </>
+              )}
             </SolutionInfoContainer>
           </SolutionItemContainer>
         </Link>
