@@ -8,7 +8,13 @@ import Temperature from './Temperature';
 import UserTabs from './UserTabs';
 
 const Profile = () => {
-  const user = useLoaderData() as { nickname: string; thermometer: number; profileImage: string };
+  const user = useLoaderData() as {
+    nickname: string;
+    thermometer: number;
+    profileImage: string;
+    mainMajor: string;
+    top: number;
+  };
 
   const refreshWindow = () => {
     window.location.replace('/');
@@ -36,7 +42,11 @@ const Profile = () => {
             로그아웃
           </LogoutButton>
         </UserInfo>
-        <Temperature temperature={user.thermometer} />
+        <Temperature
+          mainMajor={user.mainMajor}
+          temperature={user.top}
+          thermometer={user.thermometer}
+        />
       </UserInfoWrapper>
       <UserTabs />
     </Container>

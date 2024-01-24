@@ -6,10 +6,12 @@ import { Desc } from './asideProfile.style';
 import { ReactComponent as SmallTemperature } from './res/img/small-temperature.svg';
 
 interface Props {
+  mainMajor: string;
   temperature: number;
+  thermometer: number;
 }
 
-const Temperature: FC<Props> = ({ temperature }) => {
+const Temperature: FC<Props> = ({ mainMajor, temperature, thermometer }) => {
   const temperatureRef = useRef<HTMLDivElement>(null);
 
   const [temperatureWidth, setTemperatureWidth] = useState(0);
@@ -20,11 +22,11 @@ const Temperature: FC<Props> = ({ temperature }) => {
     setTemperatureWidth(temperatureRef.current.clientWidth);
   }, []);
 
-  const degree = getDegreeWidth(temperature, temperatureWidth);
+  const degree = getDegreeWidth(thermometer, temperatureWidth);
 
   return (
     <Container>
-      <HeadingDesc size='12px'>IT 프로그래밍 분야 중 상위 {temperature}%</HeadingDesc>
+      <HeadingDesc size='12px'>{`${mainMajor} 분야 중 상위 ${temperature}%`}</HeadingDesc>
       <TemperatureWrapper ref={temperatureRef}>
         <SmallTemperature />
         <TemperatureDegree width={`${degree}px`} />
