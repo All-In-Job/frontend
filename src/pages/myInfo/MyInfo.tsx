@@ -70,11 +70,7 @@ function MyInfo() {
             </S.InterestFieldBox>
           </S.LoginInfoWrapper>
         </S.MyInfoContainer>
-
         <MyInfoActivityList period='New' />
-        <MyInfoActivityList period='This week' />
-        <MyInfoActivityList period='This month' />
-
         <MyInfoUpdateModal
           isVisible={isUpdateModalVisible}
           setIsVisible={setIsUpdateModalVisible}

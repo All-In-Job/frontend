@@ -18,15 +18,17 @@ export const MyInfoActivityList: FC<Props> = ({ period }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getUserActivity(pages.currentPage)
-      .then(res => {
-        setPages({ ...pages, totalPage: Math.ceil(res.data.data.totalCount / 3) });
-        setActivityList(res.data.data.data);
-        setIsLoading(false);
-      })
-      .catch(error => {
-        if (isAxiosError(error)) throw new Error(error.response?.data);
-      });
+    if (period === 'New') {
+      getUserActivity(pages.currentPage)
+        .then(res => {
+          setPages({ ...pages, totalPage: Math.ceil(res.data.data.totalCount / 3) });
+          setActivityList(res.data.data.data);
+          setIsLoading(false);
+        })
+        .catch(error => {
+          if (isAxiosError(error)) throw new Error(error.response?.data);
+        });
+    }
   }, [pages.currentPage]);
 
   function onClickNext() {
@@ -64,8 +66,8 @@ export const MyInfoActivityList: FC<Props> = ({ period }) => {
           <div>
             <ul
               style={{
-                display: 'flex',
-                justifyContent: 'space-between',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
                 marginTop: 24,
               }}
             >
