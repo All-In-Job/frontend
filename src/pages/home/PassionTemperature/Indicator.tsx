@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import styled from '@emotion/styled';
+import { useLoaderData } from 'react-router-dom';
 
 import { ReactComponent as SmileIcon } from 'pages/home/res/img/smile.svg';
 
@@ -10,9 +11,10 @@ interface Props {
 }
 
 const Indicator: FC<Props> = ({ temperatureSum, topPercentage }) => {
+  const user = useLoaderData() as { mainMajor: string };
   return (
     <Container>
-      <Description>{`IT프로그래밍 분야 중 상위 ${topPercentage}%`}</Description>
+      <Description>{`${user.mainMajor} 분야 중 상위 ${topPercentage}%`}</Description>
       <IndicatorBox>
         <IndicatorText>{`열정온도 ${temperatureSum}℃`}</IndicatorText>
         <SmileIcon />
