@@ -19,6 +19,11 @@ type CategorySelectProps = {
 
 export const CategorySelect = ({ pathData }: CategorySelectProps) => {
   const setCategoryId = useSetRecoilState(idsState('categoryId')); //path 값
+  const setKeywordValue = useSetRecoilState(inputValuesState('keyword'));
+  const setTitleValue = useSetRecoilState(inputValuesState('title'));
+  const setContentValue = useSetRecoilState(inputValuesState('content'));
+  const setPeriodValue = useSetRecoilState(inputValuesState('period'));
+  const setScoreValue = useSetRecoilState(inputValuesState('score'));
   const [categoryValue, setCategoryValue] = useRecoilState(inputValuesState('category'));
   const [categoryOptions, setCategoryOptions] = useState(false);
 
@@ -26,6 +31,11 @@ export const CategorySelect = ({ pathData }: CategorySelectProps) => {
     setCategoryId(category.id);
     setCategoryValue(category.title);
     setCategoryOptions(prev => !prev);
+    setKeywordValue('');
+    setTitleValue('');
+    setContentValue('');
+    setPeriodValue('');
+    setScoreValue('');
   };
 
   const handleCategoryToggle = () => {
