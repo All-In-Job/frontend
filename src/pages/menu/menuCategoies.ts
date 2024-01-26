@@ -237,12 +237,12 @@ const menuCategoies: MenuCategoies[] = [
       {
         id: 'japanese',
         category: '일본어',
-        keywords: { jp: 'JPT', jpSP: 'SJPT일본어 말하기 시험' },
+        keywords: { jp: 'JPT', jpSP: 'SJPT 일본어 말하기 시험' },
       },
       {
         id: 'chinese',
         category: '중국어',
-        keywords: { ch: 'TSC중국어 말하기 시험' },
+        keywords: { ch: 'TSC 중국어 말하기 시험' },
       },
     ],
   },

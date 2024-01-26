@@ -65,7 +65,7 @@ export const interestTags = [
       'TOEIC (Speaking)',
       'JPT',
       'SJPT 일본어 말하기 시험',
-      'TSC중국어 말하기 시험',
+      'TSC 중국어 말하기 시험',
     ],
   },
   {
