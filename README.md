@@ -46,10 +46,10 @@ yarn dev
 
 # 참여 멤버
 | 이름 | 깃허브 저장소 | 기능 구현 |
-| :---: | :---: | :---: |
-| 주정준 | https://github.com/jun1485 | |
+| :------: | :---: | :---: |
+| 주정준| https://github.com/jun1485 | |
 | 신승식 | https://github.com/nearworld | 로그인, 회원가입, 프로필 업데이트, 캐러셀, 나만의 달력 |
 | 최현규 | https://github.com/chlgusrb97 | 메인페이지 게시물, 커뮤니티 게시글 작성 및 상세 페이지, 메뉴 키워드 필터, 페이지네이션 |
-| 김현정 | https://github.com/hyundee | 메인 페이지(자격증/취준job담), 자격증 검색 결과, 열정온도, <br /> 카테고리 페이지(어학/인턴), 상세 페이지(공모전/대외활동/인턴), 스크랩, 올인잡 솔루션|
+| 김현정 | https://github.com/hyundee | 메인 페이지(자격증/취준job담), 자격증 검색 결과, <br /> 열정온도, 카테고리 페이지(어학/인턴), 상세 페이지(공모전/대외활동/인턴), 스크랩, 올인잡 솔루션|
 | 이채욱 | https://github.com/codnr98 | |
 | 박정훈 | https://github.com/pakjonghun || 
