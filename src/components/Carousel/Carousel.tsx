@@ -1,139 +1,107 @@
-import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { CarouselContext, CarouselProvider } from 'contexts/CarouselProvider';
+import styled from '@emotion/styled';
 
-import * as S from './carousel.styles';
-import { CarouselControls } from './CarouselControls';
-import { ImageSlide } from './ImageSlide';
+import { CarouselItemSelector } from './CarouselItemSelector';
+import { CarouselSlide } from './CarouselSlide';
 
-export type SlideDirection = 'left' | 'right';
+export type Image = {
+  id: number;
+  source: string;
+};
 
-export const CAROUSEL_WIDTH = 1113;
-export const TRANSITION_DURATION = 0.5;
+const images: Image[] = [
+  {
+    id: 1,
+    source: '/images/carousel_1.png',
+  },
+  {
+    id: 2,
+    source: '/images/carousel_2.png',
+  },
+  { id: 3, source: 'https://wallpapers.com/images/hd/mountain-top-t6qhv1lk4j0au09t.jpg' },
+];
+images.push({ ...images[0] });
+images[images.length - 1].id = 4;
+
+const IMAGE_SHOW_SECONDS = 2;
+export const TRANSITION_DURATION = 0.3;
 
 export const Carousel = () => {
-  const slideRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransition, setIsTransition] = useState(true);
+  const [timerId, setTimerId] = useState(-1);
+  const [isClickedSelector, setIsClickedSelector] = useState(-1);
 
-  const [slideState, setSlideState] = useState(Array.from({ length: 3 }, (_, idx) => idx));
-  const { carouselState, setCarouselState } = useContext(CarouselContext);
+  const beforeLastIndex = currentIndex < images.length - 1;
+  const startLastSlide = currentIndex === images.length - 1;
+  const isTransitionOff = !isTransition;
 
-  const originalSlideLength = useMemo(() => slideState.length, []);
-  const navigationControlCounter = useMemo(() => Array.from(new Set(slideState)), []);
+  const moveToNextImageAfter = (seconds: number) => {
+    clearTimeout(timerId);
+    setTimerId(
+      setTimeout(() => {
+        if (beforeLastIndex) {
+          if (isClickedSelector) setIsClickedSelector(-1);
+          setCurrentIndex(currentIndex + 1);
+        }
+      }, seconds * 1000),
+    );
+  };
+
+  const turnOffTransitionAfterSlide = (seconds: number) => {
+    setTimerId(
+      setTimeout(() => {
+        setIsTransition(false);
+      }, seconds * 1000),
+    );
+  };
+
+  const startSlideAgainAfter = (seconds: number) => {
+    setTimeout(() => {
+      setIsTransition(true);
+    }, seconds * 100);
+  };
 
   useEffect(() => {
-    const clonedSlide = [...slideState];
-    clonedSlide.unshift(slideState[slideState.length - 1]);
-    clonedSlide.push(clonedSlide[1]);
-    setSlideState(clonedSlide);
-    // requestAnimationFrame(() => triggerAutoSlide(Date.now()));
-  }, []);
-
-  const useAfterMountEffect = () => {
-    const ref = useRef<boolean>(false);
-    useEffect(() => {
-      if (ref.current) {
-        setInterval(
-          () => {
-            if (!carouselState.isNavDisabled) moveToNextSlide();
-          },
-          carouselState.visibleSlide <= slideState.length - 2
-            ? TRANSITION_DURATION * 2000 + 500
-            : TRANSITION_DURATION * 1000 + 500,
-        );
-      }
-      ref.current = true;
-    }, [ref]);
-  };
-
-  useAfterMountEffect();
+    clearTimeout(timerId);
+    if (startLastSlide) turnOffTransitionAfterSlide(TRANSITION_DURATION);
+    else moveToNextImageAfter(IMAGE_SHOW_SECONDS);
+  }, [currentIndex, isClickedSelector]);
 
   useEffect(() => {
-    const customSetTimeout = (callback: () => void) => {
-      setTimeout(callback, TRANSITION_DURATION * 1000);
-    };
-
-    if (carouselState.visibleSlide === 1) {
-      customSetTimeout(() => setCarouselState({ ...carouselState, hasTransition: true }));
+    if (isTransitionOff) {
+      setCurrentIndex(0);
+      startSlideAgainAfter(TRANSITION_DURATION);
     }
-
-    if (carouselState.visibleSlide === slideState.length - 1) {
-      setCarouselState({ ...carouselState, index: 0 });
-      customSetTimeout(() => {
-        setCarouselState({ ...carouselState, visibleSlide: 1, hasTransition: false });
-      });
-    }
-
-    if (carouselState.visibleSlide === 0) {
-      setCarouselState({ ...carouselState, index: slideState.length % originalSlideLength });
-      customSetTimeout(() => {
-        setCarouselState({
-          ...carouselState,
-          hasTransition: false,
-          visibleSlide: slideState.length - 2,
-        });
-      });
-    }
-
-    if (carouselState.visibleSlide === slideState.length - 2)
-      customSetTimeout(() => setCarouselState({ ...carouselState, hasTransition: true }));
-  }, [carouselState.visibleSlide]);
-
-  useEffect(() => {
-    if (carouselState.isNavDisabled)
-      setTimeout(
-        () => setCarouselState({ ...carouselState, isNavDisabled: false }),
-        TRANSITION_DURATION * 1000 + 500,
-      );
-  }, [carouselState.isNavDisabled]);
-
-  const moveToPrevSlide = () => {
-    setCarouselState({
-      ...carouselState,
-      isNavDisabled: true,
-      visibleSlide: carouselState.visibleSlide - 1,
-    });
-    if (0 < carouselState.visibleSlide && carouselState.visibleSlide < slideState.length - 1)
-      setCarouselState({ ...carouselState, index: carouselState.index - 1 });
-  };
-
-  const moveToNextSlide = () => {
-    setCarouselState({
-      ...carouselState,
-      visibleSlide: carouselState.visibleSlide + 1,
-      isNavDisabled: true,
-    });
-
-    if (0 < carouselState.visibleSlide && carouselState.visibleSlide < slideState.length - 1)
-      setCarouselState({ ...carouselState, index: carouselState.index + 1 });
-  };
-
-  const calculateLeft = () => {
-    const slide = slideRef.current;
-    if (slide) return `-${carouselState.visibleSlide * CAROUSEL_WIDTH}px`;
-  };
-
-  const moveToTargetSlide = (targetSlideIdx: number) => {
-    const slide = slideRef.current;
-    if (slide) {
-      setCarouselState({
-        ...carouselState,
-        index: targetSlideIdx,
-        visibleSlide: targetSlideIdx + 1,
-      });
-    }
-  };
+  }, [isTransition]);
 
   return (
-    <CarouselProvider>
-      <S.container>
-        <CarouselControls
-          moveToThisSlide={moveToTargetSlide}
-          moveToPrevSlide={moveToPrevSlide}
-          moveToNextSlide={moveToNextSlide}
-          navigationControlCounter={navigationControlCounter}
-        />
-        <ImageSlide slideRef={slideRef} slideState={slideState} calculateLeft={calculateLeft} />
-      </S.container>
-    </CarouselProvider>
+    <StyledContainer>
+      <CarouselSlide
+        images={images}
+        currentIndex={currentIndex}
+        isTransition={isTransition}
+        setIsTransition={setIsTransition}
+      />
+      <CarouselItemSelector
+        images={images}
+        currentIndex={currentIndex}
+        setCurrentIndex={setCurrentIndex}
+        timerId={timerId}
+        isClickedSelector={isClickedSelector}
+        setIsClickedSelector={setIsClickedSelector}
+      />
+    </StyledContainer>
   );
 };
+
+const StyledContainer = styled.div`
+  background-color: gray;
+  grid-column: span 12;
+  width: 1200px;
+  height: 439px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+`;

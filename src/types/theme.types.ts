@@ -4,15 +4,12 @@ type CommonTextStyles = {
 };
 
 type TextStyles =
-  | 'display01'
-  | 'display02'
-  | 'headLine01'
   | 'headLine02'
+  | 'title11'
   | 'title01'
   | 'title02'
   | 'body01'
   | 'body02'
-  | 'label01'
   | 'label02'
   | 'label03'
   | 'caption01'
@@ -29,8 +26,6 @@ export interface Palette {
   orange500: string;
   orange600: string;
   orange700: string;
-  orange800: string;
-  orange900: string;
 
   black50: string;
   black100: string;
@@ -40,11 +35,10 @@ export interface Palette {
   black500: string;
   black600: string;
   black700: string;
-  black800: string;
-  black900: string;
 
   background: {
     primary: string;
+    primary50: string;
     secondary: string;
   };
 
@@ -54,14 +48,10 @@ export interface Palette {
   };
 
   secondary: {
-    normal: string;
-    strong: string;
-    heavy: string;
-  };
-
-  status: {
-    alert: string;
-    caution: string;
-    positive: string;
+    red: string;
+    yellow: string;
+    green: string;
+    blue: string;
+    purple: string;
   };
 }

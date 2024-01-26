@@ -11,6 +11,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', '@typescript-eslint', 'import', 'no-relative-import-paths'],
   rules: {
+    'react-hooks/exhaustive-deps': 0,
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'no-relative-import-paths/no-relative-import-paths': ['warn', { allowSameFolder: true }],
     'import/order': [
@@ -21,7 +22,6 @@ module.exports = {
           { pattern: 'react', group: 'builtin', position: 'after' },
           { pattern: 'react', group: 'external', position: 'before' },
           { pattern: 'react-dom', group: 'builtin', position: 'after' },
-          { pattern: 'contexts/*', group: 'internal' },
           { pattern: 'apis/**', group: 'internal' },
           { pattern: 'pages/**', group: 'internal' },
           { pattern: 'components/**', group: 'internal' },

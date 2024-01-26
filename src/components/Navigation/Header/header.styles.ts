@@ -1,19 +1,23 @@
 import styled from '@emotion/styled';
 
 export const HeaderContainer = styled.header`
+  width: 100%;
+  min-width: 1200px;
   display: flex;
+  justify-content: center;
   align-items: center;
-  width: 100vw;
   margin: 0;
   position: fixed;
   top: 0;
   z-index: 1002;
   background-color: white;
   padding: 0 20px;
+  border: 1px solid #e1e2e4;
 `;
 
 export const MenuContainer = styled.nav`
   display: flex;
+  max-width: 1200px;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -39,11 +43,13 @@ export const HeaderLogo = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  //padding: 20px 60px;
-  height: 81px;
+  justify-content: center;
+  height: 70px;
   color: #fd6b36;
   font-size: 30px;
   font-weight: bold;
+  white-space: nowrap;
+  margin-right: 40px;
   cursor: pointer;
 `;
 
@@ -86,7 +92,7 @@ export const DetailItems = styled.div`
 
 export const HoverMenu = styled.div`
   position: fixed;
-  top: 81px;
+  top: 70px;
   left: 0;
   width: 100vw;
   height: 250px;
@@ -108,8 +114,8 @@ export const MenuDetailWrapper = styled.div`
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 80px;
-  //border: 1px red solid;
+  /* gap: 10px; */
+  margin-left: 20px;
 `;
 
 export const divisionLine = styled.div`
@@ -123,13 +129,16 @@ export const MenuWrapper = styled.ul`
   position: relative;
   display: flex;
   align-items: center;
-  gap: 80px;
   width: 100%;
-  height: 81px;
-  //border: 1px red solid;
+  height: 70px;
+  /* gap: 10px; */
 `;
 
 export const Box = styled.div`
   background-color: lightgrey;
   border: 1px solid black;
+`;
+
+export const ContainerBox = styled.div`
+  height: 70px;
 `;

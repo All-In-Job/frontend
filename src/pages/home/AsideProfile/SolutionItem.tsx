@@ -1,29 +1,35 @@
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 
-import { BarPieceColor } from 'components/PassionThermometer/types';
+import { SolutionProps } from 'types/solution';
 
 import CertificationItem from './components/CertificationItem';
 import CompetitionItem from './components/CompetitionItem';
 import InternItem from './components/InternItem';
-import LanguageStudy from './components/LanguageStudy';
-import OutSideActivity from './components/OutSideActivity';
-import { Solution } from './type';
+import OutSideItem from './components/OutSideItem';
 
 interface Props {
-  itemKey: keyof BarPieceColor;
-  solution: Solution;
+  solution: SolutionProps;
 }
 
-const SolutionItem: FC<Props> = ({ itemKey, solution }) => {
-  const itemMapper: Record<keyof BarPieceColor, ReactNode> = {
-    CERTIFICATE: <CertificationItem solution={solution} />,
-    INTERN: <InternItem solution={solution} />,
-    COMPETITION: <CompetitionItem solution={solution} />,
-    LANGUAGE_STUDY: <LanguageStudy solution={solution} />,
-    OUT_SIDE_ACTIVITY: <OutSideActivity solution={solution} />,
-  };
+const SolutionItem: FC<Props> = ({ solution }) => {
+  const path = Object.keys(solution);
 
-  return <>{itemMapper[itemKey]}</>;
+  return (
+    <>
+      {path.map(key => {
+        switch (key) {
+          case 'competition':
+            return <CompetitionItem key={key} solution={solution[key]} path={key} />;
+          case 'outside':
+            return <OutSideItem key={key} solution={solution[key]} path={key} />;
+          case 'qnet':
+            return <CertificationItem key={key} solution={solution[key]} path={key} />;
+          case 'intern':
+            return <InternItem key={key} solution={solution[key]} path={key} />;
+        }
+      })}
+    </>
+  );
 };
 
 export default SolutionItem;

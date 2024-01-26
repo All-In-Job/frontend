@@ -1,20 +1,37 @@
-import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 
-import { BarPieceColor } from 'components/PassionThermometer/types';
+import styled from '@emotion/styled';
+import { isAxiosError } from 'axios';
+import { SolutionProps } from 'types/solution';
+
+import { getLoginUserInfo } from 'apis/user';
 
 import { Desc } from './asideProfile.style';
-import { solutions } from './mock/solution';
 import SolutionItem from './SolutionItem';
 
 const Solution = () => {
-  const solutionList = Object.entries(solutions);
+  const [solutions, setSolutions] = useState<SolutionProps[]>([]);
+
+  useEffect(() => {
+    const getUserProfile = async () => {
+      try {
+        const res = await getLoginUserInfo();
+        setSolutions(res.data.data.solution);
+      } catch (error) {
+        if (isAxiosError(error)) throw new Error(error.response?.data);
+      }
+    };
+
+    getUserProfile();
+  }, []);
 
   return (
     <Container>
       <Title size='15px'>올인잡 솔루션</Title>
-      {solutionList.map(([k, v]) => {
-        return <SolutionItem itemKey={k as keyof BarPieceColor} key={k} solution={v} />;
-      })}
+      {solutions &&
+        solutions.map((solution, index) => {
+          return <SolutionItem key={index} solution={solution} />;
+        })}
     </Container>
   );
 };
@@ -28,13 +45,14 @@ const Container = styled.div`
   border-radius: 12px;
   background: var(--orange-100, #ffe8df);
 
-  > div:not(:last-child) {
-    margin-bottom: 15px;
+  > a {
+    span {
+      margin-top: 16px;
+    }
   }
 `;
 
 const Title = styled(Desc)`
-  margin-bottom: 16px;
   color: var(--black-500, #121110);
   /* Body 2/Semi */
   font-family: SUIT;

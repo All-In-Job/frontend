@@ -1,77 +1,77 @@
 import { useState } from 'react';
 
-import * as S from './postCard.styles';
+import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
+import { PostCardProps } from 'types/postCard.type';
 
-type PostCardProps = {
-  mainImage: string;
-  infoHost: string;
-  title: string;
-  dateDday: string;
-  dateCreation: string;
-  scrapCount: string;
-  viewCount: string;
-  location?: string;
-  imgHeight?: string;
-  isPostCardTag?: boolean;
-  isPickButton?: boolean;
-  isChangeInfoLayout?: boolean;
-};
+import { ScrapButton } from 'components/commons/Buttons/Scrap/ScrapButton';
 
-function PostCard(props: PostCardProps) {
-  const [isPick, setIsPick] = useState(false);
+import PostCardFooter from './PostCardFooter/PostCardFooter';
+import PostCardImage from './PostCardImage/PostCardImage';
+import PostCardInfo from './PostCardInfo/PostCardInfo';
 
-  const onClickPick = () => {
-    setIsPick(pick => !pick);
-  };
+function PostCard({
+  mainImage,
+  enterprise,
+  title,
+  Dday,
+  applicationPeriod,
+  scrap,
+  view,
+  location,
+  isChangeInfoLayout,
+  index,
+  id,
+  isScrap,
+  path,
+}: PostCardProps) {
+  const [scrapCount, setScrapCount] = useState(Number(scrap));
 
   return (
-    <S.PostCardContainer>
-      <S.PostCardImgBox imgHeight={props.imgHeight ?? '282px'}>
-        <img src={props.mainImage} />
+    <PostCardContainer>
+      <ScrapContainer imgHeight={isChangeInfoLayout ? '118px' : '282px'}>
+        <ScrapButton id={id} isScrap={isScrap} fill={'primary'} setScrapCount={setScrapCount} />
+      </ScrapContainer>
 
-        {props.isPostCardTag && <S.PostCardTag>SPECIAL</S.PostCardTag>}
+      <Link to={path} target='_blank'>
+        <PostCardImage
+          mainImage={mainImage}
+          Dday={Dday}
+          index={index}
+          isChangeInfoLayout={isChangeInfoLayout}
+        />
 
-        {props.isPickButton && (
-          <S.PickButton onClick={onClickPick}>
-            <S.PickIcon data-ispick={isPick} />
-          </S.PickButton>
-        )}
-      </S.PostCardImgBox>
+        <PostCardInfo
+          title={title}
+          enterprise={enterprise}
+          dDay={Dday}
+          applicationPeriod={applicationPeriod}
+          location={location}
+          isChangeInfoLayout={isChangeInfoLayout}
+        />
 
-      <S.PostCardInfo isChangeInfoLayout={props.isChangeInfoLayout ? true : false}>
-        {props.isChangeInfoLayout ? (
-          <>
-            <S.InfoTitle>{props.title}</S.InfoTitle>
-            <S.InfoHost>{props.infoHost}</S.InfoHost>
-            {props.location && <S.Location>{props.location}</S.Location>}
-          </>
-        ) : (
-          <>
-            <S.InfoHost>{props.infoHost}</S.InfoHost>
-            <S.InfoTitle>{props.title}</S.InfoTitle>
-          </>
-        )}
-        <S.InfoDate>
-          <S.DateDday>{props.dateDday}</S.DateDday>
-          <S.DateCreation>{props.dateCreation}</S.DateCreation>
-        </S.InfoDate>
-      </S.PostCardInfo>
-
-      <S.PostCardFooter>
-        <li>
-          <S.SmallBookmarkIcon />
-          <S.FooterCount>{props.scrapCount}</S.FooterCount>
-        </li>
-        <li>
-          <S.DevideLine />
-        </li>
-        <li>
-          <S.VisibilityIcon />
-          <S.FooterCount>{props.viewCount}</S.FooterCount>
-        </li>
-      </S.PostCardFooter>
-    </S.PostCardContainer>
+        <PostCardFooter scrapCount={scrapCount} view={view} />
+      </Link>
+    </PostCardContainer>
   );
 }
 
 export default PostCard;
+
+const PostCardContainer = styled.article`
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+  cursor: pointer;
+`;
+
+const ScrapContainer = styled.div<{ imgHeight: string }>`
+  position: absolute;
+  width: 16px;
+  height: 23px;
+  top: ${props => `calc(${props.imgHeight} - 39px)`};
+  right: 16px;
+  background-color: transparent;
+  cursor: pointer;
+  z-index: 1;
+`;

@@ -1,25 +1,52 @@
 import styled from '@emotion/styled';
+import { useLoaderData } from 'react-router-dom';
+
+import { logout } from 'apis/login';
 
 import { Desc } from './asideProfile.style';
-import { user } from './mock/user';
 import Temperature from './Temperature';
 import UserTabs from './UserTabs';
 
 const Profile = () => {
+  const user = useLoaderData() as {
+    nickname: string;
+    thermometer: number;
+    profileImage: string;
+    mainMajor: string;
+    top: number;
+  };
+
+  const refreshWindow = () => {
+    window.location.replace('/');
+  };
+
   return (
     <Container>
       <UserInfoWrapper>
         <UserInfo>
-          <Avatar />
+          <Avatar profileImage={user.profileImage} />
           <UserDescContainer>
-            <MarginBottomDesc size='15px'>{`${user.name}님`}</MarginBottomDesc>
+            <MarginBottomDesc size='15px'>{`${user.nickname}님`}</MarginBottomDesc>
             <FlexDesc size='15px'>
-              열정온도<YellowDesc size='15px'>{`${user.temperature}℃`}</YellowDesc>
+              열정온도<YellowDesc size='15px'>{`${user.thermometer}℃`}</YellowDesc>
             </FlexDesc>
           </UserDescContainer>
-          <LogoutButton>로그아웃</LogoutButton>
+          <LogoutButton
+            onClick={() => {
+              logout().then(res => {
+                localStorage.clear();
+                res.status && refreshWindow();
+              });
+            }}
+          >
+            로그아웃
+          </LogoutButton>
         </UserInfo>
-        <Temperature temperature={user.temperature} />
+        <Temperature
+          mainMajor={user.mainMajor}
+          temperature={user.top}
+          thermometer={user.thermometer}
+        />
       </UserInfoWrapper>
       <UserTabs />
     </Container>
@@ -30,18 +57,20 @@ export default Profile;
 
 const Container = styled.div`
   border-radius: 12px;
-  background: var(--orange-100, #ffe8df);
+  background: ${({ theme }) => theme.palette.orange100};
 `;
 const UserInfo = styled.div`
   display: flex;
   align-items: center;
 `;
-const Avatar = styled.div`
+const Avatar = styled.div<{ profileImage: string }>`
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  border: 2px solid var(--orange-500, #fd6b36);
-  background-color: white;
+  border: 3px solid ${({ theme }) => theme.palette.orange500};
+  background-image: url(${props => props.profileImage});
+  background-position: center;
+  background-size: cover;
 `;
 const UserDescContainer = styled.div`
   display: flex;
@@ -50,14 +79,14 @@ const UserDescContainer = styled.div`
   margin-left: 11.5px;
   font-weight: 700;
 `;
-const LogoutButton = styled.div`
+const LogoutButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   margin-left: 30px;
   width: 54px;
   height: 24px;
-  color: var(--black-200, #a0a09f);
+  color: ${({ theme }) => theme.palette.black200};
   cursor: pointer;
   font-size: 12px;
   border-radius: 4px;
@@ -70,11 +99,12 @@ const MarginBottomDesc = styled(Desc)`
 
 const FlexDesc = styled(Desc)`
   display: flex;
+  white-space: nowrap;
 `;
 
 const YellowDesc = styled(Desc)`
   margin-left: 4px;
-  color: #fd6b36;
+  color: ${({ theme }) => theme.palette.orange500};
 `;
 
 const UserInfoWrapper = styled.div`

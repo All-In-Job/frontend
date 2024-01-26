@@ -1,17 +1,17 @@
 import styled from '@emotion/styled';
 
-export const AsideWrapper = styled.aside`
-  width: 100%;
-`;
+export const AsideWrapper = styled.aside``;
 
 export const UserSideBar = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 48px;
+  /* margin-bottom: 48px; */
+  width: 282px;
   padding: 23px 18px;
   background-color: #ffe7de;
   border-radius: 14px;
+  margin-bottom: 16px;
 `;
 
 export const UserSideBarText = styled.p`
@@ -20,7 +20,8 @@ export const UserSideBarText = styled.p`
 
 export const LoginButton = styled.button`
   margin: 10px 0 15px;
-  padding: 12px 148px;
+  width: 249px;
+  height: 45px;
   color: #fff;
   background-color: #fd6b36;
   border-radius: 14px;

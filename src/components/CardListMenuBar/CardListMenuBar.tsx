@@ -1,76 +1,36 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 
 import styled from '@emotion/styled';
-import { ReactComponent as IconAbc } from 'assets/icons/icon_abc.svg';
-import { ReactComponent as IconDesign } from 'assets/icons/icon_design.svg';
-import { ReactComponent as IconLight } from 'assets/icons/icon_light.svg';
-import { ReactComponent as IconMoney } from 'assets/icons/icon_money.svg';
-import { ReactComponent as IconMusic } from 'assets/icons/icon_music.svg';
-import { ReactComponent as IconProgram } from 'assets/icons/icon_program.svg';
-import { ReactComponent as MenuBook } from 'assets/icons/menu_book.svg';
-
-const menus = [
-  {
-    id: 1,
-    icon: MenuBook,
-    text: '문학',
-  },
-  {
-    id: 2,
-    icon: IconDesign,
-    text: '디자인',
-  },
-  {
-    id: 3,
-    icon: IconProgram,
-    text: '프로그래밍',
-  },
-  {
-    id: 4,
-    icon: IconMoney,
-    text: '금융',
-  },
-  {
-    id: 5,
-    icon: IconMusic,
-    text: '예체능',
-  },
-  {
-    id: 6,
-    icon: IconAbc,
-    text: '어학',
-  },
-  {
-    id: 7,
-    icon: IconLight,
-    text: '창업 사업',
-  },
-];
+import { HomeCardListContext } from 'contexts/homeCardMenuContext/homeCardMenuContext';
 
 export const CardListMenuBar = () => {
-  const [selectedId, setSelectedId] = useState(1);
+  const homeCardList = useContext(HomeCardListContext);
 
   return (
-    <MenuBar>
-      {menus.map(item => {
-        const { id, text, icon: Icon } = item;
+    <>
+      {homeCardList && (
+        <MenuBar menusLength={homeCardList?.cardMenus.length}>
+          {homeCardList?.cardMenus.map(item => {
+            const { id, text, icon: Icon, path } = item;
 
-        return (
-          <Menu key={id} onClick={() => setSelectedId(item.id)}>
-            <StyledIconBox isSelected={id === selectedId}>
-              <Icon fill={selectedId === id ? 'white' : '#FD6B36'} />
-            </StyledIconBox>
-            <MenuText>{text}</MenuText>
-          </Menu>
-        );
-      })}
-    </MenuBar>
+            return (
+              <Menu key={id} onClick={() => homeCardList?.selectedCardMenu(path)}>
+                <StyledIconBox isSelected={homeCardList?.getParams === path}>
+                  <Icon fill={homeCardList?.getParams === path ? 'white' : '#FD6B36'} />
+                </StyledIconBox>
+                <MenuText>{text}</MenuText>
+              </Menu>
+            );
+          })}
+        </MenuBar>
+      )}
+    </>
   );
 };
 
-const MenuBar = styled.ul`
+const MenuBar = styled.ul<{ menusLength: number }>`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: ${props => `repeat(${props.menusLength}, 1fr)`};
   gap: 24px;
   grid-column: span 12;
   padding: 32px 24px;
@@ -87,6 +47,7 @@ const StyledIconBox = styled.div<{ isSelected: boolean }>`
   place-items: center;
   cursor: pointer;
   background-color: ${props => (props.isSelected ? '#FD6B36' : '#ededed')};
+  border-radius: 8px;
 `;
 const MenuText = styled.span`
   text-align: center;

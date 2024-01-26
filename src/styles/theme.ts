@@ -1,65 +1,50 @@
 const palette = {
   orange50: '#fff0eb',
-  orange100: '#FFE8DF',
-  orange200: '#febba3',
-  orange300: '#fe9c78',
+  orange100: '#ffe8df',
+  orange200: '#fec4af',
+  orange300: '#fea686',
   orange400: '#fd895e',
   orange500: '#fd6b36',
-  orange600: '#e66131',
-  orange700: '#b44c26',
-  orange800: '#8b3b1e',
-  orange900: '#6a2d17',
+  orange600: '#ca562b',
+  orange700: '#984020',
 
-  black50: '#e7e7e7',
-  black100: '#b6b5b5',
-  black200: '#929291',
-  black300: '#60605f',
+  black50: '#d0cfcf',
+  black100: '#d0cfcf',
+  black200: '#a0a09f',
+  black300: '#717070',
   black400: '#414140',
   black500: '#121110',
-  black600: '#100f0f',
-  black700: '#0d0c0b',
-  black800: '#0a0909',
-  black900: '#080707',
+  black600: '#0e0e0d',
+  black700: '#0b0a0a',
 
   background: {
-    primary: '#EDEDED',
-    secondary: '#E1E2E4',
+    primary: '#ededed',
+    primary50: '#f8f8f8',
+    secondary: '#fff6f2',
   },
 
   line: {
-    normal: '#E1E2E4',
-    alternative: '#F4F4F5',
+    normal: '#e1e2e4',
+    alternative: '#f4f4f5',
   },
 
   secondary: {
-    normal: '#8955F6',
-    strong: '#7A42F0',
-    heavy: '#6C30E8',
-  },
-
-  status: {
-    alert: '#EB5147',
-    caution: '#FA9538',
-    positive: '#3DC061',
+    red: '#ffc1bd',
+    yellow: '#ffe99b',
+    green: '#a7f9b4',
+    blue: '#aad6ff',
+    purple: '#eeb9ff',
   },
 };
 
 const textStyle = {
-  display01: {
-    fontSize: '36px',
-    lineHeight: '48px',
-  },
-  display02: {
-    fontSize: '32px',
-    lineHeight: '48px',
-  },
-  headLine01: {
-    fontSize: '28px',
-    lineHeight: '38px',
-  },
   headLine02: {
     fontSize: '24px',
     lineHeight: '32px',
+  },
+  title11: {
+    fontSize: '22px',
+    lineHeight: '26px',
   },
   title01: {
     fontSize: '20px',
@@ -75,10 +60,6 @@ const textStyle = {
   },
   body02: {
     fontSize: '15px',
-    lineHeight: '24px',
-  },
-  label01: {
-    fontSize: '16px',
     lineHeight: '24px',
   },
   label02: {

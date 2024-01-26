@@ -1,30 +1,29 @@
-import { TemperatureCategoryList } from '../type';
+import { TemperatureCategoryList } from 'pages/home/PassionTemperature/type';
 
-export const categoryList: TemperatureCategoryList = {
-  CERTIFICATE: {
-    id: 'CERTIFICATE',
-    name: '공모전',
-    subCategoryList: ['2023 Meta Spark AR 콘텐츠 공모전'],
+export const categoryMockList: TemperatureCategoryList = {
+  userCompetition: {
+    field: '공모전',
+    activeTitle: [
+      '2023 Meta Spark AR 콘텐츠 공모전',
+      '2023 Meta Spark AR 콘텐츠 공모전',
+      '2023 Meta Spark AR 콘텐츠 공모전',
+    ],
   },
-  OUT_SIDE_ACTIVITY: {
-    id: 'OUT_SIDE_ACTIVITY',
-    name: '대외활동',
-    subCategoryList: ['자격증명'],
+  userOutside: {
+    field: '대외활동',
+    activeTitle: ['자격증명'],
   },
-  COMPETITION: {
-    id: 'COMPETITION',
-    name: '자격증',
-    subCategoryList: ['국가기술자격증'],
+  userQnet: {
+    field: '자격증',
+    activeTitle: ['국가기술자격증'],
   },
 
-  LANGUAGE_STUDY: {
-    id: 'LANGUAGE_STUDY',
-    name: '어학',
-    subCategoryList: ['TOEIC 940점'],
+  userLanguage: {
+    field: '어학',
+    activeTitle: ['TOEIC 940점'],
   },
-  INTERN: {
-    id: 'INTERN',
-    name: '인턴',
-    subCategoryList: ['한국도로공사/디자인팀'],
+  userIntern: {
+    field: '인턴',
+    activeTitle: ['한국도로공사/디자인팀'],
   },
 };

@@ -1,20 +1,20 @@
-import { ThermometerPercentList } from 'components/PassionThermometer/types';
+// import { ThermometerPercentList } from 'pages/home/PassionTemperature/Thermometer/types';
 
 export function getTotalWidth(
   containerWidth: number,
-  thermometerPercentList: ThermometerPercentList,
   indicatorWidth: number,
+  temperatureSum?: number,
 ) {
-  const totalPercent = getTotalPercent(thermometerPercentList);
-  const onePercentWidth = containerWidth / Object.keys(thermometerPercentList).length / 20;
+  const totalPercent = temperatureSum!;
+  const onePercentWidth = containerWidth / 5 / 16;
   return onePercentWidth * totalPercent - (indicatorWidth ?? 0);
 }
 
-export function getTotalPercent(thermometerPercentList: ThermometerPercentList) {
-  const entries = Object.entries(thermometerPercentList);
-  const totalPercent = entries.reduce((acc, cur) => {
-    return acc + cur[1].percent;
-  }, 0);
+// export function getTotalPercent(thermometerPercentList: ThermometerPercentList) {
+//   const entries = Object.entries(thermometerPercentList);
+//   const totalPercent = entries.reduce((acc, cur) => {
+//     return acc + cur[1].percent;
+//   }, 0);
 
-  return totalPercent;
-}
+//   return totalPercent;
+// }

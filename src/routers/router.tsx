@@ -1,15 +1,44 @@
+import { AxiosError } from 'axios';
 import { createBrowserRouter } from 'react-router-dom';
 
-import FindID from 'pages/findID/FindID';
+import { getLoginUserInfo } from 'apis/user';
+import { BasicInformation } from 'components/BasicInformation/BasicInformation';
+import { Calendar } from 'components/Calendar/Calendar';
+import Error from 'components/Error/Error';
+import InterestForm from 'components/InterestForm/InterestForm';
+import { DetailPage } from 'pages/detail';
 import { Home } from 'pages/Home';
+import PassionTemperature from 'pages/home/PassionTemperature';
 import Login from 'pages/login/Login';
-import Signup from 'pages/Signup';
+import Menu from 'pages/menu/Menu';
+import MenuList from 'pages/menu/MenuList/MenuList';
+import MyInfo from 'pages/myInfo/MyInfo';
+import { NewPost } from 'pages/newPost/NewPost';
+import ScrapPage from 'pages/scrap/ScrapPage';
+import Signup from 'pages/signUp/SignUp';
+
+const getUserProfile = async () => {
+  try {
+    const res = await getLoginUserInfo();
+    return res.data.data;
+  } catch (e) {
+    if (e instanceof AxiosError && e.response) {
+      return null;
+    }
+  }
+};
 
 export const router = createBrowserRouter([
   {
     path: '',
     element: <Home />,
+    errorElement: <Error />,
+    loader: getUserProfile,
     children: [
+      {
+        path: 'scrap',
+        element: <ScrapPage />,
+      },
       {
         path: 'login',
         element: <Login />,
@@ -17,10 +46,53 @@ export const router = createBrowserRouter([
       {
         path: 'signup',
         element: <Signup />,
+        children: [
+          {
+            path: 'basic-info',
+            element: <BasicInformation />,
+          },
+          {
+            path: 'interest',
+            element: <InterestForm />,
+          },
+        ],
       },
       {
-        path: 'find-id',
-        element: <FindID />,
+        path: 'my-info',
+        element: <MyInfo />,
+      },
+      {
+        path: 'passion-temperature',
+        element: <PassionTemperature />,
+        loader: getUserProfile,
+      },
+      {
+        path: 'scrap',
+        element: <ScrapPage />,
+      },
+      {
+        path: ':menuName',
+        element: <Menu />,
+        children: [
+          {
+            path: ':categoryId',
+            element: <MenuList />,
+            loader: getUserProfile,
+          },
+        ],
+      },
+      {
+        path: ':menuName/detail/:detailId',
+        element: <DetailPage />,
+        loader: getUserProfile,
+      },
+      {
+        path: ':menuName/newpost',
+        element: <NewPost />,
+      },
+      {
+        path: 'calendar',
+        element: <Calendar />,
       },
     ],
   },

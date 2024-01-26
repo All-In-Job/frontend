@@ -13,6 +13,14 @@ export const GlobalStyles: FC<PropsWithChildren> = ({ children }) => {
     body {
       font-family: Regular;
     }
+
+    strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
   `;
 
   return (

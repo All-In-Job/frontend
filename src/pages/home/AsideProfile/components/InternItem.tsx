@@ -1,34 +1,41 @@
 import { FC } from 'react';
 
+import { Link } from 'react-router-dom';
+import { internProps } from 'types/solution';
+
 import {
+  Img,
   Desc,
   LightDesc,
   SolutionInfoContainer,
   SolutionItemContainer,
-} from '../asideProfile.style';
-import { Solution } from '../type';
+} from 'pages/home/AsideProfile/asideProfile.style';
 
 import Badge from './Badge';
-import Picture from './Picture';
 
 interface Props {
-  solution: Solution;
+  solution: internProps;
+  path: string;
 }
 
-const InternItem: FC<Props> = ({ solution }) => {
+const InternItem: FC<Props> = ({ solution, path }) => {
   return (
     <>
-      <Badge title={solution.id} />
+      {solution && (
+        <Link to={`${path}/detail/${solution?.id}`} target={'_blank'}>
+          <Badge title={'인턴'} />
 
-      <SolutionItemContainer>
-        <Picture img={solution.img[0]} />
-        <SolutionInfoContainer>
-          <LightDesc>{solution.type ?? ''}</LightDesc>
-          <Desc>{solution.name}</Desc>
-          <Desc>접수기간</Desc>
-          <Desc>{solution.date}</Desc>
-        </SolutionInfoContainer>
-      </SolutionItemContainer>
+          <SolutionItemContainer>
+            <Img src={solution?.mainImage} width='82' height='66' />
+            <SolutionInfoContainer>
+              <LightDesc>{solution?.preferentialTreatment}</LightDesc>
+              <Desc>{solution?.title}</Desc>
+              <LightDesc>{solution?.location}</LightDesc>
+              <Desc>{solution?.closeDate}</Desc>
+            </SolutionInfoContainer>
+          </SolutionItemContainer>
+        </Link>
+      )}
     </>
   );
 };

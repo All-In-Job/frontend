@@ -1,17 +1,45 @@
-// import Pagination from 'components/commons/Pagination/Pagination';
-// import PostCard from 'components/commons/PostCard/PostCard';
+import { FC } from 'react';
 
-import * as S from './CardList.style';
+import { PostCardProps } from 'types/postCard.type';
 
-export const CardList = () => {
-  return (
-    <S.CardListWrapper>
-      <S.Section>
-        {/*{Array.from({ length: 10 }).map((_, idx) => {*/}
-        {/*  return <PostCard key={idx} />;*/}
-        {/*})}*/}
-      </S.Section>
-      {/*<Pagination pageItemsCount={120} totalItemsCount={1230} />*/}
-    </S.CardListWrapper>
-  );
+import PostCard from 'components/commons/PostCard/PostCard';
+import SkeletonPostCard from 'components/commons/Skeleton/SkeletonPostCard';
+
+import * as S from './cardList.styles';
+
+type Props = {
+  data: PostCardProps[];
+  getParams: string | undefined;
+  isChangeInfoLayout: boolean;
+  isLoad: boolean;
+};
+
+export const CardList: FC<Props> = ({ data, getParams, isChangeInfoLayout, isLoad }) => {
+  const renderPost = (el: PostCardProps, index: number) => {
+    if (isLoad) {
+      return (
+        <PostCard
+          key={el.id}
+          id={el.id}
+          mainImage={el.mainImage}
+          enterprise={el.enterprise}
+          title={el.title}
+          Dday={el.Dday}
+          applicationPeriod={el.applicationPeriod}
+          scrap={el.scrap}
+          view={el.view}
+          location={el.location}
+          isPostCardTag
+          index={index}
+          isScrap={el.isScrap}
+          isChangeInfoLayout={isChangeInfoLayout}
+          path={`/${getParams}/detail/${el.id}`}
+        />
+      );
+    } else {
+      return <SkeletonPostCard key={el.id} isChangeInfoLayout={isChangeInfoLayout} />;
+    }
+  };
+
+  if (data) return <S.Section>{data.map(renderPost)}</S.Section>;
 };

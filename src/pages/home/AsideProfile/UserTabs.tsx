@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 import { Desc } from './asideProfile.style';
 import { ReactComponent as Calendar } from './res/img/calendar.svg';
@@ -9,18 +10,20 @@ import { ReactComponent as Script } from './res/img/script.svg';
 import { ReactComponent as Temperature } from './res/img/temperature.svg';
 
 const UserTabs = () => {
+  const navigate = useNavigate();
+
   const tabDataList = [
-    { title: '내정보', icon: <MyInfo /> },
-    { title: '열정온도', icon: <Temperature /> },
-    { title: '스크랩', icon: <Script /> },
-    { title: '달력', icon: <Calendar /> },
+    { title: '내정보', icon: <MyInfo />, path: 'my-info' },
+    { title: '열정온도', icon: <Temperature />, path: 'passion-temperature' },
+    { title: '스크랩', icon: <Script />, path: 'scrap' },
+    { title: '달력', icon: <Calendar />, path: 'calendar' },
   ];
 
   return (
     <Container>
       {tabDataList.map((tab, idx) => (
         <Fragment key={tab.title}>
-          <Tab>
+          <Tab onClick={() => navigate(tab.path)}>
             {tab.icon}
             <TabDesc size='12px'>{tab.title}</TabDesc>
           </Tab>
@@ -38,7 +41,6 @@ const Container = styled.ul`
   align-items: center;
   justify-content: center;
   padding: 12px 14px;
-  //height: 100%;
   border-radius: 0 0 12px 12px;
   background: var(--background-primary-50, #f8f8f8);
 `;
