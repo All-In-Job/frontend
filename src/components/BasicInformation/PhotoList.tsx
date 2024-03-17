@@ -8,7 +8,7 @@ import theme from 'styles/theme';
 import { BasicInformationContext } from './BasicInformation';
 
 export const profileImages = Array.from({ length: 12 }).map((_, idx) => {
-  return `https://storage.googleapis.com/allinjob-user-img/allinjob-profile-img/profileImg-${
+  return `https://storage.googleapis.com/allinjob-user-image/allinjob-profile-img/profileImg-${
     idx + 1
   }.jpg`;
 });
